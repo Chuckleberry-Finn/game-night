@@ -1,11 +1,8 @@
---local card = {}--["name"] = value
---local deck = {}--["ID"]=card(?)
-
-
-local deckHandler = {}
+local deckActionHandler = {}
+--local deck = {"cardName"}
 
 ---@param deckItem IsoObject
-function deckHandler.getDeck(deckItem)
+function deckActionHandler.getDeck(deckItem)
     --deckItem:getModData()["gameNight_cardDeck"] = deckItem:getModData()["gameNight_cardDeck"] or {}
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
     if not deckData then return print("ERROR: Unable to find modData deck: "..tostring(deckItem)) end
@@ -14,16 +11,16 @@ end
 
 
 ---@param deckItem InventoryItem
-function deckHandler.addCard(card, deckItem)
-    local deck = deckHandler.getDeck(deckItem)
+function deckActionHandler.addCard(card, deckItem)
+    local deck = deckActionHandler.getDeck(deckItem)
     if not deck then return end
     table.insert(deck, card)
 end
 
 
 ---@param deckItem InventoryItem
-function deckHandler.drawCards(num, deckItem)
-    local deck = deckHandler.getDeck(deckItem)
+function deckActionHandler.drawCards(num, deckItem)
+    local deck = deckActionHandler.getDeck(deckItem)
     if not deck then return end
 
     local drawn = {}
@@ -37,12 +34,12 @@ function deckHandler.drawCards(num, deckItem)
     return drawn
 end
 
-function deckHandler.drawCard(deckItem) deckHandler.drawCards(1, deckItem) end
+function deckActionHandler.drawCard(deckItem) deckActionHandler.drawCards(1, deckItem) end
 
 
 ---@param deckItem InventoryItem
-function deckHandler.drawRandCard(deckItem)
-    local deck = deckHandler.getDeck(deckItem)
+function deckActionHandler.drawRandCard(deckItem)
+    local deck = deckActionHandler.getDeck(deckItem)
     if not deck then return end
 
     local deckCount = #deck
@@ -68,8 +65,8 @@ function deckHandler.drawRandCard(deckItem)
 end
 
 
-function deckHandler.shuffle(deckItem)
-    local deck = deckHandler.getDeck(deckItem)
+function deckActionHandler.shuffle(deckItem)
+    local deck = deckActionHandler.getDeck(deckItem)
     if not deck then return end
 
     for origIndex = #deck, 2, -1 do
@@ -78,3 +75,5 @@ function deckHandler.shuffle(deckItem)
     end
 end
 
+
+return deckActionHandler
