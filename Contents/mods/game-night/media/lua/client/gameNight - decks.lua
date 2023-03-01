@@ -23,7 +23,7 @@ for _,s in pairs(playingCards.suites) do
         table.insert(playingCards.cards, v..s)
     end
 end
-deckCataloger.AddDeck("CardDeck", playingCards.cards)
+deckCataloger.addDeck("CardDeck", playingCards.cards)
 
 
 --- UNO
@@ -43,4 +43,4 @@ for i=1, 2 do --Two sets of 1-9, 0s are single
         end
     end
 end
-deckCataloger.AddDeck("UnoDeck", unoCards.cards)
+deckCataloger.addDeck("UnoDeck", unoCards.cards)
