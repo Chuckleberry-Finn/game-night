@@ -22,6 +22,13 @@ function deckActionHandler.generateCard(drawnCard, deckItem)
 end
 
 
+function deckActionHandler.flipCard(deckItem)
+    local currentState = deckItem:getModData()["gameNight_bFlipped"]
+    local flippedState = (currentState==true and false) or true
+    deckItem:getModData()["gameNight_bFlipped"] = flippedState
+end
+
+
 ---@param deckItem InventoryItem
 function deckActionHandler.addCard(card, deckItem)
     local deck = deckActionHandler.getDeck(deckItem)

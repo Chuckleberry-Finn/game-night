@@ -1,3 +1,4 @@
 ItemName_EN = {
     ItemName_UnoDeck = "Uno"
+    ItemName_PlayingCard = "Playing Card"
 }

@@ -22,8 +22,9 @@ function deckCataloger.applyDecks(ItemContainer)
 
                 deckCataloger.parsedItems[item] = true
 
-                if deck and not item:getModData()["gameNight_cardDeck"] then
-                    item:getModData()["gameNight_cardDeck"] = copyTable(deck)
+                if deck then
+                    item:getModData()["gameNight_cardDeck"] = item:getModData()["gameNight_cardDeck"] or copyTable(deck)
+                    item:getModData()["gameNight_bFlipped"] = item:getModData()["gameNight_bFlipped"] or true
                 end
 
             end
