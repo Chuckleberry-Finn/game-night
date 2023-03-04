@@ -11,6 +11,18 @@ end
 
 
 ---@param deckItem InventoryItem
+function deckActionHandler.generateCard(drawnCard, deckItem)
+    local newCard = InventoryItemFactory.CreateItem(deckItem:getType())
+    if newCard then
+        newCard:getModData()["gameNight_cardDeck"] = {drawnCard}
+        newCard:setName(getText("ItemName_PlayingCard"))
+        local container = deckItem:getOutermostContainer()
+        container:AddItem(newCard)
+    end
+end
+
+
+---@param deckItem InventoryItem
 function deckActionHandler.addCard(card, deckItem)
     local deck = deckActionHandler.getDeck(deckItem)
     if not deck then return end
@@ -31,7 +43,10 @@ function deckActionHandler.drawCards(num, deckItem)
         table.insert(drawn, drawnCard)
     end
 
-    return drawn
+    for _,card in pairs(drawn) do
+        print("drawn: "..card)
+        deckActionHandler.generateCard(card, deckItem)
+    end
 end
 
 function deckActionHandler.drawCard(deckItem) deckActionHandler.drawCards(1, deckItem) end
@@ -61,7 +76,8 @@ function deckActionHandler.drawRandCard(deckItem)
         end
     end
 
-    return drawnCard
+    print("drawn: "..drawnCard)
+    deckActionHandler.generateCard(drawnCard, deckItem)
 end
 
 
