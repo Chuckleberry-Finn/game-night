@@ -65,7 +65,7 @@ function deckActionHandler.drawRandCard(deckItem)
 end
 
 
-function deckActionHandler.shuffle(deckItem)
+function deckActionHandler.shuffleCards(deckItem)
     local deck = deckActionHandler.getDeck(deckItem)
     if not deck then return end
 
