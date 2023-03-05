@@ -24,8 +24,12 @@ end
 
 function deckActionHandler.flipCard(deckItem)
     local currentState = deckItem:getModData()["gameNight_bFlipped"]
-    local flippedState = (currentState==true and false) or true
-    deckItem:getModData()["gameNight_bFlipped"] = flippedState
+
+    if currentState == true then
+        deckItem:getModData()["gameNight_bFlipped"] = false
+    else
+        deckItem:getModData()["gameNight_bFlipped"] = true
+    end
 end
 
 
