@@ -1,9 +1,16 @@
 local deckActionHandler = {}
 --local deck = {"cardName"}
 
+
+function deckActionHandler.isDeckItem(deckItem)
+    local deckData = deckItem:getModData()["gameNight_cardDeck"]
+    if deckData then return true end
+    return false
+end
+
+
 ---@param deckItem IsoObject
 function deckActionHandler.getDeck(deckItem)
-    --deckItem:getModData()["gameNight_cardDeck"] = deckItem:getModData()["gameNight_cardDeck"] or {}
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
     if not deckData then return print("ERROR: Unable to find modData deck: "..tostring(deckItem)) end
     return deckData
@@ -33,11 +40,87 @@ function deckActionHandler.flipCard(deckItem)
 end
 
 
----@param deckItem InventoryItem
-function deckActionHandler.addCard(card, deckItem)
-    local deck = deckActionHandler.getDeck(deckItem)
-    if not deck then return end
-    table.insert(deck, card)
+---@param inventoryItem InventoryItem
+function deckActionHandler.safelyRemoveCard(inventoryItem)
+    local worldItem = inventoryItem:getWorldItem()
+    if worldItem then
+        ---@type IsoGridSquare
+        local sq = worldItem:getSquare()
+        if sq then
+            sq:transmitRemoveItemFromSquare(worldItem)
+            sq:removeWorldObject(worldItem)
+            inventoryItem:setWorldItem(nil)
+        end
+    end
+    ---@type ItemContainer
+    local container = inventoryItem:getContainer()
+    if container then container:DoRemoveItem(inventoryItem) end
+end
+
+
+---@param deckItemA InventoryItem
+---@param deckItemB InventoryItem
+function deckActionHandler.mergeDecks(deckItemA, deckItemB)
+    local deckB = deckActionHandler.getDeck(deckItemB)
+    if not deckB then return end
+
+    local deckA = deckActionHandler.getDeck(deckItemA)
+    if not deckA then return end
+
+    for _,card in pairs(deckA) do table.insert(deckB, card) end
+    deckActionHandler.safelyRemoveCard(deckA)
+end
+
+
+local ISInventoryPane_onMouseUp = ISInventoryPane.onMouseUp
+function ISInventoryPane:onMouseUp(x, y)
+    if not self:getIsVisible() then return end
+
+    local draggingOld = ISMouseDrag.dragging
+    local draggingFocusOld = ISMouseDrag.draggingFocus
+    local selectedOld = self.selected
+    local busy = false
+    self.previousMouseUp = self.mouseOverOption
+
+    local noSpecialKeys = (not isShiftKeyDown() and not isCtrlKeyDown())
+    if (noSpecialKeys and x >= self.column2 and  x == self.downX and y == self.downY) and self.mouseOverOption ~= 0 and self.items[self.mouseOverOption] ~= nil then busy = true end
+
+    local result = ISInventoryPane_onMouseUp(self, x, y)
+    if not result then return end
+    if busy or (not noSpecialKeys) then return end
+    self.selected = selectedOld
+
+    if (draggingOld ~= nil) and (draggingFocusOld == self) and (draggingFocusOld ~= nil) then
+        if self.player ~= 0 then return end
+        local playerObj = getSpecificPlayer(self.player)
+        local itemFound = {}
+
+        local doWalk = true
+        local dragging = ISInventoryPane.getActualItems(draggingOld)
+        for i,v in ipairs(dragging) do
+            if deckActionHandler.isDeckItem(v) then
+                local transfer = v:getContainer() and not self.inventory:isInside(v)
+                if v:isFavorite() and not self.inventory:isInCharacterInventory(playerObj) then transfer = false end
+                if transfer then
+                    if doWalk then if not luautils.walkToContainer(self.inventory, self.player) then break end doWalk = false end
+                    table.insert(itemFound, v)
+                end
+            end
+        end
+        self.selected = {}
+        getPlayerLoot(self.player).inventoryPane.selected = {}
+        getPlayerInventory(self.player).inventoryPane.selected = {}
+
+        local pushTo = self.items[self.mouseOverOption]
+        if not pushTo then return end
+
+        local pushToActual
+        if instanceof(pushTo, "InventoryItem") then pushToActual = pushTo else pushToActual = pushTo.items[1] end
+
+        for _,money in pairs(itemFound) do if money==pushToActual then return end end
+
+        if pushToActual and deckActionHandler.isDeckItem(pushToActual) then for _,deck in pairs(itemFound) do deckActionHandler.mergeDecks(deck, pushToActual) end end
+    end
 end
 
 
