@@ -1,7 +1,6 @@
 local deckActionHandler = {}
 --local deck = {"cardName"}
 
-
 function deckActionHandler.isDeckItem(deckItem)
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
     if deckData then return true end
@@ -18,11 +17,32 @@ end
 
 
 ---@param deckItem InventoryItem
+function deckActionHandler.handleDetails(deckItem)
+    local deck = deckActionHandler.getDeck(deckItem)
+    if not deck then return end
+
+    if #deck <= 0 then return end
+
+    if #deck == 1 then
+        deckItem:setName(getText("IGUI_PlayingCard").." ("..deck[1]..")")
+        local texture = getTexture("media/textures/card"..deckItem:getType()..".png")
+        deckItem:setTexture(texture)
+    else
+        deckItem:setName(getItemNameFromFullType(deckItem:getFullType()))
+        local texture = getTexture("media/textures/deck"..deckItem:getType()..".png")
+        deckItem:setTexture(texture)
+    end
+end
+
+
+---@param drawnCard string
+---@param deckItem InventoryItem
 function deckActionHandler.generateCard(drawnCard, deckItem)
     local newCard = InventoryItemFactory.CreateItem(deckItem:getType())
     if newCard then
         newCard:getModData()["gameNight_cardDeck"] = {drawnCard}
-        newCard:setName(getText("ItemName_PlayingCard"))
+        deckActionHandler.handleDetails(deckItem)
+        deckActionHandler.handleDetails(newCard)
         local container = deckItem:getOutermostContainer()
         container:AddItem(newCard)
     end
@@ -68,7 +88,9 @@ function deckActionHandler.mergeDecks(deckItemA, deckItemB)
     if not deckA then return end
 
     for _,card in pairs(deckA) do table.insert(deckB, card) end
-    deckActionHandler.safelyRemoveCard(deckA)
+
+    deckActionHandler.handleDetails(deckItemB)
+    deckActionHandler.safelyRemoveCard(deckItemA)
 end
 
 
@@ -117,7 +139,7 @@ function ISInventoryPane:onMouseUp(x, y)
         local pushToActual
         if instanceof(pushTo, "InventoryItem") then pushToActual = pushTo else pushToActual = pushTo.items[1] end
 
-        for _,money in pairs(itemFound) do if money==pushToActual then return end end
+        for _,deck in pairs(itemFound) do if deck==pushToActual then return end end
 
         if pushToActual and deckActionHandler.isDeckItem(pushToActual) then for _,deck in pairs(itemFound) do deckActionHandler.mergeDecks(deck, pushToActual) end end
     end
