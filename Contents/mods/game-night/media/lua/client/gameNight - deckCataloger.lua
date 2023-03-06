@@ -1,3 +1,5 @@
+local deckActionHandler = require "gameNight - deckActionHandler"
+
 local deckCataloger = {}
 
 deckCataloger.catalogues = {}
@@ -23,6 +25,7 @@ function deckCataloger.applyDecks(ItemContainer)
                 deckCataloger.parsedItems[item] = true
 
                 if deck then
+                    deckActionHandler.handleDetails(item)
                     item:getModData()["gameNight_cardDeck"] = item:getModData()["gameNight_cardDeck"] or copyTable(deck)
                     item:getModData()["gameNight_bFlipped"] = item:getModData()["gameNight_bFlipped"] or true
                 end
