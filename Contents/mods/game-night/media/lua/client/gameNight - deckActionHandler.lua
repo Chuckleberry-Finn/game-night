@@ -43,8 +43,21 @@ function deckActionHandler.generateCard(drawnCard, deckItem)
         newCard:getModData()["gameNight_cardDeck"] = {drawnCard}
         deckActionHandler.handleDetails(deckItem)
         deckActionHandler.handleDetails(newCard)
+
+        ---@type IsoWorldInventoryObject
+        local worldItem = deckItem:getWorldItem()
+        if worldItem then
+            ---@type IsoGridSquare
+            local sq = worldItem:getSquare()
+            if sq then
+                sq:AddWorldInventoryItem(newCard, 0, 0, 0)
+                return
+            end
+        end
+
         local container = deckItem:getOutermostContainer()
-        container:AddItem(newCard)
+        if container then container:AddItem(newCard) end
+
     end
 end
 
