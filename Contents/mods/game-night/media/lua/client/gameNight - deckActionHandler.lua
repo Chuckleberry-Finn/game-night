@@ -120,8 +120,6 @@ local ISInventoryPane_onMouseUp = ISInventoryPane.onMouseUp
 function ISInventoryPane:onMouseUp(x, y)
     if not self:getIsVisible() then return end
 
-    print("GAME NIGHT")
-
     local draggingOld = ISMouseDrag.dragging
     local draggingFocusOld = ISMouseDrag.draggingFocus
     local selectedOld = self.selected
@@ -134,9 +132,11 @@ function ISInventoryPane:onMouseUp(x, y)
     local result = ISInventoryPane_onMouseUp(self, x, y)
     if not result then return end
     if busy or (not noSpecialKeys) then return end
+
     self.selected = selectedOld
 
     if (draggingOld ~= nil) and (draggingFocusOld == self) and (draggingFocusOld ~= nil) then
+
         if self.player ~= 0 then return end
         local playerObj = getSpecificPlayer(self.player)
         local itemFound = {}
@@ -154,13 +154,11 @@ function ISInventoryPane:onMouseUp(x, y)
             end
         end
 
-        print("#itemFound: "..#itemFound)
         if #itemFound <= 0 then
             ISMouseDrag.dragging = draggingOld
             ISMouseDrag.draggingFocus = draggingFocusOld
-            print("no cards")
-            --ISInventoryPane_onMouseUp(self, x, y)
-            return
+            self.selected = selectedOld
+            return true
         end
 
         self.selected = {}
