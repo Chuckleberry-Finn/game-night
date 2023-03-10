@@ -24,7 +24,14 @@ function deckActionHandler.handleDetails(deckItem)
     if #deck <= 0 then return end
 
     if #deck == 1 then
-        deckItem:setName(getText("IGUI_PlayingCard").." ("..deck[1]..")")
+
+        if deckItem:getModData()["gameNight_bFlipped"]==true then
+            deckItem:setName(deck[1])
+        else
+            deckItem:setName(getText("IGUI_PlayingCard"))
+        end
+
+
         local texture = getTexture("media/textures/card"..deckItem:getType()..".png")
         deckItem:setTexture(texture)
     else
@@ -70,6 +77,8 @@ function deckActionHandler.flipCard(deckItem)
     else
         deckItem:getModData()["gameNight_bFlipped"] = true
     end
+
+    deckActionHandler.handleDetails(deckItem)
 end
 
 
