@@ -120,6 +120,8 @@ local ISInventoryPane_onMouseUp = ISInventoryPane.onMouseUp
 function ISInventoryPane:onMouseUp(x, y)
     if not self:getIsVisible() then return end
 
+    print("GAME NIGHT")
+
     local draggingOld = ISMouseDrag.dragging
     local draggingFocusOld = ISMouseDrag.draggingFocus
     local selectedOld = self.selected
@@ -151,6 +153,16 @@ function ISInventoryPane:onMouseUp(x, y)
                 end
             end
         end
+
+        print("#itemFound: "..#itemFound)
+        if #itemFound <= 0 then
+            ISMouseDrag.dragging = draggingOld
+            ISMouseDrag.draggingFocus = draggingFocusOld
+            print("no cards")
+            --ISInventoryPane_onMouseUp(self, x, y)
+            return
+        end
+
         self.selected = {}
         getPlayerLoot(self.player).inventoryPane.selected = {}
         getPlayerInventory(self.player).inventoryPane.selected = {}
