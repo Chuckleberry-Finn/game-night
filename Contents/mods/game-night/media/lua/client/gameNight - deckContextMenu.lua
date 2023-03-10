@@ -12,10 +12,12 @@ function deckContext.addContext(player, context, items)
 
         local deck = deckActionHandler.getDeck(item)
 
-        if deck and #deck>1 then
-            context:addOption(getText("IGUI_drawCard"), item, deckActionHandler.drawCard, player)
-            context:addOption(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard, player)
-            context:addOption(getText("IGUI_shuffleCards"), item, deckActionHandler.shuffleCards, player)
+        if deck then
+            if #deck>1 then
+                context:addOption(getText("IGUI_drawCard"), item, deckActionHandler.drawCard, player)
+                context:addOption(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard, player)
+                context:addOption(getText("IGUI_shuffleCards"), item, deckActionHandler.shuffleCards, player)
+            end
             context:addOption(getText("IGUI_flipCard"), item, deckActionHandler.flipCard, player)
             break
         end
