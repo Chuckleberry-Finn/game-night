@@ -11,7 +11,7 @@ end
 ---@param deckItem IsoObject
 function deckActionHandler.getDeck(deckItem)
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
-    if not deckData then return print("ERROR: Unable to find modData deck: "..tostring(deckItem)) end
+    if not deckData then return end
     return deckData
 end
 
