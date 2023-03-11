@@ -43,4 +43,4 @@ for i=1, 2 do --Two sets of 1-9, 0s are single
         end
     end
 end
-deckCataloger.addDeck("UnoDeck", unoCards.cards)
+deckCataloger.addDeck("Uno", unoCards.cards)
