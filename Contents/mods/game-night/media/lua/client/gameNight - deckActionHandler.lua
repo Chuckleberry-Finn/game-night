@@ -16,27 +16,35 @@ function deckActionHandler.getDeck(deckItem)
 end
 
 
+
 ---@param deckItem InventoryItem
 function deckActionHandler.handleDetails(deckItem)
     local deck = deckActionHandler.getDeck(deckItem)
     if not deck then return end
 
     if #deck <= 0 then return end
+    local itemType = deckItem:getType()
 
     if #deck == 1 then
+        ---@type Texture
+        local texture
+        deckItem:setTexture(texture)
+
+
 
         if deckItem:getModData()["gameNight_bFlipped"]==true then
             deckItem:setName(deck[1])
+            texture = getTexture("media/textures/"..itemType.."/"..deck[1]..".png")
         else
+            texture = getTexture("media/textures/"..itemType.."/card"..deckItem:getType()..".png")
             deckItem:setName(getText("IGUI_PlayingCard"))
         end
 
+        if texture then deckItem:setTexture(texture) end
 
-        local texture = getTexture("media/textures/card"..deckItem:getType()..".png")
-        deckItem:setTexture(texture)
     else
         deckItem:setName(getItemNameFromFullType(deckItem:getFullType()))
-        local texture = getTexture("media/textures/deck"..deckItem:getType()..".png")
+        local texture = getTexture("media/textures/"..itemType.."deck"..deckItem:getType()..".png")
         deckItem:setTexture(texture)
     end
 end
