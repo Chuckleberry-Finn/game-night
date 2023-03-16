@@ -1,0 +1,12 @@
+module Base
+{
+	item UnoCards
+	{
+	    DisplayCategory = Junk,
+		Weight	=	0.2,
+		Type	=	Normal,
+		DisplayName	=	Uno Cards,
+		Icon	=	unoCards/deckUnoCards,
+		WorldStaticModel = CardDeck,
+	}
+}

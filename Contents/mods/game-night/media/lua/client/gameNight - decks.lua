@@ -34,7 +34,7 @@ local unoCards = {}
 unoCards.cards = {"Red 0","Green 0","Blue 0","Yellow 0","Wild","Wild","Wild","Wild","Wild Draw 4","Wild Draw 4","Wild Draw 4","Wild Draw 4"}
 
 unoCards.suites = {"Red","Green","Blue","Yellow"}
-unoCards.values = {"1","2","3","4","5","6","7","8","9","skip","reverse","draw2"}
+unoCards.values = {"1","2","3","4","5","6","7","8","9","Skip","Reverse","Draw 2"}
 
 for i=1, 2 do --Two sets of 1-9, 0s are single
     for _,s in pairs(unoCards.suites) do
@@ -43,4 +43,4 @@ for i=1, 2 do --Two sets of 1-9, 0s are single
         end
     end
 end
-deckCataloger.addDeck("Uno", unoCards.cards)
+deckCataloger.addDeck("UnoCards", unoCards.cards)
