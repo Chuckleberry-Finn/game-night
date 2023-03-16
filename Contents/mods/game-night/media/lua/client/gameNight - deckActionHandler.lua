@@ -12,27 +12,31 @@ end
 function deckActionHandler.getDeck(deckItem)
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
     if not deckData then return end
-    return deckData
+
+    local cardFlipStates = deckItem:getModData()["gameNight_cardFlipped"]
+
+    return deckData, cardFlipStates
 end
 
 
-
+deckActionHandler.cardWeight = 0.003
 ---@param deckItem InventoryItem
 function deckActionHandler.handleDetails(deckItem)
-    local deck = deckActionHandler.getDeck(deckItem)
+    local deck, flippedStates = deckActionHandler.getDeck(deckItem)
     if not deck then return end
 
     if #deck <= 0 then return end
     local itemType = deckItem:getType()
 
+    deckItem:setWeight(deckActionHandler.cardWeight*#deck)
+
     if #deck == 1 then
         ---@type Texture
         local texture
-        deckItem:setTexture(texture)
 
+        deckItem:setDisplayCategory("Card")
 
-
-        if deckItem:getModData()["gameNight_bFlipped"]==true then
+        if flippedStates and flippedStates[1] ~= true then
             deckItem:setName(deck[1])
             texture = getTexture("media/textures/"..itemType.."/"..deck[1]..".png")
         else
@@ -43,21 +47,36 @@ function deckActionHandler.handleDetails(deckItem)
         if texture then deckItem:setTexture(texture) end
 
     else
-        deckItem:setName(getItemNameFromFullType(deckItem:getFullType()))
-        local texture = getTexture("media/textures/"..itemType.."deck"..deckItem:getType()..".png")
+        deckItem:setDisplayCategory("Deck")
+
+        deckItem:setName(getItemNameFromFullType(deckItem:getFullType()).." ["..#deck.."]")
+        local texture = getTexture("media/textures/"..itemType.."/deck"..deckItem:getType()..".png")
         deckItem:setTexture(texture)
+    end
+
+    ---@type ItemContainer
+    local container = deckItem:getOutermostContainer()
+    if container then
+        local contParent = container:getParent()
+        if contParent and instanceof(contParent, "IsoPlayer") then
+
+            local inventory = getPlayerInventory(contParent:getPlayerNum())
+            if inventory then inventory:refreshBackpacks() end
+
+            local loot = getPlayerLoot(contParent:getPlayerNum())
+            if loot then loot:refreshBackpacks() end
+        end
     end
 end
 
 
 ---@param drawnCard string
 ---@param deckItem InventoryItem
-function deckActionHandler.generateCard(drawnCard, deckItem)
+function deckActionHandler.generateCard(drawnCard, deckItem, flipped)
     local newCard = InventoryItemFactory.CreateItem(deckItem:getType())
     if newCard then
         newCard:getModData()["gameNight_cardDeck"] = {drawnCard}
-        deckActionHandler.handleDetails(deckItem)
-        deckActionHandler.handleDetails(newCard)
+        newCard:getModData()["gameNight_cardFlipped"] = {flipped}
 
         ---@type IsoWorldInventoryObject
         local worldItem = deckItem:getWorldItem()
@@ -70,20 +89,28 @@ function deckActionHandler.generateCard(drawnCard, deckItem)
             end
         end
 
+        ---@type ItemContainer
         local container = deckItem:getOutermostContainer()
         if container then container:AddItem(newCard) end
 
+        deckActionHandler.handleDetails(deckItem)
+        deckActionHandler.handleDetails(newCard)
+        return newCard
     end
 end
 
 
 function deckActionHandler.flipCard(deckItem)
-    local currentState = deckItem:getModData()["gameNight_bFlipped"]
+    local deck, currentFlipStates = deckActionHandler.getDeck(deckItem)
+    if not deck then return end
 
-    if currentState == true then
-        deckItem:getModData()["gameNight_bFlipped"] = false
-    else
-        deckItem:getModData()["gameNight_bFlipped"] = true
+    for n,card in pairs(deck) do
+        local flipped = currentFlipStates[n]
+        if flipped == true then
+            currentFlipStates[n] = false
+        else
+            currentFlipStates[n] = true
+        end
     end
 
     deckActionHandler.handleDetails(deckItem)
@@ -111,16 +138,33 @@ end
 ---@param deckItemA InventoryItem
 ---@param deckItemB InventoryItem
 function deckActionHandler.mergeDecks(deckItemA, deckItemB)
-    local deckB = deckActionHandler.getDeck(deckItemB)
+    local deckB, flippedB = deckActionHandler.getDeck(deckItemB)
     if not deckB then return end
 
-    local deckA = deckActionHandler.getDeck(deckItemA)
+    local deckA, flippedA = deckActionHandler.getDeck(deckItemA)
     if not deckA then return end
 
     for _,card in pairs(deckA) do table.insert(deckB, card) end
+    for _,flip in pairs(flippedA) do table.insert(flippedB, flip) end
 
     deckActionHandler.handleDetails(deckItemB)
     deckActionHandler.safelyRemoveCard(deckItemA)
+end
+
+
+require "ISUI/ISInventoryPane"
+
+local ISInventoryPane_doContextualDblClick = ISInventoryPane.doContextualDblClick
+function ISInventoryPane:doContextualDblClick(item)
+    ISInventoryPane_doContextualDblClick(self, item)
+    local deck, flippedStates = deckActionHandler.getDeck(item)
+    if deck then
+        if #deck>1 then
+            deckActionHandler.drawCard(item)
+        else
+            deckActionHandler.flipCard(item)
+        end
+    end
 end
 
 
@@ -188,61 +232,68 @@ end
 
 ---@param deckItem InventoryItem
 function deckActionHandler.drawCards(num, deckItem)
-    local deck = deckActionHandler.getDeck(deckItem)
+    local deck, currentFlipStates = deckActionHandler.getDeck(deckItem)
     if not deck then return end
 
-    local drawn = {}
+    local drawnCards = {}
+    local drawnFlippedStates = {}
+    local draw = #deck
 
     for i=1, num do
-        local drawnCard = deck[#deck]
-        deck[#deck] = nil
-        table.insert(drawn, drawnCard)
+        local drawnCard, drawnFlip = deck[draw], currentFlipStates[draw]
+        deck[draw] = nil
+        if currentFlipStates then currentFlipStates[draw] = nil end
+        table.insert(drawnCards, drawnCard)
+        table.insert(drawnFlippedStates, drawnFlip)
     end
 
-    for _,card in pairs(drawn) do
-        print("drawn: "..card)
-        deckActionHandler.generateCard(card, deckItem)
+    for n,card in pairs(drawnCards) do
+        local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n])
+        deckActionHandler.flipCard(newCard)
     end
 end
 
 function deckActionHandler.drawCard(deckItem) deckActionHandler.drawCards(1, deckItem) end
 
-
 ---@param deckItem InventoryItem
 function deckActionHandler.drawRandCard(deckItem)
-    local deck = deckActionHandler.getDeck(deckItem)
+    local deck, currentFlipStates = deckActionHandler.getDeck(deckItem)
     if not deck then return end
 
     local deckCount = #deck
     local drawIndex = ZombRand(deckCount)+1
-
-    local drawnCard
+    local drawnCard, drawnFlipped
 
     for i=1,deckCount do
         if i==drawIndex then
             drawnCard = deck[i]
+            drawnFlipped = currentFlipStates[i]
             deck[i] = nil
+            currentFlipStates[i] = nil
         end
 
         if i>drawIndex then
             if deck[i-1] == nil then
                 deck[i-1] = deck[i]
+                currentFlipStates[i-1] = currentFlipStates[i]
                 deck[i] = nil
+                currentFlipStates[i] = nil
             end
         end
     end
 
-    print("drawn: "..drawnCard)
-    deckActionHandler.generateCard(drawnCard, deckItem)
+    local newCard = deckActionHandler.generateCard(drawnCard, deckItem, drawnFlipped)
+    deckActionHandler.flipCard(newCard)
 end
 
 
 function deckActionHandler.shuffleCards(deckItem)
-    local deck = deckActionHandler.getDeck(deckItem)
+    local deck, currentFlipStates = deckActionHandler.getDeck(deckItem)
     if not deck then return end
 
     for origIndex = #deck, 2, -1 do
         local shuffledIndex = ZombRand(origIndex)+1
+        currentFlipStates[origIndex], currentFlipStates[shuffledIndex] = currentFlipStates[shuffledIndex], currentFlipStates[origIndex]
         deck[origIndex], deck[shuffledIndex] = deck[shuffledIndex], deck[origIndex]
     end
 end

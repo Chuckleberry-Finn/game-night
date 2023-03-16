@@ -4,4 +4,8 @@ IGUI_EN = {
     IGUI_shuffleCards = "Shuffle",
     IGUI_flipCard = "Flip",
     IGUI_PlayingCard = "Playing Card"
+    IGUI_UnoCard = "Playing Card"
+
+    IGUI_ItemCat_Card = "Card",
+    IGUI_ItemCat_Deck = "Deck",
 }
