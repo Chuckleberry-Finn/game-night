@@ -35,6 +35,7 @@ function deckActionHandler.handleDetails(deckItem)
         local texture
 
         deckItem:setDisplayCategory("Card")
+        deckItem:getTags():add("gameNight")
 
         if flippedStates and flippedStates[1] ~= true then
             deckItem:setName(deck[1])
