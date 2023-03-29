@@ -1,4 +1,4 @@
-local gameNightTimedAction = ISBaseTimedAction:derive("gameNightTimedAction")
+gameNightTimedAction = ISBaseTimedAction:derive("gameNightTimedAction")
 
 
 function gameNightTimedAction:isValid()
