@@ -4,7 +4,7 @@ local deckActionHandler = require "gameNight - deckActionHandler"
 
 local deckContext = {}
 
-function deckContext.addContext(player, context, items)
+function deckContext.addInventoryItemContext(player, context, items)
     for _, v in ipairs(items) do
 
         local item = v
@@ -25,4 +25,34 @@ function deckContext.addContext(player, context, items)
     end
 end
 
-Events.OnPreFillInventoryObjectContextMenu.Add(deckContext.addContext)
+Events.OnPreFillInventoryObjectContextMenu.Add(deckContext.addInventoryItemContext)
+
+
+
+function deckContext.addWorldContext(playerID, context, worldObjects)
+    local playerObj = getSpecificPlayer(playerID)
+    local square
+
+    for _,v in ipairs(worldObjects) do square = v:getSquare() end
+    if not square then return end
+
+    if (math.abs(playerObj:getX()-square:getX())>2) or (math.abs(playerObj:getY()-square:getY())>2) then return end
+
+    local validObjectCount = 0
+
+    for i=0,square:getObjects():size()-1 do
+        ---@type IsoObject|IsoWorldInventoryObject
+        local object = square:getObjects():get(i)
+        if object and instanceof(object, "IsoWorldInventoryObject") then
+            local item = object:getItem()
+            if item and item:getTags():contains("gameNight") then
+                validObjectCount = validObjectCount+1
+            end
+        end
+    end
+
+    if validObjectCount > 0 then
+        context:addOptionOnTop("play game", worldObjects, OPEN.WINDOW, playerObj, square)
+    end
+end
+Events.OnFillWorldObjectContextMenu.Add(deckContext.addWorldContext)
