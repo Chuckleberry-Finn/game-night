@@ -28,7 +28,7 @@ end
 Events.OnPreFillInventoryObjectContextMenu.Add(deckContext.addInventoryItemContext)
 
 
-
+require "gameNight - window"
 function deckContext.addWorldContext(playerID, context, worldObjects)
     local playerObj = getSpecificPlayer(playerID)
     local square

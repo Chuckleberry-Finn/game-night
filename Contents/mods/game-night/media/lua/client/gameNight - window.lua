@@ -16,10 +16,26 @@ function gameNightWindow:render()
 end
 
 
+function gameNightWindow:open(player, locX, locY)
+
+    if not gameNightWindow.instance then
+        gameNightWindow:new(nil, nil, 500, 500, player, locX, locY)
+
+        gameNightWindow.instance:initialise()
+        gameNightWindow.instance:addToUIManager()
+        --gameNightWindow.instance:setVisible(false)
+        --gameNightWindow.instance:removeFromUIManager()
+    end
+    gameNightWindow.instance:setVisible(true)
+
+    return gameNightWindow.instance
+end
+
+
 function gameNightWindow:new(x, y, width, height, player, locX, locY)
     local o = {}
-    x = getCore():getScreenWidth() / 2 - (width / 2)
-    y = getCore():getScreenHeight() / 2 - (height / 2)
+    x = x or getCore():getScreenWidth() / 2 - (width / 2)
+    y = y or getCore():getScreenHeight() / 2 - (height / 2)
     o = ISPanelJoypad:new(x, y, width, height)
     setmetatable(o, self)
     self.__index = self
@@ -38,5 +54,6 @@ function gameNightWindow:new(x, y, width, height, player, locX, locY)
     o.pendingRequest = false
 
     gameNightWindow.instance = o
+
     return o
 end
