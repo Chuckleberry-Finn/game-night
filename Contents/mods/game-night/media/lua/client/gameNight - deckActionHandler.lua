@@ -29,13 +29,13 @@ function deckActionHandler.handleDetails(deckItem)
     local itemType = deckItem:getType()
 
     deckItem:setWeight(deckActionHandler.cardWeight*#deck)
+    deckItem:getTags():add("gameNight")
 
     if #deck == 1 then
         ---@type Texture
         local texture
 
         deckItem:setDisplayCategory("Card")
-        deckItem:getTags():add("gameNight")
 
         if flippedStates and flippedStates[1] ~= true then
             deckItem:setName(deck[1])

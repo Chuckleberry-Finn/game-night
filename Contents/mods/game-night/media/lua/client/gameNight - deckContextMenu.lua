@@ -52,7 +52,7 @@ function deckContext.addWorldContext(playerID, context, worldObjects)
     end
 
     if validObjectCount > 0 then
-        context:addOptionOnTop("play game", worldObjects, OPEN.WINDOW, playerObj, square)
+        context:addOptionOnTop("play game", worldObjects, gameNightWindow.open, playerObj, square)
     end
 end
 Events.OnFillWorldObjectContextMenu.Add(deckContext.addWorldContext)
