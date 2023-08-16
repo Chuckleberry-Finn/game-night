@@ -3,8 +3,10 @@ IGUI_EN = {
     IGUI_drawRandCard = "Draw Random Card",
     IGUI_shuffleCards = "Shuffle",
     IGUI_flipCard = "Flip",
-    IGUI_PlayingCard = "Playing Card"
-    IGUI_UnoCard = "Playing Card"
+    IGUI_PlayingCard = "Playing Card",
+    IGUI_UnoCard = "Playing Card",
+
+    IGUI_Play_Game = "Play Game",
 
     IGUI_ItemCat_Card = "Card",
     IGUI_ItemCat_Deck = "Deck",
