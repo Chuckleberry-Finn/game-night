@@ -249,8 +249,7 @@ function deckActionHandler.drawCards(num, deckItem)
     end
 
     for n,card in pairs(drawnCards) do
-        local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n])
-        deckActionHandler.flipCard(newCard)
+        local newCard = deckActionHandler.generateCard(card, deckItem, not drawnFlippedStates[n])
     end
 end
 
@@ -283,8 +282,7 @@ function deckActionHandler.drawRandCard(deckItem)
         end
     end
 
-    local newCard = deckActionHandler.generateCard(drawnCard, deckItem, drawnFlipped)
-    deckActionHandler.flipCard(newCard)
+    local newCard = deckActionHandler.generateCard(drawnCard, deckItem, not drawnFlipped)
 end
 
 
