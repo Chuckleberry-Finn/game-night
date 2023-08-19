@@ -83,8 +83,8 @@ function gameNightElement:new(x, y, width, height, itemObject)
 
     o.itemObject = itemObject
 
-    o.borderColor = {r=1, g=1, b=1, a=0.7}
-    o.backgroundColor = {r=1, g=1, b=1, a=0.1}
+    o.borderColor = {r=1, g=1, b=1, a=0}
+    o.backgroundColor = {r=1, g=1, b=1, a=0}
 
     o.moveWithMouse = true
     o.selectedItem = nil

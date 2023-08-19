@@ -23,7 +23,7 @@ deckActionHandler.cardWeight = 0.003
 ---@param deckItem InventoryItem
 function deckActionHandler.handleDetails(deckItem)
     local deck, flippedStates = deckActionHandler.getDeck(deckItem)
-    if not deck then return end
+    if not deck or not flippedStates then return end
 
     if #deck <= 0 then return end
     local itemType = deckItem:getType()
@@ -31,32 +31,27 @@ function deckActionHandler.handleDetails(deckItem)
     deckItem:setWeight(deckActionHandler.cardWeight*#deck)
     deckItem:getTags():add("gameNight")
 
-    if #deck == 1 then
-        ---@type Texture
-        local texture
+    ---@type Texture
+    local texture
 
-        deckItem:setDisplayCategory("Card")
+    local category = #deck>1 and "Deck" or "Card"
+    deckItem:setDisplayCategory(category)
 
-        if flippedStates and flippedStates[1] ~= true then
-            deckItem:setName(deck[1])
-            texture = getTexture("media/textures/"..itemType.."/"..deck[1]..".png")
-            deckItem:getModData()["gameNight_textureInPlay"] = nil
+    local name_suffix = #deck>1 and " ["..#deck.."]" or ""
 
-        else
-            deckItem:setName(getText("IGUI_PlayingCard"))
-            texture = getTexture("media/textures/"..itemType.."/card"..deckItem:getType()..".png")
-            deckItem:getModData()["gameNight_textureInPlay"] = getTexture("media/textures/"..itemType.."/FlippedInPlay.png")
-        end
-
-        if texture then deckItem:setTexture(texture) end
+    if flippedStates[1] ~= true then
+        deckItem:setName(deck[1]..name_suffix)
+        texture = getTexture("media/textures/"..itemType.."/"..deck[1]..".png")
+        deckItem:getModData()["gameNight_textureInPlay"] = nil
 
     else
-        deckItem:setDisplayCategory("Deck")
-
-        deckItem:setName(getItemNameFromFullType(deckItem:getFullType()).." ["..#deck.."]")
-        local texture = getTexture("media/textures/"..itemType.."/deck"..deckItem:getType()..".png")
-        deckItem:setTexture(texture)
+        local textureID = #deck>1 and "deck" or "card"
+        deckItem:setName(getText("IGUI_"..itemType)..name_suffix)
+        texture = getTexture("media/textures/"..itemType.."/"..textureID..deckItem:getType()..".png")
+        deckItem:getModData()["gameNight_textureInPlay"] = getTexture("media/textures/"..itemType.."/FlippedInPlay.png")
     end
+
+    if texture then deckItem:setTexture(texture) end
 
     ---@type ItemContainer
     local container = deckItem:getOutermostContainer()
@@ -108,14 +103,19 @@ function deckActionHandler.flipCard(deckItem)
     local deck, currentFlipStates = deckActionHandler.getDeck(deckItem)
     if not deck then return end
 
-    for n,card in pairs(deck) do
-        local flipped = currentFlipStates[n]
-        if flipped == true then
-            currentFlipStates[n] = false
-        else
-            currentFlipStates[n] = true
-        end
+    local handleFlippedDeck = {}
+    local handleFlippedStates = {}
+
+    print("flip: ")
+
+    for n=#deck, 1, -1 do
+        print("deck[n]: "..deck[n])
+        table.insert(handleFlippedDeck, deck[n])
+        table.insert(handleFlippedStates, (not currentFlipStates[n]))
     end
+
+    deck = handleFlippedDeck
+    currentFlipStates = currentFlipStates
 
     deckActionHandler.handleDetails(deckItem)
 end
