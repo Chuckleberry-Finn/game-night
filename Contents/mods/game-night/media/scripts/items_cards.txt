@@ -7,6 +7,6 @@ module Base
 		Type	=	Normal,
 		DisplayName	=	Uno Cards,
 		Icon	=	unoCards/deckUnoCards,
-		WorldStaticModel = CardDeck,
+		WorldStaticModel = UnoCards,
 	}
 }

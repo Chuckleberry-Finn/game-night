@@ -40,9 +40,12 @@ function deckActionHandler.handleDetails(deckItem)
         if flippedStates and flippedStates[1] ~= true then
             deckItem:setName(deck[1])
             texture = getTexture("media/textures/"..itemType.."/"..deck[1]..".png")
+            deckItem:getModData()["gameNight_textureInPlay"] = nil
+
         else
-            texture = getTexture("media/textures/"..itemType.."/card"..deckItem:getType()..".png")
             deckItem:setName(getText("IGUI_PlayingCard"))
+            texture = getTexture("media/textures/"..itemType.."/card"..deckItem:getType()..".png")
+            deckItem:getModData()["gameNight_textureInPlay"] = getTexture("media/textures/"..itemType.."/FlippedInPlay.png")
         end
 
         if texture then deckItem:setTexture(texture) end

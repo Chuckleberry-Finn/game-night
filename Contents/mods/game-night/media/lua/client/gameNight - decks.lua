@@ -32,7 +32,6 @@ deckCataloger.addDeck("CardDeck", playingCards.cards)
 -- (8) Black – 4 Wild cards and 4 Wild Draw 4 cards
 local unoCards = {}
 unoCards.cards = {"Red 0","Green 0","Blue 0","Yellow 0","Wild","Wild","Wild","Wild","Wild Draw 4","Wild Draw 4","Wild Draw 4","Wild Draw 4"}
-
 unoCards.suites = {"Red","Green","Blue","Yellow"}
 unoCards.values = {"1","2","3","4","5","6","7","8","9","Skip","Reverse","Draw 2"}
 
