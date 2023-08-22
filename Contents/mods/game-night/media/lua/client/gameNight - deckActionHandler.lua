@@ -39,9 +39,9 @@ function deckActionHandler.handleDetails(deckItem)
 
     local name_suffix = #deck>1 and " ["..#deck.."]" or ""
 
-    if flippedStates[1] ~= true then
-        deckItem:setName(deck[1]..name_suffix)
-        texture = getTexture("media/textures/"..itemType.."/"..deck[1]..".png")
+    if flippedStates[#deck] ~= true then
+        deckItem:setName(deck[#deck]..name_suffix)
+        texture = getTexture("media/textures/"..itemType.."/"..deck[#deck]..".png")
         deckItem:getModData()["gameNight_textureInPlay"] = nil
 
     else
@@ -109,13 +109,16 @@ function deckActionHandler.flipCard(deckItem)
     print("flip: ")
 
     for n=#deck, 1, -1 do
-        print("deck[n]: "..deck[n])
+        print("deck["..n.."]: "..deck[n])
         table.insert(handleFlippedDeck, deck[n])
         table.insert(handleFlippedStates, (not currentFlipStates[n]))
     end
 
-    deck = handleFlippedDeck
-    currentFlipStates = currentFlipStates
+    deckItem:getModData()["gameNight_cardDeck"] = handleFlippedDeck
+    deckItem:getModData()["gameNight_cardFlipped"] = handleFlippedStates
+
+    --deck = handleFlippedDeck
+    --currentFlipStates = handleFlippedStates
 
     deckActionHandler.handleDetails(deckItem)
 end
@@ -157,7 +160,7 @@ end
 
 
 require "ISUI/ISInventoryPane"
-
+--[[
 local ISInventoryPane_doContextualDblClick = ISInventoryPane.doContextualDblClick
 function ISInventoryPane:doContextualDblClick(item)
     ISInventoryPane_doContextualDblClick(self, item)
@@ -170,7 +173,7 @@ function ISInventoryPane:doContextualDblClick(item)
         end
     end
 end
-
+--]]
 
 local ISInventoryPane_onMouseUp = ISInventoryPane.onMouseUp
 function ISInventoryPane:onMouseUp(x, y)
@@ -298,6 +301,8 @@ function deckActionHandler.shuffleCards(deckItem)
         currentFlipStates[origIndex], currentFlipStates[shuffledIndex] = currentFlipStates[shuffledIndex], currentFlipStates[origIndex]
         deck[origIndex], deck[shuffledIndex] = deck[shuffledIndex], deck[origIndex]
     end
+
+    deckActionHandler.handleDetails(deckItem)
 end
 
 

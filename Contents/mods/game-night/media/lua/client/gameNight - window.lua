@@ -58,7 +58,7 @@ function gameNightWindow:prerender()
                 if not element then
                     print(item:getName())
 
-                    self.elements[item] = gameNightElement:new(x, y, w, h, item, self)
+                    self.elements[item] = gameNightElement:new(x, y, w, h, item)
                     element = self.elements[item]
                     --self:addChild(element)
                     element:addToUIManager()

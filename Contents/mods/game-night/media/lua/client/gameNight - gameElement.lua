@@ -12,7 +12,30 @@ function gameNightElement:onClick(button)
 
 end
 
-function gameNightElement:onMouseUpOutside(x, y)
+
+function gameNightElement:onRightMouseUp(x, y)
+
+    local window = gameNightWindow.instance
+    if not window or not window:isVisible() or not window.mouseOver then return end
+
+    ---@type IsoPlayer|IsoGameCharacter
+    local playerObj = window.player
+    local playerID = playerObj:getPlayerNum()
+
+    ---@type InventoryItem
+    local item = self.itemObject
+    local isInInv = item:getContainer():isInCharacterInventory(playerObj)
+
+    local contextMenuItems = {item}
+    if self.toolRender then self.toolRender:setVisible(false) end
+
+    local menu = ISInventoryPaneContextMenu.createMenu(playerID, isInInv, contextMenuItems, self:getAbsoluteX()+x, self:getAbsoluteY()+y+self:getYScroll());
+
+    return true
+end
+
+
+function gameNightElement:onMoveElement(old, x, y)
 
     local window = gameNightWindow.instance--self:getParent()
     if not window or not window:isVisible() or not window.mouseOver then return end
@@ -28,7 +51,7 @@ function gameNightElement:onMouseUpOutside(x, y)
 
     print("item: ", tostring(item))
 
-    ISPanelJoypad.onMouseUpOutside(self, x, y)
+    old(self, x, y)
 
     local windowW, windowH = (window.width-padding), (window.height-padding)
 
@@ -60,11 +83,23 @@ function gameNightElement:onMouseUpOutside(x, y)
 
 end
 
+
+function gameNightElement:onMouseUpOutside(x, y) self:onMoveElement(ISPanelJoypad.onMouseUpOutside, x, y) end
+
+function gameNightElement:onMouseUp(x, y) self:onMoveElement(ISPanelJoypad.onMouseUp, x, y) end
+
+
 function gameNightElement:prerender()
     ISPanelJoypad.prerender(self)
     local window = gameNightWindow.instance--self:getParent()
     if not window or not window:isVisible() then
         self:setVisible(false)
+    end
+
+    if self.moving then
+        local selfW, selfH = self:getWidth(), self:getHeight()
+        local texture = self.itemObject:getModData()["gameNight_textureInPlay"] or self.itemObject:getTexture()
+        self:drawTexture(texture, self:getMouseX()-(selfW/2), self:getMouseY()-(selfH/2), 0.55, 1, 1, 1)
     end
 end
 
