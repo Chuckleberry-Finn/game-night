@@ -1,8 +1,10 @@
 require "ISUI/ISInventoryPaneContextMenu"
-local deckCataloger = require "gameNight - deckCataloger"
+local itemManipulation = require "gameNight - itemManipulation"
 local deckActionHandler = require "gameNight - deckActionHandler"
 
 local deckContext = {}
+
+deckContext.gameNightContextMenuIcon = getTexture("media/textures/gamenight_icon.png")
 
 function deckContext.addInventoryItemContext(player, context, items)
     for _, v in ipairs(items) do
@@ -10,7 +12,7 @@ function deckContext.addInventoryItemContext(player, context, items)
         local item = v
         if not instanceof(v, "InventoryItem") then item = v.items[1] end
 
-        deckCataloger.applyDeckToItem(item)
+        itemManipulation.applyGameNightToItem(item)
         local deck, flippedStates = deckActionHandler.getDeck(item)
 
         if deck then
@@ -52,7 +54,10 @@ function deckContext.addWorldContext(playerID, context, worldObjects)
     end
 
     if validObjectCount > 0 then
-        context:addOptionOnTop(getText("IGUI_Play_Game"), worldObjects, gameNightWindow.open, playerObj, square)
+        local option = context:addOptionOnTop(getText("IGUI_Play_Game"), worldObjects, gameNightWindow.open, playerObj, square)
+        option.iconTexture = deckContext.gameNightContextMenuIcon
     end
 end
 Events.OnFillWorldObjectContextMenu.Add(deckContext.addWorldContext)
+
+return deckContext

@@ -9,4 +9,6 @@ module Base
 		Icon	=	unoCards/deckUnoCards,
 		WorldStaticModel = UnoCards,
 	}
+
+
 }

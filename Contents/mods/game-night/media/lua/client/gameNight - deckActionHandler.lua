@@ -1,5 +1,4 @@
 local deckActionHandler = {}
---local deck = {"cardName"}
 
 function deckActionHandler.isDeckItem(deckItem)
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
@@ -53,19 +52,14 @@ function deckActionHandler.handleDetails(deckItem)
 
     if texture then deckItem:setTexture(texture) end
 
-    ---@type ItemContainer
-    local container = deckItem:getOutermostContainer()
-    if container then
-        local contParent = container:getParent()
-        if contParent and instanceof(contParent, "IsoPlayer") then
-
-            local inventory = getPlayerInventory(contParent:getPlayerNum())
-            if inventory then inventory:refreshBackpacks() end
-
-            local loot = getPlayerLoot(contParent:getPlayerNum())
-            if loot then loot:refreshBackpacks() end
-        end
+    if isClient() then
+        deckItem:transmitCompleteItemToServer()
+        deckItem:transmitModData()
     end
+
+    ---@type ItemContainer
+    local container = deckItem:getContainer()
+    if container then container:setDrawDirty(true) end
 end
 
 
@@ -77,19 +71,21 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped)
         newCard:getModData()["gameNight_cardDeck"] = {drawnCard}
         newCard:getModData()["gameNight_cardFlipped"] = {flipped}
 
-        ---@type IsoWorldInventoryObject
+        ---@type IsoObject|IsoWorldInventoryObject
         local worldItem = deckItem:getWorldItem()
         if worldItem then
+
+            local wiX = (worldItem:getWorldPosX()-worldItem:getX())+ZombRandFloat(-0.1,0.1)
+            local wiY = (worldItem:getWorldPosY()-worldItem:getY())+ZombRandFloat(-0.1,0.1)
+            local wiZ = (worldItem:getWorldPosZ()-worldItem:getZ())
+
             ---@type IsoGridSquare
             local sq = worldItem:getSquare()
-            if sq then
-                sq:AddWorldInventoryItem(newCard, 0, 0, 0)
-                return
-            end
+            if sq then sq:AddWorldInventoryItem(newCard, wiX, wiY, wiZ) end
         end
 
         ---@type ItemContainer
-        local container = deckItem:getOutermostContainer()
+        local container = deckItem:getContainer()
         if container then container:AddItem(newCard) end
 
         deckActionHandler.handleDetails(deckItem)
@@ -106,19 +102,13 @@ function deckActionHandler.flipCard(deckItem)
     local handleFlippedDeck = {}
     local handleFlippedStates = {}
 
-    print("flip: ")
-
     for n=#deck, 1, -1 do
-        print("deck["..n.."]: "..deck[n])
         table.insert(handleFlippedDeck, deck[n])
         table.insert(handleFlippedStates, (not currentFlipStates[n]))
     end
 
     deckItem:getModData()["gameNight_cardDeck"] = handleFlippedDeck
     deckItem:getModData()["gameNight_cardFlipped"] = handleFlippedStates
-
-    --deck = handleFlippedDeck
-    --currentFlipStates = handleFlippedStates
 
     deckActionHandler.handleDetails(deckItem)
 end

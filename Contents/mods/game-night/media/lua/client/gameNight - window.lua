@@ -19,13 +19,49 @@ function gameNightWindow:initialise()
     self.close:initialise()
     self.close:instantiate()
     self:addChild(self.close)
+
+    local playerNum = self.player:getPlayerNum()
+
+    local inventory = getPlayerInventory(playerNum)
+    if inventory then inventory:refreshBackpacks() end
+
+    local loot = getPlayerLoot(playerNum)
+    if loot then loot:refreshBackpacks() end
 end
 
 
-function gameNightWindow:onClick(button)
-    if button.internal == "CLOSE" then
-        self:setVisible(false)
-        --self:removeFromUIManager()
+function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self:setVisible(false) end end
+
+
+function gameNightWindow:onMouseDown(x, y)
+    self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
+    ISPanelJoypad.onMouseDown(self, x, y)
+end
+
+
+---@param item IsoObject|InventoryItem
+---@param object IsoObject|IsoWorldInventoryObject
+function gameNightWindow:generateElement(item, object, priority)
+    ---@type gameNightElement
+    local element = self.elements[item]
+    local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
+    local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
+    local texture = item:getModData()["gameNight_textureInPlay"] or item:getTexture()
+    local w, h = texture:getWidth(), texture:getHeight()
+
+    if not element then
+        self.elements[item] = gameNightElement:new(x, y, w, h, item)
+        element = self.elements[item]
+        element:addToUIManager()
+    end
+
+    if element then
+        element:setVisible(true)
+        element:setX(self.x+x)
+        element:setY(self.y+y)
+        element:drawTextureScaledAspect(texture, 0, 0, w, h, 1, 1, 1, 1)
+        element.priority = priority
+        element:bringToTop()
     end
 end
 
@@ -38,8 +74,9 @@ function gameNightWindow:prerender()
     local square = self.square
     if not square then return end
 
-    local padding = 45
-    self:drawRectBorder(padding, padding, (self.width-(padding*2)), (self.height-(padding*2)), 0.8, 0.8, 0.8, 0.8)
+    self:drawRectBorder(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), 0.8, 0.8, 0.8, 0.8)
+
+    local loadOrder = {}
 
     for i=0, square:getObjects():size()-1 do
         ---@type IsoObject|IsoWorldInventoryObject
@@ -48,51 +85,27 @@ function gameNightWindow:prerender()
             local item = object:getItem()
             if item and item:getTags():contains("gameNight") then
 
-                ---@type gameNightElement
-                local element = self.elements[item]
-                local x = (object:getWorldPosX()-object:getX()) * (self.width-(padding*2))
-                local y = (object:getWorldPosY()-object:getY()) * (self.height-(padding*2))
-                local texture = item:getModData()["gameNight_textureInPlay"] or item:getTexture()
-                local w, h = texture:getWidth(), texture:getHeight()
-
-                if not element then
-                    print(item:getName())
-
-                    self.elements[item] = gameNightElement:new(x, y, w, h, item)
-                    element = self.elements[item]
-                    --self:addChild(element)
-                    element:addToUIManager()
-                end
-
-                if element then
-                    element:setVisible(true)
-                    element:setX(self.x+x)
-                    element:setY(self.y+y)
-                    element:drawTexture(texture, 0, 0, 1, 1, 1, 1)
-                    element:bringToTop()
-                end
-                --print(item:getName(), " : ", textureX, ", ", textureY)
+                local position = (item:getDisplayCategory() == "GameBoard") and 0 or #loadOrder
+                table.insert(loadOrder, position, {item=item, object=object})
             end
         end
+    end
+
+    for priority,stuff in pairs(loadOrder) do
+        self:generateElement(stuff.item, stuff.object, priority)
     end
 end
 
 
-
-function gameNightWindow:render()
-
-end
+function gameNightWindow:render() ISPanelJoypad.render(self) end
 
 
 function gameNightWindow.open(self, player, square)
 
     if not gameNightWindow.instance then
         gameNightWindow:new(nil, nil, 500, 500, player, square)
-
         gameNightWindow.instance:initialise()
         gameNightWindow.instance:addToUIManager()
-        --gameNightWindow.instance:setVisible(false)
-        --gameNightWindow.instance:removeFromUIManager()
     end
     gameNightWindow.instance.square = square
     gameNightWindow.instance:setVisible(true)
@@ -117,7 +130,10 @@ function gameNightWindow:new(x, y, width, height, player, square)
     o.player = player
     o.square = square
 
-    o.moveWithMouse = true
+    o.padding = 45
+    o.bounds = {x1=o.padding, y1=o.padding, x2=o.width-o.padding, y2=o.height-o.padding}
+
+    --o.moveWithMouse = true
     o.selectedItem = nil
     o.pendingRequest = false
 

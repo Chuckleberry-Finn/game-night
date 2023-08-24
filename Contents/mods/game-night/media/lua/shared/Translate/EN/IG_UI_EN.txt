@@ -9,5 +9,7 @@ IGUI_EN = {
     IGUI_Play_Game = "Play Game",
 
     IGUI_ItemCat_Card = "Card",
+    IGUI_ItemCat_GamePiece = "Game Piece",
+    IGUI_ItemCat_GameBoard = "Game Board",
     IGUI_ItemCat_Deck = "Deck",
 }
