@@ -3,9 +3,9 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 
 local itemManipulation = {}
 
-itemManipulation.catalogues = {}
+itemManipulation.deckCatalogues = {}
 
-function itemManipulation.addDeck(name, cards) itemManipulation.catalogues[name] = cards end
+function itemManipulation.addDeck(name, cards) itemManipulation.deckCatalogues[name] = cards end
 
 
 itemManipulation.parsedItems = {}
@@ -21,7 +21,7 @@ function itemManipulation.applyGameNightToItem(item)
         gamePiece = gamePieceAndBoardHandler.getGamePiece(item)
         if gamePiece then gamePieceAndBoardHandler.handleDetails(item) end
 
-        deck = itemManipulation.catalogues[item:getType()]
+        deck = itemManipulation.deckCatalogues[item:getType()]
         if deck then
             itemManipulation.parsedItems[item] = true
             if deck then
