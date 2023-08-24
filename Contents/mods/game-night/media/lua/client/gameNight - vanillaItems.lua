@@ -28,7 +28,7 @@
 --        WorldStaticModel = GamePiecesBlack_Ground,
 --    }
 --
---    item GamePieceRed GamePieceBlack
+--    item GamePieceRed
 --    {
 --        DisplayCategory = Junk,
 --        Weight	=	0.1,
@@ -38,7 +38,7 @@
 --        WorldStaticModel = GamePiecesRed_Ground,
 --    }
 --
---    item GamePieceWhite GamePieceRed GamePieceBlack
+--    item GamePieceWhite
 --    {
 --        DisplayCategory = Junk,
 --        Weight	=	0.1,
@@ -48,7 +48,7 @@
 --        WorldStaticModel = GamePiecesWhite_Ground,
 --    }
 
---    item CheckerBoard GamePieceWhite GamePieceRed GamePieceBlack
+--    item CheckerBoard
 --    {
 --        DisplayCategory = Junk,
 --        Weight	=	0.3,
@@ -58,7 +58,7 @@
 --        WorldStaticModel = CheckerBoard_Ground,
 --    }
 
---    item BackgammonBoard CheckerBoard GamePieceWhite GamePieceRed GamePieceBlack
+--    item BackgammonBoard
 --    {
 --        DisplayCategory = Junk,
 --        Weight	=	0.3,
@@ -68,7 +68,7 @@
 --        WorldStaticModel = BackgammonBoard_Ground,
 --    }
 
---    item PokerChips BackgammonBoard CheckerBoard GamePieceWhite GamePieceRed GamePieceBlack
+--    item PokerChips
 --    {
 --        DisplayCategory = Junk,
 --        Weight	=	0.2,
@@ -78,7 +78,7 @@
 --        WorldStaticModel = PokerChips_Ground,
 --    }
 
---     item ChessBlack PokerChips BackgammonBoard CheckerBoard GamePieceWhite GamePieceRed GamePieceBlack
+--     item ChessBlack
 --    {
 --        DisplayCategory = Junk,
 --        Weight	=	0.1,
@@ -88,7 +88,7 @@
 --        WorldStaticModel = BlackChessPieces,
 --    }
 
---    item ChessWhite ChessBlack PokerChips BackgammonBoard CheckerBoard GamePieceWhite GamePieceRed GamePieceBlack
+--    item ChessWhite
 --    {
 --        DisplayCategory = Junk,
 --        Weight	=	0.1,
