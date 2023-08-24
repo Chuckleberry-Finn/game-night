@@ -8,7 +8,7 @@ end
 
 
 ---@param deckItem IsoObject
-function deckActionHandler.getDeck(deckItem)
+function deckActionHandler.getDeckStates(deckItem)
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
     if not deckData then return end
 
@@ -21,30 +21,30 @@ end
 deckActionHandler.cardWeight = 0.003
 ---@param deckItem InventoryItem
 function deckActionHandler.handleDetails(deckItem)
-    local deck, flippedStates = deckActionHandler.getDeck(deckItem)
-    if not deck or not flippedStates then return end
+    local deckStates, flippedStates = deckActionHandler.getDeckStates(deckItem)
+    if not deckStates or not flippedStates then return end
 
-    if #deck <= 0 then return end
+    if #deckStates <= 0 then return end
     local itemType = deckItem:getType()
 
-    deckItem:setWeight(deckActionHandler.cardWeight*#deck)
+    deckItem:setWeight(deckActionHandler.cardWeight*#deckStates)
     deckItem:getTags():add("gameNight")
 
     ---@type Texture
     local texture
 
-    local category = #deck>1 and "Deck" or "Card"
+    local category = #deckStates>1 and "Deck" or "Card"
     deckItem:setDisplayCategory(category)
 
-    local name_suffix = #deck>1 and " ["..#deck.."]" or ""
+    local name_suffix = #deckStates>1 and " ["..#deckStates.."]" or ""
 
-    if flippedStates[#deck] ~= true then
-        deckItem:setName(deck[#deck]..name_suffix)
-        texture = getTexture("media/textures/"..itemType.."/"..deck[#deck]..".png")
+    if flippedStates[#deckStates] ~= true then
+        deckItem:setName(deckStates[#deckStates]..name_suffix)
+        texture = getTexture("media/textures/"..itemType.."/"..deckStates[#deckStates]..".png")
         deckItem:getModData()["gameNight_textureInPlay"] = nil
 
     else
-        local textureID = #deck>1 and "deck" or "card"
+        local textureID = #deckStates>1 and "deck" or "card"
         deckItem:setName(getText("IGUI_"..itemType)..name_suffix)
         texture = getTexture("media/textures/"..itemType.."/"..textureID..deckItem:getType()..".png")
         deckItem:getModData()["gameNight_textureInPlay"] = getTexture("media/textures/"..itemType.."/FlippedInPlay.png")
@@ -96,14 +96,14 @@ end
 
 
 function deckActionHandler.flipCard(deckItem)
-    local deck, currentFlipStates = deckActionHandler.getDeck(deckItem)
-    if not deck then return end
+    local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
+    if not deckStates then return end
 
     local handleFlippedDeck = {}
     local handleFlippedStates = {}
 
-    for n=#deck, 1, -1 do
-        table.insert(handleFlippedDeck, deck[n])
+    for n=#deckStates, 1, -1 do
+        table.insert(handleFlippedDeck, deckStates[n])
         table.insert(handleFlippedStates, (not currentFlipStates[n]))
     end
 
@@ -135,10 +135,10 @@ end
 ---@param deckItemA InventoryItem
 ---@param deckItemB InventoryItem
 function deckActionHandler.mergeDecks(deckItemA, deckItemB)
-    local deckB, flippedB = deckActionHandler.getDeck(deckItemB)
+    local deckB, flippedB = deckActionHandler.getDeckStates(deckItemB)
     if not deckB then return end
 
-    local deckA, flippedA = deckActionHandler.getDeck(deckItemA)
+    local deckA, flippedA = deckActionHandler.getDeckStates(deckItemA)
     if not deckA then return end
 
     for _,card in pairs(deckA) do table.insert(deckB, card) end
@@ -154,9 +154,9 @@ require "ISUI/ISInventoryPane"
 local ISInventoryPane_doContextualDblClick = ISInventoryPane.doContextualDblClick
 function ISInventoryPane:doContextualDblClick(item)
     ISInventoryPane_doContextualDblClick(self, item)
-    local deck, flippedStates = deckActionHandler.getDeck(item)
-    if deck then
-        if #deck>1 then
+    local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
+    if deckStates then
+        if #deckStates>1 then
             deckActionHandler.drawCard(item)
         else
             deckActionHandler.flipCard(item)
@@ -229,16 +229,16 @@ end
 
 ---@param deckItem InventoryItem
 function deckActionHandler.drawCards(num, deckItem)
-    local deck, currentFlipStates = deckActionHandler.getDeck(deckItem)
-    if not deck then return end
+    local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
+    if not deckStates then return end
 
     local drawnCards = {}
     local drawnFlippedStates = {}
-    local draw = #deck
+    local draw = #deckStates
 
     for i=1, num do
-        local drawnCard, drawnFlip = deck[draw], currentFlipStates[draw]
-        deck[draw] = nil
+        local drawnCard, drawnFlip = deckStates[draw], currentFlipStates[draw]
+        deckStates[draw] = nil
         if currentFlipStates then currentFlipStates[draw] = nil end
         table.insert(drawnCards, drawnCard)
         table.insert(drawnFlippedStates, drawnFlip)
@@ -253,26 +253,26 @@ function deckActionHandler.drawCard(deckItem) deckActionHandler.drawCards(1, dec
 
 ---@param deckItem InventoryItem
 function deckActionHandler.drawRandCard(deckItem)
-    local deck, currentFlipStates = deckActionHandler.getDeck(deckItem)
-    if not deck then return end
+    local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
+    if not deckStates then return end
 
-    local deckCount = #deck
+    local deckCount = #deckStates
     local drawIndex = ZombRand(deckCount)+1
     local drawnCard, drawnFlipped
 
     for i=1,deckCount do
         if i==drawIndex then
-            drawnCard = deck[i]
+            drawnCard = deckStates[i]
             drawnFlipped = currentFlipStates[i]
-            deck[i] = nil
+            deckStates[i] = nil
             currentFlipStates[i] = nil
         end
 
         if i>drawIndex then
-            if deck[i-1] == nil then
-                deck[i-1] = deck[i]
+            if deckStates[i-1] == nil then
+                deckStates[i-1] = deckStates[i]
                 currentFlipStates[i-1] = currentFlipStates[i]
-                deck[i] = nil
+                deckStates[i] = nil
                 currentFlipStates[i] = nil
             end
         end
@@ -283,13 +283,13 @@ end
 
 
 function deckActionHandler.shuffleCards(deckItem)
-    local deck, currentFlipStates = deckActionHandler.getDeck(deckItem)
-    if not deck then return end
+    local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
+    if not deckStates then return end
 
-    for origIndex = #deck, 2, -1 do
+    for origIndex = #deckStates, 2, -1 do
         local shuffledIndex = ZombRand(origIndex)+1
         currentFlipStates[origIndex], currentFlipStates[shuffledIndex] = currentFlipStates[shuffledIndex], currentFlipStates[origIndex]
-        deck[origIndex], deck[shuffledIndex] = deck[shuffledIndex], deck[origIndex]
+        deckStates[origIndex], deckStates[shuffledIndex] = deckStates[shuffledIndex], deckStates[origIndex]
     end
 
     deckActionHandler.handleDetails(deckItem)
