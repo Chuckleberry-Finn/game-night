@@ -21,7 +21,7 @@ gamePieceAndBoardHandler.specials = {
 }
 
 function gamePieceAndBoardHandler.getGamePiece(gamePiece)
-    return gamePieceAndBoardHandler._itemTypes[gamePiece]
+    return gamePieceAndBoardHandler._itemTypes[gamePiece:getFullType()]
 end
 
 ---@param gamePiece InventoryItem

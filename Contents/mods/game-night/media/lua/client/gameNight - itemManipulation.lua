@@ -17,9 +17,7 @@ function itemManipulation.applyGameNightToItem(item)
     if (not itemManipulation.parsedItems[item]) then
 
         if not gamePieceAndBoardHandler._itemTypes then gamePieceAndBoardHandler.generate_itemTypes() end
-
-        print("APPLYING TO: "..item:getFullType())
-
+        
         gamePiece = gamePieceAndBoardHandler.getGamePiece(item)
         if gamePiece then gamePieceAndBoardHandler.handleDetails(item) end
 
