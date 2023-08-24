@@ -44,7 +44,7 @@ function gameNightElement:moveElement(x, y)
     local boundsDifference = window.padding*2
     local scaledX = (newX/(window.width-boundsDifference))
     local scaledY = (newY/(window.height-boundsDifference))
-    
+
     local maintain_z = item:getWorldItem() and item:getWorldItem():getWorldPosZ() or 0
     ISTimedActionQueue.add(ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 0))
     local dropAction = ISDropWorldItemAction:new(window.player, item, window.square, scaledX, scaledY, maintain_z, 0, false)
@@ -103,7 +103,6 @@ function gameNightElement:onMouseDown(x, y)
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
     local selection = self:getPriorityPiece(x, y, window)
-    --ISPanelJoypad.onMouseDown(selection, x, y)
     selection.moving = true
 end
 
@@ -116,6 +115,7 @@ function gameNightElement:prerender()
     end
 
     if self.moving then
+        if not isMouseButtonDown(0) then return end
         local selfW, selfH = self:getWidth(), self:getHeight()
         local texture = self.itemObject:getModData()["gameNight_textureInPlay"] or self.itemObject:getTexture()
         self:drawTexture(texture, self:getMouseX()-(selfW/2), self:getMouseY()-(selfH/2), 0.55, 1, 1, 1)
