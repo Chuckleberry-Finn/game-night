@@ -1,22 +1,31 @@
 require "ISUI/ISInventoryPaneContextMenu"
 local itemManipulation = require "gameNight - itemManipulation"
 local deckActionHandler = require "gameNight - deckActionHandler"
+local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 
-local deckContext = {}
+local gamePieceContext = {}
 
-deckContext.gameNightContextMenuIcon = getTexture("media/textures/gamenight_icon.png")
+gamePieceContext.gameNightContextMenuIcon = getTexture("media/textures/gamenight_icon.png")
 
-function deckContext.addInventoryItemContext(player, context, items)
+function gamePieceContext.addInventoryItemContext(player, context, items)
     for _, v in ipairs(items) do
 
+        ---@type InventoryItem
         local item = v
         if not instanceof(v, "InventoryItem") then item = v.items[1] end
 
-        itemManipulation.applyGameNightToItem(item)
-        local deck, flippedStates = deckActionHandler.getDeck(item)
+        local deck, gamePiece = itemManipulation.applyGameNightToItem(item)
 
-        if deck then
-            if #deck>1 then
+        if gamePiece then
+            local special = gamePieceAndBoardHandler.specials[item:getFullType()]
+            if special and special.flipTexture then
+                context:addOption(getText("IGUI_flipPiece"), item, gamePieceAndBoardHandler.flipPiece)
+            end
+        end
+
+        local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
+        if deckStates then
+            if #deckStates>1 then
                 context:addOption(getText("IGUI_drawCard"), item, deckActionHandler.drawCard)
                 context:addOption(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard)
                 context:addOption(getText("IGUI_shuffleCards"), item, deckActionHandler.shuffleCards)
@@ -27,11 +36,11 @@ function deckContext.addInventoryItemContext(player, context, items)
     end
 end
 
-Events.OnPreFillInventoryObjectContextMenu.Add(deckContext.addInventoryItemContext)
+Events.OnPreFillInventoryObjectContextMenu.Add(gamePieceContext.addInventoryItemContext)
 
 
 require "gameNight - window"
-function deckContext.addWorldContext(playerID, context, worldObjects)
+function gamePieceContext.addWorldContext(playerID, context, worldObjects)
     local playerObj = getSpecificPlayer(playerID)
     local square
 
@@ -55,9 +64,9 @@ function deckContext.addWorldContext(playerID, context, worldObjects)
 
     if validObjectCount > 0 then
         local option = context:addOptionOnTop(getText("IGUI_Play_Game"), worldObjects, gameNightWindow.open, playerObj, square)
-        option.iconTexture = deckContext.gameNightContextMenuIcon
+        option.iconTexture = gamePieceContext.gameNightContextMenuIcon
     end
 end
-Events.OnFillWorldObjectContextMenu.Add(deckContext.addWorldContext)
+Events.OnFillWorldObjectContextMenu.Add(gamePieceContext.addWorldContext)
 
-return deckContext
+return gamePieceContext
