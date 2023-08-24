@@ -38,7 +38,6 @@ function gameNightElement:onMoveElement(old, x, y, target)
     if not window or not window:isVisible() then return end
 
     if not self.moving then return end
-    self.moving = false
 
     ---@type IsoObject|IsoWorldInventoryObject
     local item = self.itemObject
@@ -120,7 +119,7 @@ function gameNightElement:new(x, y, width, height, itemObject)
 
     o.itemObject = itemObject
 
-    o.borderColor = {r=1, g=1, b=1, a=0.2}
+    o.borderColor = {r=1, g=1, b=1, a=0}
     o.backgroundColor = {r=1, g=1, b=1, a=0}
 
     o.moveWithMouse = true

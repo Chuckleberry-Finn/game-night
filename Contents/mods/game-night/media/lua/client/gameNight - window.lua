@@ -34,7 +34,6 @@ function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self
 
 
 function gameNightWindow:onMouseDown(x, y)
-    print("ON WINDOW")
     self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
     ISPanelJoypad.onMouseDown(self, x, y)
 end
