@@ -15,11 +15,12 @@ end
 --]]
 
 
-function gameNightElement:onMouseUpOutside(x, y) self:moveElement(ISPanelJoypad.onMouseUpOutside, x, y) end
-function gameNightElement:onMouseUp(x, y) self:moveElement(ISPanelJoypad.onMouseUp, x, y) end
-function gameNightElement:moveElement(old, x, y)
+function gameNightElement:onMouseUpOutside(x, y) self:moveElement(x, y) end
+function gameNightElement:onMouseUp(x, y) self:moveElement(x, y) end
+function gameNightElement:moveElement(x, y)
 
     if not self.moveWithMouse or not self.moving then return end
+    self.moving = false
 
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
@@ -28,7 +29,7 @@ function gameNightElement:moveElement(old, x, y)
     local item = self.itemObject
     if not item then return end
 
-    old(self, x, y)
+    --old(self, x, y)
 
     local selfW, selfH = self:getWidth(), self:getHeight()
 
@@ -49,7 +50,6 @@ function gameNightElement:moveElement(old, x, y)
     local dropAction = ISDropWorldItemAction:new(window.player, item, window.square, scaledX, scaledY, maintain_z, 0, false)
     dropAction.maxTime = 1
     ISTimedActionQueue.add(dropAction)
-
 end
 
 
@@ -99,10 +99,12 @@ end
 
 
 function gameNightElement:onMouseDown(x, y)
+    if self.moving then return end
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
     local selection = self:getPriorityPiece(x, y, window)
-    ISPanelJoypad.onMouseDown(selection, x, y)
+    --ISPanelJoypad.onMouseDown(selection, x, y)
+    selection.moving = true
 end
 
 
