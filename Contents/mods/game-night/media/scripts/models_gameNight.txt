@@ -27,4 +27,11 @@ module Base
         texture = cardDeck/deckTextureCardDeck,
         scale = 0.02,
     }
+
+    model ChessBoard_Ground
+    {
+        mesh = WorldItems/CheckerBoard,
+        texture = inPlayTextures/ChessBoard,
+        scale = 0.4,
+    }
 }
