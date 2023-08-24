@@ -67,7 +67,7 @@ end
 
 
 function gameNightWindow.compareElements(a, b)
-    return a.object:getWorldPosY() < b.object:getWorldPosY() and (b.item:getDisplayCategory() ~= "GameBoard")
+    return a.object:getWorldPosY() < b.object:getWorldPosY() and (b.item:getDisplayCategory()==a.item:getDisplayCategory() or b.item:getDisplayCategory() ~= "GameBoard")
 end
 
 function gameNightWindow:prerender()
