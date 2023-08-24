@@ -14,8 +14,7 @@ function gamePieceContext.addInventoryItemContext(player, context, items)
         local item = v
         if not instanceof(v, "InventoryItem") then item = v.items[1] end
 
-        local deck, gamePiece = itemManipulation.applyGameNightToItem(item)
-
+        local gamePiece = gamePieceAndBoardHandler.getGamePiece(item)
         if gamePiece then
             local special = gamePieceAndBoardHandler.specials[item:getFullType()]
             if special and special.flipTexture then

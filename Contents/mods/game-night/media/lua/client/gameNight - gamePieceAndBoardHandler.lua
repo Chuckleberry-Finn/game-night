@@ -51,7 +51,7 @@ end
 
 function gamePieceAndBoardHandler.flipPiece(gamePiece)
 
-    local special = gamePieceAndBoardHandler.specials[item:getFullType()]
+    local special = gamePieceAndBoardHandler.specials[gamePiece:getFullType()]
     if not special or not special.flipTexture then return end
 
     local current = gamePiece:getModData()["gameNight_pieceFlipped"] or false

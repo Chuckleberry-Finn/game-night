@@ -17,7 +17,7 @@ function itemManipulation.applyGameNightToItem(item)
     if (not itemManipulation.parsedItems[item]) then
 
         if not gamePieceAndBoardHandler._itemTypes then gamePieceAndBoardHandler.generate_itemTypes() end
-        
+
         gamePiece = gamePieceAndBoardHandler.getGamePiece(item)
         if gamePiece then gamePieceAndBoardHandler.handleDetails(item) end
 
@@ -36,8 +36,6 @@ function itemManipulation.applyGameNightToItem(item)
             end
         end
     end
-
-    return gamePiece, deck
 end
 
 
