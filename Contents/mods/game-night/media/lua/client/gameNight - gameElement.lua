@@ -42,9 +42,9 @@ function gameNightElement:moveElement(x, y)
     if newX < window.bounds.x1 or newY < window.bounds.y1 or newX > window.bounds.x2 or newY > window.bounds.y2 then return end
 
     local boundsDifference = window.padding*2
-    local scaledX = newX/(window.width-boundsDifference)
-    local scaledY = newY/(window.height-boundsDifference)
-
+    local scaledX = (newX/(window.width-boundsDifference))
+    local scaledY = (newY/(window.height-boundsDifference))
+    
     local maintain_z = item:getWorldItem() and item:getWorldItem():getWorldPosZ() or 0
     ISTimedActionQueue.add(ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 0))
     local dropAction = ISDropWorldItemAction:new(window.player, item, window.square, scaledX, scaledY, maintain_z, 0, false)
