@@ -34,7 +34,7 @@ function gameNightElement:onMoveElement(old, x, y, target)
 
     if not self.moveWithMouse then return end
 
-    local window = gameNightWindow.instance--self:getParent()
+    local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
 
     if not self.moving then return end
@@ -76,6 +76,22 @@ end
 function gameNightElement:onMouseUpOutside(x, y) self:onMoveElement(ISPanelJoypad.onMouseUpOutside, x, y) end
 
 function gameNightElement:onMouseUp(x, y) self:onMoveElement(ISPanelJoypad.onMouseUp, x, y, self) end
+
+
+function gameNightElement:onMouseDown(x, y)
+    local window = gameNightWindow.instance
+    if not window or not window:isVisible() then return end
+    local cursorX, cursorY = x+self.x, y+self.y
+    local selection = self
+    for item,element in pairs(window.elements) do
+        if element:isVisible() then
+            local inBounds = ((cursorX >= element.x) and (cursorY >= element.y) and (cursorX <= element.x+element.width) and (cursorY <= element.y+element.height))
+            if inBounds and element.priority > selection.priority then selection = element end
+        end
+    end
+    selection = selection or self
+    ISPanelJoypad.onMouseDown(selection, x, y)
+end
 
 
 function gameNightElement:prerender()

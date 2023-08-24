@@ -34,6 +34,7 @@ function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self
 
 
 function gameNightWindow:onMouseDown(x, y)
+    print("ON WINDOW")
     self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
     ISPanelJoypad.onMouseDown(self, x, y)
 end
@@ -66,6 +67,10 @@ function gameNightWindow:generateElement(item, object, priority)
 end
 
 
+function gameNightWindow.compareElements(a, b)
+    return a.object:getWorldPosY() < b.object:getWorldPosY() and (b.item:getDisplayCategory() ~= "GameBoard")
+end
+
 function gameNightWindow:prerender()
     ISPanelJoypad.prerender(self)
     for item,element in pairs(self.elements) do element:setVisible(false) end
@@ -77,23 +82,19 @@ function gameNightWindow:prerender()
     self:drawRectBorder(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), 0.8, 0.8, 0.8, 0.8)
 
     local loadOrder = {}
-
     for i=0, square:getObjects():size()-1 do
         ---@type IsoObject|IsoWorldInventoryObject
         local object = square:getObjects():get(i)
         if object and instanceof(object, "IsoWorldInventoryObject") then
             local item = object:getItem()
             if item and item:getTags():contains("gameNight") then
-
-                local position = (item:getDisplayCategory() == "GameBoard") and 0 or #loadOrder
-                table.insert(loadOrder, position, {item=item, object=object})
+                table.insert(loadOrder, {item=item, object=object})
             end
         end
     end
 
-    for priority,stuff in pairs(loadOrder) do
-        self:generateElement(stuff.item, stuff.object, priority)
-    end
+    table.sort(loadOrder, gameNightWindow.compareElements)
+    for priority,stuff in pairs(loadOrder) do self:generateElement(stuff.item, stuff.object, priority) end
 end
 
 
