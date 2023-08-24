@@ -11,15 +11,17 @@ function itemManipulation.addDeck(name, cards) itemManipulation.catalogues[name]
 itemManipulation.parsedItems = {}
 function itemManipulation.applyGameNightToItem(item)
     if not item then return end
+
+    local gamePiece, deck
+
     if (not itemManipulation.parsedItems[item]) then
 
         if not gamePieceAndBoardHandler._itemTypes then gamePieceAndBoardHandler.generate_itemTypes() end
-        local gamePiece = gamePieceAndBoardHandler._itemTypes[item:getFullType()]
-        if gamePiece then
-            gamePieceAndBoardHandler.handleDetails(item)
-        end
 
-        local deck = itemManipulation.catalogues[item:getType()]
+        gamePiece = gamePieceAndBoardHandler.getGamePiece(item)
+        if gamePiece then gamePieceAndBoardHandler.handleDetails(item) end
+
+        deck = itemManipulation.catalogues[item:getType()]
         if deck then
             itemManipulation.parsedItems[item] = true
             if deck then
@@ -34,6 +36,8 @@ function itemManipulation.applyGameNightToItem(item)
             end
         end
     end
+
+    return gamePiece, deck
 end
 
 
