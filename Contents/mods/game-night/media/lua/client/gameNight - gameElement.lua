@@ -30,7 +30,7 @@ function gameNightElement:onRightMouseUp(x, y)
 end
 
 
-function gameNightElement:onMoveElement(old, x, y, target)
+function gameNightElement:onMoveElement(old, x, y)
 
     if not self.moveWithMouse then return end
 
@@ -73,8 +73,7 @@ function gameNightElement:onRightMouseUp(x, y)
 end
 
 function gameNightElement:onMouseUpOutside(x, y) self:onMoveElement(ISPanelJoypad.onMouseUpOutside, x, y) end
-
-function gameNightElement:onMouseUp(x, y) self:onMoveElement(ISPanelJoypad.onMouseUp, x, y, self) end
+function gameNightElement:onMouseUp(x, y) self:onMoveElement(ISPanelJoypad.onMouseUp, x, y) end
 
 
 function gameNightElement:onMouseDown(x, y)
