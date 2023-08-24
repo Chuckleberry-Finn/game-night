@@ -61,7 +61,6 @@ function gameNightWindow:generateElement(item, object, priority)
         element:setY(self.y+y)
         element:drawTextureScaledAspect(texture, 0, 0, w, h, 1, 1, 1, 1)
         element.priority = priority
-        element:bringToTop()
     end
 end
 
@@ -69,6 +68,12 @@ end
 function gameNightWindow.compareElements(a, b)
     return a.object:getWorldPosY() < b.object:getWorldPosY() and (b.item:getDisplayCategory()==a.item:getDisplayCategory() or b.item:getDisplayCategory() ~= "GameBoard")
 end
+
+function gameNightWindow:bringToTop()
+    ISPanelJoypad.bringToTop(self)
+    for item,element in pairs(self.elements) do element:bringToTop() end
+end
+
 
 function gameNightWindow:prerender()
     ISPanelJoypad.prerender(self)
