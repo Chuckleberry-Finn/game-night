@@ -1,3 +1,7 @@
 ItemName_EN = {
     ItemName_UnoCards = "Uno Cards"
+    ItemName_Base.GamePieceBlack = "Black Checkers Piece",
+    ItemName_Base.GamePieceRed = "Red Checkers Piece",
+    ItemName_Base.GamePieceWhite = "White Backgammon Piece",
+    ItemName_Base.GamePieceBlackBackgammon = "Black Backgammon Piece",
 }
