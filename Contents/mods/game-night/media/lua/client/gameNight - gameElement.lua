@@ -23,7 +23,7 @@ function gameNightElement:moveElement(old, x, y)
 
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
-    
+
     ---@type IsoObject|IsoWorldInventoryObject
     local item = self.itemObject
     if not item then return end
@@ -53,7 +53,7 @@ function gameNightElement:moveElement(old, x, y)
 end
 
 
-function gameNightElement:onRightMouseUp(x, y)
+function gameNightElement:onContextSelection(o, x, y)
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
 
@@ -69,9 +69,8 @@ function gameNightElement:onRightMouseUp(x, y)
     local contextMenuItems = {item}
     if self.toolRender then self.toolRender:setVisible(false) end
 
-    print(" ---- context: "..self.itemObject:getName())
-
-    local menu = ISInventoryPaneContextMenu.createMenu(playerID, isInInv, contextMenuItems, self:getAbsoluteX()+x, self:getAbsoluteY()+y+self:getYScroll());
+    local oX, oY = o:getAbsoluteX()+x, o:getAbsoluteY()+y+o:getYScroll()
+    local menu = ISInventoryPaneContextMenu.createMenu(playerID, isInInv, contextMenuItems, oX, oY)
     return true
 end
 
@@ -79,32 +78,27 @@ end
 function gameNightElement:getPriorityPiece(x, y, window)
     local cursorX, cursorY = x+self.x, y+self.y
     local selection = self
-    print("x:y: "..cursorX..","..cursorY)
     for item,element in pairs(window.elements) do
         if element:isVisible() then
             local inBounds = ((cursorX >= element.x) and (cursorY >= element.y) and (cursorX <= element.x+element.width) and (cursorY <= element.y+element.height))
             if inBounds and element.priority > selection.priority then
-                print(" --isInBounds: "..item:getName())
                 selection = element
             end
         end
     end
-    print(" -selection: "..selection.itemObject:getName())
     return selection
 end
 
 
 function gameNightElement:onRightMouseDown(x, y)
-    print("onRightMouseDown")
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
     local selection = self:getPriorityPiece(x, y, window)
-    ISPanelJoypad.onRightMouseDown(selection, x, y)
+    selection:onContextSelection(self, x, y)
 end
 
 
 function gameNightElement:onMouseDown(x, y)
-    print("onMouseDown")
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
     local selection = self:getPriorityPiece(x, y, window)
