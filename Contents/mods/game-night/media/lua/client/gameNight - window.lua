@@ -13,7 +13,7 @@ function gameNightWindow:initialise()
     local btnHgt = 25
     local padBottom = 10
 
-    self.close = ISButton:new(45, self:getHeight() - padBottom - btnHgt, btnWid, btnHgt, getText("UI_Close"), self, gameNightWindow.onClick)
+    self.close = ISButton:new(self.padding, self:getHeight() - padBottom - btnHgt, btnWid, btnHgt, getText("UI_Close"), self, gameNightWindow.onClick)
     self.close.internal = "CLOSE"
     self.close.borderColor = {r=1, g=1, b=1, a=0.4}
     self.close:initialise()
@@ -121,8 +121,8 @@ end
 
 function gameNightWindow:new(x, y, width, height, player, square)
     local o = {}
-    x = x or getCore():getScreenWidth() / 2 - (width / 2)
-    y = y or getCore():getScreenHeight() / 2 - (height / 2)
+    x = x or getCore():getScreenWidth()/2 - (width/2)
+    y = y or getCore():getScreenHeight()/2 - (height/2)
     o = ISPanelJoypad:new(x, y, width, height)
     setmetatable(o, self)
     self.__index = self
