@@ -56,6 +56,7 @@ function gamePieceContext.addWorldContext(playerID, context, worldObjects)
         if object and instanceof(object, "IsoWorldInventoryObject") then
             local item = object:getItem()
             if item and item:getTags():contains("gameNight") then
+                itemManipulation.applyGameNightToItem(item)
                 validObjectCount = validObjectCount+1
             end
         end
