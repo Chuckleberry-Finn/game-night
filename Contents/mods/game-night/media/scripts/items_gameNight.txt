@@ -1,33 +1,89 @@
 module Base
 {
 	item UnoCards
-	{
-	    DisplayCategory = Deck,
-		Weight	=	0.2,
-		Type	=	Normal,
+	{ DisplayCategory = Deck, Weight = 0.2, Type = Normal,
 		DisplayName	=	Uno Cards,
 		Icon	=	unoCards/deckUnoCards,
 		WorldStaticModel = UnoCards,
 	}
 
     item GamePieceBlackBackgammon
-    {
-        DisplayCategory = GamePiece,
-        Weight	=	0.1,
-        Type	=	Normal,
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	=	Black Game Pieces,
         Icon	=	GamePieces_Black,
         WorldStaticModel = GamePiecesBlack_Ground,
     }
 
     item ChessBoard
-    {
-        DisplayCategory = GameBoard,
-        Weight	=	0.3,
-        Type	=	Normal,
+    { DisplayCategory = GameBoard, Weight = 0.3, Type = Normal,
         DisplayName	=	Chessboard,
         Icon	=	CheckerBoard,
         WorldStaticModel = ChessBoard_Ground,
     }
 
+     item ChessBlackKing
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
+        DisplayName	=	Black King Chess Piece,
+        Icon	=	ChessBlack,
+        WorldStaticModel = BlackChessPieces,
+    }
+    item ChessWhiteKing
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
+        DisplayName	=	White King Chess Piece,
+        Icon	=	ChessWhite,
+        WorldStaticModel = WhiteChessPieces,
+    }
+
+     item ChessBlackQueen
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
+        DisplayName	=	Black Queen Chess Piece,
+        Icon	=	ChessBlack,
+        WorldStaticModel = BlackChessPieces,
+    }
+    item ChessWhiteQueen
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
+        DisplayName	=	White Queen Chess Piece,
+        Icon	=	ChessWhite,
+        WorldStaticModel = WhiteChessPieces,
+    }
+
+
+    item ChessBlackBishop
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
+        DisplayName	=	Black Bishop Chess Piece,
+        Icon	=	ChessBlack,
+        WorldStaticModel = BlackChessPieces,
+    }
+    item ChessWhiteBishop
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
+        DisplayName	=	White Bishop Chess Piece,
+        Icon	=	ChessWhite,
+        WorldStaticModel = WhiteChessPieces,
+    }
+
+    item ChessWhiteRook
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
+        DisplayName	=	White Rook Chess Piece,
+        Icon	=	ChessWhite,
+        WorldStaticModel = WhiteChessPieces,
+    }
+    item ChessWhiteRook
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
+        DisplayName	=	White Rook Chess Piece,
+        Icon	=	ChessWhite,
+        WorldStaticModel = WhiteChessPieces,
+    }
+
+    item ChessWhiteKnight
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
+        DisplayName	=	White Knight Chess Piece,
+        Icon	=	ChessWhite,
+        WorldStaticModel = WhiteChessPieces,
+    }
+    item ChessWhiteKnight
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
+        DisplayName	=	White Knight Chess Piece,
+        Icon	=	ChessWhite,
+        WorldStaticModel = WhiteChessPieces,
+    }
 }
