@@ -29,12 +29,10 @@ function gameNightElement:moveElement(x, y)
     local item = self.itemObject
     if not item then return end
 
-    --old(self, x, y)
-
     local selfW, selfH = self:getWidth(), self:getHeight()
 
-    local newX = (self:getX()+x)-window.x-(selfW/2)
-    local newY = (self:getY()+y)-window.y-(selfH/2)
+    local newX = (self:getX()+x)-window.x-(selfW)
+    local newY = (self:getY()+y)-window.y-(selfH)
 
     newX = math.min(math.max(newX, window.bounds.x1), window.bounds.x2-selfW)
     newY = math.min(math.max(newY, window.bounds.y1), window.bounds.y2-selfH)
@@ -118,7 +116,7 @@ function gameNightElement:prerender()
         if not isMouseButtonDown(0) then return end
         local selfW, selfH = self:getWidth(), self:getHeight()
         local texture = self.itemObject:getModData()["gameNight_textureInPlay"] or self.itemObject:getTexture()
-        self:drawTexture(texture, self:getMouseX()-(selfW/2), self:getMouseY()-(selfH/2), 0.55, 1, 1, 1)
+        self:drawTexture(texture, self:getMouseX()-(selfW), self:getMouseY()-(selfH), 0.55, 1, 1, 1)
     end
 end
 

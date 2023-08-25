@@ -1,10 +1,14 @@
 local gamePieceAndBoardHandler = {}
 
 gamePieceAndBoardHandler.itemTypes = {
-    "Base.Dice", "Base.ChessWhite", "Base.ChessBlack", "Base.PokerChips", "Base.GamePieceWhite", "Base.GamePieceRed",
+    "Base.Dice", "Base.PokerChips", "Base.GamePieceWhite", "Base.GamePieceRed",
     "Base.GamePieceBlack", "Base.BackgammonBoard", "Base.CheckerBoard",
+    "Base.ChessWhite","Base.ChessBlack",
     --added
     "Base.GamePieceBlackBackgammon","Base.ChessBoard",
+    "Base.ChessWhiteKing","Base.ChessBlackKing","Base.ChessWhiteBishop","Base.ChessBlackBishop",
+    "Base.ChessWhiteQueen", "Base.ChessBlackQueen", "Base.ChessWhiteRook","Base.ChessBlackRook",
+    "Base.ChessWhiteKnight", "Base.ChessBlackKnight",
 }
 
 gamePieceAndBoardHandler._itemTypes = nil
@@ -18,6 +22,7 @@ gamePieceAndBoardHandler.specials = {
     ["Base.GamePieceBlack"]={ flipTexture = true },
     ["Base.BackgammonBoard"]={ category = "GameBoard" },
     ["Base.CheckerBoard"]={ category = "GameBoard" },
+    ["Base.ChessBoard"]={ category = "GameBoard" },
 }
 
 function gamePieceAndBoardHandler.getGamePiece(gamePiece)

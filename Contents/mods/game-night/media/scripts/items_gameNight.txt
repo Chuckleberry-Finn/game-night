@@ -21,28 +21,28 @@ module Base
         WorldStaticModel = ChessBoard_Ground,
     }
 
-     item ChessBlackKing
+    item ChessBlackKing
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	Black King Chess Piece,
+        DisplayName	=	Black Chess Piece,
         Icon	=	ChessBlack,
         WorldStaticModel = BlackChessPieces,
     }
     item ChessWhiteKing
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	White King Chess Piece,
+        DisplayName	=	White Chess Piece,
         Icon	=	ChessWhite,
         WorldStaticModel = WhiteChessPieces,
     }
 
      item ChessBlackQueen
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	Black Queen Chess Piece,
+        DisplayName	=	Black Chess Piece,
         Icon	=	ChessBlack,
         WorldStaticModel = BlackChessPieces,
     }
     item ChessWhiteQueen
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	White Queen Chess Piece,
+        DisplayName	=	White Chess Piece,
         Icon	=	ChessWhite,
         WorldStaticModel = WhiteChessPieces,
     }
@@ -50,39 +50,39 @@ module Base
 
     item ChessBlackBishop
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	Black Bishop Chess Piece,
+        DisplayName	=	Black Chess Piece,
         Icon	=	ChessBlack,
         WorldStaticModel = BlackChessPieces,
     }
     item ChessWhiteBishop
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	White Bishop Chess Piece,
+        DisplayName	=	White Chess Piece,
         Icon	=	ChessWhite,
         WorldStaticModel = WhiteChessPieces,
     }
 
-    item ChessWhiteRook
+    item ChessBlackRook
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	White Rook Chess Piece,
-        Icon	=	ChessWhite,
-        WorldStaticModel = WhiteChessPieces,
+        DisplayName	=	Black Chess Piece,
+        Icon	=	ChessBlack,
+        WorldStaticModel = BlackChessPieces,
     }
     item ChessWhiteRook
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	White Rook Chess Piece,
+        DisplayName	=	White Chess Piece,
         Icon	=	ChessWhite,
         WorldStaticModel = WhiteChessPieces,
     }
 
-    item ChessWhiteKnight
+    item ChessBlackKnight
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	White Knight Chess Piece,
-        Icon	=	ChessWhite,
-        WorldStaticModel = WhiteChessPieces,
+        DisplayName	=	Black Chess Piece,
+        Icon	=	ChessBlack,
+        WorldStaticModel = BlackChessPieces,
     }
     item ChessWhiteKnight
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	White Knight Chess Piece,
+        DisplayName	=	White Chess Piece,
         Icon	=	ChessWhite,
         WorldStaticModel = WhiteChessPieces,
     }

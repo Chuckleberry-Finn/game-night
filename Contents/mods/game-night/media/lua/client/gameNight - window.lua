@@ -66,7 +66,7 @@ end
 
 
 function gameNightWindow.compareElements(a, b)
-    return a.object:getWorldPosY() < b.object:getWorldPosY() and (b.item:getDisplayCategory()==a.item:getDisplayCategory() or b.item:getDisplayCategory() ~= "GameBoard")
+    return (a.object:getWorldPosY() < b.object:getWorldPosY()) and ((a.item:getDisplayCategory() == b.item:getDisplayCategory()) or (a.item:getDisplayCategory() ~= "GameBoard" and b.item:getDisplayCategory() ~= "GameBoard"))
 end
 
 function gameNightWindow:bringToTop()
@@ -92,11 +92,11 @@ function gameNightWindow:prerender()
         if object and instanceof(object, "IsoWorldInventoryObject") then
             local item = object:getItem()
             if item and item:getTags():contains("gameNight") then
-                table.insert(loadOrder, {item=item, object=object})
+                local position = item:getDisplayCategory() == "GameBoard" and 1 or #loadOrder+1
+                table.insert(loadOrder, position, {item=item, object=object})
             end
         end
     end
-
     table.sort(loadOrder, gameNightWindow.compareElements)
     for priority,stuff in pairs(loadOrder) do self:generateElement(stuff.item, stuff.object, priority) end
 end
