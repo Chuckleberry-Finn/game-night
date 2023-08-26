@@ -33,9 +33,35 @@ end
 function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self:setVisible(false) end end
 
 
+function gameNightWindow:processMouseUp(old, x, y)
+    if self.movingPiece then self.movingPiece:moveElement(self.movingPiece:getMouseX(), self.movingPiece:getMouseY()) end
+    old(self, x, y)
+end
+function gameNightWindow:onMouseUpOutside(x, y) self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y) end
+function gameNightWindow:onMouseUp(x, y) self:processMouseUp(ISPanelJoypad.onMouseUp, x, y) end
+
+
 function gameNightWindow:onMouseDown(x, y)
     self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
     ISPanelJoypad.onMouseDown(self, x, y)
+end
+
+
+function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
+    local offsetX, offsetY = clicked and clicked.x or 0, clicked and clicked.y or 0
+    local cursorX, cursorY = x+offsetX, y+offsetY
+
+    local selection = clicked
+    for item,element in pairs(self.elements) do
+        if element:isVisible() then
+            local inBounds = ((cursorX >= element.x) and (cursorY >= element.y) and (cursorX <= element.x+element.width) and (cursorY <= element.y+element.height))
+            if inBounds and ((not selection) or element.priority > selection.priority) then
+                selection = element
+            end
+        end
+    end
+
+    return selection
 end
 
 
@@ -46,6 +72,8 @@ function gameNightWindow:generateElement(item, object, priority)
     local element = self.elements[item]
     local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
     local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
+
+    ---@type Texture
     local texture = item:getModData()["gameNight_textureInPlay"] or item:getTexture()
     local w, h = texture:getWidth(), texture:getHeight()
 
@@ -56,6 +84,7 @@ function gameNightWindow:generateElement(item, object, priority)
     end
 
     if element then
+
         element:setVisible(true)
         element:setX(self.x+x)
         element:setY(self.y+y)
@@ -98,11 +127,21 @@ function gameNightWindow:prerender()
         end
     end
     table.sort(loadOrder, gameNightWindow.compareElements)
+
     for priority,stuff in pairs(loadOrder) do self:generateElement(stuff.item, stuff.object, priority) end
 end
 
 
-function gameNightWindow:render() ISPanelJoypad.render(self) end
+function gameNightWindow:render()
+    ISPanelJoypad.render(self)
+    local movingElement = self.movingPiece
+    if movingElement then
+        if not isMouseButtonDown(0) then return end
+        local selfW, selfH = movingElement:getWidth(), movingElement:getHeight()
+        local texture = movingElement.itemObject:getModData()["gameNight_textureInPlay"] or movingElement.itemObject:getTexture()
+        movingElement:drawTexture(texture, movingElement:getMouseX()-(selfW), movingElement:getMouseY()-(selfH), 0.55, 1, 1, 1)
+    end
+end
 
 
 function gameNightWindow.open(self, player, square)

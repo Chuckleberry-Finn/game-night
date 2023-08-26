@@ -7,23 +7,22 @@ gameNightElement = ISPanelJoypad:derive("gameNightElement")
 function gameNightElement:initialise() ISPanelJoypad.initialise(self) end
 
 
---[[
-function gameNightElement:onRightMouseUp(x, y)
-    self.moveWithMouse = not self.moveWithMouse
-    self.borderColor = {r=1, g=1, b=1, a=(self.moveWithMouse and 0 or 0.6)}
+function gameNightElement:onMouseUp(x, y)
+    local window = gameNightWindow.instance
+    if not window or not window:isVisible() then return end
+    window:onMouseUp(x, y)
+    ISPanelJoypad.onMouseUp(self)
 end
---]]
 
 
-function gameNightElement:onMouseUpOutside(x, y) self:moveElement(x, y) end
-function gameNightElement:onMouseUp(x, y) self:moveElement(x, y) end
 function gameNightElement:moveElement(x, y)
-
-    if not self.moveWithMouse or not self.moving then return end
-    self.moving = false
 
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
+
+    if not self.moveWithMouse or not window.movingPiece or self~=window.movingPiece then return end
+
+    window.movingPiece = nil
 
     ---@type IsoObject|IsoWorldInventoryObject
     local item = self.itemObject
@@ -73,52 +72,25 @@ function gameNightElement:onContextSelection(o, x, y)
 end
 
 
-function gameNightElement:getPriorityPiece(x, y, window)
-    local cursorX, cursorY = x+self.x, y+self.y
-    local selection = self
-    for item,element in pairs(window.elements) do
-        if element:isVisible() then
-            local inBounds = ((cursorX >= element.x) and (cursorY >= element.y) and (cursorX <= element.x+element.width) and (cursorY <= element.y+element.height))
-            if inBounds and element.priority > selection.priority then
-                selection = element
-            end
-        end
-    end
-    return selection
-end
-
-
 function gameNightElement:onRightMouseDown(x, y)
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
-    local selection = self:getPriorityPiece(x, y, window)
+    local selection = window:getClickedPriorityPiece(x, y, self)
     selection:onContextSelection(self, x, y)
+    ISPanelJoypad.onRightMouseDown(self)
 end
 
 
 function gameNightElement:onMouseDown(x, y)
-    if self.moving then return end
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
-    local selection = self:getPriorityPiece(x, y, window)
-    selection.moving = true
+    local selection = window:getClickedPriorityPiece(x, y, self)
+    window.movingPiece = selection
+    ISPanelJoypad.onMouseDown(self)
 end
 
 
-function gameNightElement:prerender()
-    ISPanelJoypad.prerender(self)
-    local window = gameNightWindow.instance--self:getParent()
-    if not window or not window:isVisible() then
-        self:setVisible(false)
-    end
-
-    if self.moving then
-        if not isMouseButtonDown(0) then return end
-        local selfW, selfH = self:getWidth(), self:getHeight()
-        local texture = self.itemObject:getModData()["gameNight_textureInPlay"] or self.itemObject:getTexture()
-        self:drawTexture(texture, self:getMouseX()-(selfW), self:getMouseY()-(selfH), 0.55, 1, 1, 1)
-    end
-end
+function gameNightElement:prerender() ISPanelJoypad.prerender(self) end
 
 
 function gameNightElement:render() ISPanelJoypad.render(self) end
