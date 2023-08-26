@@ -43,6 +43,10 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
 
     local flippedState = gamePiece:getModData()["gameNight_pieceFlipped"]==true and "Flipped" or ""
 
+    local texturePath = "inPlayTextures/"..gamePiece:getType()..flippedState..".png"
+    local texture = Texture.trygetTexture(texturePath)
+    if texture then gamePiece:getModData()["gameNight_textureInPlay"] = texture end
+
     local iconPath = "outOfPlayTextures/"..gamePiece:getType()..flippedState..".png"
     local icon = Texture.trygetTexture(iconPath)
     if icon then gamePiece:setTexture(icon) end
