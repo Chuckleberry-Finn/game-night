@@ -4,6 +4,7 @@ ItemName_EN = {
     ItemName_Base.GamePieceRed = "Red Checkers Piece",
     ItemName_Base.GamePieceWhite = "White Backgammon Piece",
     ItemName_Base.GamePieceBlackBackgammon = "Black Backgammon Piece",
+
     ItemName_Base.ChessWhite = "White Chess Piece",
     ItemName_Base.ChessBlack = "Black Chess Piece",
     ItemName_Base.ChessWhiteKing = "White Chess Piece",
@@ -16,4 +17,13 @@ ItemName_EN = {
     ItemName_Base.ChessBlackRook = "Black Chess Piece",
     ItemName_Base.ChessWhiteKnight = "White Chess Piece",
     ItemName_Base.ChessBlackKnight = "Black Chess Piece",
+
+    ItemName_Base.PokerChips = "Red Poker Chip",
+    ItemName_Base.PokerChipsBlue = "Blue Poker Chip",
+    ItemName_Base.PokerChipsGreen = "Green Poker Chip",
+    ItemName_Base.PokerChipsPurple = "Purple Poker Chip",
+    ItemName_Base.PokerChipsYellow = "Yellow Poker Chip",
+    ItemName_Base.PokerChipsOrange = "Orange Poker Chip",
+    ItemName_Base.PokerChipsWhite = "White Poker Chip",
+    ItemName_Base.PokerChipsBlack = "Black Poker Chip",
 }

@@ -7,7 +7,19 @@ function deckActionHandler.isDeckItem(deckItem)
 end
 
 
----@param deckItem IsoObject
+---@param deckItem InventoryItem
+function deckActionHandler.playSound(deckItem)
+    local sound = deckItem:getModData()["gameNight_sound"]
+    if sound then
+        local cont = deckItem:getOutermostContainer() or deckItem:getContainer()
+        local parent = cont and cont:getParent()
+        local square = parent and parent:getSquare()
+        if square then square:playSound(sound) end
+    end
+end
+
+
+---@param deckItem InventoryItem
 function deckActionHandler.getDeckStates(deckItem)
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
     if not deckData then return end
@@ -35,6 +47,8 @@ function deckActionHandler.handleDetails(deckItem)
 
     local category = #deckStates>1 and "Deck" or "Card"
     deckItem:setDisplayCategory(category)
+
+    deckItem:getModData()["gameNight_sound"] = "cardFlip"
 
     local name_suffix = #deckStates>1 and " ["..#deckStates.."]" or ""
 
@@ -109,7 +123,7 @@ function deckActionHandler.flipCard(deckItem)
 
     deckItem:getModData()["gameNight_cardDeck"] = handleFlippedDeck
     deckItem:getModData()["gameNight_cardFlipped"] = handleFlippedStates
-
+    deckActionHandler.playSound(deckItem)
     deckActionHandler.handleDetails(deckItem)
 end
 
@@ -144,6 +158,7 @@ function deckActionHandler.mergeDecks(deckItemA, deckItemB)
     for _,card in pairs(deckA) do table.insert(deckB, card) end
     for _,flip in pairs(flippedA) do table.insert(flippedB, flip) end
 
+    deckActionHandler.playSound(deckItemB)
     deckActionHandler.handleDetails(deckItemB)
     deckActionHandler.safelyRemoveCard(deckItemA)
 end
@@ -245,7 +260,8 @@ function deckActionHandler.drawCards(num, deckItem)
     end
 
     for n,card in pairs(drawnCards) do
-        local newCard = deckActionHandler.generateCard(card, deckItem, not drawnFlippedStates[n])
+        deckActionHandler.playSound(deckItem)
+        local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n])
     end
 end
 
@@ -277,8 +293,8 @@ function deckActionHandler.drawRandCard(deckItem)
             end
         end
     end
-
-    local newCard = deckActionHandler.generateCard(drawnCard, deckItem, not drawnFlipped)
+    deckActionHandler.playSound(deckItem)
+    local newCard = deckActionHandler.generateCard(drawnCard, deckItem, drawnFlipped)
 end
 
 
@@ -292,6 +308,7 @@ function deckActionHandler.shuffleCards(deckItem)
         deckStates[origIndex], deckStates[shuffledIndex] = deckStates[shuffledIndex], deckStates[origIndex]
     end
 
+    deckActionHandler.playSound(deckItem)
     deckActionHandler.handleDetails(deckItem)
 end
 

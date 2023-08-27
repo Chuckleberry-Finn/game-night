@@ -2,7 +2,7 @@
 -- This file is all that you should need.
 
 ---First require this file so that the cataloger module can be called on.
-local itemManipulation = require "gameNight - itemManipulation"
+local applyItemDetails = require "gameNight - applyItemDetails"
 
 --- Examples of defining a table
 -- this example is overly complicated as it pieces together a table for the sake of typing up a large list
@@ -23,7 +23,7 @@ for _,s in pairs(playingCards.suites) do
         table.insert(playingCards.cards, v.." of "..s)
     end
 end
-itemManipulation.addDeck("CardDeck", playingCards.cards)
+applyItemDetails.addDeck("CardDeck", playingCards.cards)
 
 
 --- UNO
@@ -42,4 +42,4 @@ for i=1, 2 do --Two sets of 1-9, 0s are single
         end
     end
 end
-itemManipulation.addDeck("UnoCards", unoCards.cards)
+applyItemDetails.addDeck("UnoCards", unoCards.cards)

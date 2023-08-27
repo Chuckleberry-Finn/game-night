@@ -86,4 +86,46 @@ module Base
         Icon	=	ChessWhite,
         WorldStaticModel = WhiteChessPieces,
     }
+
+
+    item PokerChips
+    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+        DisplayName	=	Poker Chips, Icon =	PokerChips, WorldStaticModel = PokerChips_Ground,
+    }
+
+    item PokerChipsWhite
+    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+        DisplayName	=	Poker Chips, Icon =	PokerChips, WorldStaticModel = PokerChips_Ground,
+    }
+
+    item PokerChipsBlack
+    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+        DisplayName	=	Poker Chips, Icon = PokerChips, WorldStaticModel = PokerChips_Ground,
+    }
+
+    item PokerChipsOrange
+    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+        DisplayName	= Poker Chips, Icon = PokerChips, WorldStaticModel = PokerChips_Ground,
+    }
+
+    item PokerChipsBlue
+    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+        DisplayName	= Poker Chips, Icon = PokerChips, WorldStaticModel = PokerChips_Ground,
+    }
+
+    item PokerChipsGreen
+    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+        DisplayName	= Poker Chips, Icon = PokerChips, WorldStaticModel = PokerChips_Ground,
+    }
+
+    item PokerChipsPurple
+    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+        DisplayName	= Poker Chips, Icon = PokerChips, WorldStaticModel = PokerChips_Ground,
+    }
+
+    item PokerChipsYellow
+    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+        DisplayName	= Poker Chips, Icon = PokerChips, WorldStaticModel = PokerChips_Ground,
+    }
+ 
 }

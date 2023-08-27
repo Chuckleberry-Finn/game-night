@@ -33,8 +33,25 @@ end
 function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self:setVisible(false) end end
 
 
+local deckActionHandler = require "gameNight - deckActionHandler"
 function gameNightWindow:processMouseUp(old, x, y)
-    if self.movingPiece then self.movingPiece:moveElement(self.movingPiece:getMouseX(), self.movingPiece:getMouseY()) end
+    local piece = self.movingPiece
+    if piece and piece:isVisible() then
+        local posX, posY = piece:getMouseX(), piece:getMouseY()
+        if deckActionHandler.isDeckItem(piece.itemObject) then
+
+            local placeX, placeY = posX+piece.x-piece.width, posY+piece.y-piece.height
+            local selection
+            for item,element in pairs(self.elements) do
+                if (element~=piece) and element:isVisible() and deckActionHandler.isDeckItem(item) then
+                    local inBounds = (math.abs(element.x-placeX) <= 4) and (math.abs(element.y-placeY) <= 4)
+                    if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
+                end
+            end
+            if selection then deckActionHandler.mergeDecks(piece.itemObject, selection.itemObject) return end
+        end
+        piece:moveElement(posX, posY)
+    end
     old(self, x, y)
 end
 function gameNightWindow:onMouseUpOutside(x, y) self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y) end
@@ -177,7 +194,6 @@ function gameNightWindow:new(x, y, width, height, player, square)
     o.padding = 45
     o.bounds = {x1=o.padding, y1=o.padding, x2=o.width-o.padding, y2=o.height-o.padding}
 
-    --o.moveWithMouse = true
     o.selectedItem = nil
     o.pendingRequest = false
 

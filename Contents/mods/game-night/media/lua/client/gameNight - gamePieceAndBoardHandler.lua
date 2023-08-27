@@ -6,9 +6,9 @@ gamePieceAndBoardHandler.itemTypes = {
     "Base.ChessWhite","Base.ChessBlack",
     --added
     "Base.GamePieceBlackBackgammon","Base.ChessBoard",
-    "Base.ChessWhiteKing","Base.ChessBlackKing","Base.ChessWhiteBishop","Base.ChessBlackBishop",
+    --[["Base.ChessWhiteKing","Base.ChessBlackKing","Base.ChessWhiteBishop","Base.ChessBlackBishop",
     "Base.ChessWhiteQueen", "Base.ChessBlackQueen", "Base.ChessWhiteRook","Base.ChessBlackRook",
-    "Base.ChessWhiteKnight", "Base.ChessBlackKnight",
+    "Base.ChessWhiteKnight", "Base.ChessBlackKnight",--]]
 }
 
 gamePieceAndBoardHandler._itemTypes = nil
@@ -37,6 +37,8 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
     if not gamePieceAndBoardHandler._itemTypes[fullType] then return end
 
     gamePiece:getTags():add("gameNight")
+
+    gamePiece:getModData()["gameNight_sound"] = "pieceMove"
 
     local newCategory = gamePieceAndBoardHandler.specials[fullType] and gamePieceAndBoardHandler.specials[fullType].category or "GamePiece"
     if newCategory then gamePiece:setDisplayCategory(newCategory) end

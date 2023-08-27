@@ -10,7 +10,8 @@ function gameNightElement:initialise() ISPanelJoypad.initialise(self) end
 function gameNightElement:onMouseUp(x, y)
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
-    window:onMouseUp(x, y)
+
+    window:onMouseUp(x, y, self)
     ISPanelJoypad.onMouseUp(self)
 end
 
@@ -41,6 +42,9 @@ function gameNightElement:moveElement(x, y)
     local boundsDifference = window.padding*2
     local scaledX = (newX/(window.width-boundsDifference))
     local scaledY = (newY/(window.height-boundsDifference))
+
+    local sound = item:getModData()["gameNight_sound"]
+    if sound then window.player:getEmitter():playSound(sound) end
 
     local maintain_z = item:getWorldItem() and item:getWorldItem():getWorldPosZ() or 0
     ISTimedActionQueue.add(ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 0))

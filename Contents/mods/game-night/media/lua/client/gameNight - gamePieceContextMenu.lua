@@ -1,5 +1,5 @@
 require "ISUI/ISInventoryPaneContextMenu"
-local itemManipulation = require "gameNight - itemManipulation"
+local applyItemDetails = require "gameNight - applyItemDetails"
 local deckActionHandler = require "gameNight - deckActionHandler"
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 
@@ -56,7 +56,7 @@ function gamePieceContext.addWorldContext(playerID, context, worldObjects)
         if object and instanceof(object, "IsoWorldInventoryObject") then
             local item = object:getItem()
             if item and item:getTags():contains("gameNight") then
-                itemManipulation.applyGameNightToItem(item)
+                applyItemDetails.applyGameNightToItem(item)
                 validObjectCount = validObjectCount+1
             end
         end
