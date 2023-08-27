@@ -6,6 +6,14 @@ gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 
 gameNightWindow.elements = {}
 
+function gameNightWindow:update()
+    if not self.player or not self.square or (math.abs(self.player:getX()-self.square:getX())>2) or (math.abs(self.square:getY()-self.square:getY())>2) then
+        self:setVisible(false)
+        self:removeFromUIManager()
+        return
+    end
+end
+
 function gameNightWindow:initialise()
     ISPanelJoypad.initialise(self)
 
