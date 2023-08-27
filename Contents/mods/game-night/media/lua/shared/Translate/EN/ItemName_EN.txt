@@ -26,4 +26,7 @@ ItemName_EN = {
     ItemName_Base.PokerChipsOrange = "Orange Poker Chip",
     ItemName_Base.PokerChipsWhite = "White Poker Chip",
     ItemName_Base.PokerChipsBlack = "Black Poker Chip",
+
+    ItemName_Base.Dice = "Die",
+    ItemName_Base.DiceWhite = "Die",
 }

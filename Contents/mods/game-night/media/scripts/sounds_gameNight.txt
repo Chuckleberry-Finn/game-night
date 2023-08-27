@@ -1,11 +1,14 @@
 module Base {
 
     sound cardFlip {
-        category = GameNight, loop = false, is3D = true,
-        clip { file = media/sound/cardFlip.ogg, distanceMax = 2, reverbFactor = 0.1, volume = 1.0, } }
+        category = GameNight, is3D = true,
+        clip { file = media/sound/cardFlip.ogg, } }
 
     sound pieceMove {
-        category = GameNight, loop = false, is3D = true,
-        clip { file = media/sound/pieceMove.ogg, distanceMax = 2, reverbFactor = 0.1, volume = 1.0, } }
+        category = GameNight, is3D = true,
+        clip { file = media/sound/pieceMove.ogg, } }
 
+    sound dieRoll {
+        category = GameNight, is3D = true,
+        clip { file = media/sound/dieRoll.ogg, } }
 }

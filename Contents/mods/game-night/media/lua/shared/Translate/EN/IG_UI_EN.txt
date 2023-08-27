@@ -4,13 +4,15 @@ IGUI_EN = {
     IGUI_shuffleCards = "Shuffle",
     IGUI_flipCard = "Flip",
     IGUI_flipPiece = "Flip",
+    IGUI_roll = "Roll",
     IGUI_CardDeck = "Playing Card",
     IGUI_UnoCards = "Uno Card",
 
     IGUI_Play_Game = "Play Game",
 
     IGUI_ItemCat_Card = "Card",
+    IGUI_ItemCat_Deck = "Deck",
     IGUI_ItemCat_GamePiece = "Game Piece",
     IGUI_ItemCat_GameBoard = "Game Board",
-    IGUI_ItemCat_Deck = "Deck",
+    IGUI_ItemCat_Die = "Die",
 }

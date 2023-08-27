@@ -7,7 +7,8 @@ local gamePieceContext = {}
 
 gamePieceContext.gameNightContextMenuIcon = getTexture("media/textures/gamenight_icon.png")
 
-function gamePieceContext.addInventoryItemContext(player, context, items)
+function gamePieceContext.addInventoryItemContext(playerID, context, items)
+    local playerObj = getSpecificPlayer(playerID)
     for _, v in ipairs(items) do
 
         ---@type InventoryItem
@@ -17,19 +18,18 @@ function gamePieceContext.addInventoryItemContext(player, context, items)
         local gamePiece = gamePieceAndBoardHandler.getGamePiece(item)
         if gamePiece then
             local special = gamePieceAndBoardHandler.specials[item:getFullType()]
-            if special and special.flipTexture then
-                context:addOption(getText("IGUI_flipPiece"), item, gamePieceAndBoardHandler.flipPiece)
-            end
+            if special and special.flipTexture then context:addOption(getText("IGUI_flipPiece"), item, gamePieceAndBoardHandler.flipPiece, playerObj) end
+            if special and special.sides then context:addOption(getText("IGUI_roll"), item, gamePieceAndBoardHandler.rollDie, playerObj) end
         end
 
         local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
         if deckStates then
             if #deckStates>1 then
-                context:addOption(getText("IGUI_drawCard"), item, deckActionHandler.drawCard)
-                context:addOption(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard)
-                context:addOption(getText("IGUI_shuffleCards"), item, deckActionHandler.shuffleCards)
+                context:addOption(getText("IGUI_drawCard"), item, deckActionHandler.drawCard, playerObj)
+                context:addOption(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard, playerObj)
+                context:addOption(getText("IGUI_shuffleCards"), item, deckActionHandler.shuffleCards, playerObj)
             end
-            context:addOption(getText("IGUI_flipCard"), item, deckActionHandler.flipCard)
+            context:addOption(getText("IGUI_flipCard"), item, deckActionHandler.flipCard, playerObj)
             break
         end
     end

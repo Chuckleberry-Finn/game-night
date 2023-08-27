@@ -7,84 +7,65 @@ module Base
 		WorldStaticModel = UnoCards,
 	}
 
+    item DiceWhite
+    { DisplayCategory = Junk, Weight = 0.2, Type = Normal,
+        DisplayName = Dice, Icon = Dice, WorldStaticModel = Dice,
+    }
+
     item GamePieceBlackBackgammon
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	Black Game Pieces,
-        Icon	=	GamePieces_Black,
-        WorldStaticModel = GamePiecesBlack_Ground,
+        DisplayName	= Black Game Pieces, Icon = GamePieces_Black, WorldStaticModel = GamePiecesBlack_Ground,
     }
 
     item ChessBoard
     { DisplayCategory = GameBoard, Weight = 0.3, Type = Normal,
-        DisplayName	=	Chessboard,
-        Icon	=	CheckerBoard,
-        WorldStaticModel = ChessBoard_Ground,
+        DisplayName	=	Chessboard, Icon = CheckerBoard, WorldStaticModel = ChessBoard_Ground,
     }
 
     item ChessBlackKing
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	Black Chess Piece,
-        Icon	=	ChessBlack,
-        WorldStaticModel = BlackChessPieces,
+        DisplayName	= Black Chess Piece, Icon = ChessBlack, WorldStaticModel = BlackChessPieces,
     }
     item ChessWhiteKing
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	White Chess Piece,
-        Icon	=	ChessWhite,
-        WorldStaticModel = WhiteChessPieces,
+        DisplayName	= White Chess Piece, Icon = ChessWhite, WorldStaticModel = WhiteChessPieces,
     }
 
      item ChessBlackQueen
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	Black Chess Piece,
-        Icon	=	ChessBlack,
-        WorldStaticModel = BlackChessPieces,
+        DisplayName	= Black Chess Piece, Icon = ChessBlack, WorldStaticModel = BlackChessPieces,
     }
     item ChessWhiteQueen
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	White Chess Piece,
-        Icon	=	ChessWhite,
-        WorldStaticModel = WhiteChessPieces,
+        DisplayName	= White Chess Piece, Icon = ChessWhite, WorldStaticModel = WhiteChessPieces,
     }
 
 
     item ChessBlackBishop
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	Black Chess Piece,
-        Icon	=	ChessBlack,
-        WorldStaticModel = BlackChessPieces,
+        DisplayName	= Black Chess Piece, Icon = ChessBlack, WorldStaticModel = BlackChessPieces,
     }
     item ChessWhiteBishop
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	White Chess Piece,
-        Icon	=	ChessWhite,
-        WorldStaticModel = WhiteChessPieces,
+        DisplayName	= White Chess Piece, Icon = ChessWhite, WorldStaticModel = WhiteChessPieces,
     }
 
     item ChessBlackRook
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	Black Chess Piece,
-        Icon	=	ChessBlack,
-        WorldStaticModel = BlackChessPieces,
+        DisplayName	= Black Chess Piece, Icon = ChessBlack, WorldStaticModel = BlackChessPieces,
     }
     item ChessWhiteRook
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	White Chess Piece,
-        Icon	=	ChessWhite,
-        WorldStaticModel = WhiteChessPieces,
+        DisplayName	= White Chess Piece, Icon = ChessWhite, WorldStaticModel = WhiteChessPieces,
     }
 
     item ChessBlackKnight
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	Black Chess Piece,
-        Icon	=	ChessBlack,
-        WorldStaticModel = BlackChessPieces,
+        DisplayName	= Black Chess Piece, Icon = ChessBlack, WorldStaticModel = BlackChessPieces,
     }
     item ChessWhiteKnight
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	=	White Chess Piece,
-        Icon	=	ChessWhite,
-        WorldStaticModel = WhiteChessPieces,
+        DisplayName	= White Chess Piece, Icon = ChessWhite, WorldStaticModel = WhiteChessPieces,
     }
 
 
@@ -127,5 +108,5 @@ module Base
     { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
         DisplayName	= Poker Chips, Icon = PokerChips, WorldStaticModel = PokerChips_Ground,
     }
- 
+
 }

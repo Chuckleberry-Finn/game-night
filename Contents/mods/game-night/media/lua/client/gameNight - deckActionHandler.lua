@@ -8,14 +8,10 @@ end
 
 
 ---@param deckItem InventoryItem
-function deckActionHandler.playSound(deckItem)
+function deckActionHandler.playSound(deckItem, player)
+    if not player then return end
     local sound = deckItem:getModData()["gameNight_sound"]
-    if sound then
-        local cont = deckItem:getOutermostContainer() or deckItem:getContainer()
-        local parent = cont and cont:getParent()
-        local square = parent and parent:getSquare()
-        if square then square:playSound(sound) end
-    end
+    if sound then player:getEmitter():playSound(sound) end
 end
 
 
@@ -109,7 +105,7 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped)
 end
 
 
-function deckActionHandler.flipCard(deckItem)
+function deckActionHandler.flipCard(deckItem, player)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
 
@@ -123,7 +119,7 @@ function deckActionHandler.flipCard(deckItem)
 
     deckItem:getModData()["gameNight_cardDeck"] = handleFlippedDeck
     deckItem:getModData()["gameNight_cardFlipped"] = handleFlippedStates
-    deckActionHandler.playSound(deckItem)
+    deckActionHandler.playSound(deckItem, player)
     deckActionHandler.handleDetails(deckItem)
 end
 
@@ -148,7 +144,7 @@ end
 
 ---@param deckItemA InventoryItem
 ---@param deckItemB InventoryItem
-function deckActionHandler.mergeDecks(deckItemA, deckItemB)
+function deckActionHandler.mergeDecks(deckItemA, deckItemB, player)
     local deckB, flippedB = deckActionHandler.getDeckStates(deckItemB)
     if not deckB then return end
 
@@ -158,7 +154,7 @@ function deckActionHandler.mergeDecks(deckItemA, deckItemB)
     for _,card in pairs(deckA) do table.insert(deckB, card) end
     for _,flip in pairs(flippedA) do table.insert(flippedB, flip) end
 
-    deckActionHandler.playSound(deckItemB)
+    deckActionHandler.playSound(deckItemB, player)
     deckActionHandler.handleDetails(deckItemB)
     deckActionHandler.safelyRemoveCard(deckItemA)
 end
@@ -237,13 +233,13 @@ function ISInventoryPane:onMouseUp(x, y)
 
         for _,deck in pairs(itemFound) do if deck==pushToActual then return end end
 
-        if pushToActual and deckActionHandler.isDeckItem(pushToActual) then for _,deck in pairs(itemFound) do deckActionHandler.mergeDecks(deck, pushToActual) end end
+        if pushToActual and deckActionHandler.isDeckItem(pushToActual) then for _,deck in pairs(itemFound) do deckActionHandler.mergeDecks(deck, pushToActual, self.player) end end
     end
 end
 
 
 ---@param deckItem InventoryItem
-function deckActionHandler.drawCards(num, deckItem)
+function deckActionHandler.drawCards(num, deckItem, player)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
 
@@ -260,15 +256,15 @@ function deckActionHandler.drawCards(num, deckItem)
     end
 
     for n,card in pairs(drawnCards) do
-        deckActionHandler.playSound(deckItem)
+        deckActionHandler.playSound(deckItem, player)
         local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n])
     end
 end
 
-function deckActionHandler.drawCard(deckItem) deckActionHandler.drawCards(1, deckItem) end
+function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(1, deckItem, player) end
 
 ---@param deckItem InventoryItem
-function deckActionHandler.drawRandCard(deckItem)
+function deckActionHandler.drawRandCard(deckItem, player)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
 
@@ -293,12 +289,12 @@ function deckActionHandler.drawRandCard(deckItem)
             end
         end
     end
-    deckActionHandler.playSound(deckItem)
+    deckActionHandler.playSound(deckItem, player)
     local newCard = deckActionHandler.generateCard(drawnCard, deckItem, drawnFlipped)
 end
 
 
-function deckActionHandler.shuffleCards(deckItem)
+function deckActionHandler.shuffleCards(deckItem, player)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
 
@@ -308,7 +304,7 @@ function deckActionHandler.shuffleCards(deckItem)
         deckStates[origIndex], deckStates[shuffledIndex] = deckStates[shuffledIndex], deckStates[origIndex]
     end
 
-    deckActionHandler.playSound(deckItem)
+    deckActionHandler.playSound(deckItem, player)
     deckActionHandler.handleDetails(deckItem)
 end
 

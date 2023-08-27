@@ -35,22 +35,24 @@ function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self
 
 local deckActionHandler = require "gameNight - deckActionHandler"
 function gameNightWindow:processMouseUp(old, x, y)
-    local piece = self.movingPiece
-    if piece and piece:isVisible() then
-        local posX, posY = piece:getMouseX(), piece:getMouseY()
-        if deckActionHandler.isDeckItem(piece.itemObject) then
+    if not self.moveWithMouse then
+        local piece = self.movingPiece
+        if piece and piece:isVisible() then
+            local posX, posY = piece:getMouseX(), piece:getMouseY()
+            if deckActionHandler.isDeckItem(piece.itemObject) then
 
-            local placeX, placeY = posX+piece.x-piece.width, posY+piece.y-piece.height
-            local selection
-            for item,element in pairs(self.elements) do
-                if (element~=piece) and element:isVisible() and deckActionHandler.isDeckItem(item) then
-                    local inBounds = (math.abs(element.x-placeX) <= 4) and (math.abs(element.y-placeY) <= 4)
-                    if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
+                local placeX, placeY = posX+piece.x-piece.width, posY+piece.y-piece.height
+                local selection
+                for item,element in pairs(self.elements) do
+                    if (element~=piece) and element:isVisible() and deckActionHandler.isDeckItem(item) then
+                        local inBounds = (math.abs(element.x-placeX) <= 4) and (math.abs(element.y-placeY) <= 4)
+                        if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
+                    end
                 end
+                if selection then deckActionHandler.mergeDecks(piece.itemObject, selection.itemObject, self.player) return end
             end
-            if selection then deckActionHandler.mergeDecks(piece.itemObject, selection.itemObject) return end
+            piece:moveElement(posX, posY)
         end
-        piece:moveElement(posX, posY)
     end
     old(self, x, y)
 end
