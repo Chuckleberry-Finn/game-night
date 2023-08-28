@@ -36,11 +36,13 @@ function cursorHandler.receiveUpdate(data)--sqX, sqY, sqZ, playerUsername, mouse
     local dataPoints = {}
     for str in string.gmatch(data, "([^".."_".."]+)") do table.insert(dataPoints, str) end
 
+    local playerUsername = dataPoints[4]
+    if playerUsername == window.player:getUsername() then return end
+    
     local sqX, sqY, sqZ = tonumber(dataPoints[1]), tonumber(dataPoints[2]), tonumber(dataPoints[3])
 
     if (window.square:getX() ~= sqX) or (window.square:getY() ~= sqY) or (window.square:getZ() ~= sqZ) then return end
 
-    local playerUsername = dataPoints[4]
     local mouseX, mouseY = tonumber(dataPoints[5]), tonumber(dataPoints[6])
     local r, g, b = tonumber(dataPoints[7]), tonumber(dataPoints[8]), tonumber(dataPoints[9])
 
