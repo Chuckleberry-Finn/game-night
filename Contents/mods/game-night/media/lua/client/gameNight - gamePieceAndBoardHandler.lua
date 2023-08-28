@@ -108,7 +108,11 @@ function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
     gamePieceAndBoardHandler.playSound(gamePiece, player)
 
     local current = gamePiece:getModData()["gameNight_altState"]
-    gamePiece:getModData()["gameNight_altState"] = current and nil or "Flipped"
+    if current then
+        gamePiece:getModData()["gameNight_altState"] = nil
+    else
+        gamePiece:getModData()["gameNight_altState"] = "Flipped"
+    end
 
     gamePieceAndBoardHandler.handleDetails(gamePiece)
 end
