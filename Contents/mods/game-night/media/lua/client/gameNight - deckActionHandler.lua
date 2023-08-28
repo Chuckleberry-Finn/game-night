@@ -62,10 +62,7 @@ function deckActionHandler.handleDetails(deckItem)
 
     if texture then deckItem:setTexture(texture) end
 
-    if isClient() then
-        deckItem:transmitCompleteItemToServer()
-        deckItem:transmitModData()
-    end
+    if isClient() then deckItem:transmitModData() end
 
     ---@type ItemContainer
     local container = deckItem:getContainer()
