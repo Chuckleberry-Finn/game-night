@@ -139,8 +139,6 @@ function gameNightWindow:prerender()
     local square = self.square
     if not square then return end
 
-    self:drawRectBorder(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), 0.8, 0.8, 0.8, 0.8)
-
     local loadOrder = {}
     for i=0, square:getObjects():size()-1 do
         ---@type IsoObject|IsoWorldInventoryObject
@@ -156,12 +154,29 @@ function gameNightWindow:prerender()
     table.sort(loadOrder, gameNightWindow.compareElements)
 
     for priority,stuff in pairs(loadOrder) do self:generateElement(stuff.item, stuff.object, priority) end
+
+    self:drawRectBorder(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), 0.8, 0.8, 0.8, 0.8)
 end
 
+gameNightWindow.cursorDraws = {}
+gameNightWindow.cursor = nil
+gameNightWindow.cursorW = nil
+gameNightWindow.cursorH = nil
 
 function gameNightWindow:render()
     ISPanelJoypad.render(self)
     local movingElement = self.movingPiece
+
+    gameNightWindow.cursor = gameNightWindow.cursor or getTexture("media/textures/gamenight_cursor.png")
+    gameNightWindow.cursorW = gameNightWindow.cursorW or gameNightWindow.cursor:getWidth()
+    gameNightWindow.cursorH = gameNightWindow.cursorH or gameNightWindow.cursor:getHeight()
+
+    for username,data in pairs(self.cursorDraws) do
+        self:drawTexture(gameNightWindow.cursor, data.x-gameNightWindow.cursorW, data.x-gameNightWindow.cursorW, 1, data.r, data.g, data.b)
+        self:drawText(username, data.x, data.y, data.r, data.g, data.b, 1, UIFont.NewSmall)
+    end
+    self.cursorDraws = {}
+
     if movingElement then
         if not isMouseButtonDown(0) then return end
         local selfW, selfH = movingElement:getWidth(), movingElement:getHeight()

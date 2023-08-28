@@ -24,9 +24,6 @@ function cursorHandler.sendUpdate(player)
     sendClientCommand(player, "gameNightCursor", "update", {dataToSend})
 end
 
---cursorHandler.cursor = nil
---cursorHandler.cursorW = nil
---cursorHandler.cursorH = nil
 function cursorHandler.receiveUpdate(data)--sqX, sqY, sqZ, playerUsername, mouseX, mouseY, r, g, b)
     ---@type gameNightWindow
     local window = gameNightWindow.instance
@@ -43,15 +40,7 @@ function cursorHandler.receiveUpdate(data)--sqX, sqY, sqZ, playerUsername, mouse
     local mouseX, mouseY = tonumber(dataPoints[5]), tonumber(dataPoints[6])
     local r, g, b = tonumber(dataPoints[7]), tonumber(dataPoints[8]), tonumber(dataPoints[9])
 
-    cursorHandler.cursor = cursorHandler.cursor or getTexture("media/textures/gamenight_cursor.png")
-    cursorHandler.cursorW = cursorHandler.cursorW or cursorHandler.cursor:getWidth()
-    cursorHandler.cursorH = cursorHandler.cursorH or cursorHandler.cursor:getHeight()
-
-    local texture = cursorHandler.cursor
-    mouseX = mouseX+cursorHandler.cursorW
-    mouseY = mouseY+cursorHandler.cursorH
-    window:drawTexture(texture, mouseX, mouseY, 1, r, g, b)
-    window:drawText(playerUsername, mouseX, mouseY, r, g, b, 1, UIFont.NewSmall)
+    window.cursorDraws[playerUsername] = {x=mouseX, y=mouseY, r=r, g=g, b=b}
 end
 
 return cursorHandler
