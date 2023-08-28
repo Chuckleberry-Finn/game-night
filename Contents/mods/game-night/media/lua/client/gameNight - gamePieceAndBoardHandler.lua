@@ -37,7 +37,7 @@ function gamePieceAndBoardHandler.getGamePiece(gamePiece)
     return gamePieceAndBoardHandler._itemTypes[gamePiece:getFullType()]
 end
 
----@param gamePiece InventoryItem
+---@param gamePiece InventoryItem|IsoObject
 function gamePieceAndBoardHandler.handleDetails(gamePiece)
 
     local fullType = gamePiece:getFullType()
@@ -65,6 +65,14 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
     local icon = Texture.trygetTexture(iconPath)
     if icon then gamePiece:setTexture(icon) end
 
+    if isClient() then
+        gamePiece:transmitCompleteItemToServer()
+        gamePiece:transmitModData()
+    end
+
+    ---@type ItemContainer
+    local container = gamePiece:getContainer()
+    if container then container:setDrawDirty(true) end
 end
 
 
