@@ -1,4 +1,5 @@
 version=1
+id=3027382749
 title=Game Night
 description=Boardgames and Cardgames
 description=
@@ -8,3 +9,5 @@ description=[url=https://discord.gg/SReMnbV4V7][img]https://raw.githubuserconten
 description=
 description=
 description=[h3]Copyright 2023 Chuckleberry Finn. This item is not authorized for posting on Steam, except under the Steam account named Chuckleberry Finn.[/h3]
+tags=Build 41;Framework;Misc;Multiplayer;Pop Culture;Silly/Fun
+visibility=friendsOnly
