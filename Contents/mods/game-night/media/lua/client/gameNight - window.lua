@@ -171,8 +171,8 @@ function gameNightWindow:render()
     gameNightWindow.cursorH = gameNightWindow.cursorH or gameNightWindow.cursor:getHeight()
 
     for username,data in pairs(self.cursorDraws) do
-        self:drawTexture(gameNightWindow.cursor, data.x-gameNightWindow.cursorW, data.y-gameNightWindow.cursorH, 1, data.r, data.g, data.b)
-        self:drawText(username, data.x, data.y, data.r, data.g, data.b, 1, UIFont.NewSmall)
+        self:drawTexture(gameNightWindow.cursor, data.x, data.y, 1, data.r, data.g, data.b)
+        self:drawText(username, data.x+gameNightWindow.cursorW, data.y, data.r, data.g, data.b, 1, UIFont.NewSmall)
     end
     self.cursorDraws = {}
 
