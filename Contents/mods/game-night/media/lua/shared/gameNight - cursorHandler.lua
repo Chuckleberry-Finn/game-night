@@ -35,13 +35,13 @@ function cursorHandler.receiveUpdate(data)--sqX, sqY, sqZ, playerUsername, mouse
     local dataPoints = {}
     for str in string.gmatch(data, "([^".."_".."]+)") do table.insert(dataPoints, str) end
 
-    local sqX, sqY, sqZ = dataPoints[1], dataPoints[2], dataPoints[3]
+    local sqX, sqY, sqZ = tonumber(dataPoints[1]), tonumber(dataPoints[2]), tonumber(dataPoints[3])
 
     if (window.square:getX() ~= sqX) or (window.square:getY() ~= sqY) or (window.square:getZ() ~= sqZ) then return end
 
     local playerUsername = dataPoints[4]
-    local mouseX, mouseY = dataPoints[5], dataPoints[6]
-    local r, g, b = dataPoints[7], dataPoints[8], dataPoints[9]
+    local mouseX, mouseY = tonumber(dataPoints[5]), tonumber(dataPoints[6])
+    local r, g, b = tonumber(dataPoints[7]), tonumber(dataPoints[8]), tonumber(dataPoints[9])
 
     cursorHandler.cursor = cursorHandler.cursor or getTexture("media/textures/gamenight_cursor.png")
     cursorHandler.cursorW = cursorHandler.cursorW or cursorHandler.cursor:getWidth()
