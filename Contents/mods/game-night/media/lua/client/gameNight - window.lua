@@ -170,7 +170,7 @@ function gameNightWindow:render()
     end
 end
 
-
+local cursorHandler = isClient() and require "gameNight - cursorHandler"
 function gameNightWindow.open(self, player, square)
 
     if not gameNightWindow.instance then
@@ -180,6 +180,8 @@ function gameNightWindow.open(self, player, square)
     end
     gameNightWindow.instance.square = square
     gameNightWindow.instance:setVisible(true)
+
+    if cursorHandler then Events.OnPlayerUpdate.Add(cursorHandler.sendUpdate) end
 
     return gameNightWindow.instance
 end
