@@ -10,10 +10,14 @@ function cursorHandler.sendUpdate(player)
         return
     end
 
+    local x, y = window:getMouseX(), window:getMouseY()
+    local outOfBounds = ((x < window.bounds.x1) or (y < window.bounds.y1) or (x > window.bounds.x2) or (y > window.bounds.y2))
+    if outOfBounds then return end
+    
     local sq = window.square
     if not sq then return end
     local dataSqXYZ = sq:getX().."_"..sq:getY().."_"..sq:getZ()
-    local mouseXY = window:getMouseX().."_"..window:getMouseY()
+    local mouseXY = x.."_"..y
 
     if not cursorHandler.mpColorCodes[player] then
         local mpTextColor = getCore():getMpTextColor()
