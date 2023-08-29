@@ -94,7 +94,7 @@ function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete)
         xPos, yPos, zPos = worldItem:getWorldPosX()-worldItem:getX(), worldItem:getWorldPosY()-worldItem:getY(), worldItem:getWorldPosZ()-worldItem:getZ()
     end
     local pickUpAction = ISInventoryTransferAction:new(player, gamePiece, gamePiece:getContainer(), player:getInventory(), 1)
-    if onComplete and type(onComplete)=="table" then pickUpAction:setOnComplete(table.unpack(onComplete)) end
+    if onComplete and type(onComplete)=="table" then pickUpAction:setOnComplete(unpack(onComplete)) end
     ISTimedActionQueue.add(pickUpAction)
 
     local dropAction = ISDropWorldItemAction:new(player, gamePiece, square, xPos, yPos, zPos, 0, false)
@@ -113,7 +113,7 @@ function gamePieceAndBoardHandler.rollDie(gamePiece, player)
     local result = ZombRand(sides)+1
     result = result>1 and result or ""
 
-    gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, "gameNight_altState", result})
+    gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
     gamePieceAndBoardHandler.playSound(gamePiece, "dieRoll", player)
 end
 
@@ -127,7 +127,7 @@ function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
     local result = "Flipped"
     if current then result = nil end
 
-    gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, "gameNight_altState", result})
+    gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
     gamePieceAndBoardHandler.playSound(gamePiece, player)
 end
 
