@@ -94,7 +94,7 @@ function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete)
         xPos, yPos, zPos = worldItem:getWorldPosX()-worldItem:getX(), worldItem:getWorldPosY()-worldItem:getY(), worldItem:getWorldPosZ()-worldItem:getZ()
     end
     local pickUpAction = ISInventoryTransferAction:new(player, gamePiece, gamePiece:getContainer(), player:getInventory(), 1)
-    if onComplete and type(onComplete)=="table" then pickUpAction.setOnComplete = onComplete end
+    if onComplete and type(onComplete)=="table" then pickUpAction:setOnComplete(table.unpack(onComplete)) end
     ISTimedActionQueue.add(pickUpAction)
 
     local dropAction = ISDropWorldItemAction:new(player, gamePiece, square, xPos, yPos, zPos, 0, false)
@@ -103,9 +103,7 @@ function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete)
 end
 
 
-function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value)
-    gamePiece:getModData()[key] = value
-end
+function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value) gamePiece:getModData()[key] = value end
 
 
 function gamePieceAndBoardHandler.rollDie(gamePiece, player)
