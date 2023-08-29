@@ -46,10 +46,11 @@ function gameNightElement:moveElement(x, y)
     local sound = item:getModData()["gameNight_sound"]
     if sound then window.player:getEmitter():playSound(sound) end
 
-    local maintain_z = item:getWorldItem() and item:getWorldItem():getWorldPosZ() or 0
-    ISTimedActionQueue.add(ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 0))
-    local dropAction = ISDropWorldItemAction:new(window.player, item, window.square, scaledX, scaledY, maintain_z, 0, false)
-    dropAction.maxTime = 1
+    local pickUpAction = ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 0)
+    ISTimedActionQueue.add(pickUpAction)
+
+    local dropAction = ISDropWorldItemAction:new(window.player, item, window.square, scaledX, scaledY, 0, 0, false)
+    dropAction.maxTime = 0
     ISTimedActionQueue.add(dropAction)
 end
 

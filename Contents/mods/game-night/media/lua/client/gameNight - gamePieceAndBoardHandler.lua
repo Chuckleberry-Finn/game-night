@@ -85,21 +85,26 @@ end
 
 
 ---@param gamePiece InventoryItem
-function gamePieceAndBoardHandler.pickUp(player, gamePiece)
+function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete)
     local xPos, yPos, zPos, square = 0, 0, 0, nil
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = gamePiece:getWorldItem()
     if worldItem then
         square = worldItem:getSquare()
-        xPos, yPos, zPos = worldItem:getWorldPosX(), worldItem:getWorldPosY(), worldItem:getWorldPosZ()
+        xPos, yPos, zPos = worldItem:getWorldPosX()-worldItem:getX(), worldItem:getWorldPosY()-worldItem:getY(), worldItem:getWorldPosZ()-worldItem:getZ()
     end
-    ISTimedActionQueue.add(ISInventoryTransferAction:new(player, gamePiece, gamePiece:getContainer(), player:getInventory(), 0))
-    return xPos, yPos, zPos, square
-end
-function gamePieceAndBoardHandler.putDown(player, gamePiece, square, x, y, z)
-    local dropAction = ISDropWorldItemAction:new(player, gamePiece, square, x, y, z, 0, false)
-    dropAction.maxTime = 1
+    local pickUpAction = ISInventoryTransferAction:new(player, gamePiece, gamePiece:getContainer(), player:getInventory(), 0)
+    if onComplete and type(onComplete)=="table" then pickUpAction.setOnComplete = {table.unpack(onComplete)} end
+    ISTimedActionQueue.add(pickUpAction)
+
+    local dropAction = ISDropWorldItemAction:new(player, gamePiece, square, xPos, yPos, zPos, 0, false)
+    dropAction.maxTime = 0
     ISTimedActionQueue.add(dropAction)
+end
+
+
+function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value)
+    gamePiece:getModData()[key] = value
 end
 
 
@@ -107,14 +112,11 @@ function gamePieceAndBoardHandler.rollDie(gamePiece, player)
     local sides = gamePiece:getModData()["gameNight_dieSides"]
     if not sides then return end
 
-    local x, y, z, square = gamePieceAndBoardHandler.pickUp(player, gamePiece)
     local result = ZombRand(sides)+1
     result = result>1 and result or ""
-    
-    gamePiece:getModData()["gameNight_altState"] = result
-    gamePieceAndBoardHandler.handleDetails(gamePiece)
+
+    gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, "gameNight_altState", result})
     gamePieceAndBoardHandler.playSound(gamePiece, "dieRoll", player)
-    gamePieceAndBoardHandler.putDown(player, gamePiece, square, x, y, z)
 end
 
 
@@ -123,17 +125,11 @@ function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
     local special = gamePieceAndBoardHandler.specials[gamePiece:getFullType()]
     if not special or not special.flipTexture then return end
 
-    local x, y, z, square = gamePieceAndBoardHandler.pickUp(player, gamePiece)
     local current = gamePiece:getModData()["gameNight_altState"]
-    if current then
-        gamePiece:getModData()["gameNight_altState"] = nil
-    else
-        gamePiece:getModData()["gameNight_altState"] = "Flipped"
-    end
+    local result = current and nil or "Flipped"
 
-    gamePieceAndBoardHandler.handleDetails(gamePiece)
+    gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, "gameNight_altState", result})
     gamePieceAndBoardHandler.playSound(gamePiece, player)
-    gamePieceAndBoardHandler.putDown(player, gamePiece, square, x, y, z)
 end
 
 return gamePieceAndBoardHandler
