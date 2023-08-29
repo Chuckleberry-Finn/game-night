@@ -93,12 +93,12 @@ function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete)
         square = worldItem:getSquare()
         xPos, yPos, zPos = worldItem:getWorldPosX()-worldItem:getX(), worldItem:getWorldPosY()-worldItem:getY(), worldItem:getWorldPosZ()-worldItem:getZ()
     end
-    local pickUpAction = ISInventoryTransferAction:new(player, gamePiece, gamePiece:getContainer(), player:getInventory(), 0)
-    if onComplete and type(onComplete)=="table" then pickUpAction.setOnComplete = {table.unpack(onComplete)} end
+    local pickUpAction = ISInventoryTransferAction:new(player, gamePiece, gamePiece:getContainer(), player:getInventory(), 1)
+    if onComplete and type(onComplete)=="table" then pickUpAction.setOnComplete = onComplete end
     ISTimedActionQueue.add(pickUpAction)
 
     local dropAction = ISDropWorldItemAction:new(player, gamePiece, square, xPos, yPos, zPos, 0, false)
-    dropAction.maxTime = 0
+    dropAction.maxTime = 1
     ISTimedActionQueue.add(dropAction)
 end
 
@@ -126,7 +126,8 @@ function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
     if not special or not special.flipTexture then return end
 
     local current = gamePiece:getModData()["gameNight_altState"]
-    local result = current and nil or "Flipped"
+    local result = "Flipped"
+    if current then result = nil end
 
     gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, "gameNight_altState", result})
     gamePieceAndBoardHandler.playSound(gamePiece, player)

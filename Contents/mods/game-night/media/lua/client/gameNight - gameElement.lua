@@ -50,7 +50,7 @@ function gameNightElement:moveElement(x, y)
     ISTimedActionQueue.add(pickUpAction)
 
     local dropAction = ISDropWorldItemAction:new(window.player, item, window.square, scaledX, scaledY, 0, 0, false)
-    dropAction.maxTime = 0
+    dropAction.maxTime = 1
     ISTimedActionQueue.add(dropAction)
 end
 

@@ -235,7 +235,10 @@ function ISInventoryPane:onMouseUp(x, y)
 end
 
 
-function deckActionHandler._drawCards(num, deckStates, currentFlipStates)
+function deckActionHandler._drawCards(num, deckItem, player)
+    local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
+    if not deckStates then return end
+
     local drawnCards = {}
     local drawnFlippedStates = {}
     local draw = #deckStates
@@ -248,26 +251,22 @@ function deckActionHandler._drawCards(num, deckStates, currentFlipStates)
         table.insert(drawnFlippedStates, drawnFlip)
     end
 
-    return drawnCards, drawnFlippedStates
-end
----@param deckItem InventoryItem
-function deckActionHandler.drawCards(num, deckItem, player)
-    local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
-    if not deckStates then return end
-
-    local drawnCards, drawnFlippedStates = gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawCards, num, deckStates, currentFlipStates})
-
     for n,card in pairs(drawnCards) do
         gamePieceAndBoardHandler.playSound(deckItem, player)
         local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n])
     end
+
+    return drawnCards, drawnFlippedStates
 end
-
-
+---@param deckItem InventoryItem
+function deckActionHandler.drawCards(num, deckItem, player) gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player}) end
 function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(1, deckItem, player) end
 
 
-function deckActionHandler._drawRandCard(deckStates, currentFlipStates)
+function deckActionHandler._drawRandCard(deckItem)
+    local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
+    if not deckStates then return end
+
     local deckCount = #deckStates
     local drawIndex = ZombRand(deckCount)+1
     local drawnCard, drawnFlipped
@@ -289,15 +288,12 @@ function deckActionHandler._drawRandCard(deckStates, currentFlipStates)
             end
         end
     end
-    return drawnCard, drawnFlipped
-end
 
+    local newCard = deckActionHandler.generateCard(drawnCard, deckItem, drawnFlipped)
+end
 ---@param deckItem InventoryItem
 function deckActionHandler.drawRandCard(deckItem, player)
-    local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
-    if not deckStates then return end
-    local drawnCard, drawnFlipped = gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawRandCard, deckStates, currentFlipStates})
-    local newCard = deckActionHandler.generateCard(drawnCard, deckItem, drawnFlipped)
+    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawRandCard, deckItem})
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
@@ -312,7 +308,6 @@ end
 function deckActionHandler.shuffleCards(deckItem, player)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
-
     gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._shuffleCards, deckStates, currentFlipStates})
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
