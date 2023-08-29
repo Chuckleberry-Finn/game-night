@@ -87,6 +87,16 @@ end
 ---@param gamePiece InventoryItem
 function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete)
     local xPos, yPos, zPos, square = 0, 0, 0, nil
+
+    if onComplete and type(onComplete)=="table" and not luautils.haveToBeTransfered(player, item, true) then
+        local onCompleteFuncArgs = onComplete
+        local func = onCompleteFuncArgs[1]
+        local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = onCompleteFuncArgs[2], onCompleteFuncArgs[3], onCompleteFuncArgs[4], onCompleteFuncArgs[5], onCompleteFuncArgs[6], onCompleteFuncArgs[7], onCompleteFuncArgs[8], onCompleteFuncArgs[9]
+        func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+        gamePieceAndBoardHandler.handleDetails(gamePiece)
+        return
+    end
+
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = gamePiece:getWorldItem()
     if worldItem then
