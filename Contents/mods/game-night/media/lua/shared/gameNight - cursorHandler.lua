@@ -38,7 +38,7 @@ function cursorHandler.receiveUpdate(data)--sqX, sqY, sqZ, playerUsername, mouse
 
     local playerUsername = dataPoints[4]
     if playerUsername == window.player:getUsername() then return end
-    
+
     local sqX, sqY, sqZ = tonumber(dataPoints[1]), tonumber(dataPoints[2]), tonumber(dataPoints[3])
 
     if (window.square:getX() ~= sqX) or (window.square:getY() ~= sqY) or (window.square:getZ() ~= sqZ) then return end

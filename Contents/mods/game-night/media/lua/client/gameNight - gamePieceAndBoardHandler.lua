@@ -84,29 +84,46 @@ function gamePieceAndBoardHandler.playSound(gamePiece, sound, player)
 end
 
 
-function gamePieceAndBoardHandler.rollDie(gamePiece, player)
+---@param gamePiece InventoryItem
+function gamePieceAndBoardHandler.pickUp(player, gamePiece)
+    local xPos, yPos, zPos, square = 0, 0, 0, nil
+    ---@type IsoWorldInventoryObject|IsoObject
+    local worldItem = gamePiece:getWorldItem()
+    if worldItem then
+        square = worldItem:getSquare()
+        xPos, yPos, zPos = worldItem:getWorldPosX(), worldItem:getWorldPosY(), worldItem:getWorldPosZ()
+    end
+    ISTimedActionQueue.add(ISInventoryTransferAction:new(player, gamePiece, gamePiece:getContainer(), player:getInventory(), 0))
+    return xPos, yPos, zPos, square
+end
+function gamePieceAndBoardHandler.putDown(player, gamePiece, square, x, y, z)
+    local dropAction = ISDropWorldItemAction:new(player, gamePiece, square, x, y, z, 0, false)
+    dropAction.maxTime = 1
+    ISTimedActionQueue.add(dropAction)
+end
 
+
+function gamePieceAndBoardHandler.rollDie(gamePiece, player)
     local sides = gamePiece:getModData()["gameNight_dieSides"]
     if not sides then return end
 
-    gamePieceAndBoardHandler.playSound(gamePiece, "dieRoll", player)
+    local x, y, z, square = gamePieceAndBoardHandler.pickUp(player, gamePiece)
     local result = ZombRand(sides)+1
     result = result>1 and result or ""
     
     gamePiece:getModData()["gameNight_altState"] = result
-
     gamePieceAndBoardHandler.handleDetails(gamePiece)
+    gamePieceAndBoardHandler.playSound(gamePiece, "dieRoll", player)
+    gamePieceAndBoardHandler.putDown(player, gamePiece, square, x, y, z)
 end
 
 
 
 function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
-
     local special = gamePieceAndBoardHandler.specials[gamePiece:getFullType()]
     if not special or not special.flipTexture then return end
 
-    gamePieceAndBoardHandler.playSound(gamePiece, player)
-
+    local x, y, z, square = gamePieceAndBoardHandler.pickUp(player, gamePiece)
     local current = gamePiece:getModData()["gameNight_altState"]
     if current then
         gamePiece:getModData()["gameNight_altState"] = nil
@@ -115,6 +132,8 @@ function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
     end
 
     gamePieceAndBoardHandler.handleDetails(gamePiece)
+    gamePieceAndBoardHandler.playSound(gamePiece, player)
+    gamePieceAndBoardHandler.putDown(player, gamePiece, square, x, y, z)
 end
 
 return gamePieceAndBoardHandler

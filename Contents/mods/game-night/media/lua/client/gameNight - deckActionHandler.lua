@@ -1,17 +1,11 @@
+local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
+
 local deckActionHandler = {}
 
 function deckActionHandler.isDeckItem(deckItem)
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
     if deckData then return true end
     return false
-end
-
-
----@param deckItem InventoryItem
-function deckActionHandler.playSound(deckItem, player)
-    if not player then return end
-    local sound = deckItem:getModData()["gameNight_sound"]
-    if sound then player:getEmitter():playSound(sound) end
 end
 
 
@@ -109,6 +103,8 @@ function deckActionHandler.flipCard(deckItem, player)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
 
+    local x, y, z, square = gamePieceAndBoardHandler.pickUp(player, deckItem)
+
     local handleFlippedDeck = {}
     local handleFlippedStates = {}
 
@@ -119,8 +115,10 @@ function deckActionHandler.flipCard(deckItem, player)
 
     deckItem:getModData()["gameNight_cardDeck"] = handleFlippedDeck
     deckItem:getModData()["gameNight_cardFlipped"] = handleFlippedStates
-    deckActionHandler.playSound(deckItem, player)
+
     deckActionHandler.handleDetails(deckItem)
+    gamePieceAndBoardHandler.playSound(deckItem, player)
+    gamePieceAndBoardHandler.putDown(player, deckItem, square, x, y, z)
 end
 
 
@@ -148,15 +146,20 @@ function deckActionHandler.mergeDecks(deckItemA, deckItemB, player)
     local deckB, flippedB = deckActionHandler.getDeckStates(deckItemB)
     if not deckB then return end
 
+    gamePieceAndBoardHandler.pickUp(player, deckItemA)
+    local xB, yB, zB, square = gamePieceAndBoardHandler.pickUp(player, deckItemB)
+
     local deckA, flippedA = deckActionHandler.getDeckStates(deckItemA)
     if not deckA then return end
 
     for _,card in pairs(deckA) do table.insert(deckB, card) end
     for _,flip in pairs(flippedA) do table.insert(flippedB, flip) end
 
-    deckActionHandler.playSound(deckItemB, player)
     deckActionHandler.handleDetails(deckItemB)
     deckActionHandler.safelyRemoveCard(deckItemA)
+    gamePieceAndBoardHandler.playSound(deckItemB, player)
+    gamePieceAndBoardHandler.putDown(player, deckItemB, square, xB, yB, zB)
+
 end
 
 
@@ -243,6 +246,8 @@ function deckActionHandler.drawCards(num, deckItem, player)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
 
+    local x, y, z, square = gamePieceAndBoardHandler.pickUp(player, deckItem)
+
     local drawnCards = {}
     local drawnFlippedStates = {}
     local draw = #deckStates
@@ -256,9 +261,10 @@ function deckActionHandler.drawCards(num, deckItem, player)
     end
 
     for n,card in pairs(drawnCards) do
-        deckActionHandler.playSound(deckItem, player)
+        gamePieceAndBoardHandler.playSound(deckItem, player)
         local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n])
     end
+    gamePieceAndBoardHandler.putDown(player, deckItem, square, x, y, z)
 end
 
 function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(1, deckItem, player) end
@@ -267,6 +273,9 @@ function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCard
 function deckActionHandler.drawRandCard(deckItem, player)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
+
+
+    local x, y, z, square = gamePieceAndBoardHandler.pickUp(player, deckItem)
 
     local deckCount = #deckStates
     local drawIndex = ZombRand(deckCount)+1
@@ -289,8 +298,10 @@ function deckActionHandler.drawRandCard(deckItem, player)
             end
         end
     end
-    deckActionHandler.playSound(deckItem, player)
+
     local newCard = deckActionHandler.generateCard(drawnCard, deckItem, drawnFlipped)
+    gamePieceAndBoardHandler.playSound(deckItem, player)
+    gamePieceAndBoardHandler.putDown(player, deckItem, square, x, y, z)
 end
 
 
@@ -298,14 +309,16 @@ function deckActionHandler.shuffleCards(deckItem, player)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
 
+    local x, y, z, square = gamePieceAndBoardHandler.pickUp(player, deckItem)
     for origIndex = #deckStates, 2, -1 do
         local shuffledIndex = ZombRand(origIndex)+1
         currentFlipStates[origIndex], currentFlipStates[shuffledIndex] = currentFlipStates[shuffledIndex], currentFlipStates[origIndex]
         deckStates[origIndex], deckStates[shuffledIndex] = deckStates[shuffledIndex], deckStates[origIndex]
     end
 
-    deckActionHandler.playSound(deckItem, player)
     deckActionHandler.handleDetails(deckItem)
+    gamePieceAndBoardHandler.playSound(deckItem, player)
+    gamePieceAndBoardHandler.putDown(player, deckItem, square, x, y, z)
 end
 
 
