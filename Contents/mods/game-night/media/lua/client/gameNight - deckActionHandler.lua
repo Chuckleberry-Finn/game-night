@@ -115,7 +115,7 @@ function deckActionHandler._flipCard(deckItem)
     deckItem:getModData()["gameNight_cardFlipped"] = handleFlippedStates
 end
 function deckActionHandler.flipCard(deckItem, player)
-    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._flipCard, deckItem})
+    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._flipCard, deckItem}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
@@ -153,7 +153,7 @@ end
 ---@param deckItemB InventoryItem
 function deckActionHandler.mergeDecks(deckItemA, deckItemB, player)
     gamePieceAndBoardHandler.takeAction(player, deckItemA, {})
-    gamePieceAndBoardHandler.takeAction(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB})
+    gamePieceAndBoardHandler.takeAction(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItemB, player)
 end
 
@@ -260,7 +260,9 @@ function deckActionHandler._drawCards(num, deckItem, player)
     return drawnCards, drawnFlippedStates
 end
 ---@param deckItem InventoryItem
-function deckActionHandler.drawCards(num, deckItem, player) gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player}) end
+function deckActionHandler.drawCards(num, deckItem, player)
+    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player}, deckActionHandler.handleDetails)
+end
 function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(1, deckItem, player) end
 
 
@@ -294,7 +296,7 @@ function deckActionHandler._drawRandCard(deckItem)
 end
 ---@param deckItem InventoryItem
 function deckActionHandler.drawRandCard(deckItem, player)
-    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawRandCard, deckItem})
+    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawRandCard, deckItem}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
@@ -310,7 +312,7 @@ function deckActionHandler._shuffleCards(deckItem)
     end
 end
 function deckActionHandler.shuffleCards(deckItem, player)
-    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._shuffleCards, deckItem})
+    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._shuffleCards, deckItem}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
