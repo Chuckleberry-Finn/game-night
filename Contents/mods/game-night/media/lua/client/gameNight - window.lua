@@ -37,7 +37,12 @@ function gameNightWindow:initialise()
 end
 
 
-function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self:setVisible(false) end end
+function gameNightWindow:onClick(button)
+    if button.internal == "CLOSE" then
+        self:setVisible(false)
+        self.elements = {}
+    end
+end
 
 
 local deckActionHandler = require "gameNight - deckActionHandler"
@@ -56,7 +61,11 @@ function gameNightWindow:processMouseUp(old, x, y)
                         if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
                     end
                 end
-                if selection then deckActionHandler.mergeDecks(piece.itemObject, selection.itemObject, self.player) return end
+                if selection then
+                    deckActionHandler.mergeDecks(piece.itemObject, selection.itemObject, self.player)
+                    old(self, x, y)
+                    return
+                end
             end
             piece:moveElement(posX, posY)
         end
