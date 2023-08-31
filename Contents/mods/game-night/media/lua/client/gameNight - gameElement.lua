@@ -10,10 +10,7 @@ function gameNightElement:initialise() ISPanelJoypad.initialise(self) end
 function gameNightElement:onMouseUp(x, y)
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
-
-    window:onMouseUp(x, y, self)
-    ISPanelJoypad.onMouseUp(self)
-    window.movingPiece = nil
+    window:onMouseUp(window:getMouseX(), window:getMouseY())
 end
 
 
@@ -50,12 +47,15 @@ function gameNightElement:moveElement(x, y)
     local sound = item:getModData()["gameNight_sound"]
     if sound then window.player:getEmitter():playSound(sound) end
 
-    local pickUpAction = ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 0)
+    local pickUpAction = ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 1)
     ISTimedActionQueue.add(pickUpAction)
 
     local dropAction = ISDropWorldItemAction:new(window.player, item, window.square, scaledX, scaledY, 0, 0, false)
     dropAction.maxTime = 1
     ISTimedActionQueue.add(dropAction)
+
+    local pBD = window.player:getBodyDamage()
+    pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 end
 
 
@@ -76,7 +76,9 @@ function gameNightElement:onContextSelection(o, x, y)
     if self.toolRender then self.toolRender:setVisible(false) end
 
     local oX, oY = o:getAbsoluteX()+x, o:getAbsoluteY()+y+o:getYScroll()
+    ---@type ISContextMenu
     local menu = ISInventoryPaneContextMenu.createMenu(playerID, isInInv, contextMenuItems, oX, oY)
+    menu:addOption(getText("IGUI_lockElement"), self, gameNightElement.lockInPlace)
     return true
 end
 
@@ -92,7 +94,7 @@ end
 
 function gameNightElement:onMouseDown(x, y)
     local window = gameNightWindow.instance
-    if not window or not window:isVisible() then return end
+    if not window or not window:isVisible() or not self.moveWithMouse then return end
     local selection = window:getClickedPriorityPiece(x, y, self)
     window.movingPiece = selection
     window.movingPieceOffset = {selection:getMouseX(),selection:getMouseY()}
@@ -102,9 +104,11 @@ end
 
 function gameNightElement:prerender()
     ISPanelJoypad.prerender(self)
+    if not self:isVisible() then return end
+
     ---@type ISPanelJoypad
     local window = gameNightWindow.instance
-    if not window or not window:isVisible() or not self:isVisible() then return end
+    if not window or not window:isVisible() then return end
 
     local sandbox = SandboxVars.GameNight.DisplayItemNames
     if sandbox and self:isMouseOver() and (not window.movingPiece) then

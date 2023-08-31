@@ -47,14 +47,13 @@ end
 
 local deckActionHandler = require "gameNight - deckActionHandler"
 function gameNightWindow:processMouseUp(old, x, y)
-    self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
     if not self.moveWithMouse then
         local piece = self.movingPiece
         if piece and piece:isVisible() then
             local posX, posY = piece:getMouseX(), piece:getMouseY()
             if deckActionHandler.isDeckItem(piece.itemObject) then
-
-                local placeX, placeY = posX+piece.x-piece.width, posY+piece.y-piece.height
+                local offsetX, offsetY = self.movingPieceOffset[1], self.movingPieceOffset[2]
+                local placeX, placeY = x+self.x-offsetX, y+self.y-offsetY
                 local selection
                 for item,element in pairs(self.elements) do
                     if (element~=piece) and element:isVisible() and deckActionHandler.isDeckItem(item) then
@@ -64,7 +63,8 @@ function gameNightWindow:processMouseUp(old, x, y)
                 end
                 if selection then
                     deckActionHandler.mergeDecks(piece.itemObject, selection.itemObject, self.player)
-                    old(self, x, y)
+                    self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
+                    self.movingPiece = nil
                     return
                 end
             end
@@ -72,10 +72,12 @@ function gameNightWindow:processMouseUp(old, x, y)
         end
     end
     old(self, x, y)
+    self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
     self.movingPiece = nil
 end
 function gameNightWindow:onMouseUpOutside(x, y)
     self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y)
+
 end
 function gameNightWindow:onMouseUp(x, y)
     self:processMouseUp(ISPanelJoypad.onMouseUp, x, y)
@@ -94,7 +96,7 @@ function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
 
     local selection = clicked
     for item,element in pairs(self.elements) do
-        if element:isVisible() then
+        if element:isVisible() and element.moveWithMouse then
             local inBounds = ((cursorX >= element.x) and (cursorY >= element.y) and (cursorX <= element.x+element.width) and (cursorY <= element.y+element.height))
             if inBounds and ((not selection) or element.priority > selection.priority) then
                 selection = element
@@ -125,7 +127,6 @@ function gameNightWindow:generateElement(item, object, priority)
     end
 
     if element then
-
         element:setVisible(true)
         element:setX(self.x+x)
         element:setY(self.y+y)
@@ -147,7 +148,23 @@ end
 
 function gameNightWindow:prerender()
     ISPanelJoypad.prerender(self)
-    for item,element in pairs(self.elements) do element:setVisible(false) end
+    for item,element in pairs(self.elements) do
+        element:setVisible(false)
+        element:setX(-10-self.width)
+        element:setY(-10-self.height)
+    end
+
+    self:drawRectBorder(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), 0.8, 0.8, 0.8, 0.8)
+end
+
+gameNightWindow.cursorDraws = {}
+gameNightWindow.cursor = nil
+gameNightWindow.cursorW = nil
+gameNightWindow.cursorH = nil
+
+function gameNightWindow:render()
+    ISPanelJoypad.render(self)
+    local movingElement = self.movingPiece
 
     ---@type IsoGridSquare
     local square = self.square
@@ -168,18 +185,6 @@ function gameNightWindow:prerender()
     table.sort(loadOrder, gameNightWindow.compareElements)
 
     for priority,stuff in pairs(loadOrder) do self:generateElement(stuff.item, stuff.object, priority) end
-
-    self:drawRectBorder(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), 0.8, 0.8, 0.8, 0.8)
-end
-
-gameNightWindow.cursorDraws = {}
-gameNightWindow.cursor = nil
-gameNightWindow.cursorW = nil
-gameNightWindow.cursorH = nil
-
-function gameNightWindow:render()
-    ISPanelJoypad.render(self)
-    local movingElement = self.movingPiece
 
     gameNightWindow.cursor = gameNightWindow.cursor or getTexture("media/textures/gamenight_cursor.png")
     gameNightWindow.cursorW = gameNightWindow.cursorW or gameNightWindow.cursor:getWidth()

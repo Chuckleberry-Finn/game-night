@@ -159,7 +159,7 @@ end
 ---@param deckItemA InventoryItem
 ---@param deckItemB InventoryItem
 function deckActionHandler.mergeDecks(deckItemA, deckItemB, player)
-    gamePieceAndBoardHandler.takeAction(player, deckItemA, {})
+    gamePieceAndBoardHandler.takeAction(player, deckItemA, nil)
     gamePieceAndBoardHandler.takeAction(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItemB, player)
 end

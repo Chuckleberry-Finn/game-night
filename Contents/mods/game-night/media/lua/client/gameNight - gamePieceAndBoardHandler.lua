@@ -84,9 +84,13 @@ function gamePieceAndBoardHandler.playSound(gamePiece, player, sound)
 end
 
 
+---@param player IsoPlayer|IsoGameCharacter
 ---@param gamePiece InventoryItem
 function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete, details)
     local xPos, yPos, zPos, square = 0, 0, 0, nil
+
+    local pBD = player:getBodyDamage()
+    pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 
     if onComplete and type(onComplete)=="table" and not luautils.haveToBeTransfered(player, item, true) then
         local onCompleteFuncArgs = onComplete

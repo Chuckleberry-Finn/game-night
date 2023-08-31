@@ -10,6 +10,8 @@ IGUI_EN = {
 
     IGUI_Play_Game = "Play Game",
 
+    IGUI_lockElement = "Lock In Place"
+
     IGUI_ItemCat_Card = "Card",
     IGUI_ItemCat_Deck = "Deck",
     IGUI_ItemCat_GamePiece = "Game Piece",
