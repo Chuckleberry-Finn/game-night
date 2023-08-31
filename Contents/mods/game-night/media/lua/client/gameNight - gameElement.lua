@@ -106,7 +106,8 @@ function gameNightElement:prerender()
     local window = gameNightWindow.instance
     if not window or not window:isVisible() or not self:isVisible() then return end
 
-    if self:isMouseOver() and (not window.movingPiece) then
+    local sandbox = SandboxVars.GameNight.DisplayItemNames
+    if sandbox and self:isMouseOver() and (not window.movingPiece) then
         self.nameTag = self.nameTag or (self.itemObject and self.itemObject:getName())
         self.nameTagWidth = self.nameTagWidth or getTextManager():MeasureStringX(UIFont.NewSmall, " "..self.nameTag.." ")
         self.nameTagHeight = self.nameTagHeight or getTextManager():getFontHeight(UIFont.NewSmall)

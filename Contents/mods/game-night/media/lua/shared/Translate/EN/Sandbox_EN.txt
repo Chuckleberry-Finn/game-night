@@ -1,0 +1,7 @@
+Sandbox_EN = {
+	Sandbox_GameNight = "Game Night",
+
+    Sandbox_GameNight_DisplayItemNames = "Display Item Names"
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Display item names in game."
+
+	}
