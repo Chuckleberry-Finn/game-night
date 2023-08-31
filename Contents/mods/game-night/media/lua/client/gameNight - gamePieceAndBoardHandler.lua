@@ -77,7 +77,7 @@ end
 
 
 ---@param gamePiece InventoryItem
-function gamePieceAndBoardHandler.playSound(gamePiece, sound, player)
+function gamePieceAndBoardHandler.playSound(gamePiece, player, sound)
     if not player then return end
     sound = sound or gamePiece:getModData()["gameNight_sound"]
     if sound then player:getEmitter():playSound(sound) end
@@ -126,7 +126,7 @@ function gamePieceAndBoardHandler.rollDie(gamePiece, player)
     result = result>1 and result or ""
 
     gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
-    gamePieceAndBoardHandler.playSound(gamePiece, "dieRoll", player)
+    gamePieceAndBoardHandler.playSound(gamePiece, player, "dieRoll")
 end
 
 
@@ -139,8 +139,8 @@ function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
     local result = "Flipped"
     if current then result = nil end
 
-    gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
     gamePieceAndBoardHandler.playSound(gamePiece, player)
+    gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
 end
 
 return gamePieceAndBoardHandler
