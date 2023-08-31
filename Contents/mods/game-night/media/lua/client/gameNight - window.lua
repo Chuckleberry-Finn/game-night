@@ -47,6 +47,7 @@ end
 
 local deckActionHandler = require "gameNight - deckActionHandler"
 function gameNightWindow:processMouseUp(old, x, y)
+    self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
     if not self.moveWithMouse then
         local piece = self.movingPiece
         if piece and piece:isVisible() then
@@ -71,9 +72,14 @@ function gameNightWindow:processMouseUp(old, x, y)
         end
     end
     old(self, x, y)
+    self.movingPiece = nil
 end
-function gameNightWindow:onMouseUpOutside(x, y) self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y) end
-function gameNightWindow:onMouseUp(x, y) self:processMouseUp(ISPanelJoypad.onMouseUp, x, y) end
+function gameNightWindow:onMouseUpOutside(x, y)
+    self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y)
+end
+function gameNightWindow:onMouseUp(x, y)
+    self:processMouseUp(ISPanelJoypad.onMouseUp, x, y)
+end
 
 
 function gameNightWindow:onMouseDown(x, y)
@@ -187,9 +193,9 @@ function gameNightWindow:render()
 
     if movingElement then
         if not isMouseButtonDown(0) then return end
-        local selfW, selfH = movingElement:getWidth(), movingElement:getHeight()
         local texture = movingElement.itemObject:getModData()["gameNight_textureInPlay"] or movingElement.itemObject:getTexture()
-        movingElement:drawTexture(texture, movingElement:getMouseX()-(selfW), movingElement:getMouseY()-(selfH), 0.55, 1, 1, 1)
+        local offsetX, offsetY = self.movingPieceOffset[1], self.movingPieceOffset[2]
+        movingElement:drawTexture(texture, movingElement:getMouseX()-(offsetX), movingElement:getMouseY()-(offsetY), 0.55, 1, 1, 1)
     end
 end
 

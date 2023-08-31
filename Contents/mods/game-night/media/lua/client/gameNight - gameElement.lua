@@ -13,6 +13,7 @@ function gameNightElement:onMouseUp(x, y)
 
     window:onMouseUp(x, y, self)
     ISPanelJoypad.onMouseUp(self)
+    window.movingPiece = nil
 end
 
 
@@ -31,8 +32,11 @@ function gameNightElement:moveElement(x, y)
 
     local selfW, selfH = self:getWidth(), self:getHeight()
 
-    local newX = (self:getX()+x)-window.x-(selfW)
-    local newY = (self:getY()+y)-window.y-(selfH)
+    local offsetX = window.movingPieceOffset and window.movingPieceOffset[1] or 0
+    local offsetY = window.movingPieceOffset and window.movingPieceOffset[2] or 0
+
+    local newX = (self:getX()+x)-window.x-(offsetX)
+    local newY = (self:getY()+y)-window.y-(offsetY)
 
     newX = math.min(math.max(newX, window.bounds.x1), window.bounds.x2-selfW)
     newY = math.min(math.max(newY, window.bounds.y1), window.bounds.y2-selfH)
@@ -82,7 +86,7 @@ function gameNightElement:onRightMouseDown(x, y)
     if not window or not window:isVisible() then return end
     local selection = window:getClickedPriorityPiece(x, y, self)
     selection:onContextSelection(self, x, y)
-    ISPanelJoypad.onRightMouseDown(self)
+    ISPanelJoypad.onRightMouseDown(selection)
 end
 
 
@@ -91,14 +95,32 @@ function gameNightElement:onMouseDown(x, y)
     if not window or not window:isVisible() then return end
     local selection = window:getClickedPriorityPiece(x, y, self)
     window.movingPiece = selection
-    ISPanelJoypad.onMouseDown(self)
+    window.movingPieceOffset = {selection:getMouseX(),selection:getMouseY()}
+    ISPanelJoypad.onMouseDown(selection)
 end
 
 
-function gameNightElement:prerender() ISPanelJoypad.prerender(self) end
+function gameNightElement:prerender()
+    ISPanelJoypad.prerender(self)
+    ---@type ISPanelJoypad
+    local window = gameNightWindow.instance
+    if not window or not window:isVisible() or not self:isVisible() then return end
+
+    if self:isMouseOver() and (not window.movingPiece) then
+        self.nameTag = self.nameTag or (self.itemObject and self.itemObject:getName())
+        self.nameTagWidth = self.nameTagWidth or getTextManager():MeasureStringX(UIFont.NewSmall, " "..self.nameTag.." ")
+        self.nameTagHeight = self.nameTagHeight or getTextManager():getFontHeight(UIFont.NewSmall)
+
+        local x, y = self:getMouseX()+(window.cursorW or 0), self:getMouseY()-(window.cursorH or 0)
+        self:drawRect(x, y, self.nameTagWidth, self.nameTagHeight, 0.7, 0, 0, 0)
+        self:drawTextCentre(self.nameTag, x+(self.nameTagWidth/2), y, 1, 1, 1, 0.7, UIFont.NewSmall)
+    end
+end
 
 
-function gameNightElement:render() ISPanelJoypad.render(self) end
+function gameNightElement:render()
+    ISPanelJoypad.render(self)
+end
 
 
 function gameNightElement:new(x, y, width, height, itemObject)
