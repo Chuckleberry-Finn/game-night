@@ -108,6 +108,7 @@ function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
 end
 
 
+local applyItemDetails = require "gameNight - applyItemDetails"
 ---@param item IsoObject|InventoryItem
 ---@param object IsoObject|IsoWorldInventoryObject
 function gameNightWindow:generateElement(item, object, priority)
@@ -116,6 +117,8 @@ function gameNightWindow:generateElement(item, object, priority)
     local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
     local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
 
+    applyItemDetails.applyGameNightToItem(item)
+    
     ---@type Texture
     local texture = item:getModData()["gameNight_textureInPlay"] or item:getTexture()
     local w, h = texture:getWidth(), texture:getHeight()
