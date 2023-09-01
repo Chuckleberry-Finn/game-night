@@ -47,17 +47,21 @@ function gameNightElement:moveElement(x, y)
     local sound = item:getModData()["gameNight_sound"]
     if sound then window.player:getEmitter():playSound(sound) end
 
-    local pickUpAction = ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 1)
+    local pickUpAction = ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 0)
     ISTimedActionQueue.add(pickUpAction)
 
     local dropAction = ISDropWorldItemAction:new(window.player, item, window.square, scaledX, scaledY, 0, 0, false)
-    dropAction.maxTime = 1
+    dropAction.maxTime = 0
     ISTimedActionQueue.add(dropAction)
 
     local pBD = window.player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 end
 
+function gameNightElement.lockInPlace()
+    self.moveWithMouse = not self.moveWithMouse
+    self.javaObject:setConsumeMouseEvents(self.moveWithMouse)
+end
 
 function gameNightElement:onContextSelection(o, x, y)
     local window = gameNightWindow.instance

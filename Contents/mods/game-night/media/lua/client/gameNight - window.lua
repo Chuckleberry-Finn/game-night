@@ -56,7 +56,7 @@ function gameNightWindow:processMouseUp(old, x, y)
                 local placeX, placeY = x+self.x-offsetX, y+self.y-offsetY
                 local selection
                 for item,element in pairs(self.elements) do
-                    if (element~=piece) and element:isVisible() and deckActionHandler.isDeckItem(item) then
+                    if (element~=piece) and element:isVisible() and deckActionHandler.isDeckItem(element.itemObject) then
                         local inBounds = (math.abs(element.x-placeX) <= 4) and (math.abs(element.y-placeY) <= 4)
                         if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
                     end
@@ -112,7 +112,7 @@ end
 ---@param object IsoObject|IsoWorldInventoryObject
 function gameNightWindow:generateElement(item, object, priority)
     ---@type gameNightElement
-    local element = self.elements[item]
+    local element = self.elements[item:getID()]
     local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
     local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
 
@@ -121,8 +121,8 @@ function gameNightWindow:generateElement(item, object, priority)
     local w, h = texture:getWidth(), texture:getHeight()
 
     if not element then
-        self.elements[item] = gameNightElement:new(x, y, w, h, item)
-        element = self.elements[item]
+        self.elements[item:getID()] = gameNightElement:new(x, y, w, h, item)
+        element = self.elements[item:getID()]
         element:addToUIManager()
     end
 

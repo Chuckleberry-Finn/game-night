@@ -109,12 +109,12 @@ function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete, deta
         square = worldItem:getSquare()
         xPos, yPos, zPos = worldItem:getWorldPosX()-worldItem:getX(), worldItem:getWorldPosY()-worldItem:getY(), worldItem:getWorldPosZ()-worldItem:getZ()
     end
-    local pickUpAction = ISInventoryTransferAction:new(player, gamePiece, gamePiece:getContainer(), player:getInventory(), 1)
+    local pickUpAction = ISInventoryTransferAction:new(player, gamePiece, gamePiece:getContainer(), player:getInventory(), 0)
     if onComplete and type(onComplete)=="table" then pickUpAction:setOnComplete(unpack(onComplete)) end
     ISTimedActionQueue.add(pickUpAction)
 
     local dropAction = ISDropWorldItemAction:new(player, gamePiece, square, xPos, yPos, zPos, 0, false)
-    dropAction.maxTime = 1
+    dropAction.maxTime = 0
     ISTimedActionQueue.add(dropAction)
 end
 

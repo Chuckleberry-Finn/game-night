@@ -58,7 +58,7 @@ function deckActionHandler.handleDetails(deckItem)
 
     if deckItemOldName ~= deckItem:getName() then
         local window = gameNightWindow.instance
-        if window and window.elements[deckItem] then window.elements[deckItem].nameTag = nil end
+        if window and window.elements[deckItem:getID()] then window.elements[deckItem:getID()].nameTag = nil end
     end
 
     if texture then deckItem:setTexture(texture) end
