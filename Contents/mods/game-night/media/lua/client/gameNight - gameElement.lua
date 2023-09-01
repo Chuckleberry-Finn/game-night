@@ -47,7 +47,7 @@ function gameNightElement:moveElement(x, y)
     local sound = item:getModData()["gameNight_sound"]
     if sound then window.player:getEmitter():playSound(sound) end
 
-    if luautils.haveToBeTransfered(window.player, item) then
+    if luautils.haveToBeTransfered(window.player, item, true) then
         local pickUpAction = ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 0)
         ISTimedActionQueue.add(pickUpAction)
     end
