@@ -8,7 +8,7 @@ gameNightWindow.elements = {}
 
 function gameNightWindow:update()
     if (not self.player) or (not self.square) or (not luautils.isSquareAdjacentToSquare(self.square, self.player:getSquare())) then
-        self:setVisible(false)
+        self:closeAndRemove()
         return
     end
 end
@@ -74,13 +74,15 @@ function gameNightWindow:onMouseUpOutside(x, y)
     if self:isVisible() then self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y) end
 end
 function gameNightWindow:onMouseUp(x, y)
-    self:processMouseUp(ISPanelJoypad.onMouseUp, x, y)
+    if self:isVisible() then self:processMouseUp(ISPanelJoypad.onMouseUp, x, y) end
 end
 
 
 function gameNightWindow:onMouseDown(x, y)
-    self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
-    ISPanelJoypad.onMouseDown(self, x, y)
+    if self:isVisible() then
+        self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
+        ISPanelJoypad.onMouseDown(self, x, y)
+    end
 end
 
 
@@ -207,6 +209,12 @@ end
 
 function gameNightWindow:closeAndRemove()
     self:setVisible(false)
+
+    for item,element in pairs(self.elements) do
+        element:setVisible(false)
+        element:removeFromUIManager()
+    end
+
     self.elements = {}
     self.movingPiece = nil
     self:removeFromUIManager()
