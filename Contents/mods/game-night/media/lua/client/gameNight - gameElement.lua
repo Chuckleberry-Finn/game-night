@@ -107,9 +107,7 @@ function gameNightElement:onMouseDown(x, y)
     ISPanelJoypad.onMouseDown(selection)
 end
 
-
-function gameNightElement:prerender()
-    ISPanelJoypad.prerender(self)
+function gameNightElement:labelWithName()
     if not self:isVisible() then return end
 
     ---@type ISPanelJoypad
@@ -126,6 +124,10 @@ function gameNightElement:prerender()
         self:drawRect(x, y, self.nameTagWidth, self.nameTagHeight, 0.7, 0, 0, 0)
         self:drawTextCentre(self.nameTag, x+(self.nameTagWidth/2), y, 1, 1, 1, 0.7, UIFont.NewSmall)
     end
+end
+
+function gameNightElement:prerender()
+    ISPanelJoypad.prerender(self)
 end
 
 
