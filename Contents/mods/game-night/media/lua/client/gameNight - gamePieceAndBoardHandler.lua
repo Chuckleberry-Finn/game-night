@@ -15,6 +15,10 @@ gamePieceAndBoardHandler.itemTypes = {
     "Base.ChessWhiteKing","Base.ChessBlackKing","Base.ChessWhiteBishop","Base.ChessBlackBishop",
     "Base.ChessWhiteQueen", "Base.ChessBlackQueen", "Base.ChessWhiteRook","Base.ChessBlackRook",
     "Base.ChessWhiteKnight", "Base.ChessBlackKnight",
+
+    "Base.CatanRobber", "Base.LongestRoad", "Base.LargestArmy",
+    "Base.PlayerCostsWhite", "Base.PlayerCostsRed", "Base.PlayerCostsOrange", "Base.PlayerCostsBlue",
+    
 }
 
 gamePieceAndBoardHandler._itemTypes = nil

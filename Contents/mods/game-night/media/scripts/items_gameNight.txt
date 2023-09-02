@@ -110,12 +110,6 @@ module Base
     }
 
 
-
-    item CatanRobber
-    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
-        DisplayName	= Robber Piece, Icon = OutOfPlayTextures/CatanRobber, WorldStaticModel = PokerChips_Ground,
-    }
-
     item CatanResourceDeck
     { DisplayCategory = Deck, Weight = 0.2, Type = Normal,
         DisplayName	= Resource Card,
@@ -128,6 +122,11 @@ module Base
         DisplayName	= Development Card,
         Icon = CatanDeck/Development,
         WorldStaticModel = CardDeck,
+    }
+
+    item CatanRobber
+    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+        DisplayName	= Robber Piece, Icon = OutOfPlayTextures/CatanRobber, WorldStaticModel = PokerChips_Ground,
     }
 
     item PlayerCostsWhite
