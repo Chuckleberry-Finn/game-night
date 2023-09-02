@@ -1,5 +1,4 @@
 --- For anyone looking to make a sub-mod:
--- This file is all that you should need.
 
 ---First require this file so that the cataloger module can be called on.
 local applyItemDetails = require "gameNight - applyItemDetails"
@@ -24,47 +23,3 @@ for _,s in pairs(playingCards.suites) do
     end
 end
 applyItemDetails.addDeck("CardDeck", playingCards.cards)
-
-
---- UNO
--- (19) Red, Blue, Green, Yellow – 0, 1 to 9 (2x)
--- (8) Skip, Reverse, Draw2 – 2 cards of each color
--- (8) Black – 4 Wild cards and 4 Wild Draw 4 cards
-local unoCards = {}
-unoCards.cards = {"Red 0","Green 0","Blue 0","Yellow 0","Wild","Wild","Wild","Wild","Wild Draw 4","Wild Draw 4","Wild Draw 4","Wild Draw 4"}
-unoCards.suites = {"Red","Green","Blue","Yellow"}
-unoCards.values = {"1","2","3","4","5","6","7","8","9","Skip","Reverse","Draw 2"}
-
-for i=1, 2 do --Two sets of 1-9, 0s are single
-    for _,s in pairs(unoCards.suites) do
-        for _,v in pairs(unoCards.values) do
-            table.insert(unoCards.cards, s.." "..v)
-        end
-    end
-end
-applyItemDetails.addDeck("UnoCards", unoCards.cards)
-
-
-
---- CATAN RESOURCES
-local CatanResourceDeck = {}
-CatanResourceDeck.types = {"Brick","Stone","Wood","Wheat","Sheep"}
-CatanResourceDeck.cards = {}
-for i=1, 19 do for _,s in pairs(CatanResourceDeck.types) do table.insert(CatanResourceDeck.cards, s) end end
-applyItemDetails.addDeck("CatanResourceDeck", CatanResourceDeck.cards)
-
---- CATAN DEVELOPMENTS
-local CatanDevelopmentDeck = {}
---Fourteen (14) Knight Cards.
---Six (6) Progress Cards (2 x Monopoly, 2 x Road Building, 2 x Year of Plenty).
-CatanDevelopmentDeck.types = {"Knight","Monopoly","Road Building","Year of Plenty"}
-CatanDevelopmentDeck.count = {14,2,2,2}
---Five (5) Victory Point Cards (Chapel, Library, Market, Palace, University).
-CatanDevelopmentDeck.cards = {"Chapel", "Library", "Market", "Palace", "University"}
-
-for i,s in pairs(CatanDevelopmentDeck.types) do
-    for ii=1, i do
-        table.insert(CatanDevelopmentDeck.cards, s)
-    end
-end
-applyItemDetails.addDeck("CatanDevelopmentDeck", CatanDevelopmentDeck.cards)

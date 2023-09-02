@@ -1,0 +1,17 @@
+module Base
+{
+    model UnoCards
+    {
+        mesh = WorldItems/cardpack,
+        texture = Item_UnoCards/deckTextureUnoCards,
+        scale = 0.02,
+    }
+
+    model UnoCardsSingle
+    {
+        mesh = WorldItems/card,
+        texture = Item_UnoCards/deckTextureUnoCards,
+        scale = 0.02,
+    }
+
+}

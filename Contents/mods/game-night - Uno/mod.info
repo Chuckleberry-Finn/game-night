@@ -1,0 +1,5 @@
+name=Game Night - Uno
+id=gamenight_Uno
+description=
+poster=poster.png
+require=gamenight

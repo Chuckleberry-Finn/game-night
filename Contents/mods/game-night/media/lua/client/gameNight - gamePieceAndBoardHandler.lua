@@ -15,11 +15,18 @@ gamePieceAndBoardHandler.itemTypes = {
     "Base.ChessWhiteKing","Base.ChessBlackKing","Base.ChessWhiteBishop","Base.ChessBlackBishop",
     "Base.ChessWhiteQueen", "Base.ChessBlackQueen", "Base.ChessWhiteRook","Base.ChessBlackRook",
     "Base.ChessWhiteKnight", "Base.ChessBlackKnight",
-
-    "Base.CatanRobber", "Base.LongestRoad", "Base.LargestArmy",
-    "Base.PlayerCostsWhite", "Base.PlayerCostsRed", "Base.PlayerCostsOrange", "Base.PlayerCostsBlue",
-    
 }
+
+function gamePieceAndBoardHandler.addTypes(...)
+    for _,t in pairs(...) do table.insert(gamePieceAndBoardHandler.itemTypes, t) end
+    gamePieceAndBoardHandler.generate_itemTypes()
+end
+
+function gamePieceAndBoardHandler.addSpecial(type, special)
+    if (not getScriptManager():getItem(type)) then print("ERROR: GameNight: addSpecial: "..type.." is invalid.") return end
+    if (not special) or (not type(special)~="table") then print("ERROR: GameNight: addSpecial: special is not table.") return end
+    gamePieceAndBoardHandler.specials[type] = special
+end
 
 gamePieceAndBoardHandler._itemTypes = nil
 function gamePieceAndBoardHandler.generate_itemTypes()

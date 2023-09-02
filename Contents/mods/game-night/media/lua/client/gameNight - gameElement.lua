@@ -74,10 +74,12 @@ function gameNightElement:moveElement(x, y)
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 end
 
+--[[
 function gameNightElement.lockInPlace()
     self.moveWithMouse = not self.moveWithMouse
     self.javaObject:setConsumeMouseEvents(self.moveWithMouse)
 end
+--]]
 
 function gameNightElement:onContextSelection(o, x, y)
     local window = gameNightWindow.instance
@@ -98,7 +100,7 @@ function gameNightElement:onContextSelection(o, x, y)
     local oX, oY = o:getAbsoluteX()+x, o:getAbsoluteY()+y+o:getYScroll()
     ---@type ISContextMenu
     local menu = ISInventoryPaneContextMenu.createMenu(playerID, isInInv, contextMenuItems, oX, oY)
-    menu:addOption(getText("IGUI_lockElement"), self, gameNightElement.lockInPlace)
+    --menu:addOption(getText("IGUI_lockElement"), self, gameNightElement.lockInPlace)
     return true
 end
 
