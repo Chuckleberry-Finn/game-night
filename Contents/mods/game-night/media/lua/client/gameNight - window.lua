@@ -71,9 +71,7 @@ function gameNightWindow:processMouseUp(old, x, y)
     self.movingPiece = nil
 end
 function gameNightWindow:onMouseUpOutside(x, y)
-    if self:isVisible() then
-        self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y)
-    end
+    if self:isVisible() then self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y) end
 end
 function gameNightWindow:onMouseUp(x, y)
     self:processMouseUp(ISPanelJoypad.onMouseUp, x, y)
@@ -221,7 +219,6 @@ function gameNightWindow.open(self, player, square)
     if gameNightWindow.instance then gameNightWindow.instance:closeAndRemove() end
 
     local window = gameNightWindow:new(nil, nil, 500, 500, player, square)
-    gameNightWindow.instance = window
     window:initialise()
     window:addToUIManager()
     window:setVisible(true)
@@ -253,6 +250,8 @@ function gameNightWindow:new(x, y, width, height, player, square)
 
     o.selectedItem = nil
     o.pendingRequest = false
+
+    gameNightWindow.instance = o
 
     return o
 end

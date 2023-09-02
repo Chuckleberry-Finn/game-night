@@ -39,13 +39,14 @@ Events.OnPreFillInventoryObjectContextMenu.Add(gamePieceContext.addInventoryItem
 
 
 require "gameNight - window"
-function gamePieceContext.addWorldContext(playerID, context, worldObjects)
+function gamePieceContext.addWorldContext(playerID, context, worldObjects, test)
+    if test then return true end
     ---@type IsoObject|IsoGameCharacter|IsoPlayer
     local playerObj = getSpecificPlayer(playerID)
     local square
-
+    
     for _,v in ipairs(worldObjects) do square = v:getSquare() end
-    if not square then return end
+    if not square then return false end
 
     if luautils.isSquareAdjacentToSquare(square, playerObj:getSquare()) then
 
@@ -68,6 +69,7 @@ function gamePieceContext.addWorldContext(playerID, context, worldObjects)
             option.iconTexture = gamePieceContext.gameNightContextMenuIcon
         end
     end
+    return false
 end
 Events.OnFillWorldObjectContextMenu.Add(gamePieceContext.addWorldContext)
 
