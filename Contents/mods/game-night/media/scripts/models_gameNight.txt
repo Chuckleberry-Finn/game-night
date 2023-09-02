@@ -3,35 +3,35 @@ module Base
     model UnoCards
     {
         mesh = WorldItems/cardpack,
-        texture = unoCards/deckTextureUnoCards,
+        texture = Item_UnoCards/deckTextureUnoCards,
         scale = 0.02,
     }
 
     model UnoCardsSingle
     {
         mesh = WorldItems/card,
-        texture = unoCards/deckTextureUnoCards,
+        texture = Item_UnoCards/deckTextureUnoCards,
         scale = 0.02,
     }
 
     model CardDeck
     {
         mesh = WorldItems/cardpack,
-        texture = cardDeck/deckTextureCardDeck,
+        texture = Item_CardDeck/deckTextureCardDeck,
         scale = 0.02,
     }
 
     model CardDeckSingle
     {
         mesh = WorldItems/card,
-        texture = cardDeck/deckTextureCardDeck,
+        texture = Item_CardDeck/deckTextureCardDeck,
         scale = 0.02,
     }
 
     model ChessBoard_Ground
     {
         mesh = WorldItems/CheckerBoard,
-        texture = inPlayTextures/ChessBoard,
+        texture = Item_InPlayTextures/ChessBoard,
         scale = 0.4,
     }
 }

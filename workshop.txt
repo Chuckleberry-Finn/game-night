@@ -1,7 +1,7 @@
 version=1
 id=3027382749
 title=Game Night
-description=Boardgames and Cardgames
+description=[h1][b]Boardgames and Cardgames[/b][/h1]
 description=
 description=[url=https://ko-fi.com/chuckleberryfinn][img]https://raw.githubusercontent.com/ChuckTheSheep/chuckImages/main/kofi.png[/img][/url]
 description=
