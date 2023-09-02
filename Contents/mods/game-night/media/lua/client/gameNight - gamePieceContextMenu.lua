@@ -40,31 +40,33 @@ Events.OnPreFillInventoryObjectContextMenu.Add(gamePieceContext.addInventoryItem
 
 require "gameNight - window"
 function gamePieceContext.addWorldContext(playerID, context, worldObjects)
+    ---@type IsoObject|IsoGameCharacter|IsoPlayer
     local playerObj = getSpecificPlayer(playerID)
     local square
 
     for _,v in ipairs(worldObjects) do square = v:getSquare() end
     if not square then return end
 
-    if (math.abs(playerObj:getX()-square:getX())>2) or (math.abs(playerObj:getY()-square:getY())>2) then return end
+    if luautils.isSquareAdjacentToSquare(square, playerObj:getSquare()) then
 
-    local validObjectCount = 0
+        local validObjectCount = 0
 
-    for i=0,square:getObjects():size()-1 do
-        ---@type IsoObject|IsoWorldInventoryObject
-        local object = square:getObjects():get(i)
-        if object and instanceof(object, "IsoWorldInventoryObject") then
-            local item = object:getItem()
-            applyItemDetails.applyGameNightToItem(item)
-            if item and item:getTags():contains("gameNight") then
-                validObjectCount = validObjectCount+1
+        for i=0,square:getObjects():size()-1 do
+            ---@type IsoObject|IsoWorldInventoryObject
+            local object = square:getObjects():get(i)
+            if object and instanceof(object, "IsoWorldInventoryObject") then
+                local item = object:getItem()
+                applyItemDetails.applyGameNightToItem(item)
+                if item and item:getTags():contains("gameNight") then
+                    validObjectCount = validObjectCount+1
+                end
             end
         end
-    end
 
-    if validObjectCount > 0 then
-        local option = context:addOptionOnTop(getText("IGUI_Play_Game"), worldObjects, gameNightWindow.open, playerObj, square)
-        option.iconTexture = gamePieceContext.gameNightContextMenuIcon
+        if validObjectCount > 0 then
+            local option = context:addOptionOnTop(getText("IGUI_Play_Game"), worldObjects, gameNightWindow.open, playerObj, square)
+            option.iconTexture = gamePieceContext.gameNightContextMenuIcon
+        end
     end
 end
 Events.OnFillWorldObjectContextMenu.Add(gamePieceContext.addWorldContext)

@@ -7,7 +7,7 @@ gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 gameNightWindow.elements = {}
 
 function gameNightWindow:update()
-    if not self.player or not self.square or (math.abs(self.player:getX()-self.square:getX())>2) or (math.abs(self.square:getY()-self.square:getY())>2) then
+    if (not self.player) or (not self.square) or (not luautils.isSquareAdjacentToSquare(self.square, self.player:getSquare())) then
         self:setVisible(false)
         return
     end
@@ -37,12 +37,7 @@ function gameNightWindow:initialise()
 end
 
 
-function gameNightWindow:onClick(button)
-    if button.internal == "CLOSE" then
-        self:setVisible(false)
-        self.elements = {}
-    end
-end
+function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self:closeAndRemove() end end
 
 
 local deckActionHandler = require "gameNight - deckActionHandler"
@@ -76,8 +71,9 @@ function gameNightWindow:processMouseUp(old, x, y)
     self.movingPiece = nil
 end
 function gameNightWindow:onMouseUpOutside(x, y)
-    self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y)
-
+    if self:isVisible() then
+        self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y)
+    end
 end
 function gameNightWindow:onMouseUp(x, y)
     self:processMouseUp(ISPanelJoypad.onMouseUp, x, y)
@@ -210,20 +206,29 @@ function gameNightWindow:render()
     end
 end
 
+
+function gameNightWindow:closeAndRemove()
+    self:setVisible(false)
+    self.elements = {}
+    self.movingPiece = nil
+    self:removeFromUIManager()
+end
+
+
 local cursorHandler = isClient() and require "gameNight - cursorHandler"
 function gameNightWindow.open(self, player, square)
 
-    if not gameNightWindow.instance then
-        gameNightWindow:new(nil, nil, 500, 500, player, square)
-        gameNightWindow.instance:initialise()
-        gameNightWindow.instance:addToUIManager()
-    end
-    gameNightWindow.instance.square = square
-    gameNightWindow.instance:setVisible(true)
+    if gameNightWindow.instance then gameNightWindow.instance:closeAndRemove() end
+
+    local window = gameNightWindow:new(nil, nil, 500, 500, player, square)
+    gameNightWindow.instance = window
+    window:initialise()
+    window:addToUIManager()
+    window:setVisible(true)
 
     if cursorHandler then Events.OnPlayerUpdate.Add(cursorHandler.sendUpdate) end
 
-    return gameNightWindow.instance
+    return window
 end
 
 
@@ -248,8 +253,6 @@ function gameNightWindow:new(x, y, width, height, player, square)
 
     o.selectedItem = nil
     o.pendingRequest = false
-
-    gameNightWindow.instance = o
 
     return o
 end
