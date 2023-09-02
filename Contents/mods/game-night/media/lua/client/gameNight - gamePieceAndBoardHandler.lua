@@ -95,7 +95,7 @@ function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete, deta
     local pBD = player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 
-    if luautils.haveToBeTransfered(player, gamePiece, true) then
+    --[[if luautils.haveToBeTransfered(player, gamePiece, true) then
         local pickUpAction = ISInventoryTransferAction:new(player, gamePiece, gamePiece:getContainer(), player:getInventory(), 0)
         if onComplete and type(onComplete)=="table" then pickUpAction:setOnComplete(unpack(onComplete)) end
         ISTimedActionQueue.add(pickUpAction)
@@ -113,16 +113,24 @@ function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete, deta
             dropAction.maxTime = 0
             ISTimedActionQueue.add(dropAction)
         end
-    else
+    else--]]
+
         if onComplete and type(onComplete)=="table" then
             local onCompleteFuncArgs = onComplete
             local func = onCompleteFuncArgs[1]
             local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = onCompleteFuncArgs[2], onCompleteFuncArgs[3], onCompleteFuncArgs[4], onCompleteFuncArgs[5], onCompleteFuncArgs[6], onCompleteFuncArgs[7], onCompleteFuncArgs[8], onCompleteFuncArgs[9]
             func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
         end
-    end
+    --end
     detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
     detailsFunc(gamePiece)
+
+    ---@type IsoObject|IsoWorldInventoryObject
+    local worldItem = gamePiece:getWorldItem()
+    if worldItem then
+        worldItem:transmitModData()
+        worldItem:transmitCompleteItemToServer()
+    end
 end
 
 

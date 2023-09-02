@@ -47,6 +47,20 @@ function gameNightElement:moveElement(x, y)
     local sound = item:getModData()["gameNight_sound"]
     if sound then window.player:getEmitter():playSound(sound) end
 
+
+    ---@type IsoObject|IsoWorldInventoryObject
+    local worldItem = item:getWorldItem()
+    if worldItem then
+        window.square:transmitRemoveItemFromSquare(worldItem)
+        window.square:removeWorldObject(worldItem)
+        item:setWorldItem(nil)
+
+        worldItem = window.square:AddWorldInventoryItem(item, scaledX, scaledY, 0)
+        worldItem:setWorldZRotation(0)
+        worldItem:getWorldItem():setIgnoreRemoveSandbox(true)
+        worldItem:getWorldItem():transmitCompleteItemToServer()
+    end
+    --[[
     if luautils.haveToBeTransfered(window.player, item, true) then
         local pickUpAction = ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 0)
         ISTimedActionQueue.add(pickUpAction)
@@ -55,7 +69,7 @@ function gameNightElement:moveElement(x, y)
     local dropAction = ISDropWorldItemAction:new(window.player, item, window.square, scaledX, scaledY, 0, 0, false)
     dropAction.maxTime = 0
     ISTimedActionQueue.add(dropAction)
-
+    --]]
     local pBD = window.player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 end
