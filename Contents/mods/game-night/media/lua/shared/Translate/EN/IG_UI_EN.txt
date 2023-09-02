@@ -6,7 +6,11 @@ IGUI_EN = {
     IGUI_flipPiece = "Flip",
     IGUI_roll = "Roll",
     IGUI_CardDeck = "Playing Card",
+    
     IGUI_UnoCards = "Uno Card",
+
+    IGUI_CatanResourceDeck = "Resource Card",
+    IGUI_CatanDevelopmentDeck = "Development Card",
 
     IGUI_Play_Game = "Play Game",
 
