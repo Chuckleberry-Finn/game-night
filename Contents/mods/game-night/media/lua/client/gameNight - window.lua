@@ -205,7 +205,7 @@ function gameNightWindow:render()
         local offsetX, offsetY = self.movingPieceOffset[1], self.movingPieceOffset[2]
         movingElement:drawTexture(texture, movingElement:getMouseX()-(offsetX), movingElement:getMouseY()-(offsetY), 0.55, 1, 1, 1)
     else
-        local mouseOver = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseX(), false)
+        local mouseOver = self:getClickedPriorityPiece(getMouseX(), getMouseY(), false)
         if mouseOver then mouseOver:labelWithName() end
     end
 end
