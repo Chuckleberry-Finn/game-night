@@ -238,7 +238,7 @@ function ISInventoryPane:onMouseUp(x, y)
 
         for _,deck in pairs(itemFound) do if deck==pushToActual then return end end
 
-        if pushToActual and deckActionHandler.isDeckItem(pushToActual) then for _,deck in pairs(itemFound) do deckActionHandler.mergeDecks(deck, pushToActual, self.player) end end
+        if pushToActual and deckActionHandler.isDeckItem(pushToActual) then for _,deck in pairs(itemFound) do deckActionHandler.mergeDecks(deck, pushToActual, playerObj) end end
     end
 end
 
