@@ -13,8 +13,9 @@ local applyItemDetails = require "gameNight - applyItemDetails"
 local CatanResourceDeck = {}
 CatanResourceDeck.types = {"Brick","Stone","Wood","Wheat","Sheep"}
 CatanResourceDeck.cards = {}
-for i=1, 19 do for _,s in pairs(CatanResourceDeck.types) do table.insert(CatanResourceDeck.cards, s) end end
+for _,s in pairs(CatanResourceDeck.types) do for i=1, 19 do table.insert(CatanResourceDeck.cards, s) end end
 applyItemDetails.addDeck("CatanResourceDeck", CatanResourceDeck.cards)
+
 
 --- CATAN DEVELOPMENTS
 local CatanDevelopmentDeck = {}
