@@ -37,10 +37,7 @@ applyItemDetails.addDeck("CatanDevelopmentDeck", CatanDevelopmentDeck.cards)
 ---Identify game pieces by type
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 
-gamePieceAndBoardHandler.addTypes(
-        "Base.CatanRobber", "Base.LongestRoad", "Base.LargestArmy",
-        "Base.CatanBoard", "Base.PlayerCostsWhite", "Base.PlayerCostsRed",
-        "Base.PlayerCostsOrange", "Base.PlayerCostsBlue")
-
+gamePieceAndBoardHandler.addTypes({ "Base.CatanRobber", "Base.LongestRoad", "Base.LargestArmy", "Base.CatanBoard",
+                                    "Base.PlayerCostsWhite", "Base.PlayerCostsRed", "Base.PlayerCostsOrange", "Base.PlayerCostsBlue"})
 ---Add special cases
 gamePieceAndBoardHandler.addSpecial("Base.CatanBoard", { category = "GameBoard" })
