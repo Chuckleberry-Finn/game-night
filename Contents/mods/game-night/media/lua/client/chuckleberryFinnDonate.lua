@@ -8,12 +8,6 @@ local donationSystem = ISPanelJoypad:derive("donationSystem")
 function donationSystem:prerender()
     ISPanelJoypad.prerender(self)
 
-    if MainScreen.instance and MainScreen.instance.bottomPanel then
-        local isMenu = MainScreen.instance.bottomPanel:isVisible()
-        self:setVisible(isMenu)
-        if not isMenu then return end
-    end
-    
     self:drawRect(self.padding, self.padding, self.width-(self.padding*2), self.height-(self.padding*2), 0.5, 0, 0, 0)
 
     local headerX, headerY = self.padding*1.6, self.padding*1.3
@@ -51,6 +45,13 @@ function donationSystem:initialise()
 end
 
 
+local old_MainScreen_setBottomPanelVisible = MainScreen.setBottomPanelVisible
+function MainScreen:setBottomPanelVisible(visible)
+    old_MainScreen_setBottomPanelVisible(self, visible)
+    if self.parent.donateAlert then self.parent.donateAlert:setVisible(visible) end
+end
+
+
 function donationSystem.display()
 
     donationSystem.texture = donationSystem.texture or getTexture("media/textures/gamenightDonate.png")
@@ -61,12 +62,11 @@ function donationSystem.display()
     donationSystem.bodyFont = UIFont.AutoNormSmall
 
     local FONT_SMALL = textManager:getFontHeight(UIFont.Small)
-
     local windowW, windowH = 400, 150
     local textureW, textureH = donationSystem.texture:getWidth(), donationSystem.texture:getHeight()
-    local textureOffsetX, textureOffsetY = (textureW*0.85), (textureH*0.22)
-    local x = getCore():getScreenWidth() - windowW - (textureW*0.15)
-    local y = getCore():getScreenHeight() - FONT_SMALL - 70 - windowH - (textureH*0.1)
+    local textureOffsetX, textureOffsetY = (textureW*0.8), (textureH*0.22)
+    local x = getCore():getScreenWidth() - windowW - (textureW*0.15) - 15
+    local y = getCore():getScreenHeight() - FONT_SMALL - 80 - windowH - (textureH*0.1)
 
     donationSystem.texturePos = {windowW-textureOffsetX,0-textureOffsetY}
 
@@ -91,6 +91,7 @@ end
 
 
 Events.OnMainMenuEnter.Add(donationSystem.display)
+
 
 local MainScreen_onEnterFromGame = MainScreen.onEnterFromGame
 function MainScreen:onEnterFromGame()
