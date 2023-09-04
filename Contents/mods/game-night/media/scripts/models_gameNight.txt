@@ -1,6 +1,35 @@
 module Base
 {
 
+    model CheckersBox
+    {
+        mesh = WorldItems/cardpack,
+        texture = Item_Boxes/checkersBox,
+        scale = 0.08,
+    }
+
+    model ChessBox
+    {
+        mesh = WorldItems/cardpack,
+        texture = Item_Boxes/chessBox,
+        scale = 0.08,
+    }
+
+    model BackgammonBox
+    {
+        mesh = WorldItems/cardpack,
+        texture = Item_Boxes/backgammonBox,
+        scale = 0.08,
+    }
+
+    model PokerBox
+    {
+        mesh = WorldItems/cardpack,
+        texture = Item_Boxes/PokerBox,
+        scale = 0.08,
+    }
+
+
     model CardDeck
     {
         mesh = WorldItems/cardpack,

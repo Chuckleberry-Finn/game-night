@@ -1,0 +1,52 @@
+module Base
+{
+
+	item CheckersBox
+    {
+        DisplayCategory = GameBox,
+        WeightReduction	=	20,
+        Weight	=	1,
+        Type	=	Container,
+        Capacity	=	7,
+        DisplayName	=	Checkers Box,
+        Icon	=	GuitarCase02,
+        WorldStaticModel = CheckersBox,
+    }
+
+	item ChessBox
+    {
+        DisplayCategory = GameBox,
+        WeightReduction	=	20,
+        Weight	=	1,
+        Type	=	Container,
+        Capacity	=	7,
+        DisplayName	=	Chess Box,
+        Icon	=	GuitarCase02,
+        WorldStaticModel = ChessBox,
+    }
+
+	item BackgammonBox
+    {
+        DisplayCategory = GameBox,
+        WeightReduction	=	20,
+        Weight	=	1,
+        Type	=	Container,
+        Capacity	=	7,
+        DisplayName	=	Backgammon Box,
+        Icon	=	GuitarCase02,
+        WorldStaticModel = BackgammonBox,
+    }
+
+	item PokerBox
+    {
+        DisplayCategory = GameBox,
+        WeightReduction	=	20,
+        Weight	=	1,
+        Type	=	Container,
+        Capacity	=	7,
+        DisplayName	=	Poker Box,
+        Icon	=	GuitarCase02,
+        WorldStaticModel = PokerBox,
+    }
+
+}
