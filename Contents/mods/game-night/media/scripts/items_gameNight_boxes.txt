@@ -9,7 +9,7 @@ module Base
         Type	=	Container,
         Capacity	=	7,
         DisplayName	=	Checkers Box,
-        Icon	=	GuitarCase02,
+        Icon	=	Boxes/checkersBox,
         WorldStaticModel = CheckersBox,
     }
 
@@ -21,7 +21,7 @@ module Base
         Type	=	Container,
         Capacity	=	7,
         DisplayName	=	Chess Box,
-        Icon	=	GuitarCase02,
+        Icon	=	Boxes/chessBox,
         WorldStaticModel = ChessBox,
     }
 
@@ -33,7 +33,7 @@ module Base
         Type	=	Container,
         Capacity	=	7,
         DisplayName	=	Backgammon Box,
-        Icon	=	GuitarCase02,
+        Icon	=	Boxes/backgammonBox,
         WorldStaticModel = BackgammonBox,
     }
 
@@ -45,7 +45,7 @@ module Base
         Type	=	Container,
         Capacity	=	7,
         DisplayName	=	Poker Box,
-        Icon	=	GuitarCase02,
+        Icon	=	Boxes/pokerBox,
         WorldStaticModel = PokerBox,
     }
 
