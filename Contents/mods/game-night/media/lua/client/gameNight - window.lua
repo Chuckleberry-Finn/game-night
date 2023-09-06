@@ -1,7 +1,7 @@
 require "ISUI/ISPanelJoypad"
 require "gameNight - gameElement"
 
----@class gameNightWindow : ISPanel
+---@class gameNightWindow : ISPanelJoypad
 gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 
 gameNightWindow.elements = {}
