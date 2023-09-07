@@ -10,7 +10,7 @@ function gameNightDeckSearch:closeAndRemove()
 end
 
 
-function gameNightWindow:update()
+function gameNightDeckSearch:update()
     --TODO: Make this check if item is in inventory
     --if (not self.player) or (not self.square) or (not luautils.isSquareAdjacentToSquare(self.square, self.player:getSquare())) then
     --    self:closeAndRemove()
@@ -27,9 +27,9 @@ function gameNightDeckSearch:initialise()
 
     local btnWid = 100
     local btnHgt = 25
-    local padBottom = 10
+    local pd = self.padding
 
-    self.close = ISButton:new(self.width - self.padding, self:getHeight() - padBottom - btnHgt, btnWid, btnHgt, getText("UI_Close"), self, gameNightDeckSearch.onClick)
+    self.close = ISButton:new(self.width-pd-btnWid, self.height-pd-btnHgt, btnWid, btnHgt, getText("UI_Close"), self, gameNightDeckSearch.onClick)
     self.close.internal = "CLOSE"
     self.close.borderColor = {r=1, g=1, b=1, a=0.4}
     self.close:initialise()
