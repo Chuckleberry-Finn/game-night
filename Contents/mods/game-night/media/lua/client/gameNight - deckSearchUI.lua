@@ -29,8 +29,29 @@ function gameNightDeckSearch:onMouseWheel(del)
 end
 
 
-function gameNightDeckSearch:getCardOver(x, y)
-    print("a: ",x,"  ",y)
+function gameNightDeckSearch:getCardMouseOver(x, y)
+    local searchWindow = self.parent
+    local halfPad = searchWindow.padding/2
+
+    if x < halfPad or x > self.width-halfPad then return end
+    if y < halfPad or y > self.height-halfPad then return end
+
+    local colFactor = math.floor(((searchWindow.cardDisplay.width-searchWindow.padding) / (searchWindow.cardWidth+halfPad)) + 0.5)
+
+    local xPos = x / colFactor
+
+    y = y + (searchWindow.scrollY or 0)
+
+    local col = math.floor( (x-halfPad) / (searchWindow.cardWidth+halfPad) )
+    local row = math.floor( (y-halfPad) / (searchWindow.cardHeight+halfPad) )
+
+    local cardData, _ = searchWindow.deckActionHandler.getDeckStates(searchWindow.deck)
+    local selected = #cardData - math.floor(col + (row*colFactor))
+
+    local card = cardData[selected]
+
+    --print("CLICK:   x/y:",x,",",y,"    r:",row,"    col:",col)
+    --print("xPos: ",xPos,   "     selected: ", selected, "   CARD: ", card)
 end
 
 
@@ -90,7 +111,7 @@ function gameNightDeckSearch:initialise()
     self.cardDisplay = ISPanelJoypad:new(self.bounds.x1, self.bounds.y1, self.bounds.x2-self.padding, self.bounds.y2-self.close.height-(self.padding*2))
     self.cardDisplay:initialise()
     self.cardDisplay:instantiate()
-    self.cardDisplay.onMouseDown = self.getCardOver
+    self.cardDisplay.onMouseDown = self.getCardMouseOver
     self:addChild(self.cardDisplay)
 
     self.deckActionHandler = require "gameNight - deckActionHandler"
