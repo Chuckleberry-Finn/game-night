@@ -1,7 +1,8 @@
+require "ISUI/ISPanel"
 require "ISUI/ISPanelJoypad"
 
----@class gameNightDeckSearch : ISPanelJoypad
-gameNightDeckSearch = ISPanelJoypad:derive("gameNightDeckSearch")
+---@class gameNightDeckSearch : ISPanel
+gameNightDeckSearch = ISPanel:derive("gameNightDeckSearch")
 
 
 function gameNightDeckSearch:closeAndRemove()
@@ -23,42 +24,52 @@ function gameNightDeckSearch:onClick(button) if button.internal == "CLOSE" then 
 
 
 
-
+--[[
 function gameNightDeckSearch:onMouseUpOutside(x, y)
-    ISPanelJoypad.onMouseUpOutside(self, x, y)
+    ISPanel.onMouseUpOutside(self, x, y)
 end
 
 
 function gameNightDeckSearch:onMouseDownOutside(x, y)
-    ISPanelJoypad.onMouseDownOutside(self, x, y)
+    ISPanel.onMouseDownOutside(self, x, y)
 end
 
 
 function gameNightDeckSearch:onMouseUp(x, y)
-    ISPanelJoypad.onMouseUp(self, x, y)
+    ISPanel.onMouseUp(self, x, y)
 end
 
 
 function gameNightDeckSearch:onMouseDown(x, y)
-    ISPanelJoypad.onMouseDown(self, x, y)
+    ISPanel.onMouseDown(self, x, y)
 end
+--]]
 
+
+function gameNightDeckSearch:onMouseWheel(del)
+    if self.hiddenHeight > 0 then self.scrollY = math.max(0,math.min(self.hiddenHeight, (self.scrollY or 0)+(del*24))) end
+    return true
+end
 
 function gameNightDeckSearch:getCardOver()
     local x, y = self:getMouseX(), self:getMouseY()
-
 
 end
 
 
 function gameNightDeckSearch:prerender()
-    ISPanelJoypad.prerender(self)
+    ISPanel.prerender(self)
+end
 
+
+function gameNightDeckSearch:render()
+    self:setStencilRect(self.cardDisplay.x, self.cardDisplay.y, self.cardDisplay.width, self.cardDisplay.height)
+    ISPanel.render(self)
     local cardData, cardFlipStates = self.deckActionHandler.getDeckStates(self.deck)
     local itemType = self.deck:getType()
 
     local halfPad = self.padding/2
-    local xOffset, yOffset = self.bounds.x1+halfPad, self.bounds.y1+halfPad
+    local xOffset, yOffset = halfPad, halfPad
     local resetXOffset = xOffset
 
     for n=#cardData, 1, -1 do
@@ -69,32 +80,28 @@ function gameNightDeckSearch:prerender()
         local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..itemType.."/"..card..".png"
         local texture = getTexture(texturePath)
 
-        if self.cardWidth+xOffset > self.bounds.x2 then
+        if self.cardWidth+xOffset > self.cardDisplay.width+halfPad then
             xOffset = resetXOffset
-            yOffset = yOffset+self.cardHeight
+            yOffset = yOffset+self.cardHeight+halfPad
         end
 
-        self:drawTexture(texture, xOffset, yOffset, 1, 1, 1, 1)
+        self.cardDisplay:drawTexture(texture, xOffset, yOffset-(self.scrollY or 0), 1, 1, 1, 1)
         xOffset = xOffset+self.cardWidth+halfPad
-
     end
-
-    self:drawRectBorder(self.bounds.x1, self.bounds.y1,
-            self.bounds.x2-self.padding, self.bounds.y2-self.close.height-(self.padding*2),
-            self.borderColor.a, self.borderColor.r, self.borderColor.g, self.borderColor.b)
+    self.hiddenHeight = math.max(0, yOffset-(self.cardDisplay.height-halfPad-self.cardHeight))
+    self:clearStencilRect()
 end
 
 
-function gameNightDeckSearch:render() ISPanelJoypad.render(self) end
-
-
 function gameNightDeckSearch:initialise()
-    ISPanelJoypad.initialise(self)
+    ISPanel.initialise(self)
 
     local closeText = getText("UI_Close")
     local btnWid = getTextManager():MeasureStringX(UIFont.Small, closeText)+10
     local btnHgt = 25
     local pd = self.padding
+
+    self.bounds = {x1=pd, y1=btnHgt+(pd*2), x2=self.width-pd, y2=self.height-pd}
 
     self.close = ISButton:new(self.width-pd-btnWid, pd, btnWid, btnHgt, closeText, self, gameNightDeckSearch.onClick)
     self.close.internal = "CLOSE"
@@ -103,9 +110,12 @@ function gameNightDeckSearch:initialise()
     self.close:instantiate()
     self:addChild(self.close)
 
-    self.deckActionHandler = require "gameNight - deckActionHandler"
+    self.cardDisplay = ISPanelJoypad:new(self.bounds.x1, self.bounds.y1, self.bounds.x2-self.padding, self.bounds.y2-self.close.height-(self.padding*2))
+    self.cardDisplay:initialise()
+    self.cardDisplay:instantiate()
+    self:addChild(self.cardDisplay)
 
-    self.bounds = {x1=pd, y1=btnHgt+(pd*2), x2=self.width-pd, y2=self.height-pd}
+    self.deckActionHandler = require "gameNight - deckActionHandler"
 end
 
 
@@ -114,7 +124,7 @@ function gameNightDeckSearch.open(player, deckItem)
 
     if gameNightDeckSearch.instance then gameNightDeckSearch.instance:closeAndRemove() end
 
-    local window = gameNightDeckSearch:new(nil, nil, 470, 500, player, deckItem)
+    local window = gameNightDeckSearch:new(nil, nil, 470, 350, player, deckItem)
     window:initialise()
     window:addToUIManager()
     window:setVisible(true)
@@ -128,7 +138,7 @@ function gameNightDeckSearch:new(x, y, width, height, player, deckItem)
     local o = {}
     x = x or getCore():getScreenWidth()/2 - (width/2)
     y = y or getCore():getScreenHeight()/2 - (height/2)
-    o = ISPanelJoypad:new(x, y, width, height)
+    o = ISPanel:new(x, y, width, height)
     setmetatable(o, self)
     self.__index = self
 
