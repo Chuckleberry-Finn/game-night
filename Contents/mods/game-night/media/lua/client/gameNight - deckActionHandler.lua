@@ -323,7 +323,8 @@ function deckActionHandler.shuffleCards(deckItem, player)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
-local gameNightDeckSearch = require "gameNight - deckSearchUI"
+
+require "gameNight - deckSearchUI"
 function deckActionHandler._searchDeck(deckItem, player)
    -- local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
    -- if not deckStates then return end
