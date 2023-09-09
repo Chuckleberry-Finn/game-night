@@ -46,6 +46,7 @@ function gameNightDeckSearch:prerender()
 
         local textureWidth = texture:getWidth()
         if textureWidth+xOffset > self.bounds.x2 then
+            ---Shrinks the window dependant on the textures in use - probably not needed.
             --self.bounds.x2 = xOffset
             --self:setWidth(self.bounds.x2+self.padding)
             --self.close:setX(self.width-self.padding-self.close.width)
