@@ -22,20 +22,68 @@ end
 function gameNightDeckSearch:onClick(button) if button.internal == "CLOSE" then self:closeAndRemove() end end
 
 
+function gameNightDeckSearch:prerender()
+    ISPanelJoypad.prerender(self)
+
+    local cardData, cardFlipStates = self.deckActionHandler.getDeckStates(self.deck)
+    local itemType = self.deck:getType()
+
+    local trackingHeight = 0
+    local halfPad = self.padding/2
+    local xOffset, yOffset = self.bounds.x1+halfPad, self.bounds.y1+halfPad
+    local resetXOffset = xOffset
+
+    for n=#cardData, 1, -1 do
+
+        local card = cardData[n]
+        local flipped = cardFlipStates[n]
+
+        local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..itemType.."/"..card..".png"
+        local texture = getTexture(texturePath)
+
+        local textureHeight = texture:getHeight()
+        trackingHeight = trackingHeight>textureHeight and trackingHeight or textureHeight
+
+        local textureWidth = texture:getWidth()
+        if textureWidth+xOffset > self.bounds.x2 then
+            --self.bounds.x2 = xOffset
+            --self:setWidth(self.bounds.x2+self.padding)
+            --self.close:setX(self.width-self.padding-self.close.width)
+            xOffset = resetXOffset
+            yOffset = yOffset+trackingHeight
+            trackingHeight = 0
+        end
+        self:drawTexture(texture, xOffset, yOffset, 1, 1, 1, 1)
+        xOffset = xOffset+textureWidth+halfPad
+    end
+
+    self:drawRectBorder(self.bounds.x1, self.bounds.y1,
+            self.bounds.x2-self.padding, self.bounds.y2-self.close.height-(self.padding*2),
+            self.borderColor.a, self.borderColor.r, self.borderColor.g, self.borderColor.b)
+end
+
+
+function gameNightDeckSearch:render() ISPanelJoypad.render(self) end
+
+
 function gameNightDeckSearch:initialise()
     ISPanelJoypad.initialise(self)
 
-    local btnWid = 100
+    local closeText = getText("UI_Close")
+    local btnWid = getTextManager():MeasureStringX(UIFont.Small, closeText)+10
     local btnHgt = 25
     local pd = self.padding
 
-    self.close = ISButton:new(self.width-pd-btnWid, self.height-pd-btnHgt, btnWid, btnHgt, getText("UI_Close"), self, gameNightDeckSearch.onClick)
+    self.close = ISButton:new(self.width-pd-btnWid, pd, btnWid, btnHgt, closeText, self, gameNightDeckSearch.onClick)
     self.close.internal = "CLOSE"
     self.close.borderColor = {r=1, g=1, b=1, a=0.4}
     self.close:initialise()
     self.close:instantiate()
     self:addChild(self.close)
 
+    self.deckActionHandler = require "gameNight - deckActionHandler"
+
+    self.bounds = {x1=pd, y1=btnHgt+(pd*2), x2=self.width-pd, y2=self.height-pd}
 end
 
 
@@ -44,7 +92,7 @@ function gameNightDeckSearch.open(player, deckItem)
 
     if gameNightDeckSearch.instance then gameNightDeckSearch.instance:closeAndRemove() end
 
-    local window = gameNightDeckSearch:new(nil, nil, 500, 500, player, deckItem)
+    local window = gameNightDeckSearch:new(nil, nil, 470, 500, player, deckItem)
     window:initialise()
     window:addToUIManager()
     window:setVisible(true)
@@ -64,6 +112,8 @@ function gameNightDeckSearch:new(x, y, width, height, player, deckItem)
 
     o.borderColor = {r=0.4, g=0.4, b=0.4, a=1}
     o.backgroundColor = {r=0, g=0, b=0, a=0.3}
+
+    o.moveWithMouse = true
 
     o.width = width
     o.height = height
