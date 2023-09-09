@@ -22,13 +22,41 @@ end
 function gameNightDeckSearch:onClick(button) if button.internal == "CLOSE" then self:closeAndRemove() end end
 
 
+
+
+function gameNightDeckSearch:onMouseUpOutside(x, y)
+    ISPanelJoypad.onMouseUpOutside(self, x, y)
+end
+
+
+function gameNightDeckSearch:onMouseDownOutside(x, y)
+    ISPanelJoypad.onMouseDownOutside(self, x, y)
+end
+
+
+function gameNightDeckSearch:onMouseUp(x, y)
+    ISPanelJoypad.onMouseUp(self, x, y)
+end
+
+
+function gameNightDeckSearch:onMouseDown(x, y)
+    ISPanelJoypad.onMouseDown(self, x, y)
+end
+
+
+function gameNightDeckSearch:getCardOver()
+    local x, y = self:getMouseX(), self:getMouseY()
+
+
+end
+
+
 function gameNightDeckSearch:prerender()
     ISPanelJoypad.prerender(self)
 
     local cardData, cardFlipStates = self.deckActionHandler.getDeckStates(self.deck)
     local itemType = self.deck:getType()
 
-    local trackingHeight = 0
     local halfPad = self.padding/2
     local xOffset, yOffset = self.bounds.x1+halfPad, self.bounds.y1+halfPad
     local resetXOffset = xOffset
@@ -41,21 +69,14 @@ function gameNightDeckSearch:prerender()
         local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..itemType.."/"..card..".png"
         local texture = getTexture(texturePath)
 
-        local textureHeight = texture:getHeight()
-        trackingHeight = trackingHeight>textureHeight and trackingHeight or textureHeight
-
-        local textureWidth = texture:getWidth()
-        if textureWidth+xOffset > self.bounds.x2 then
-            ---Shrinks the window dependant on the textures in use - probably not needed.
-            --self.bounds.x2 = xOffset
-            --self:setWidth(self.bounds.x2+self.padding)
-            --self.close:setX(self.width-self.padding-self.close.width)
+        if self.cardSize+xOffset > self.bounds.x2 then
             xOffset = resetXOffset
-            yOffset = yOffset+trackingHeight
-            trackingHeight = 0
+            yOffset = yOffset+self.cardSize
         end
+
         self:drawTexture(texture, xOffset, yOffset, 1, 1, 1, 1)
-        xOffset = xOffset+textureWidth+halfPad
+        xOffset = xOffset+self.cardSize+halfPad
+
     end
 
     self:drawRectBorder(self.bounds.x1, self.bounds.y1,
@@ -115,6 +136,8 @@ function gameNightDeckSearch:new(x, y, width, height, player, deckItem)
     o.backgroundColor = {r=0, g=0, b=0, a=0.3}
 
     o.moveWithMouse = true
+
+    o.cardSize = 48
 
     o.width = width
     o.height = height
