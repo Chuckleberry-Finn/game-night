@@ -29,27 +29,116 @@ function gameNightDeckSearch:onMouseWheel(del)
 end
 
 
-function gameNightDeckSearch:getCardMouseOver(x, y)
-    local searchWindow = self.parent
-    local halfPad = searchWindow.padding/2
+function gameNightDeckSearch:getCardAtXY(x, y)
+    local halfPad = math.floor((self.padding/2)+0.5)
 
-    if x < halfPad or x > self.width-halfPad then return end
-    if y < halfPad or y > self.height-halfPad then return end
+    if x < halfPad or x > self.cardDisplay.width-halfPad then return end
+    if y < halfPad or y > self.cardDisplay.height-halfPad then return end
 
-    local colFactor = math.floor(((searchWindow.cardDisplay.width-searchWindow.padding) / (searchWindow.cardWidth+halfPad)) + 0.5)
+    local colFactor = math.floor(((self.cardDisplay.width-self.padding) / (self.cardWidth+halfPad)) + 0.5)
+    y = y + (self.scrollY or 0)
 
-    local xPos = x / colFactor
+    local colMod = (x-halfPad) % (self.cardWidth+halfPad)
+    local rowMod = (y-halfPad) % (self.cardHeight+halfPad)
 
-    y = y + (searchWindow.scrollY or 0)
+    --if colMod > self.cardWidth then return end
+    if rowMod > self.cardHeight then return end
 
-    local col = math.floor( (x-halfPad) / (searchWindow.cardWidth+halfPad) )
-    local row = math.floor( (y-halfPad) / (searchWindow.cardHeight+halfPad) )
+    local col = math.floor( (x-halfPad) / (self.cardWidth+halfPad) )
+    local row = math.floor( (y-halfPad) / (self.cardHeight+halfPad) )
 
-    local cardData, _ = searchWindow.deckActionHandler.getDeckStates(searchWindow.deck)
+    --print("x:",x,"  y:",y,"    col:",col," (",colMod,")    row:",row," (",rowMod,")")
+
+    local cardData, _ = self.deckActionHandler.getDeckStates(self.deck)
     local selected = #cardData - math.floor(col + (row*colFactor))
 
-    local card = cardData[selected]
+    return selected, (colMod > self.cardWidth)
+end
 
+
+function gameNightDeckSearch:clearDragging()
+    self.dragging = nil
+    self.draggingOver = nil
+    self.dragInBetween = nil
+end
+
+
+function gameNightDeckSearch:cardOnRightMouseUp(x, y)
+    local searchWindow = self.parent
+    searchWindow:clearDragging()
+end
+
+
+function gameNightDeckSearch:onMouseMove(dx, dy)
+    if self.dragging then
+        local x = self.cardDisplay:getMouseX()
+        local y = self.cardDisplay:getMouseY()
+        local selected, inBetween = self:getCardAtXY(x, y)
+        self.draggingOver = selected
+        self.dragInBetween = inBetween
+    end
+    ISPanel.onMouseMove(self, dx, dy)
+end
+
+
+function gameNightDeckSearch:cardOnMouseUpOutside(x, y)
+    local searchWindow = self.parent
+    searchWindow:clearDragging()
+end
+
+
+function gameNightDeckSearch:cardOnMouseUp(x, y)
+    local searchWindow = self.parent
+
+    local selection, _ = searchWindow:getCardAtXY(x, y)
+    local deckItem = searchWindow.deck
+    local cardData, flippedStates = searchWindow.deckActionHandler.getDeckStates(deckItem)
+
+    local cardA, flippedA = cardData[searchWindow.dragging], flippedStates[searchWindow.dragging]
+
+    if searchWindow.dragInBetween then
+
+        local selectionDrag = -1
+        if searchWindow.dragging < selection then
+            selectionDrag = 1
+            selection = selection-1
+        end
+
+        for n=searchWindow.dragging, selection, selectionDrag do
+            local nextCard, nextFlip = cardData[n+selectionDrag], flippedStates[n+selectionDrag]
+            cardData[n] = nextCard
+            flippedStates[n] = nextFlip
+        end
+
+        cardData[selection] = cardA
+        flippedStates[selection] = flippedA
+    else
+        local cardB, flippedB = cardData[selection], flippedStates[selection]
+
+        cardData[searchWindow.dragging] = cardB
+        flippedStates[searchWindow.dragging] = flippedB
+
+        cardData[selection] = cardA
+        flippedStates[selection] = flippedA
+    end
+
+    searchWindow.gamePieceAndBoardHandler.playSound(deckItem, searchWindow.player)
+
+    searchWindow:clearDragging()
+end
+
+
+function gameNightDeckSearch:cardOnMouseDownOutside(x, y)
+    local searchWindow = self.parent
+    searchWindow:clearDragging()
+end
+
+
+function gameNightDeckSearch:cardOnMouseDown(x, y)
+    local searchWindow = self.parent
+    local selected, _ = searchWindow:getCardAtXY(x, y)
+    searchWindow.dragging = selected
+    --local card = cardData[selected]
     --print("CLICK:   x/y:",x,",",y,"    r:",row,"    col:",col)
     --print("xPos: ",xPos,   "     selected: ", selected, "   CARD: ", card)
 end
@@ -66,7 +155,7 @@ function gameNightDeckSearch:render()
     local cardData, cardFlipStates = self.deckActionHandler.getDeckStates(self.deck)
     local itemType = self.deck:getType()
 
-    local halfPad = self.padding/2
+    local halfPad = math.floor((self.padding/2)+0.5)
     local xOffset, yOffset = halfPad, halfPad
     local resetXOffset = xOffset
 
@@ -75,16 +164,30 @@ function gameNightDeckSearch:render()
         local card = cardData[n]
         local flipped = cardFlipStates[n]
 
-        local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..itemType.."/"..card..".png"
-        local texture = getTexture(texturePath)
-        
-        if self.cardWidth+xOffset > self.cardDisplay.width+halfPad then
-            xOffset = resetXOffset
-            yOffset = yOffset+self.cardHeight+halfPad
-        end
+        if card then
+            local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..itemType.."/"..card..".png"
+            local texture = getTexture(texturePath)
 
-        self.cardDisplay:drawTexture(texture, xOffset, yOffset-(self.scrollY or 0), 1, 1, 1, 1)
-        xOffset = xOffset+self.cardWidth+halfPad
+            if self.cardWidth+xOffset > self.cardDisplay.width+halfPad then
+                xOffset = resetXOffset
+                yOffset = yOffset+self.cardHeight+halfPad
+            end
+
+            self.cardDisplay:drawTexture(texture, xOffset, yOffset-(self.scrollY or 0), 1, 1, 1, 1)
+            if self.dragging or self.draggingOver then
+
+                if self.dragging and self.dragging == n then
+                    self.cardDisplay:drawRectBorder(xOffset, yOffset-(self.scrollY or 0), self.cardWidth, self.cardHeight, 1, 0.4, 0.6, 0.9)
+                elseif self.draggingOver and self.draggingOver == n then
+
+                    local x = self.dragInBetween and xOffset+self.cardWidth or xOffset
+                    local w = self.dragInBetween and 4 or self.cardWidth
+                    local a = self.dragInBetween and 0.9 or 0.3
+                    self.cardDisplay:drawRect(x, yOffset-(self.scrollY or 0), w, self.cardHeight, a, 0.4, 0.6, 0.9)
+                end
+            end
+            xOffset = xOffset+self.cardWidth+halfPad
+        end
     end
     self.hiddenHeight = math.max(0, yOffset-(self.cardDisplay.height-halfPad-self.cardHeight))
     self:clearStencilRect()
@@ -111,10 +214,16 @@ function gameNightDeckSearch:initialise()
     self.cardDisplay = ISPanelJoypad:new(self.bounds.x1, self.bounds.y1, self.bounds.x2-self.padding, self.bounds.y2-self.close.height-(self.padding*2))
     self.cardDisplay:initialise()
     self.cardDisplay:instantiate()
-    self.cardDisplay.onMouseDown = self.getCardMouseOver
+    self.cardDisplay.onMouseDown = self.cardOnMouseDown
+    self.cardDisplay.onMouseDownOutside = self.cardOnMouseDownOutside
+    self.cardDisplay.onMouseUp = self.cardOnMouseUp
+    self.cardDisplay.onMouseUpOutside = self.cardOnMouseUpOutside
+    self.cardDisplay.onRightMouseUp = self.cardOnRightMouseUp
+
     self:addChild(self.cardDisplay)
 
     self.deckActionHandler = require "gameNight - deckActionHandler"
+    self.gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 end
 
 
