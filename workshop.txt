@@ -1,26 +1,27 @@
 version=1
 id=3027382749
 title=Game Night
-description=[h1][b]Boardgames and Cardgames[/b][/h1]
-description=This mod adds an interactive UI window in order to play card/board games.
-description=Interactions with the UI reflect those changes to the items in world.
-description=Features a card deck system (with search UI), that allows flipping, shuffling, drawing (top/random).
+description=[h2]This mod adds a UI window in order to play card/board games.[/h2]
+description=[h3]Interactions with the UI reflect those changes to the items in world.[/h3]
+description=[h2]Features a card deck system with search UI, flip, shuffle, draw.[/h2]
 description=
 description=[url=https://ko-fi.com/chuckleberryfinn][img]https://raw.githubusercontent.com/ChuckTheSheep/chuckImages/main/kofi.png[/img][/url]
 description=
 description=[h2][b]Modifies the following vanilla items:[/b][/h2]
-description=[b]Dice, GamePieceWhite, GamePieceRed, GamePieceBlack, BackgammonBoard, CheckerBoard, ChessWhite, ChessBlack, PokerChips[/b]
+description=[b]Dice, GamePieceWhite/Red/Black, BackgammonBoard, CheckerBoard, ChessWhite/Black, PokerChips[/b]
 description=[i][b]Adds a number of new items to fill-out missing items/variants for the vanilla items.[/b][/i]
-description=[i]Note: Removing the mod will remove the [b]added[/b] items - vanilla items will return to default values.[/i]
+description=[i]Note: Removing the mod will remove [b]added[/b] items - vanilla items will return to default values.[/i]
 description=
 description=[h2]Also includes Add-Ons: [b]Uno[/b], and [b]Catan[/b][/h2]
 description=[h3]For more Add-Ons visit the github page, and read the Uno/Catan files.[/h3]
 description=
-description=[h2]Comments, Suggestions, Issues, Bugs?[/h2] [url=https://github.com/Chuckleberry-Finn/game-night]GitHub[/url]
+description=[h2][b]Comments, Suggestions, Issues, Bugs? [url=https://github.com/Chuckleberry-Finn/game-night]GitHub[/url][/b][/h2]
 description=
 description=[url=https://github.com/Chuckleberry-Finn/game-night][img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/main/steamNoGithubYes.png[/img][/url]
 description=
 description=[url=https://discord.gg/SReMnbV4V7][img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/main/PZmodCommBanner2.png[/img][/url]
+description=
+description=
 description=
 description=[h3]Copyright 2023 Chuckleberry Finn. This item is not authorized for posting on Steam, except under the Steam account named Chuckleberry Finn.[/h3]
 tags=Build 41;Framework;Misc;Multiplayer;Pop Culture;Silly/Fun
