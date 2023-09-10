@@ -31,32 +31,32 @@ module Base
         DisplayName	= Robber Piece, Icon = OutOfPlayTextures/CatanRobber, WorldStaticModel = PokerChips_Ground,
     }
 
-    item PlayerCostsWhite
+    item CatanPlayerCostsWhite
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	= CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsWhite, WorldStaticModel = CardDeck,
     }
 
-   item PlayerCostsRed
+   item CatanPlayerCostsRed
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	= CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsRed, WorldStaticModel = CardDeck,
     }
 
-   item PlayerCostsOrange
+   item CatanPlayerCostsOrange
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	= CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsOrange, WorldStaticModel = CardDeck,
     }
 
-   item PlayerCostsBlue
+   item CatanPlayerCostsBlue
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	= CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsBlue, WorldStaticModel = CardDeck,
     }
 
-   item LongestRoad
+   item CatanLongestRoad
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	= CatanLongestRoad, Icon = OutOfPlayTextures/LongestRoad, WorldStaticModel = CardDeck,
     }
 
-   item LargestArmy
+   item CatanLargestArmy
     { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	= CatanLargestArmy, Icon = OutOfPlayTextures/LargestArmy, WorldStaticModel = CardDeck,
     }
