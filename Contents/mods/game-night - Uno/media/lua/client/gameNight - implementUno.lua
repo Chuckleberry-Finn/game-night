@@ -16,13 +16,13 @@ local unoCards = {}
 -- (19) Red, Blue, Green, Yellow – 0 (1x), 1 to 9 (2x)
 -- (8) Skip, Reverse, Draw2 – 2 cards of each color
 unoCards.cards = {"Red 0","Green 0","Blue 0","Yellow 0"}
-unoCards.suites = {"Red","Green","Blue","Yellow"}
+unoCards.suits = {"Red","Green","Blue","Yellow"}
 unoCards.values = {"1","2","3","4","5","6","7","8","9","Skip","Reverse","Draw 2"}
 
 for i=1, 2 do -- Reiterate for sets of 2
-    for _,s in pairs(unoCards.suites) do -- For each 'suite' (color in Uno)
+    for _,s in pairs(unoCards.suits) do -- For each 'suit' (color in Uno)
         for _,v in pairs(unoCards.values) do -- For each value
-            table.insert(unoCards.cards, s.." "..v) -- put suite and value together to match the corresponding Texture
+            table.insert(unoCards.cards, s.." "..v) -- put suit and value together to match the corresponding Texture
         end
     end
 end
@@ -31,7 +31,7 @@ end
 unoCards.wilds = {"Wild", "Wild Draw 4"}
 
 for i=1, 4 do -- Reiterate for sets of 4
-    for _,wild in pairs(unoCards.wilds) do -- For each wild (there's no suite/value combo)
+    for _,wild in pairs(unoCards.wilds) do -- For each wild (there's no suit/value combo)
         table.insert(unoCards.cards, wild)
     end
 end
