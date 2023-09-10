@@ -14,4 +14,10 @@ module Base
         scale = 0.02,
     }
 
+    model UnoBox
+    {
+        mesh = WorldItems/cardpack,
+        texture = Item_Boxes/unoBox_ground,
+        scale = 0.06,
+    }
 }

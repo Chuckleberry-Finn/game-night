@@ -1,6 +1,13 @@
 module Base
 {
 
+    model CatanBox
+    {
+        mesh = WorldItems/cardpack,
+        texture = Item_Boxes/catanBox_ground,
+        scale = 0.06,
+    }
+
     model CatanResourceDeck
     {
         mesh = WorldItems/cardpack,

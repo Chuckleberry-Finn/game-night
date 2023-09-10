@@ -7,4 +7,9 @@ module Base
 		WorldStaticModel = UnoCards,
 	}
 
+	item UnoBox
+    {
+        DisplayCategory = GameBox, WeightReduction	=	20, Weight	=	1, Type	=	Container, Capacity	=	7,
+        DisplayName	= Uno Box, Icon = Boxes/unoBox, WorldStaticModel = UnoBox,
+    }
 }

@@ -1,34 +1,12 @@
 ItemName_EN = {
-    ItemName_UnoCards = "Uno Cards"
-
-    ItemName_CatanResourceCard = "Resource Card"
-    ItemName_CatanDevelopmentCard = "Development Card"
-    ItemName_CatanRobber = "Robber Piece"
-    ItemName_CatanPlayerCosts = "Player Costs"
-
-    ItemName_CatanLongestRoad = "Longest Road"
-    ItemName_CatanLargestArmy = "Largest Army"
-
-    ItemName_CatanWood = "Wood Resource"
-    ItemName_CatanBrick = "Brick Resource"
-    ItemName_CatanWheat = "Wheat Resource"
-    ItemName_CatanSheep = "Sheep Resource"
-    ItemName_CatanStone = "Stone Resource"
-
-    ItemName_CatanMonopoly = "Monopoly"
-    ItemName_CatanYearOfPlenty = "Year Of Plenty"
-    ItemName_CatanRoadBuilding = "Road Building"
-    ItemName_CatanPalace = "Palace"
-    ItemName_CatanMarket = "Market"
-    ItemName_CatanUniversity = "University"
-    ItemName_CatanChapel = "Chapel"
-    ItemName_CatanLibrary = "Library"
-
 
     ItemName_Base.GamePieceBlack = "Black Checkers Piece",
     ItemName_Base.GamePieceRed = "Red Checkers Piece",
     ItemName_Base.GamePieceWhite = "White Backgammon Piece",
     ItemName_Base.GamePieceBlackBackgammon = "Black Backgammon Piece",
+
+    ItemName_Base.CheckersBox = "Checkers Box",
+    ItemName_Base.BackgammonBox = "Backgammon Box",
 
     ItemName_Base.ChessWhite = "White Chess Piece",
     ItemName_Base.ChessBlack = "Black Chess Piece",
@@ -43,6 +21,8 @@ ItemName_EN = {
     ItemName_Base.ChessWhiteKnight = "White Chess Piece",
     ItemName_Base.ChessBlackKnight = "Black Chess Piece",
 
+    ItemName_Base.ChessBox = "Chess Box",
+
     ItemName_Base.PokerChips = "Red Poker Chip",
     ItemName_Base.PokerChipsBlue = "Blue Poker Chip",
     ItemName_Base.PokerChipsGreen = "Green Poker Chip",
@@ -51,6 +31,8 @@ ItemName_EN = {
     ItemName_Base.PokerChipsOrange = "Orange Poker Chip",
     ItemName_Base.PokerChipsWhite = "White Poker Chip",
     ItemName_Base.PokerChipsBlack = "Black Poker Chip",
+
+    ItemName_Base.PokerBox = "Poker Box",
 
     ItemName_Base.Dice = "Die",
     ItemName_Base.DiceWhite = "Die",
