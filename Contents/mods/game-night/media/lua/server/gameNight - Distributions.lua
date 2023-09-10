@@ -158,3 +158,78 @@ local gameNightBoxes = {
 }
 
 for _,box in pairs(gameNightBoxes) do table.insert(SuburbsDistributions, box) end
+
+
+
+require "Items/ProceduralDistributions"
+
+local proceduralDistOverWrite = {}
+proceduralDistOverWrite.lists = {"WardrobeChild", "CrateRandomJunk"}
+proceduralDistOverWrite.itemToReplacement = {
+    ["BackgammonBoard"] = "BackgammonBox",
+    ["GamePieceWhite"] = "BackgammonBox",
+
+    ["ChessWhite"] = "ChessBox",
+    ["ChessBlack"] = "ChessBox",
+
+    ["GamePieceRed"] = "CheckersBox",
+    ["GamePieceBlack"] = "CheckersBox",
+    ["CheckerBoard"] = "CheckersBox",
+
+    ["PokerChips"] = "PokerBox",
+}
+
+for _,list in pairs(proceduralDistOverWrite.lists) do
+
+    for i=1, #list.items, 2 do
+        local itemType = list.items[i]
+        local replacement = proceduralDistOverWrite.itemToReplacement[itemType]
+        if replacement then
+            list.items[i] = replacement
+        end
+    end
+end
+
+
+local proceduralDistGameNight = {}
+
+proceduralDistGameNight.itemsToAdd = {
+    "BackgammonBox",
+    "ChessBox",
+    "CheckersBox",
+    "PokerBox",
+}
+
+proceduralDistGameNight.listsToInsert = {
+    ["BarCounterMisc"]={
+        generalChance = 6,
+    },
+    ["Gifts"]={
+        generalChance = 8,
+    },
+    ["GigamartToys"]={
+        generalChance = 8,
+    },
+    ["Hobbies"]={
+        generalChance = 8,
+    },
+    ["HolidayStuff"]={
+        generalChance = 8,
+    },
+--[[
+    ["WardrobeChild"]={
+        generalChance = 2,
+    },
+
+    ["CrateRandomJunk"]={
+        generalChance = 1,
+    },
+--]]
+}
+
+for distID,distData in pairs(proceduralDistGameNight.listsToInsert) do
+    for _,item in pairs(proceduralDistGameNight.itemsToAdd) do
+        table.insert(ProceduralDistributions.list[distID].items, item)
+        table.insert(ProceduralDistributions.list[distID].items, distData.generalChance)
+    end
+end
