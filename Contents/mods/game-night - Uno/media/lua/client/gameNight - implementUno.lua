@@ -1,27 +1,47 @@
 --- For anyone looking to make a sub-mod:
 
----First require this file so that the cataloger module can be called on.
+---First require this file so that the deck-cataloger can be called on.
 local applyItemDetails = require "gameNight - applyItemDetails"
 
---- Examples of defining a table
--- this example is overly complicated as it pieces together a table for the sake of typing up a large list
--- technically you just need a table of strings corresponding to textures/names for items
+--- DEFINING A `CARDS` TABLE/LIST
+-- Technically you just need a table of strings corresponding to textures/names for items.
+-- In this example we use arguably complicated means to handle the entries by piecing together a table for the sake of not typing up a large list.
 
+--- ! Table entries must match a corresponding Texture in the correct texture directory (more on this later).
 
 --- UNO
--- (19) Red, Blue, Green, Yellow – 0, 1 to 9 (2x)
--- (8) Skip, Reverse, Draw2 – 2 cards of each color
--- (8) Black – 4 Wild cards and 4 Wild Draw 4 cards
+--This is a table to house all the related stuff to Uno.
 local unoCards = {}
-unoCards.cards = {"Red 0","Green 0","Blue 0","Yellow 0","Wild","Wild","Wild","Wild","Wild Draw 4","Wild Draw 4","Wild Draw 4","Wild Draw 4"}
+
+-- (19) Red, Blue, Green, Yellow – 0 (1x), 1 to 9 (2x)
+-- (8) Skip, Reverse, Draw2 – 2 cards of each color
+unoCards.cards = {"Red 0","Green 0","Blue 0","Yellow 0"}
 unoCards.suites = {"Red","Green","Blue","Yellow"}
 unoCards.values = {"1","2","3","4","5","6","7","8","9","Skip","Reverse","Draw 2"}
 
-for i=1, 2 do --Two sets of 1-9, 0s are single
-    for _,s in pairs(unoCards.suites) do
-        for _,v in pairs(unoCards.values) do
-            table.insert(unoCards.cards, s.." "..v)
+for i=1, 2 do -- Reiterate for sets of 2
+    for _,s in pairs(unoCards.suites) do -- For each 'suite' (color in Uno)
+        for _,v in pairs(unoCards.values) do -- For each value
+            table.insert(unoCards.cards, s.." "..v) -- put suite and value together to match the corresponding Texture
         end
     end
 end
+
+-- (8) Black – 4 Wild cards and 4 Wild Draw 4 cards
+unoCards.wilds = {"Wild", "Wild Draw 4"}
+
+for i=1, 4 do -- Reiterate for sets of 4
+    for _,wild in pairs(unoCards.wilds) do -- For each wild (there's no suite/value combo)
+        table.insert(unoCards.cards, wild)
+    end
+end
+
+-- arguments/parameters/variables:
+--- name (string), cards (table)
+--
+--- Where `Item` scripts are defined as `Module.Type`
+--- The `name` argument has to correspond to a `Type` under the `Base` module.
+--
+--- ALL OF THE ENTRIES IN `CARDS` NEEDS TO MATCH WHAT THE CARD WILL BE CALLED IN GAME *AND* MATCH A TEXTURE IN THE CORRECT `DIRECTORY`
+--- DIRECTORY: media/textures/Item_[
 applyItemDetails.addDeck("UnoCards", unoCards.cards)
