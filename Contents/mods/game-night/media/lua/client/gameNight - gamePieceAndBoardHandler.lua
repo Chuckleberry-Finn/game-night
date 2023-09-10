@@ -17,12 +17,12 @@ gamePieceAndBoardHandler.itemTypes = {
     "Base.ChessWhiteKnight", "Base.ChessBlackKnight",
 }
 
-function gamePieceAndBoardHandler.addTypes(args)
+function gamePieceAndBoardHandler.registerTypes(args)
     for _,t in pairs(args) do table.insert(gamePieceAndBoardHandler.itemTypes, t) end
     gamePieceAndBoardHandler.generate_itemTypes()
 end
 
-function gamePieceAndBoardHandler.addSpecial(itemFullType, special)
+function gamePieceAndBoardHandler.registerSpecial(itemFullType, special)
     if (not getScriptManager():getItem(itemFullType)) then print("ERROR: GameNight: addSpecial: "..itemFullType.." is invalid.") return end
     if (not special) or (not type(special)~="table") then print("ERROR: GameNight: addSpecial: special is not table.") return end
     gamePieceAndBoardHandler.specials[itemFullType] = special
