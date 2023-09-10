@@ -16,5 +16,6 @@ IGUI_EN = {
     IGUI_ItemCat_Deck = "Deck",
     IGUI_ItemCat_GamePiece = "Game Piece",
     IGUI_ItemCat_GameBoard = "Game Board",
+    IGUI_ItemCat_GameBox = "Game Box",
     IGUI_ItemCat_Die = "Die",
 }
