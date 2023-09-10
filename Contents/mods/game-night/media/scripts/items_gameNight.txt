@@ -2,7 +2,7 @@ module Base
 {
 
     item DiceWhite
-    { DisplayCategory = Junk, Weight = 0.2, Type = Normal,
+    { DisplayCategory = Junk, Weight = 0.1, Type = Normal,
         DisplayName = Dice, Icon = OutOfPlayTextures/DiceWhite, WorldStaticModel = Dice,
     }
 
@@ -12,7 +12,7 @@ module Base
     }
 
     item ChessBoard
-    { DisplayCategory = GameBoard, Weight = 0.3, Type = Normal,
+    { DisplayCategory = GameBoard, Weight = 0.1, Type = Normal,
         DisplayName	=	Chessboard, Icon = OutOfPlayTextures/ChessBoard, WorldStaticModel = ChessBoard_Ground,
     }
 
@@ -64,42 +64,42 @@ module Base
 
 
     item PokerChips
-    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	=	Poker Chips, Icon =	OutOfPlayTextures/PokerChipsRed, WorldStaticModel = PokerChips_Ground,
     }
 
     item PokerChipsWhite
-    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	=	Poker Chips, Icon =	OutOfPlayTextures/PokerChipsWhite, WorldStaticModel = PokerChips_Ground,
     }
 
     item PokerChipsBlack
-    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	=	Poker Chips, Icon = OutOfPlayTextures/PokerChipsBlack, WorldStaticModel = PokerChips_Ground,
     }
 
     item PokerChipsOrange
-    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	= Poker Chips, Icon = OutOfPlayTextures/PokerChipsOrange, WorldStaticModel = PokerChips_Ground,
     }
 
     item PokerChipsBlue
-    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	= Poker Chips, Icon = OutOfPlayTextures/PokerChipsBlue, WorldStaticModel = PokerChips_Ground,
     }
 
     item PokerChipsGreen
-    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	= Poker Chips, Icon = OutOfPlayTextures/PokerChipsGreen, WorldStaticModel = PokerChips_Ground,
     }
 
     item PokerChipsPurple
-    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	= Poker Chips, Icon = OutOfPlayTextures/PokerChipsPurple, WorldStaticModel = PokerChips_Ground,
     }
 
     item PokerChipsYellow
-    { DisplayCategory = GamePiece, Weight = 0.2, Type = Normal,
+    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
         DisplayName	= Poker Chips, Icon = OutOfPlayTextures/PokerChipsYellow, WorldStaticModel = PokerChips_Ground,
     }
 
