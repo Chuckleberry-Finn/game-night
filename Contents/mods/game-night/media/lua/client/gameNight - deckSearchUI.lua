@@ -22,7 +22,7 @@ function gameNightDeckSearch:update()
     if cont and cont:isInCharacterInventory(self.player) then return end
 
     local outerMostCont = item:getOutermostContainer()
-    local contParent = outerMostCont:getParent()
+    local contParent = outerMostCont and outerMostCont:getParent()
     local contParentSq = contParent and contParent:getSquare()
     if contParentSq and contParentSq~=self.player:getSquare() and (not luautils.isSquareAdjacentToSquare(contParentSq, self.player:getSquare())) then
         close = true
