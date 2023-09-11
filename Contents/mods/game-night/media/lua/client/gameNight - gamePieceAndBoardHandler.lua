@@ -56,6 +56,8 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
     if not gamePieceAndBoardHandler._itemTypes[fullType] then return end
 
     gamePiece:getTags():add("gameNight")
+    gamePiece:setWeight(0.01)
+
     gamePiece:getModData()["gameNight_sound"] = "pieceMove"
 
     local special = gamePieceAndBoardHandler.specials[fullType]
