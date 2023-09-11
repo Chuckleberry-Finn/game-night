@@ -1,5 +1,6 @@
 require "ISUI/ISPanelJoypad"
 require "gameNight - gameElement"
+local deckActionHandler = require "gameNight - deckActionHandler"
 
 ---@class gameNightWindow : ISPanelJoypad
 gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
@@ -40,7 +41,64 @@ end
 function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self:closeAndRemove() end end
 
 
-local deckActionHandler = require "gameNight - deckActionHandler"
+function gameNightWindow:dropItemsOn(x, y)
+    if not self:getIsVisible() then return end
+
+    local dragging = ISMouseDrag.dragging
+
+    print("!!", (dragging ~= nil))
+
+    if (dragging ~= nil) then
+
+        print("!!!")
+
+        local itemFound = {}
+        local draggingItems = ISInventoryPane.getActualItems(dragging)
+        for i,v in ipairs(draggingItems) do
+            if deckActionHandler.isDeckItem(v) then
+                local transfer = (not v:isFavorite()) and true
+                if transfer then
+                    table.insert(itemFound, v)
+                end
+            end
+        end
+
+        local playerNum = self.player:getPlayerNum()
+        getPlayerLoot(playerNum).inventoryPane.selected = {}
+        getPlayerInventory(playerNum).inventoryPane.selected = {}
+
+        local boundsDifference = self.padding*2
+        local scaledX = (x/(self.width-boundsDifference))
+        local scaledY = (y/(self.height-boundsDifference))
+
+        for _,deck in pairs(itemFound) do
+
+            local oldCont = deck:getContainer()
+            if oldCont then
+                oldCont:DoRemoveItem(deck)
+            end
+
+            ---@type IsoObject|IsoWorldInventoryObject
+            local worldItem = deck:getWorldItem()
+            if worldItem then
+                self.square:transmitRemoveItemFromSquare(worldItem)
+                self.square:removeWorldObject(worldItem)
+                deck:setWorldItem(nil)
+            end
+            worldItem = self.square:AddWorldInventoryItem(deck, scaledX, scaledY, 0)
+            worldItem:setWorldZRotation(0)
+            worldItem:getWorldItem():setIgnoreRemoveSandbox(true)
+            worldItem:getWorldItem():transmitCompleteItemToServer()
+
+            local currentCont = deck:getContainer()
+            if currentCont then
+                currentCont:DoAddItemBlind(deck)
+            end
+        end
+    end
+end
+
+
 function gameNightWindow:processMouseUp(old, x, y)
     if not self.moveWithMouse then
         local piece = self.movingPiece
@@ -74,7 +132,13 @@ function gameNightWindow:onMouseUpOutside(x, y)
     if self:isVisible() then self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y) end
 end
 function gameNightWindow:onMouseUp(x, y)
-    if self:isVisible() then self:processMouseUp(ISPanelJoypad.onMouseUp, x, y) end
+    if self:isVisible() then
+        if ISMouseDrag.dragging then
+            print("!")
+            self:dropItemsOn(x, y)
+        end
+        self:processMouseUp(ISPanelJoypad.onMouseUp, x, y)
+    end
 end
 
 
