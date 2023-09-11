@@ -273,12 +273,12 @@ end
 function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(1, deckItem, player) end
 
 
-function deckActionHandler._drawRandCard(deckItem)
+function deckActionHandler._drawCardIndex(deckItem, drawIndex)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
 
     local deckCount = #deckStates
-    local drawIndex = ZombRand(deckCount)+1
+    drawIndex = drawIndex or ZombRand(deckCount)+1
     local drawnCard, drawnFlipped
 
     for i=1,deckCount do
@@ -307,6 +307,11 @@ function deckActionHandler.drawRandCard(deckItem, player)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
+---@param deckItem InventoryItem
+function deckActionHandler.drawSpecificCard(deckItem, player, index)
+    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawRandCard, deckItem, index}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.playSound(deckItem, player)
+end
 
 function deckActionHandler._shuffleCards(deckItem)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
