@@ -52,7 +52,7 @@ function deckActionHandler.handleDetails(deckItem)
     else
         local textureID = #deckStates>1 and "deck" or "card"
         deckItem:setName(getText("IGUI_"..itemType)..name_suffix)
-        texture = getTexture("media/textures/Item_"..itemType.."/"..textureID..deckItem:getType()..".png")
+        texture = getTexture("media/textures/Item_"..itemType.."/"..textureID..".png")
         deckItem:getModData()["gameNight_textureInPlay"] = getTexture("media/textures/Item_"..itemType.."/FlippedInPlay.png")
     end
 

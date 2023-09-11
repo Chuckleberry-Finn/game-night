@@ -17,16 +17,16 @@ module Base
     {
         DisplayCategory = Deck, Weight = 0.01, Type = Normal,
         DisplayName = Resource Card,
-        Icon = CatanDeck/Resource,
-        WorldStaticModel = CardDeck,
+        Icon = CatanResourceDeck/deck,
+        WorldStaticModel = CatanResourceDeck,
     }
 
     item CatanDevelopmentDeck
     {
         DisplayCategory = Deck, Weight = 0.01, Type = Normal,
         DisplayName = Development Card,
-        Icon = CatanDeck/Development,
-        WorldStaticModel = CardDeck,
+        Icon = CatanDevelopmentDeck/deck,
+        WorldStaticModel = CatanDevelopmentDeck,
     }
 
     item CatanRobber

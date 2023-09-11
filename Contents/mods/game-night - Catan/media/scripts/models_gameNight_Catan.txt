@@ -11,28 +11,28 @@ module Base
     model CatanResourceDeck
     {
         mesh = WorldItems/cardpack,
-        texture = Item_CardDeck/deckTextureCatanResourceDeck,
+        texture = Item_CatanResourceDeck/deckTexture,
         scale = 0.02,
     }
 
     model CatanResourceSingle
     {
         mesh = WorldItems/card,
-        texture = Item_CardDeck/deckTextureCatanResourceDeck,
+        texture = Item_CatanResourceDeck/deckTexture,
         scale = 0.02,
     }
 
     model CatanDevelopmentDeck
     {
         mesh = WorldItems/cardpack,
-        texture = Item_CardDeck/deckTextureCatanDevelopmentDeck,
+        texture = Item_CatanDevelopmentDeck/deckTexture,
         scale = 0.02,
     }
 
     model CatanDevelopmentSingle
     {
         mesh = WorldItems/card,
-        texture = Item_CardDeck/deckTextureCatanDevelopmentDeck,
+        texture = Item_CatanDevelopmentDeck/deckTexture,
         scale = 0.02,
     }
 

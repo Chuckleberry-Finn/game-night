@@ -1,12 +1,7 @@
 --- For anyone looking to make a sub-mod:
+--- ! SEE: `gameNight - implementUno`
 
----First require this file so that the cataloger module can be called on.
 local applyItemDetails = require "gameNight - applyItemDetails"
-
---- Examples of defining a table
--- this example is overly complicated as it pieces together a table for the sake of typing up a large list
--- technically you just need a table of strings corresponding to textures/names for items
-
 
 --- Basic Playing Cards
 --Joker red and black

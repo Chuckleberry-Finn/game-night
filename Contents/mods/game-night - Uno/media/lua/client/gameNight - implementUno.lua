@@ -46,7 +46,8 @@ end
 --- DIRECTORY: `media/textures/Item_[name]/`
 -- Textures should include
     -- `FlippedInPlay` for flipped cards.
-    -- card[name] for inventory icon for single cards.
-    -- deck[name] for inventory icon for deck.
-    -- deckTexture[name] for model(s) texture.
+    -- `card` for inventory icon for single cards.
+    -- `deck` for inventory icon for deck.
+    -- `deckTexture` for model(s) texture.
+    -- Otherwise the texture name will reflect `name` for each card.
 applyItemDetails.addDeck("UnoCards", unoCards.cards)

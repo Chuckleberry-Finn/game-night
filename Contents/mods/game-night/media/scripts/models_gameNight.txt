@@ -33,14 +33,14 @@ module Base
     model CardDeck
     {
         mesh = WorldItems/cardpack,
-        texture = Item_CardDeck/deckTextureCardDeck,
+        texture = Item_CardDeck/deckTexture,
         scale = 0.02,
     }
 
     model CardDeckSingle
     {
         mesh = WorldItems/card,
-        texture = Item_CardDeck/deckTextureCardDeck,
+        texture = Item_CardDeck/deckTexture,
         scale = 0.02,
     }
 
