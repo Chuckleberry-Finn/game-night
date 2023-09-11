@@ -157,7 +157,7 @@ local gameNightBoxes = {
 
 }
 
-for _,box in pairs(gameNightBoxes) do table.insert(SuburbsDistributions, box) end
+for contID,content in pairs(gameNightBoxes) do SuburbsDistributions[contID] = content end
 
 
 

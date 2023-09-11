@@ -2,63 +2,73 @@ module Base
 {
 
     item CatanBoard
-    { DisplayCategory = GameBoard, Weight = 0.1, Type = Normal,
-        DisplayName	=	CatanBoard, Icon = OutOfPlayTextures/CatanBoard, WorldStaticModel = ChessBoard_Ground,
+    {
+        DisplayCategory = GameBoard, Weight = 0.01, Type = Normal,
+        DisplayName = CatanBoard, Icon = OutOfPlayTextures/CatanBoard, WorldStaticModel = ChessBoard_Ground,
     }
 
-	item CatanBox
+     item CatanBox
     {
-        DisplayCategory = GameBox, WeightReduction	=	20, Weight	=	1, Type	=	Container, Capacity	=	7,
-        DisplayName	= Catan Box, Icon = Boxes/catanBox, WorldStaticModel = CatanBox,
+        DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
+        DisplayName = Catan Box, Icon = Boxes/catanBox, WorldStaticModel = CatanBox,
     }
 
     item CatanResourceDeck
-    { DisplayCategory = Deck, Weight = 0.1, Type = Normal,
-        DisplayName	= Resource Card,
+    {
+        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
+        DisplayName = Resource Card,
         Icon = CatanDeck/Resource,
         WorldStaticModel = CardDeck,
     }
 
     item CatanDevelopmentDeck
-    { DisplayCategory = Deck, Weight = 0.1, Type = Normal,
-        DisplayName	= Development Card,
+    {
+        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
+        DisplayName = Development Card,
         Icon = CatanDeck/Development,
         WorldStaticModel = CardDeck,
     }
 
     item CatanRobber
-    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	= Robber Piece, Icon = OutOfPlayTextures/CatanRobber, WorldStaticModel = PokerChips_Ground,
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Robber Piece, Icon = OutOfPlayTextures/CatanRobber, WorldStaticModel = PokerChips_Ground,
     }
 
     item CatanPlayerCostsWhite
-    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	= CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsWhite, WorldStaticModel = CardDeck,
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsWhite, WorldStaticModel = CardDeck,
     }
 
    item CatanPlayerCostsRed
-    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	= CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsRed, WorldStaticModel = CardDeck,
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsRed, WorldStaticModel = CardDeck,
     }
 
    item CatanPlayerCostsOrange
-    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	= CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsOrange, WorldStaticModel = CardDeck,
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsOrange, WorldStaticModel = CardDeck,
     }
 
    item CatanPlayerCostsBlue
-    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	= CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsBlue, WorldStaticModel = CardDeck,
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsBlue, WorldStaticModel = CardDeck,
     }
 
    item CatanLongestRoad
-    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	= CatanLongestRoad, Icon = OutOfPlayTextures/LongestRoad, WorldStaticModel = CardDeck,
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = CatanLongestRoad, Icon = OutOfPlayTextures/LongestRoad, WorldStaticModel = CardDeck,
     }
 
    item CatanLargestArmy
-    { DisplayCategory = GamePiece, Weight = 0.1, Type = Normal,
-        DisplayName	= CatanLargestArmy, Icon = OutOfPlayTextures/LargestArmy, WorldStaticModel = CardDeck,
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = CatanLargestArmy, Icon = OutOfPlayTextures/LargestArmy, WorldStaticModel = CardDeck,
     }
 
 }
