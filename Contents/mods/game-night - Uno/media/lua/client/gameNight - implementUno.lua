@@ -43,5 +43,10 @@ end
 --- The `name` argument has to correspond to a `Type` under the `Base` module.
 --
 --- ALL OF THE ENTRIES IN `CARDS` NEEDS TO MATCH WHAT THE CARD WILL BE CALLED IN GAME *AND* MATCH A TEXTURE IN THE CORRECT `DIRECTORY`
---- DIRECTORY: media/textures/Item_[
+--- DIRECTORY: `media/textures/Item_[name]/`
+-- Textures should include
+    -- `FlippedInPlay` for flipped cards.
+    -- card[name] for inventory icon for single cards.
+    -- deck[name] for inventory icon for deck.
+    -- deckTexture[name] for model(s) texture.
 applyItemDetails.addDeck("UnoCards", unoCards.cards)
