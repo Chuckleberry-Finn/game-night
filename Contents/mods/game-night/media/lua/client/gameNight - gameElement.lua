@@ -60,6 +60,14 @@ function gameNightElement:moveElement(x, y)
         worldItem:getWorldItem():setIgnoreRemoveSandbox(true)
         worldItem:getWorldItem():transmitCompleteItemToServer()
     end
+
+    local playerNum = window.player:getPlayerNum()
+
+    local inventory = getPlayerInventory(playerNum)
+    if inventory then inventory:refreshBackpacks() end
+
+    local loot = getPlayerLoot(playerNum)
+    if loot then loot:refreshBackpacks() end
     --[[
     if luautils.haveToBeTransfered(window.player, item, true) then
         local pickUpAction = ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 0)

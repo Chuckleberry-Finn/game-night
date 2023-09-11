@@ -79,11 +79,20 @@ function gameNightWindow:dropItemsOn(x, y)
             worldItem:setWorldZRotation(0)
             worldItem:getWorldItem():setIgnoreRemoveSandbox(true)
             worldItem:getWorldItem():transmitCompleteItemToServer()
-
-            local cont = deck:getContainer()
-            if cont then cont:setDrawDirty(true) end
         end
+
+        local inventory = getPlayerInventory(playerNum)
+        if inventory then inventory:refreshBackpacks() end
+
+        local loot = getPlayerLoot(playerNum)
+        if loot then loot:refreshBackpacks() end
     end
+
+    if ISMouseDrag.draggingFocus then
+        ISMouseDrag.draggingFocus:onMouseUp(0,0)
+        ISMouseDrag.draggingFocus = nil
+    end
+    ISMouseDrag.dragging = nil
 end
 
 
