@@ -81,11 +81,11 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
     if isClient() then
         local worldItem = gamePiece:getWorldItem()
         if worldItem then worldItem:transmitModData() end
-    end
 
-    ---@type ItemContainer
-    local container = gamePiece:getContainer()
-    if container then container:setDrawDirty(true) end
+        ---@type ItemContainer
+        local container = gamePiece:getContainer()
+        if container then container:setDrawDirty(true) end
+    end
 end
 
 
@@ -133,16 +133,6 @@ function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete, deta
     --end
     detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
     detailsFunc(gamePiece)
-
-    if isClient() then
-        local worldItem = gamePiece:getWorldItem()
-        if worldItem then worldItem:transmitModData() end
-    end
-
-    ---@type ItemContainer
-    local container = gamePiece:getContainer()
-    if container then container:setDrawDirty(true) end
-
 end
 
 
