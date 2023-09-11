@@ -43,15 +43,8 @@ function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self
 
 function gameNightWindow:dropItemsOn(x, y)
     if not self:getIsVisible() then return end
-
     local dragging = ISMouseDrag.dragging
-
-    print("!!", (dragging ~= nil))
-
     if (dragging ~= nil) then
-
-        print("!!!")
-
         local itemFound = {}
         local draggingItems = ISInventoryPane.getActualItems(dragging)
         for i,v in ipairs(draggingItems) do
@@ -73,10 +66,7 @@ function gameNightWindow:dropItemsOn(x, y)
 
         for _,deck in pairs(itemFound) do
 
-            local oldCont = deck:getContainer()
-            if oldCont then
-                oldCont:DoRemoveItem(deck)
-            end
+            self.player:getInventory():DoRemoveItem(deck)
 
             ---@type IsoObject|IsoWorldInventoryObject
             local worldItem = deck:getWorldItem()
@@ -90,10 +80,8 @@ function gameNightWindow:dropItemsOn(x, y)
             worldItem:getWorldItem():setIgnoreRemoveSandbox(true)
             worldItem:getWorldItem():transmitCompleteItemToServer()
 
-            local currentCont = deck:getContainer()
-            if currentCont then
-                currentCont:DoAddItemBlind(deck)
-            end
+            local cont = deck:getContainer()
+            if cont then cont:setDrawDirty(true) end
         end
     end
 end
@@ -133,10 +121,7 @@ function gameNightWindow:onMouseUpOutside(x, y)
 end
 function gameNightWindow:onMouseUp(x, y)
     if self:isVisible() then
-        if ISMouseDrag.dragging then
-            print("!")
-            self:dropItemsOn(x, y)
-        end
+        if ISMouseDrag.dragging then self:dropItemsOn(x, y) end
         self:processMouseUp(ISPanelJoypad.onMouseUp, x, y)
     end
 end
