@@ -3,7 +3,7 @@ require "Items/SuburbsDistributions"
 local gameNightBoxes = {
     UnoBox = { rolls = 1,
         items = {
-            "UnoCards", 100,
+            "UnoCards", 9999,
         },
         junk = { rolls = 1, items = {} }, fillRand = 0,
     },
@@ -26,6 +26,6 @@ proceduralDistGameNight.listsToInsert = {
 }
 
 for distID,chance in pairs(proceduralDistGameNight.listsToInsert) do
-    table.insert(ProceduralDistributions.list[distID].items, "UnoCards")
+    table.insert(ProceduralDistributions.list[distID].items, "UnoBox")
     table.insert(ProceduralDistributions.list[distID].items, chance)
 end
