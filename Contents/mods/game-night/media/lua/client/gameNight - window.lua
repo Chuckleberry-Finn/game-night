@@ -7,7 +7,7 @@ gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 gameNightWindow.elements = {}
 
 function gameNightWindow:update()
-    if (not self.player) or (not self.square) or (not luautils.isSquareAdjacentToSquare(self.square, self.player:getSquare())) then
+    if (not self.player) or (not self.square) or (self.square~=self.player:getSquare() and (not luautils.isSquareAdjacentToSquare(self.square, self.player:getSquare()))) then
         self:closeAndRemove()
         return
     end
