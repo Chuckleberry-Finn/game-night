@@ -12,11 +12,30 @@ end
 
 
 function gameNightDeckSearch:update()
-    --TODO: Make this check if item is in inventory
-    --if (not self.player) or (not self.square) or (not luautils.isSquareAdjacentToSquare(self.square, self.player:getSquare())) then
-    --    self:closeAndRemove()
-     --   return
-    --end
+    local close = false
+    if (not self.player) or (not self.deck) then close = true end
+
+    ---@type InventoryItem
+    local item = self.deck
+
+    local cont = item:getContainer()
+    if cont and cont:isInCharacterInventory(self.player) then return end
+
+    local outerMostCont = item:getOutermostContainer()
+    local contParent = outerMostCont:getParent()
+    local contParentSq = contParent and contParent:getSquare()
+    if contParentSq and contParentSq~=self.player:getSquare() and (not luautils.isSquareAdjacentToSquare(contParentSq, self.player:getSquare())) then
+        close = true
+    end
+
+    ---@type IsoWorldInventoryObject|IsoObject
+    local worldItem = item:getWorldItem()
+    local worldItemSq = worldItem and worldItem:getSquare()
+    if worldItemSq and worldItemSq~=self.player:getSquare() and (not luautils.isSquareAdjacentToSquare(worldItemSq, self.player:getSquare())) then
+        close = true
+    end
+
+    if close then self:closeAndRemove() end
 end
 
 
