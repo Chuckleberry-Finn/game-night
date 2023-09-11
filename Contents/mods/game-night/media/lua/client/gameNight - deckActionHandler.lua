@@ -106,6 +106,17 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped)
 end
 
 
+function deckActionHandler._flipSpecificCard(deckItem, flipIndex)
+    local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
+    if not deckStates then return end
+    deckItem:getModData()["gameNight_cardFlipped"][flipIndex] = not currentFlipStates[flipIndex]
+end
+function deckActionHandler.flipSpecificCard(deckItem, player, index)
+    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._flipSpecificCard, deckItem, index}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.playSound(deckItem, player)
+end
+
+
 function deckActionHandler._flipCard(deckItem)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
@@ -303,13 +314,13 @@ function deckActionHandler._drawCardIndex(deckItem, drawIndex)
 end
 ---@param deckItem InventoryItem
 function deckActionHandler.drawRandCard(deckItem, player)
-    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawRandCard, deckItem}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawCardIndex, deckItem}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
 ---@param deckItem InventoryItem
 function deckActionHandler.drawSpecificCard(deckItem, player, index)
-    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawRandCard, deckItem, index}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawCardIndex, deckItem, index}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
