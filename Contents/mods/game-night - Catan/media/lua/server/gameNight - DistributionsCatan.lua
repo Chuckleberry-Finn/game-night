@@ -18,4 +18,25 @@ local gameNightBoxes = {
     },
 }
 
-for _,box in pairs(gameNightBoxes) do table.insert(SuburbsDistributions, box) end
+for contID,content in pairs(gameNightBoxes) do SuburbsDistributions[contID] = content end
+
+
+
+require "Items/ProceduralDistributions"
+
+local proceduralDistGameNight = {}
+
+proceduralDistGameNight.listsToInsert = {
+    ["BarCounterMisc"]=3,
+    ["Gifts"]=4,
+    ["GigamartToys"]=4,
+    ["Hobbies"]=4,
+    ["HolidayStuff"]=4,
+    ["WardrobeChild"]=1,
+    ["CrateRandomJunk"]=1,
+}
+
+for distID,chance in pairs(proceduralDistGameNight.listsToInsert) do
+    table.insert(ProceduralDistributions.list[distID].items, "CatanBox")
+    table.insert(ProceduralDistributions.list[distID].items, chance)
+end
