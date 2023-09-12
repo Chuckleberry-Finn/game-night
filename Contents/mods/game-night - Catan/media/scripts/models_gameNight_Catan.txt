@@ -8,6 +8,13 @@ module Base
         scale = 0.06,
     }
 
+    model CatanBoard
+    {
+        mesh = WorldItems/catan,
+        texture = Item_InPlayTextures/CatanBoard_ground,
+        scale = 0.06,
+    }
+
     model CatanResourceDeck
     {
         mesh = WorldItems/cardpack,

@@ -4,7 +4,7 @@ module Base
     item CatanBoard
     {
         DisplayCategory = GameBoard, Weight = 0.01, Type = Normal,
-        DisplayName = CatanBoard, Icon = OutOfPlayTextures/CatanBoard, WorldStaticModel = ChessBoard_Ground,
+        DisplayName = CatanBoard, Icon = OutOfPlayTextures/CatanBoard, WorldStaticModel = CatanBoard,
     }
 
      item CatanBox
