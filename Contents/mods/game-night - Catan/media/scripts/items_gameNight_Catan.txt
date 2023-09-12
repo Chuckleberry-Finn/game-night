@@ -110,25 +110,25 @@ module Base
     item CatanPlayerCostsWhite
     {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsWhite, WorldStaticModel = CardDeck,
+        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsWhite, WorldStaticModel = CatanPlayerCostsWhite,
     }
 
    item CatanPlayerCostsRed
     {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsRed, WorldStaticModel = CardDeck,
+        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsRed, WorldStaticModel = CatanPlayerCostsRed,
     }
 
    item CatanPlayerCostsOrange
     {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsOrange, WorldStaticModel = CardDeck,
+        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsOrange, WorldStaticModel = CatanPlayerCostsOrange,
     }
 
    item CatanPlayerCostsBlue
     {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsBlue, WorldStaticModel = CardDeck,
+        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsBlue, WorldStaticModel = CatanPlayerCostsBlue,
     }
 
    item CatanLongestRoad

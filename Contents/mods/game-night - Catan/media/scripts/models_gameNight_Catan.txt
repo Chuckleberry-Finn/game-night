@@ -19,6 +19,11 @@ module Base
     model CatanCityBlue { mesh = WorldItems/city, texture = modelTextures/blue, scale = 0.006, }
     model CatanRoadBlue { mesh = WorldItems/road, texture = modelTextures/blue, scale = 0.006, }
 
+    model CatanPlayerCostsWhite { mesh = WorldItems/card, texture = Item_OutOfPlayTextures/CatanPlayerCostsWhite, scale = 0.03, }
+    model CatanPlayerCostsRed { mesh = WorldItems/card, texture = Item_OutOfPlayTextures/CatanPlayerCostsRed, scale = 0.03, }
+    model CatanPlayerCostsOrange { mesh = WorldItems/card, texture = Item_OutOfPlayTextures/CatanPlayerCostsOrange, scale = 0.03, }
+    model CatanPlayerCostsBlue { mesh = WorldItems/card, texture = Item_OutOfPlayTextures/CatanPlayerCostsBlue, scale = 0.03, }
+
     model CatanResourceDeck { mesh = WorldItems/cardpack, texture = Item_CatanResourceDeck/deckTexture, scale = 0.02, }
     model CatanResourceSingle { mesh = WorldItems/card, texture = Item_CatanResourceDeck/deckTexture, scale = 0.02, }
 
