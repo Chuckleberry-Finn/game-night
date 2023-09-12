@@ -1,6 +1,7 @@
 require "ISUI/ISPanelJoypad"
 require "gameNight - gameElement"
 local deckActionHandler = require "gameNight - deckActionHandler"
+local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 
 ---@class gameNightWindow : ISPanelJoypad
 gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
@@ -48,7 +49,7 @@ function gameNightWindow:dropItemsOn(x, y)
         local itemFound = {}
         local draggingItems = ISInventoryPane.getActualItems(dragging)
         for i,v in ipairs(draggingItems) do
-            if deckActionHandler.isDeckItem(v) then
+            if deckActionHandler.isDeckItem(v) or gamePieceAndBoardHandler.getGamePiece(v) then
                 local transfer = (not v:isFavorite()) and true
                 if transfer then
                     table.insert(itemFound, v)
