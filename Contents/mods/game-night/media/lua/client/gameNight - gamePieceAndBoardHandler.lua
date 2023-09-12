@@ -52,7 +52,7 @@ function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context,
     local specialCase = gamePieceAndBoardHandler.specials[fullType]
     if specialCase and specialCase.actions then
         for func,args in pairs(specialCase.actions) do
-            if gamePieceAndBoardHandler.func then context:addOptionOnTop(getText("IGUI_"..func), gamePiece, gamePieceAndBoardHandler.func, player, args) end
+            if gamePieceAndBoardHandler[func] then context:addOptionOnTop(getText("IGUI_"..func), gamePiece, gamePieceAndBoardHandler[func], player, args) end
         end
     end
 end
