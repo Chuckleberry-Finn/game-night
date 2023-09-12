@@ -25,6 +25,7 @@ description=
 description=[h3][i]Additional Credits: Shark (Models), Nurver (Testing)[/i][/h3]
 description=[i][b]Catan[/b] is a registered trademark of Catan GmbH. Copyright © Catan GmbH. All rights reserved.[/i]
 description=[i][b]Uno[/b] is a registered trademark of Mattel, Inc. Copyright © Mattel, Inc. All rights reserved.[/i]
+description=
 description=[h3]Copyright 2023 Chuckleberry Finn. This item is not authorized for posting on Steam, except under the Steam account named Chuckleberry Finn.[/h3]
 tags=Build 41;Framework;Misc;Multiplayer;Pop Culture;Silly/Fun
 visibility=unlisted
