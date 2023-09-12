@@ -5,17 +5,17 @@ module Base
     model BackgammonBox { mesh = WorldItems/cardpack, texture = Item_Boxes/backgammonBox_ground, scale = 0.06, }
     model PokerBox { mesh = WorldItems/cardpack, texture = Item_Boxes/PokerBox_ground, scale = 0.06, }
 
-    model Dice { mesh = WorldItems/cube, texture = modelTextures/Dice, scale = 0.002, }
-    model DiceWhite { mesh = WorldItems/cube, texture = modelTextures/DiceWhite, scale = 0.002, }
+    model Dice { mesh = WorldItems/cube, texture = modelTextures/Dice, scale = 0.0015, }
+    model DiceWhite { mesh = WorldItems/cube, texture = modelTextures/DiceWhite, scale = 0.0015, }
 
-    model PokerChips_Ground { mesh = WorldItems/coin, texture = modelTextures/PokerChips, scale = 0.003, }
-    model PokerChipsBlack { mesh = WorldItems/coin, texture = modelTextures/PokerChipsBlack, scale = 0.003, }
-    model PokerChipsBlue { mesh = WorldItems/coin, texture = modelTextures/PokerChipsBlue, scale = 0.003, }
-    model PokerChipsGreen { mesh = WorldItems/coin, texture = modelTextures/PokerChipsGreen, scale = 0.003, }
-    model PokerChipsOrange { mesh = WorldItems/coin, texture = modelTextures/PokerChipsOrange, scale = 0.003, }
-    model PokerChipsPurple { mesh = WorldItems/coin, texture = modelTextures/PokerChipsPurple, scale = 0.003, }
-    model PokerChipsWhite { mesh = WorldItems/coin, texture = modelTextures/PokerChipsWhite, scale = 0.003, }
-    model PokerChipsYellow { mesh = WorldItems/coin, texture = modelTextures/PokerChipsYellow, scale = 0.003, }
+    model PokerChips_Ground { mesh = WorldItems/coin, texture = modelTextures/PokerChips, scale = 0.0025, }
+    model PokerChipsBlack { mesh = WorldItems/coin, texture = modelTextures/PokerChipsBlack, scale = 0.0025, }
+    model PokerChipsBlue { mesh = WorldItems/coin, texture = modelTextures/PokerChipsBlue, scale = 0.0025, }
+    model PokerChipsGreen { mesh = WorldItems/coin, texture = modelTextures/PokerChipsGreen, scale = 0.0025, }
+    model PokerChipsOrange { mesh = WorldItems/coin, texture = modelTextures/PokerChipsOrange, scale = 0.0025, }
+    model PokerChipsPurple { mesh = WorldItems/coin, texture = modelTextures/PokerChipsPurple, scale = 0.0025, }
+    model PokerChipsWhite { mesh = WorldItems/coin, texture = modelTextures/PokerChipsWhite, scale = 0.0025, }
+    model PokerChipsYellow { mesh = WorldItems/coin, texture = modelTextures/PokerChipsYellow, scale = 0.0025, }
 
     model CardDeck { mesh = WorldItems/cardpack, texture = Item_CardDeck/deckTexture, scale = 0.02, }
     model CardDeckSingle { mesh = WorldItems/card, texture = Item_CardDeck/deckTexture, scale = 0.02, }
