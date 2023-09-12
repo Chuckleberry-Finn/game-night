@@ -3,6 +3,9 @@ module Base
     model CatanBox { mesh = WorldItems/cardpack, texture = Item_Boxes/catanBox_ground, scale = 0.06, }
     model CatanBoard { mesh = WorldItems/catan, texture = modelTextures/board, scale = 0.03, }
 
+    model CatanLongestRoad { mesh = WorldItems/card, texture = Item_OutOfPlayTextures/CatanLongestRoad, scale = 0.03, }
+    model CatanLargestArmy { mesh = WorldItems/card, texture = Item_OutOfPlayTextures/CatanLargestArmy, scale = 0.03, }
+
     model CatanSettlementWhite { mesh = WorldItems/settlement, texture = modelTextures/white, scale = 0.006, }
     model CatanCityWhite { mesh = WorldItems/city, texture = modelTextures/white, scale = 0.006, }
     model CatanRoadWhite { mesh = WorldItems/road, texture = modelTextures/white, scale = 0.006, }
@@ -29,5 +32,5 @@ module Base
 
     model CatanDevelopmentDeck { mesh = WorldItems/cardpack, texture = Item_CatanDevelopmentDeck/deckTexture, scale = 0.02, }
     model CatanDevelopmentSingle { mesh = WorldItems/card, texture = Item_CatanDevelopmentDeck/deckTexture, scale = 0.02, }
-    model CatanBoard_Ground { mesh = WorldItems/CatanBoard, texture = Item_InPlayTextures/CatanBoard, scale = 0.4, }
+
 }

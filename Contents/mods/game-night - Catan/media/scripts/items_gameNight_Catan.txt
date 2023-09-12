@@ -134,13 +134,13 @@ module Base
    item CatanLongestRoad
     {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName = CatanLongestRoad, Icon = OutOfPlayTextures/LongestRoad, WorldStaticModel = CardDeck,
+        DisplayName = CatanLongestRoad, Icon = OutOfPlayTextures/LongestRoad, WorldStaticModel = CatanLongestRoad,
     }
 
    item CatanLargestArmy
     {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName = CatanLargestArmy, Icon = OutOfPlayTextures/LargestArmy, WorldStaticModel = CardDeck,
+        DisplayName = CatanLargestArmy, Icon = OutOfPlayTextures/LargestArmy, WorldStaticModel = CatanLargestArmy,
     }
 
 }
