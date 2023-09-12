@@ -1,52 +1,28 @@
 module Base
 {
+    model CatanBox { mesh = WorldItems/cardpack, texture = Item_Boxes/catanBox_ground, scale = 0.06, }
+    model CatanBoard { mesh = WorldItems/catan, texture = modelTextures/CatanBoard_ground, scale = 0.03, }
 
-    model CatanBox
-    {
-        mesh = WorldItems/cardpack,
-        texture = Item_Boxes/catanBox_ground,
-        scale = 0.06,
-    }
+    model CatanSettlementWhite { mesh = WorldItems/settlement, texture = modelTextures/white, scale = 0.006, }
+    model CatanCityWhite { mesh = WorldItems/city, texture = modelTextures/white, scale = 0.006, }
+    model CatanRoadWhite { mesh = WorldItems/road, texture = modelTextures/white, scale = 0.006, }
 
-    model CatanBoard
-    {
-        mesh = WorldItems/catan,
-        texture = Item_InPlayTextures/CatanBoard_ground,
-        scale = 0.03,
-    }
+    model CatanSettlementOrange { mesh = WorldItems/settlement, texture = modelTextures/orange, scale = 0.006, }
+    model CatanCityOrange { mesh = WorldItems/city, texture = modelTextures/orange, scale = 0.006, }
+    model CatanRoadOrange { mesh = WorldItems/road, texture = modelTextures/orange, scale = 0.006, }
 
-    model CatanResourceDeck
-    {
-        mesh = WorldItems/cardpack,
-        texture = Item_CatanResourceDeck/deckTexture,
-        scale = 0.02,
-    }
+    model CatanSettlementRed { mesh = WorldItems/settlement, texture = modelTextures/red, scale = 0.006, }
+    model CatanCityRed { mesh = WorldItems/city, texture = modelTextures/red, scale = 0.006, }
+    model CatanRoadRed { mesh = WorldItems/road, texture = modelTextures/red, scale = 0.006, }
 
-    model CatanResourceSingle
-    {
-        mesh = WorldItems/card,
-        texture = Item_CatanResourceDeck/deckTexture,
-        scale = 0.02,
-    }
+    model CatanSettlementBlue { mesh = WorldItems/settlement, texture = modelTextures/blue, scale = 0.006, }
+    model CatanCityBlue { mesh = WorldItems/city, texture = modelTextures/blue, scale = 0.006, }
+    model CatanRoadBlue { mesh = WorldItems/road, texture = modelTextures/blue, scale = 0.006, }
 
-    model CatanDevelopmentDeck
-    {
-        mesh = WorldItems/cardpack,
-        texture = Item_CatanDevelopmentDeck/deckTexture,
-        scale = 0.02,
-    }
+    model CatanResourceDeck { mesh = WorldItems/cardpack, texture = Item_CatanResourceDeck/deckTexture, scale = 0.02, }
+    model CatanResourceSingle { mesh = WorldItems/card, texture = Item_CatanResourceDeck/deckTexture, scale = 0.02, }
 
-    model CatanDevelopmentSingle
-    {
-        mesh = WorldItems/card,
-        texture = Item_CatanDevelopmentDeck/deckTexture,
-        scale = 0.02,
-    }
-
-    model CatanBoard_Ground
-    {
-        mesh = WorldItems/CatanBoard,
-        texture = Item_InPlayTextures/CatanBoard,
-        scale = 0.4,
-    }
+    model CatanDevelopmentDeck { mesh = WorldItems/cardpack, texture = Item_CatanDevelopmentDeck/deckTexture, scale = 0.02, }
+    model CatanDevelopmentSingle { mesh = WorldItems/card, texture = Item_CatanDevelopmentDeck/deckTexture, scale = 0.02, }
+    model CatanBoard_Ground { mesh = WorldItems/CatanBoard, texture = Item_InPlayTextures/CatanBoard, scale = 0.4, }
 }
