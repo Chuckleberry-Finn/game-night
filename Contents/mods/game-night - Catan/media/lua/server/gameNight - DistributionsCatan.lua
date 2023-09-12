@@ -14,6 +14,8 @@ local gameNightBoxes = {
             "CatanResourceDeck", 9999,
             "CatanBoard", 9999,
 
+            "Dice", 9999, "Dice", 9999,
+
             "CatanSettlementBlue", 9999, "CatanSettlementBlue", 9999, "CatanSettlementBlue", 9999, "CatanSettlementBlue", 9999, "CatanSettlementBlue", 9999,
             "CatanCityBlue", 9999, "CatanCityBlue", 9999, "CatanCityBlue", 9999, "CatanCityBlue", 9999,
             "CatanRoadBlue", 9999, "CatanRoadBlue", 9999, "CatanRoadBlue", 9999, "CatanRoadBlue", 9999, "CatanRoadBlue", 9999,
