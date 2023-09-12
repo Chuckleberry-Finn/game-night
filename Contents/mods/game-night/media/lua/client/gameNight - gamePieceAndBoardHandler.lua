@@ -35,16 +35,30 @@ function gamePieceAndBoardHandler.generate_itemTypes()
 end
 
 gamePieceAndBoardHandler.specials = {
-    ["Base.Dice"]={ category = "Die", sides = 6 },
-    ["Base.DiceWhite"]={ category = "Die", sides = 6 },
-    ["Base.GamePieceRed"]={ flipTexture = true },
-    ["Base.GamePieceBlack"]={ flipTexture = true },
+    ["Base.Dice"]={ category = "Die", actions = { rollDie=6 }, },
+    ["Base.DiceWhite"]={ category = "Die", actions = { rollDie=6 }, },
+
+    ["Base.GamePieceRed"]={ actions = { flipPiece=true } },
+    ["Base.GamePieceBlack"]={ actions = { flipPiece=true } },
+
     ["Base.BackgammonBoard"]={ category = "GameBoard" },
     ["Base.CheckerBoard"]={ category = "GameBoard" },
     ["Base.ChessBoard"]={ category = "GameBoard" },
 }
 
-function gamePieceAndBoardHandler.getGamePiece(gamePiece)
+
+function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, gamePiece)
+    local fullType = gamePiece:getFullType()
+    local specialCase = gamePieceAndBoardHandler.specials[fullType]
+    if specialCase and specialCase.actions then
+        for func,args in pairs(specialCase.actions) do
+            if func then context:addOptionOnTop(getText("IGUI_"..func), gamePiece, func, player, args) end
+        end
+    end
+end
+
+
+function gamePieceAndBoardHandler.isGamePiece(gamePiece)
     return gamePieceAndBoardHandler._itemTypes[gamePiece:getFullType()]
 end
 
@@ -139,8 +153,8 @@ end
 function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value) gamePiece:getModData()[key] = value end
 
 
-function gamePieceAndBoardHandler.rollDie(gamePiece, player)
-    local sides = gamePiece:getModData()["gameNight_dieSides"]
+function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
+    --local sides = gamePiece:getModData()["gameNight_dieSides"]
     if not sides then return end
 
     local result = ZombRand(sides)+1

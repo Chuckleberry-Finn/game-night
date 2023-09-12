@@ -18,7 +18,7 @@ function applyItemDetails.applyGameNightToItem(item)
 
         if not gamePieceAndBoardHandler._itemTypes then gamePieceAndBoardHandler.generate_itemTypes() end
 
-        gamePiece = gamePieceAndBoardHandler.getGamePiece(item)
+        gamePiece = gamePieceAndBoardHandler.isGamePiece(item)
         if gamePiece then gamePieceAndBoardHandler.handleDetails(item) end
 
         deck = applyItemDetails.deckCatalogues[item:getType()]

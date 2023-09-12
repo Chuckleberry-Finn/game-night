@@ -15,12 +15,8 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
         local item = v
         if not instanceof(v, "InventoryItem") then item = v.items[1] end
 
-        local gamePiece = gamePieceAndBoardHandler.getGamePiece(item)
-        if gamePiece then
-            local special = gamePieceAndBoardHandler.specials[item:getFullType()]
-            if special and special.flipTexture then context:addOptionOnTop(getText("IGUI_flipPiece"), item, gamePieceAndBoardHandler.flipPiece, playerObj) end
-            if special and special.sides then context:addOptionOnTop(getText("IGUI_roll"), item, gamePieceAndBoardHandler.rollDie, playerObj) end
-        end
+        local isGamePiece = gamePieceAndBoardHandler.isGamePiece(item)
+        if isGamePiece then gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, playerObj, item) end
 
         local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
         if deckStates then
