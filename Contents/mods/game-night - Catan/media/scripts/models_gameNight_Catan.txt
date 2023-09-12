@@ -1,7 +1,7 @@
 module Base
 {
     model CatanBox { mesh = WorldItems/cardpack, texture = Item_Boxes/catanBox_ground, scale = 0.06, }
-    model CatanBoard { mesh = WorldItems/catan, texture = modelTextures/CatanBoard_ground, scale = 0.03, }
+    model CatanBoard { mesh = WorldItems/catan, texture = modelTextures/board, scale = 0.03, }
 
     model CatanSettlementWhite { mesh = WorldItems/settlement, texture = modelTextures/white, scale = 0.006, }
     model CatanCityWhite { mesh = WorldItems/city, texture = modelTextures/white, scale = 0.006, }

@@ -36,6 +36,10 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 --- `Item_InPlayTextures` and `Item_OutOfPlayTextures`
 --- Note: In-Play defaults to Out of play textures. Out of play textures replaces the item's texture/icon.
 gamePieceAndBoardHandler.registerTypes({
+    "Base.CatanCityWhite", "Base.CatanSettlementWhite", "Base.CatanRoadWhite",
+    "Base.CatanCityRed", "Base.CatanSettlementRed", "Base.CatanRoadRed",
+    "Base.CatanCityBlue", "Base.CatanSettlementBlue", "Base.CatanRoadBlue",
+    "Base.CatanCityOrange", "Base.CatanSettlementOrange", "Base.CatanRoadOrange",
     "Base.CatanRobber", "Base.CatanLongestRoad", "Base.CatanLargestArmy", "Base.CatanBoard",
     "Base.CatanPlayerCostsWhite", "Base.CatanPlayerCostsRed", "Base.CatanPlayerCostsOrange", "Base.CatanPlayerCostsBlue"})
 
