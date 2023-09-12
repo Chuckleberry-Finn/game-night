@@ -154,9 +154,7 @@ function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value) gamePie
 
 
 function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
-    --local sides = gamePiece:getModData()["gameNight_dieSides"]
-    if not sides then return end
-
+    sides = sides or 6
     local result = ZombRand(sides)+1
     result = result>1 and result or ""
 
@@ -167,13 +165,9 @@ end
 
 
 function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
-    local special = gamePieceAndBoardHandler.specials[gamePiece:getFullType()]
-    if not special or not special.flipTexture then return end
-
     local current = gamePiece:getModData()["gameNight_altState"]
     local result = "Flipped"
     if current then result = nil end
-
     gamePieceAndBoardHandler.playSound(gamePiece, player)
     gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
 end
