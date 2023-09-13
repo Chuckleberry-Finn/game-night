@@ -51,12 +51,14 @@ function applyItemDetails.applyGameNightToInventory(ItemContainer)
     end
 end
 
+function applyItemDetails.applyToInventory(ISInventoryPage, step)
+    if step == "begin" then
+        applyItemDetails.applyGameNightToInventory(ISInventoryPage.inventory)
+    end
+end
 
-function applyItemDetails.applyToInventory(ISInventoryPage, step) if step == "begin" then applyItemDetails.applyGameNightToInventory(ISInventoryPage.inventory) end end
-Events.OnRefreshInventoryWindowContainers.Add(applyItemDetails.applyToInventory)
-
-function applyItemDetails.applyToFillContainer(contName, contType, container) applyItemDetails.applyGameNightToInventory(container) end
-Events.OnFillContainer.Add(applyItemDetails.applyToFillContainer)
-
+function applyItemDetails.applyToFillContainer(contName, contType, container)
+    applyItemDetails.applyGameNightToInventory(container)
+end
 
 return applyItemDetails
