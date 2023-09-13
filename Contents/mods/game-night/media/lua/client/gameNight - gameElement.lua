@@ -47,19 +47,17 @@ function gameNightElement:moveElement(x, y)
     local sound = item:getModData()["gameNight_sound"]
     if sound then window.player:getEmitter():playSound(sound) end
 
-
     ---@type IsoObject|IsoWorldInventoryObject
-    local worldItem = item:getWorldItem()
-    if worldItem then
-        window.square:transmitRemoveItemFromSquare(worldItem)
-        window.square:removeWorldObject(worldItem)
+    local worldItemOnj = item:getWorldItem()
+    if worldItemOnj then
+        window.square:transmitRemoveItemFromSquare(worldItemOnj)
+        window.square:removeWorldObject(worldItemOnj)
         item:setWorldItem(nil)
-
-        worldItem = window.square:AddWorldInventoryItem(item, scaledX, scaledY, 0)
-        worldItem:setWorldZRotation(0)
-        worldItem:getWorldItem():setIgnoreRemoveSandbox(true)
-        worldItem:getWorldItem():transmitCompleteItemToServer()
     end
+
+    local invItemToWorld = window.square:AddWorldInventoryItem(item, scaledX, scaledY, 0)
+    invItemToWorld:setWorldZRotation(0)
+    invItemToWorld:getWorldItem():setIgnoreRemoveSandbox(true)
 
     local playerNum = window.player:getPlayerNum()
 
