@@ -5,6 +5,12 @@ module Base
     model BackgammonBox { mesh = WorldItems/cardpack, texture = Item_Boxes/backgammonBox_ground, scale = 0.06, }
     model PokerBox { mesh = WorldItems/cardpack, texture = Item_Boxes/PokerBox_ground, scale = 0.06, }
 
+    model GamePiecesBlack_Ground { mesh = WorldItems/coin, texture = modelTextures/black, scale = 0.0015, }
+    model GamePiecesRed_Ground { mesh = WorldItems/coin, texture = modelTextures/red, scale = 0.0015, }
+
+    model GamePiecesWhite_Ground { mesh = WorldItems/coin, texture = modelTextures/white, scale = 0.0002, }
+    model GamePieceBlackBackgammon { mesh = WorldItems/coin, texture = modelTextures/black, scale = 0.0002, }
+
 	model WhiteChessPieces { mesh = WorldItems/chess, texture = modelTextures/ChessPieceWhite, scale = 0.003, }
     model BlackChessPieces { mesh = WorldItems/chess, texture = modelTextures/ChessPieceBlack, scale = 0.003,}
 
