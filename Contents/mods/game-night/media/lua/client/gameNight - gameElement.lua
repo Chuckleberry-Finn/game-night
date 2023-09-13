@@ -55,6 +55,7 @@ function gameNightElement:moveElement(x, y)
         item:setWorldItem(nil)
     end
 
+    ---@type InventoryItem
     local invItemToWorld = window.square:AddWorldInventoryItem(item, scaledX, scaledY, 0)
     invItemToWorld:setWorldZRotation(0)
     invItemToWorld:getWorldItem():setIgnoreRemoveSandbox(true)
