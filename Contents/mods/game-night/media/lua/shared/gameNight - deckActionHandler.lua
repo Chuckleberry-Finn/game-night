@@ -66,10 +66,6 @@ function deckActionHandler.handleDetails(deckItem)
     if isClient() then
         local worldItem = deckItem:getWorldItem()
         if worldItem then worldItem:transmitModData() end
-
-        ---@type ItemContainer
-        --local container = deckItem:getContainer()
-        --if container then container:setDrawDirty(true) end
     end
 end
 
