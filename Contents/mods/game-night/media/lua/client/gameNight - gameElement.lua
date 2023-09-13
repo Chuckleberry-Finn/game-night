@@ -68,16 +68,7 @@ function gameNightElement:moveElement(x, y)
 
     local loot = getPlayerLoot(playerNum)
     if loot then loot:refreshBackpacks() end
-    --[[
-    if luautils.haveToBeTransfered(window.player, item, true) then
-        local pickUpAction = ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory(), 0)
-        ISTimedActionQueue.add(pickUpAction)
-    end
 
-    local dropAction = ISDropWorldItemAction:new(window.player, item, window.square, scaledX, scaledY, 0, 0, false)
-    dropAction.maxTime = 0
-    ISTimedActionQueue.add(dropAction)
-    --]]
     local pBD = window.player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 end
