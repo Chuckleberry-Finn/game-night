@@ -8,7 +8,7 @@ module Base
 
     item GamePieceBlackBackgammon {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Black Game Pieces, Icon = OutOfPlayTextures/GamePieceBlackBackgammon, WorldStaticModel = GamePieceBlackBackgammon,
+        DisplayName	= Black Game Pieces, Icon = OutOfPlayTextures/GamePieceBlackBackgammon, WorldStaticModel = GamePieceBlackBackgammon_Ground,
     }
 
     item ChessBoard {

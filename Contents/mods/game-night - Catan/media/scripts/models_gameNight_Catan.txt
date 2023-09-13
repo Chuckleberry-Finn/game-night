@@ -6,21 +6,21 @@ module Base
     model CatanLongestRoad { mesh = WorldItems/card, texture = Item_OutOfPlayTextures/CatanLongestRoad, scale = 0.03, }
     model CatanLargestArmy { mesh = WorldItems/card, texture = Item_OutOfPlayTextures/CatanLargestArmy, scale = 0.03, }
 
-    model CatanSettlementWhite { mesh = WorldItems/settlement, texture = modelTextures/white, scale = 0.006, }
-    model CatanCityWhite { mesh = WorldItems/city, texture = modelTextures/white, scale = 0.006, }
-    model CatanRoadWhite { mesh = WorldItems/road, texture = modelTextures/white, scale = 0.006, }
+    model CatanSettlementWhite { mesh = WorldItems/settlement, texture = modelTextures/white, scale = 0.009, }
+    model CatanCityWhite { mesh = WorldItems/city, texture = modelTextures/white, scale = 0.009, }
+    model CatanRoadWhite { mesh = WorldItems/road, texture = modelTextures/white, scale = 0.009, }
 
-    model CatanSettlementOrange { mesh = WorldItems/settlement, texture = modelTextures/orange, scale = 0.006, }
-    model CatanCityOrange { mesh = WorldItems/city, texture = modelTextures/orange, scale = 0.006, }
-    model CatanRoadOrange { mesh = WorldItems/road, texture = modelTextures/orange, scale = 0.006, }
+    model CatanSettlementOrange { mesh = WorldItems/settlement, texture = modelTextures/orange, scale = 0.009, }
+    model CatanCityOrange { mesh = WorldItems/city, texture = modelTextures/orange, scale = 0.009, }
+    model CatanRoadOrange { mesh = WorldItems/road, texture = modelTextures/orange, scale = 0.009, }
 
-    model CatanSettlementRed { mesh = WorldItems/settlement, texture = modelTextures/red, scale = 0.006, }
-    model CatanCityRed { mesh = WorldItems/city, texture = modelTextures/red, scale = 0.006, }
-    model CatanRoadRed { mesh = WorldItems/road, texture = modelTextures/red, scale = 0.006, }
+    model CatanSettlementRed { mesh = WorldItems/settlement, texture = modelTextures/red, scale = 0.009, }
+    model CatanCityRed { mesh = WorldItems/city, texture = modelTextures/red, scale = 0.009, }
+    model CatanRoadRed { mesh = WorldItems/road, texture = modelTextures/red, scale = 0.009, }
 
-    model CatanSettlementBlue { mesh = WorldItems/settlement, texture = modelTextures/blue, scale = 0.006, }
-    model CatanCityBlue { mesh = WorldItems/city, texture = modelTextures/blue, scale = 0.006, }
-    model CatanRoadBlue { mesh = WorldItems/road, texture = modelTextures/blue, scale = 0.006, }
+    model CatanSettlementBlue { mesh = WorldItems/settlement, texture = modelTextures/blue, scale = 0.009, }
+    model CatanCityBlue { mesh = WorldItems/city, texture = modelTextures/blue, scale = 0.009, }
+    model CatanRoadBlue { mesh = WorldItems/road, texture = modelTextures/blue, scale = 0.009, }
 
     model CatanPlayerCostsWhite { mesh = WorldItems/card, texture = Item_OutOfPlayTextures/CatanPlayerCostsWhite, scale = 0.03, }
     model CatanPlayerCostsRed { mesh = WorldItems/card, texture = Item_OutOfPlayTextures/CatanPlayerCostsRed, scale = 0.03, }
