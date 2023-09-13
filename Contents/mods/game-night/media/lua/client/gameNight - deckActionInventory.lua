@@ -1,3 +1,4 @@
+local deckActionHandler = require "gameNight - deckActionHandler"
 require "ISUI/ISInventoryPane"
 --[[
 local ISInventoryPane_doContextualDblClick = ISInventoryPane.doContextualDblClick

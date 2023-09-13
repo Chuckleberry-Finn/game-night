@@ -110,10 +110,6 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
     if isClient() then
         local worldItem = gamePiece:getWorldItem()
         if worldItem then worldItem:transmitModData() end
-
-        ---@type ItemContainer
-       -- local container = gamePiece:getContainer()
-       -- if container then container:setDrawDirty(true) end
     end
 end
 
