@@ -31,7 +31,7 @@ function deckActionHandler.handleDetails(deckItem)
 
     local deckItemOldName = deckItem:getName()
 
-    deckItem:setWeight(deckActionHandler.cardWeight*#deckStates)
+    deckItem:setActualWeight(deckActionHandler.cardWeight*#deckStates)
     deckItem:getTags():add("gameNight")
 
     ---@type Texture
