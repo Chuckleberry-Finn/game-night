@@ -1,4 +1,5 @@
 IGUI_EN = {
     IGUI_CatanResourceDeck = "Resource Card",
     IGUI_CatanDevelopmentDeck = "Development Card",
+    IGUI_rotatePiece = "Rotate"
 }

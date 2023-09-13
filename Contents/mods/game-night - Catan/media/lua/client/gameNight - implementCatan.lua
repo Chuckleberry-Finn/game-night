@@ -47,3 +47,25 @@ gamePieceAndBoardHandler.registerTypes({
 --- For example, the board is registered to the game-system above - which turns it into a 'GamePiece'
 --- This `special` case changes the category from `GamePiece` to `GameBoard`.
 gamePieceAndBoardHandler.registerSpecial("Base.CatanBoard", { category = "GameBoard" })
+
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadWhite", { actions = { rotatePiece=true } })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadRed", { actions = { rotatePiece=true } })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadBlue", { actions = { rotatePiece=true } })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", { actions = { rotatePiece=true } })
+
+
+---Define new function under `gamePieceAndBoardHandler`
+function gamePieceAndBoardHandler.rotatePiece(gamePiece, player)
+    local current = gamePiece:getModData()["gameNight_altState"]
+
+    if current == nil then
+        current = 2
+    elseif current == 2 then
+        current = 3
+    elseif current == 3 then
+        current = nil
+    end
+
+    gamePieceAndBoardHandler.playSound(gamePiece, player)
+    gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", current})
+end
