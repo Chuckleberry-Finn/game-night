@@ -62,6 +62,32 @@ function gamePieceAndBoardHandler.isGamePiece(gamePiece)
     return gamePieceAndBoardHandler._itemTypes[gamePiece:getFullType()]
 end
 
+
+function gamePieceAndBoardHandler.applyScriptChanges()
+
+    local scriptManager = getScriptManager()
+
+    for _,scriptType in pairs(gamePieceAndBoardHandler.itemTypes) do
+        local special = gamePieceAndBoardHandler.specials[scriptType]
+        local script = scriptManager:getItem(scriptType)
+        if script then
+            local newCategory = special and special.category or "GamePiece"
+            if newCategory then script:DoParam("DisplayCategory = "..newCategory) end
+
+            local iconPath = "OutOfPlayTextures/"..script:getName()..".png"
+            local icon = Texture.trygetTexture("Item_"..iconPath)
+            if icon then script:DoParam("Icon = "..iconPath) end
+
+            local tags = script:getTags()
+            if not tags:contains("gameNight") then tags:add("gameNight") end
+
+            script:DoParam("Weight = "..0.01)
+        end
+    end
+
+end
+
+
 ---@param gamePiece InventoryItem
 function gamePieceAndBoardHandler.handleDetails(gamePiece)
 
@@ -69,18 +95,7 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
     if not gamePieceAndBoardHandler._itemTypes then gamePieceAndBoardHandler.generate_itemTypes() end
     if not gamePieceAndBoardHandler._itemTypes[fullType] then return end
 
-    gamePiece:getTags():add("gameNight")
-    gamePiece:setActualWeight(0.01)
-
     gamePiece:getModData()["gameNight_sound"] = "pieceMove"
-
-    local special = gamePieceAndBoardHandler.specials[fullType]
-
-    local newCategory = special and special.category or "GamePiece"
-    if newCategory then gamePiece:setDisplayCategory(newCategory) end
-
-    local sides = special and special.sides
-    if sides then gamePiece:getModData()["gameNight_dieSides"] = sides end
 
     local altState = gamePiece:getModData()["gameNight_altState"] or ""
 
