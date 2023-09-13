@@ -14,8 +14,8 @@ module Base
 	model WhiteChessPieces { mesh = WorldItems/chess, texture = modelTextures/ChessPieceWhite, scale = 0.003, }
     model BlackChessPieces { mesh = WorldItems/chess, texture = modelTextures/ChessPieceBlack, scale = 0.003,}
 
-    model Dice { mesh = WorldItems/chess, texture = modelTextures/Dice, scale = 0.0015, }
-    model DiceWhite { mesh = WorldItems/chess, texture = modelTextures/DiceWhite, scale = 0.0015, }
+    model Dice { mesh = WorldItems/cube, texture = modelTextures/Dice, scale = 0.0015, }
+    model DiceWhite { mesh = WorldItems/cube, texture = modelTextures/DiceWhite, scale = 0.0015, }
 
     model PokerChips_Ground { mesh = WorldItems/coin, texture = modelTextures/PokerChips, scale = 0.0025, }
     model PokerChipsBlack { mesh = WorldItems/coin, texture = modelTextures/PokerChipsBlack, scale = 0.0025, }
