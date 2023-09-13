@@ -8,8 +8,8 @@ module Base
     model GamePiecesBlack_Ground { mesh = WorldItems/coin, texture = modelTextures/black, scale = 0.004, }
     model GamePiecesRed_Ground { mesh = WorldItems/coin, texture = modelTextures/red, scale = 0.004, }
 
-    model GamePiecesWhite_Ground { mesh = WorldItems/coin, texture = modelTextures/white, scale = 0.004, }
-    model GamePieceBlackBackgammon { mesh = WorldItems/coin, texture = modelTextures/black, scale = 0.004, }
+    model GamePiecesWhite_Ground { mesh = WorldItems/coin, texture = modelTextures/white, scale = 0.003, }
+    model GamePieceBlackBackgammon { mesh = WorldItems/coin, texture = modelTextures/black, scale = 0.003, }
 
 	model WhiteChessPieces { mesh = WorldItems/chess, texture = modelTextures/ChessPieceWhite, scale = 0.003, }
     model BlackChessPieces { mesh = WorldItems/chess, texture = modelTextures/ChessPieceBlack, scale = 0.003,}
