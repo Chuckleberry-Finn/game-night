@@ -95,10 +95,12 @@ end
 
 
 function gameNightDeckSearch:onMouseMove(dx, dy)
+    if not self:isMouseOver() then return end
     if self.dragging then
         local x = self.cardDisplay:getMouseX()
         local y = self.cardDisplay:getMouseY()
         local selected, inBetween = self:getCardAtXY(x, y)
+
         self.draggingOver = selected
         self.dragInBetween = inBetween
     end
@@ -175,7 +177,7 @@ end
 
 
 function gameNightDeckSearch:render()
-    self:setStencilRect(self.cardDisplay.x, self.cardDisplay.y, self.cardDisplay.width, self.cardDisplay.height)
+    self.cardDisplay:setStencilRect(0, 0, self.cardDisplay.width, self.cardDisplay.height)
     ISPanel.render(self)
     local cardData, cardFlipStates = self.deckActionHandler.getDeckStates(self.deck)
     local itemType = self.deck:getType()
@@ -215,7 +217,23 @@ function gameNightDeckSearch:render()
         end
     end
     self.hiddenHeight = math.max(0, yOffset-(self.cardDisplay.height-halfPad-self.cardHeight))
-    self:clearStencilRect()
+    self.cardDisplay:clearStencilRect()
+
+    local mouseX, mouseY = self.cardDisplay:getMouseX(), self.cardDisplay:getMouseY()
+    local selected, _ = self:getCardAtXY(mouseX, mouseY)
+    local sandbox = SandboxVars.GameNight.DisplayItemNames
+    if sandbox and selected then
+        local card = cardData[selected]
+        local flipped = cardFlipStates[selected]
+        local cardName = flipped and getText("IGUI_"..itemType) or card
+        if cardName then
+            local cardNameW = getTextManager():MeasureStringX(UIFont.NewSmall, " "..cardName.." ")
+            local cardNameH = getTextManager():getFontHeight(UIFont.NewSmall)
+            self.cardDisplay:drawRect(mouseX+(cardNameW/3), mouseY-cardNameH-(self.scrollY or 0), cardNameW, cardNameH, 0.7, 0, 0, 0)
+            self.cardDisplay:drawTextCentre(cardName, mouseX+(cardNameW*0.833), mouseY-cardNameH-(self.scrollY or 0), 1, 1, 1, 0.7, UIFont.NewSmall)
+        end
+    end
+
 end
 
 
