@@ -1,6 +1,8 @@
 require "Items/SuburbsDistributions"
 
-local gameNightBoxes = {
+local gameNightDistro = {}
+
+gameNightDistro.gameNightBoxes = {
 
     CheckersBox = { rolls = 1,
         items = {
@@ -156,15 +158,17 @@ local gameNightBoxes = {
 
 }
 
-for contID,content in pairs(gameNightBoxes) do SuburbsDistributions[contID] = content end
+function gameNightDistro.addToSuburbsDist()
+    for contID,content in pairs(gameNightDistro.gameNightBoxes) do SuburbsDistributions[contID] = content end
+end
 
 
 
 require "Items/ProceduralDistributions"
 
-local proceduralDistOverWrite = {}
-proceduralDistOverWrite.lists = {"WardrobeChild", "CrateRandomJunk"}
-proceduralDistOverWrite.itemToReplacement = {
+gameNightDistro.proceduralDistOverWrite = {}
+gameNightDistro.proceduralDistOverWrite.lists = {"WardrobeChild", "CrateRandomJunk"}
+gameNightDistro.proceduralDistOverWrite.itemToReplacement = {
     ["BackgammonBoard"] = "BackgammonBox",
     ["GamePieceWhite"] = "BackgammonBox",
 
@@ -178,32 +182,64 @@ proceduralDistOverWrite.itemToReplacement = {
     ["PokerChips"] = "PokerBox",
 }
 
-for _,contID in pairs(proceduralDistOverWrite.lists) do
-    for i=1, #ProceduralDistributions.list[contID].items, 2 do
-        local itemType = ProceduralDistributions.list[contID].items[i]
-        local replacement = proceduralDistOverWrite.itemToReplacement[itemType]
-        if replacement then ProceduralDistributions.list[contID].items[i] = replacement end
+function gameNightDistro.overrideProceduralDist()
+    for _,contID in pairs(gameNightDistro.proceduralDistOverWrite.lists) do
+        for i=1, #ProceduralDistributions.list[contID].items, 2 do
+            local itemType = ProceduralDistributions.list[contID].items[i]
+            local replacement = gameNightDistro.proceduralDistOverWrite.itemToReplacement[itemType]
+            if replacement then ProceduralDistributions.list[contID].items[i] = replacement end
+        end
     end
 end
 
 
-local proceduralDistGameNight = {}
-proceduralDistGameNight.itemsToAdd = { "BackgammonBox", "ChessBox", "CheckersBox", "PokerBox", }
-proceduralDistGameNight.listsToInsert = {
-    ["BarCounterMisc"]=6,
-    ["Gifts"]=8,
-    ["GigamartToys"]=8,
-    ["Hobbies"]=8,
-    ["HolidayStuff"]=8,
---[[
-    ["WardrobeChild"]=2
-    ["CrateRandomJunk"]={generalChance = 1, },
---]]
+
+gameNightDistro.proceduralDistGameNight = {}
+gameNightDistro.proceduralDistGameNight.itemsToAdd = { "BackgammonBox", "ChessBox", "CheckersBox", "PokerBox", }
+gameNightDistro.proceduralDistGameNight.listsToInsert = {
+    ["BarCounterMisc"] = {
+        generalChance = 6,
+    },
+
+    ["Gifts"] = {
+        generalChance = 8,
+    } ,
+
+    ["GigamartToys"] = {
+        generalChance = 8,
+    },
+
+    ["Hobbies"] = {
+        generalChance = 8,
+    },
+
+    ["HolidayStuff"] = {
+        generalChance = 8,
+    } ,
+
+    ["WardrobeChild"] = {
+        generalChance = 2,
+        chanceOverride = {["BackgammonBox"] = 0, ["ChessBox"] = 0, ["CheckersBox"] = 0, ["PokerBox"] = 0,}
+    },
+
+    ["CrateRandomJunk"] = {
+        generalChance = 1,
+        chanceOverride = {["BackgammonBox"] = 0, ["ChessBox"] = 0, ["CheckersBox"] = 0, ["PokerBox"] = 0,}
+    },
 }
 
-for distID,chance in pairs(proceduralDistGameNight.listsToInsert) do
-    for _,item in pairs(proceduralDistGameNight.itemsToAdd) do
-        table.insert(ProceduralDistributions.list[distID].items, item)
-        table.insert(ProceduralDistributions.list[distID].items, chance)
+function gameNightDistro.fillProceduralDist()
+    for distID,data in pairs(gameNightDistro.proceduralDistGameNight.listsToInsert) do
+        for _,item in pairs(gameNightDistro.proceduralDistGameNight.itemsToAdd) do
+
+            local chance = data.chanceOverride and data.chanceOverride[item] or data.generalChance
+            if chance > 0 then
+                table.insert(ProceduralDistributions.list[distID].items, item)
+                table.insert(ProceduralDistributions.list[distID].items, chance)
+            end
+        end
     end
 end
+
+
+return gameNightDistro
