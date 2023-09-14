@@ -1,7 +1,10 @@
 module Base
 {
     model CatanBox { mesh = WorldItems/cardpack, texture = Item_Boxes/catanBox_ground, scale = 0.06, }
-    model CatanBoard { mesh = WorldItems/catan, texture = modelTextures/board, scale = 0.03, }
+    model CatanBoard {
+        mesh = WorldItems/catan, texture = modelTextures/catanboard, scale = 0.03,
+        attachment world { offset = -0.2 -0.0500 0.2, rotate = 0.0000 0.0000 0.0000, }
+    }
 
     model CatanLongestRoad { mesh = WorldItems/card, texture = Item_OutOfPlayTextures/CatanLongestRoad, scale = 0.03, }
     model CatanLargestArmy { mesh = WorldItems/card, texture = Item_OutOfPlayTextures/CatanLargestArmy, scale = 0.03, }
