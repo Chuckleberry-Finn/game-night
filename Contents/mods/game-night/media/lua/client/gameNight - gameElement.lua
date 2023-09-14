@@ -108,7 +108,7 @@ function gameNightElement:onRightMouseDown(x, y)
     if not window or not window:isVisible() then return end
     local selection = window:getClickedPriorityPiece(x, y, self)
     selection:onContextSelection(self, x, y)
-    ISPanelJoypad.onRightMouseDown(selection)
+    ISPanelJoypad.onRightMouseDown(selection, x, y)
 end
 
 
@@ -118,7 +118,7 @@ function gameNightElement:onMouseDown(x, y)
     local selection = window:getClickedPriorityPiece(x, y, self)
     window.movingPiece = selection
     window.movingPieceOffset = {selection:getMouseX(),selection:getMouseY()}
-    ISPanelJoypad.onMouseDown(selection)
+    ISPanelJoypad.onMouseDown(selection, x, y)
 end
 
 function gameNightElement:labelWithName()
@@ -129,7 +129,7 @@ function gameNightElement:labelWithName()
     if not window or not window:isVisible() then return end
 
     local sandbox = SandboxVars.GameNight.DisplayItemNames
-    if sandbox and self:isMouseOver() and (not window.movingPiece) then
+    if sandbox and (not window.movingPiece) then
         self.nameTag = self.nameTag or (self.itemObject and self.itemObject:getName())
         self.nameTagWidth = self.nameTagWidth or getTextManager():MeasureStringX(UIFont.NewSmall, " "..self.nameTag.." ")
         self.nameTagHeight = self.nameTagHeight or getTextManager():getFontHeight(UIFont.NewSmall)

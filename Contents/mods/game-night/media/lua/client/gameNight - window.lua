@@ -127,18 +127,37 @@ function gameNightWindow:processMouseUp(old, x, y)
     self.movingPiece = nil
 end
 function gameNightWindow:onMouseUpOutside(x, y)
-    if self:isVisible() then self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y) end
+    if self:isVisible() then
+        self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y)
+    else
+        ISPanelJoypad.onMouseUpOutside(self, x, y)
+    end
 end
 function gameNightWindow:onMouseUp(x, y)
     if self:isVisible() then
         if ISMouseDrag.dragging then self:dropItemsOn(x, y) end
         self:processMouseUp(ISPanelJoypad.onMouseUp, x, y)
+    else
+        ISPanelJoypad.onMouseUp(self, x, y)
+    end
+end
+
+
+function gameNightWindow:onRightMouseDown(x, y)
+    if self:isVisible() then
+        local clickedOn = self:getClickedPriorityPiece(getMouseX(), getMouseY(), false)
+        if clickedOn then clickedOn:onContextSelection(self, x, y) end
     end
 end
 
 
 function gameNightWindow:onMouseDown(x, y)
     if self:isVisible() then
+        local clickedOn = self:getClickedPriorityPiece(getMouseX(), getMouseY(), false)
+        if clickedOn then
+            self.movingPiece = clickedOn
+            self.movingPieceOffset = {clickedOn:getMouseX(),clickedOn:getMouseY()}
+        end
         self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
         ISPanelJoypad.onMouseDown(self, x, y)
     end
@@ -281,7 +300,7 @@ end
 
 
 local cursorHandler = isClient() and require "gameNight - cursorHandler"
-function gameNightWindow.open(self, player, square)
+function gameNightWindow.open(worldObjects, player, square)
 
     if gameNightWindow.instance then gameNightWindow.instance:closeAndRemove() end
 
@@ -289,6 +308,7 @@ function gameNightWindow.open(self, player, square)
     window:initialise()
     window:addToUIManager()
     window:setVisible(true)
+    window:bringToTop()
 
     if cursorHandler then Events.OnPlayerUpdate.Add(cursorHandler.sendUpdate) end
 
