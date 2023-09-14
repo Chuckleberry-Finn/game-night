@@ -24,7 +24,7 @@ end
 
 function gamePieceAndBoardHandler.registerSpecial(itemFullType, special)
     if (not getScriptManager():getItem(itemFullType)) then print("ERROR: GameNight: addSpecial: "..itemFullType.." is invalid.") return end
-    if (not special) or (not type(special)~="table") then print("ERROR: GameNight: addSpecial: special is not table.") return end
+    if (not special) or (type(special)~="table") then print("ERROR: GameNight: addSpecial: special is not table.") return end
     gamePieceAndBoardHandler.specials[itemFullType] = special
 end
 
