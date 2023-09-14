@@ -49,14 +49,16 @@ function gameNightElement:moveElement(x, y)
 
     ---@type IsoObject|IsoWorldInventoryObject
     local worldItemOnj = item:getWorldItem()
+    local oldZ = 0
     if worldItemOnj then
+        oldZ = worldItemOnj:getWorldPosZ()-worldItemOnj:getZ()
         window.square:transmitRemoveItemFromSquare(worldItemOnj)
         window.square:removeWorldObject(worldItemOnj)
         item:setWorldItem(nil)
     end
 
     ---@type InventoryItem
-    local invItemToWorld = window.square:AddWorldInventoryItem(item, scaledX, scaledY, 0)
+    local invItemToWorld = window.square:AddWorldInventoryItem(item, scaledX, scaledY, oldZ)
     invItemToWorld:setWorldZRotation(0)
     invItemToWorld:getWorldItem():setIgnoreRemoveSandbox(true)
 
