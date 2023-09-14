@@ -2,7 +2,7 @@ module Base
 {
     model CatanBox { mesh = WorldItems/cardpack, texture = Item_Boxes/catanBox_ground, scale = 0.06, }
     model CatanBoard {
-        mesh = WorldItems/catan, texture = modelTextures/catanboard, scale = 0.03,
+        mesh = WorldItems/catan, texture = modelTextures/catanboard, scale = 0.045,
         attachment world { offset = -0.2 -0.0500 0.2, rotate = 0.0000 0.0000 0.0000, }
     }
 
