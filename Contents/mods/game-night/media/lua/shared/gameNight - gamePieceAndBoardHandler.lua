@@ -44,8 +44,17 @@ gamePieceAndBoardHandler.specials = {
     ["Base.BackgammonBoard"]={ category = "GameBoard" },
     ["Base.CheckerBoard"]={ category = "GameBoard" },
     ["Base.ChessBoard"]={ category = "GameBoard" },
-}
 
+    ["Base.PokerChips"]={ weight = 0.001 },
+    ["Base.PokerChipsBlue"]={ weight = 0.001 },
+    ["Base.PokerChipsYellow"]={ weight = 0.001 },
+    ["Base.PokerChipsWhite"]={ weight = 0.001 },
+    ["Base.PokerChipsBlack"]={ weight = 0.001 },
+    ["Base.PokerChipsOrange"]={ weight = 0.001 },
+    ["Base.PokerChipsPurple"]={ weight = 0.001 },
+    ["Base.PokerChipsGreen"]={ weight = 0.001 },
+}
+--Weight
 
 function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, gamePiece)
     local fullType = gamePiece:getFullType()
@@ -81,7 +90,8 @@ function gamePieceAndBoardHandler.applyScriptChanges()
             local tags = script:getTags()
             if not tags:contains("gameNight") then tags:add("gameNight") end
 
-            script:DoParam("Weight = "..0.01)
+            local weight = special and special.weight or 0.01
+            script:DoParam("Weight = "..weight)
         end
     end
 
