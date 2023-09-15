@@ -29,8 +29,6 @@ function deckActionHandler.handleDetails(deckItem)
     if #deckStates <= 0 then return end
     local itemType = deckItem:getType()
 
-    local deckItemOldName = deckItem:getName()
-
     deckItem:setActualWeight(deckActionHandler.cardWeight*#deckStates)
     deckItem:getTags():add("gameNight")
 
@@ -54,11 +52,6 @@ function deckActionHandler.handleDetails(deckItem)
         deckItem:setName(getText("IGUI_"..itemType)..name_suffix)
         texture = getTexture("media/textures/Item_"..itemType.."/"..textureID..".png")
         deckItem:getModData()["gameNight_textureInPlay"] = getTexture("media/textures/Item_"..itemType.."/FlippedInPlay.png")
-    end
-
-    if deckItemOldName ~= deckItem:getName() then
-        local window = gameNightWindow.instance
-        if window and window.elements[deckItem:getID()] then window.elements[deckItem:getID()].nameTag = nil end
     end
 
     if texture then deckItem:setTexture(texture) end

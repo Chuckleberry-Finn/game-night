@@ -58,7 +58,7 @@ function gameNightElement:moveElement(x, y)
     end
 
     ---@type InventoryItem
-    local invItemToWorld = window.square:AddWorldInventoryItem(item, scaledX, scaledY, oldZ)
+    local invItemToWorld = window.square:AddWorldInventoryItem(item, scaledX, scaledY, oldZ, false)
     invItemToWorld:setWorldZRotation(0)
     invItemToWorld:getWorldItem():setIgnoreRemoveSandbox(true)
 
@@ -132,13 +132,15 @@ function gameNightElement:labelWithName()
 
     local sandbox = SandboxVars.GameNight.DisplayItemNames
     if sandbox and (not window.movingPiece) then
-        self.nameTag = self.nameTag or (self.itemObject and self.itemObject:getName())
-        self.nameTagWidth = self.nameTagWidth or getTextManager():MeasureStringX(UIFont.NewSmall, " "..self.nameTag.." ")
-        self.nameTagHeight = self.nameTagHeight or getTextManager():getFontHeight(UIFont.NewSmall)
+        local nameTag = (self.itemObject and self.itemObject:getName())
+        if nameTag then
+            local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..self.nameTag.." ")
+            local nameTagHeight = getTextManager():getFontHeight(UIFont.NewSmall)
 
-        local x, y = self:getMouseX()+(window.cursorW or 0), self:getMouseY()-(window.cursorH or 0)
-        self:drawRect(x, y, self.nameTagWidth, self.nameTagHeight, 0.7, 0, 0, 0)
-        self:drawTextCentre(self.nameTag, x+(self.nameTagWidth/2), y, 1, 1, 1, 0.7, UIFont.NewSmall)
+            local x, y = self:getMouseX()+(window.cursorW or 0), self:getMouseY()-(window.cursorH or 0)
+            self:drawRect(x, y, nameTagWidth, nameTagHeight, 0.7, 0, 0, 0)
+            self:drawTextCentre(self.nameTag, x+(nameTagWidth/2), y, 1, 1, 1, 0.7, UIFont.NewSmall)
+        end
     end
 end
 
