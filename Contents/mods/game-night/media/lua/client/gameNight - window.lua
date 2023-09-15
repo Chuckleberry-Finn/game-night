@@ -275,10 +275,12 @@ function gameNightWindow:render()
     gameNightWindow.cursorH = gameNightWindow.cursorH or gameNightWindow.cursor:getHeight()
 
     for username,data in pairs(self.cursorDraws) do
+        data.ticks = data.ticks - 1
         self:drawTexture(gameNightWindow.cursor, data.x, data.y, 1, data.r, data.g, data.b)
         self:drawText(username, data.x+gameNightWindow.cursorW, data.y, data.r, data.g, data.b, 1, UIFont.NewSmall)
+        if data.ticks <= 0 then self.cursorDraws[username] = nil end
     end
-    self.cursorDraws = {}
+    --self.cursorDraws = {}
 
     if movingElement then
         if not isMouseButtonDown(0) then return end

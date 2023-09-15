@@ -46,7 +46,7 @@ function cursorHandler.receiveUpdate(data)--sqX, sqY, sqZ, playerUsername, mouse
     local mouseX, mouseY = tonumber(dataPoints[5]), tonumber(dataPoints[6])
     local r, g, b = tonumber(dataPoints[7]), tonumber(dataPoints[8]), tonumber(dataPoints[9])
 
-    window.cursorDraws[playerUsername] = {x=mouseX, y=mouseY, r=r, g=g, b=b}
+    window.cursorDraws[playerUsername] = {x=mouseX, y=mouseY, r=r, g=g, b=b, ticks=5}
 end
 
 return cursorHandler
