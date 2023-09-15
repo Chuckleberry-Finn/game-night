@@ -70,16 +70,23 @@ function gameNightWindow:dropItemsOn(x, y)
             self.player:getInventory():DoRemoveItem(deck)
 
             ---@type IsoObject|IsoWorldInventoryObject
-            local worldItem = deck:getWorldItem()
-            if worldItem then
-                self.square:transmitRemoveItemFromSquare(worldItem)
-                self.square:removeWorldObject(worldItem)
+            local worldItemOnj = deck:getWorldItem()
+            local oldZ = 0
+            if worldItemOnj then
+                oldZ = worldItemOnj:getWorldPosZ()-worldItemOnj:getZ()
+                self.square:transmitRemoveItemFromSquare(worldItemOnj)
+                self.square:removeWorldObject(worldItemOnj)
                 deck:setWorldItem(nil)
             end
-            worldItem = self.square:AddWorldInventoryItem(deck, scaledX, scaledY, 0)
-            worldItem:setWorldZRotation(0)
-            worldItem:getWorldItem():setIgnoreRemoveSandbox(true)
-            worldItem:getWorldItem():transmitCompleteItemToServer()
+
+            ---@type InventoryItem
+            local invItemToWorld = self.square:AddWorldInventoryItem(deck, scaledX, scaledY, oldZ, false)
+            if invItemToWorld then
+                invItemToWorld:setWorldZRotation(0)
+                invItemToWorld:getWorldItem():setIgnoreRemoveSandbox(true)
+                invItemToWorld:getWorldItem():transmitModData()
+                invItemToWorld:getWorldItem():transmitCompleteItemToServer()
+            end
         end
 
         local inventory = getPlayerInventory(playerNum)

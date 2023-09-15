@@ -59,8 +59,11 @@ function gameNightElement:moveElement(x, y)
 
     ---@type InventoryItem
     local invItemToWorld = window.square:AddWorldInventoryItem(item, scaledX, scaledY, oldZ, false)
-    invItemToWorld:setWorldZRotation(0)
-    invItemToWorld:getWorldItem():setIgnoreRemoveSandbox(true)
+    if invItemToWorld then
+        invItemToWorld:setWorldZRotation(0)
+        invItemToWorld:getWorldItem():setIgnoreRemoveSandbox(true)
+        invItemToWorld:getWorldItem():transmitCompleteItemToServer()
+    end
 
     local playerNum = window.player:getPlayerNum()
 
