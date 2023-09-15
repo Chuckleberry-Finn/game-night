@@ -142,7 +142,7 @@ function gameNightElement:labelWithName()
 
             local x, y = self:getMouseX()+(window.cursorW or 0), self:getMouseY()-(window.cursorH or 0)
             self:drawRect(x, y, nameTagWidth, nameTagHeight, 0.7, 0, 0, 0)
-            self:drawTextCentre(self.nameTag, x+(nameTagWidth/2), y, 1, 1, 1, 0.7, UIFont.NewSmall)
+            self:drawTextCentre(nameTag, x+(nameTagWidth/2), y, 1, 1, 1, 0.7, UIFont.NewSmall)
         end
     end
 end
