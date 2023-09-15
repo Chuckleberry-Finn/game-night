@@ -27,6 +27,10 @@ function gameNightElement:moveElement(x, y)
     local item = self.itemObject
     if not item then return end
 
+    ---@type IsoObject|IsoWorldInventoryObject
+    local worldItemObj = item:getWorldItem()
+    if not worldItemObj then return end
+
     local selfW, selfH = self:getWidth(), self:getHeight()
 
     local offsetX = window.movingPieceOffset and window.movingPieceOffset[1] or 0
@@ -50,19 +54,18 @@ function gameNightElement:moveElement(x, y)
     local cont = item:getContainer()
     if cont then cont:DoRemoveItem(item) end
 
-    ---@type IsoObject|IsoWorldInventoryObject
-    local worldItemOnj = item:getWorldItem()
     local oldZ = 0
-    if worldItemOnj then
-        oldZ = worldItemOnj:getWorldPosZ()-worldItemOnj:getZ()
-        window.square:transmitRemoveItemFromSquare(worldItemOnj)
-        window.square:removeWorldObject(worldItemOnj)
+    if worldItemObj then
+        oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
+        window.square:transmitRemoveItemFromSquare(worldItemObj)
+        window.square:removeWorldObject(worldItemObj)
         item:setWorldItem(nil)
+        worldItemObj = nil
     end
 
     ---@type InventoryItem
     local invItemToWorld = window.square:AddWorldInventoryItem(item, scaledX, scaledY, oldZ, false)
-    if invItemToWorld then
+    if (not worldItemObj) and invItemToWorld then
         invItemToWorld:setWorldZRotation(0)
         invItemToWorld:getWorldItem():setIgnoreRemoveSandbox(true)
         invItemToWorld:getWorldItem():transmitCompleteItemToServer()
