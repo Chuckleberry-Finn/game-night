@@ -134,7 +134,7 @@ function gameNightElement:labelWithName()
     if sandbox and (not window.movingPiece) then
         local nameTag = (self.itemObject and self.itemObject:getName())
         if nameTag then
-            local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..self.nameTag.." ")
+            local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
             local nameTagHeight = getTextManager():getFontHeight(UIFont.NewSmall)
 
             local x, y = self:getMouseX()+(window.cursorW or 0), self:getMouseY()-(window.cursorH or 0)
