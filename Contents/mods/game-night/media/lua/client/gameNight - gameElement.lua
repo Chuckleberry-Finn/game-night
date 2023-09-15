@@ -47,6 +47,9 @@ function gameNightElement:moveElement(x, y)
     local sound = item:getModData()["gameNight_sound"]
     if sound then window.player:getEmitter():playSound(sound) end
 
+    local cont = item:getContainer()
+    if cont then cont:DoRemoveItem(item) end
+
     ---@type IsoObject|IsoWorldInventoryObject
     local worldItemOnj = item:getWorldItem()
     local oldZ = 0
