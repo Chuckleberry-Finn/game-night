@@ -207,6 +207,10 @@ function gameNightWindow:generateElement(item, object, priority)
 
     if element then
         element:setVisible(true)
+
+        x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-element:getWidth())
+        y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-element:getHeight())
+
         element:setX(self.x+x)
         element:setY(self.y+y)
         element:drawTextureScaledAspect(texture, 0, 0, w, h, 1, 1, 1, 1)
@@ -261,7 +265,7 @@ function gameNightWindow:render()
     for priority,stuff in pairs(loadOrder) do self:generateElement(stuff.item, stuff.object, priority) end
 
     self:bringToTop()
-    
+
     gameNightWindow.cursor = gameNightWindow.cursor or getTexture("media/textures/gamenight_cursor.png")
     gameNightWindow.cursorW = gameNightWindow.cursorW or gameNightWindow.cursor:getWidth()
     gameNightWindow.cursorH = gameNightWindow.cursorH or gameNightWindow.cursor:getHeight()
