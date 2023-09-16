@@ -64,36 +64,18 @@ function gameNightWindow:dropItemsOn(x, y)
         local boundsDifference = self.padding*2
         local scaledX = (x/(self.width-boundsDifference))
         local scaledY = (y/(self.height-boundsDifference))
+        local surfaceZ = 0
+        
+        for _,item in pairs(itemFound) do
 
-        for _,deck in pairs(itemFound) do
+            local sound = item:getModData()["gameNight_sound"]
+            if sound then self.player:getEmitter():playSound(sound) end
 
-            self.player:getInventory():DoRemoveItem(deck)
+            local dropAction = ISDropWorldItemAction:new(self.player, item, self.square, scaledX, scaledY, surfaceZ, 0, false)
+            dropAction.maxTime = 1
+            ISTimedActionQueue.add(dropAction)
 
-            ---@type IsoObject|IsoWorldInventoryObject
-            local worldItemOnj = deck:getWorldItem()
-            local oldZ = 0
-            if worldItemOnj then
-                oldZ = worldItemOnj:getWorldPosZ()-worldItemOnj:getZ()
-                self.square:transmitRemoveItemFromSquare(worldItemOnj)
-                self.square:removeWorldObject(worldItemOnj)
-                deck:setWorldItem(nil)
-            end
-
-            ---@type InventoryItem
-            local invItemToWorld = self.square:AddWorldInventoryItem(deck, scaledX, scaledY, oldZ, false)
-            if invItemToWorld then
-                invItemToWorld:setWorldZRotation(0)
-                invItemToWorld:getWorldItem():setIgnoreRemoveSandbox(true)
-                invItemToWorld:getWorldItem():transmitModData()
-                invItemToWorld:getWorldItem():transmitCompleteItemToServer()
-            end
         end
-
-        local inventory = getPlayerInventory(playerNum)
-        if inventory then inventory:refreshBackpacks() end
-
-        local loot = getPlayerLoot(playerNum)
-        if loot then loot:refreshBackpacks() end
     end
 
     if ISMouseDrag.draggingFocus then

@@ -146,7 +146,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, square, player, 
         transferAction.maxTime = 1
         transferAction.putSoundTime = getTimestamp() + 100
         ISTimedActionQueue.add(transferAction)
-        
+
         local sound = item:getModData()["gameNight_sound"]
         if sound then player:getEmitter():playSound(sound) end
 
