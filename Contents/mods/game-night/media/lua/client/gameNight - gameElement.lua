@@ -1,11 +1,8 @@
+--TODO: REFACTOR THIS AWAY
 require "ISUI/ISPanelJoypad"
-
 ---@class gameNightElement : ISPanelJoypad
 gameNightElement = ISPanelJoypad:derive("gameNightElement")
-
-
 function gameNightElement:initialise() ISPanelJoypad.initialise(self) end
-
 
 function gameNightElement:onMouseUp(x, y)
     local window = gameNightWindow.instance
@@ -55,88 +52,27 @@ function gameNightElement:moveElement(x, y)
     local scaledX = (newX/(window.width-boundsDifference))
     local scaledY = (newY/(window.height-boundsDifference))
 
+    self.moveWithMouse = false
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, window.square, window.player, scaledX, scaledY)
+    self.moveWithMouse = true
 
     local pBD = window.player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 end
 
---[[
-function gameNightElement.lockInPlace()
-    self.moveWithMouse = not self.moveWithMouse
-    self.javaObject:setConsumeMouseEvents(self.moveWithMouse)
-end
---]]
 
-function gameNightElement:onContextSelection(o, x, y)
-    local window = gameNightWindow.instance
-    if not window or not window:isVisible() then return end
-
-    ---@type IsoPlayer|IsoGameCharacter
-    local playerObj = window.player
-    local playerID = playerObj:getPlayerNum()
-
-    ---@type InventoryItem
-    local item = self.itemObject
-    local itemContainer = item and item:getContainer() or false
-    local isInInv = itemContainer and itemContainer:isInCharacterInventory(playerObj) or false
-
-    local contextMenuItems = {item}
-    if self.toolRender then self.toolRender:setVisible(false) end
-
-    local oX, oY = o:getAbsoluteX()+x, o:getAbsoluteY()+y+o:getYScroll()
-    ---@type ISContextMenu
-    local menu = ISInventoryPaneContextMenu.createMenu(playerID, isInInv, contextMenuItems, oX, oY)
-    --menu:addOption(getText("IGUI_lockElement"), self, gameNightElement.lockInPlace)
-    return true
-end
-
-
-function gameNightElement:labelWithName()
-    if not self:isVisible() then return end
-
-    ---@type ISPanelJoypad
-    local window = gameNightWindow.instance
-    if not window or not window:isVisible() then return end
-
-    local sandbox = SandboxVars.GameNight.DisplayItemNames
-    if sandbox and (not window.movingPiece) then
-        local nameTag = (self.itemObject and self.itemObject:getName())
-        if nameTag then
-            local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
-            local nameTagHeight = getTextManager():getFontHeight(UIFont.NewSmall)
-
-            local x, y = self:getMouseX()+(window.cursorW or 0), self:getMouseY()-(window.cursorH or 0)
-            self:drawRect(x, y, nameTagWidth, nameTagHeight, 0.7, 0, 0, 0)
-            self:drawTextCentre(nameTag, x+(nameTagWidth/2), y, 1, 1, 1, 0.7, UIFont.NewSmall)
-        end
-    end
-end
-
-function gameNightElement:prerender()
-    ISPanelJoypad.prerender(self)
-end
-
-
-function gameNightElement:render()
-    ISPanelJoypad.render(self)
-end
-
-
+function gameNightElement:prerender() ISPanelJoypad.prerender(self) end
+function gameNightElement:render() ISPanelJoypad.render(self) end
 function gameNightElement:new(x, y, width, height, itemObject)
     local o = {}
     o = ISPanelJoypad:new(x, y, width, height)
     setmetatable(o, self)
     self.__index = self
-
     o.itemObject = itemObject
-
     o.borderColor = {r=1, g=1, b=1, a=0}
     o.backgroundColor = {r=1, g=1, b=1, a=0}
-
     o.moveWithMouse = true
     o.selectedItem = nil
     o.pendingRequest = false
-
     return o
 end

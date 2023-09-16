@@ -147,7 +147,7 @@ end
 function gameNightWindow:onRightMouseDown(x, y)
     if self:isVisible() then
         local clickedOn = self:getClickedPriorityPiece(getMouseX(), getMouseY(), false)
-        if clickedOn then clickedOn:onContextSelection(self, x, y) end
+        if clickedOn then self:onContextSelection(clickedOn, x, y) end
         ISPanelJoypad.onRightMouseDown(x, y)
     end
 end
@@ -165,6 +165,27 @@ function gameNightWindow:onMouseDown(x, y)
         end
         ISPanelJoypad.onMouseDown(self, x, y)
     end
+end
+
+
+function gameNightWindow:onContextSelection(element, x, y)
+
+    ---@type IsoPlayer|IsoGameCharacter
+    local playerObj = self.player
+    local playerID = playerObj:getPlayerNum()
+
+    ---@type InventoryItem
+    local item = element.itemObject
+    local itemContainer = item and item:getContainer() or false
+    local isInInv = itemContainer and itemContainer:isInCharacterInventory(playerObj) or false
+
+    local contextMenuItems = {item}
+    if element.toolRender then element.toolRender:setVisible(false) end
+
+    ---@type ISContextMenu
+    local menu = ISInventoryPaneContextMenu.createMenu(playerID, isInInv, contextMenuItems, getMouseX(), getMouseY())
+
+    return true
 end
 
 
@@ -209,7 +230,7 @@ function gameNightWindow:generateElement(item, object, priority)
 
     if element then
         element:setVisible(true)
-
+        element:backMost()
         x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-element:getWidth())
         y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-element:getHeight())
 
@@ -266,8 +287,6 @@ function gameNightWindow:render()
 
     for priority,stuff in pairs(loadOrder) do self:generateElement(stuff.item, stuff.object, priority) end
 
-    self:bringToTop()
-
     gameNightWindow.cursor = gameNightWindow.cursor or getTexture("media/textures/gamenight_cursor.png")
     gameNightWindow.cursorW = gameNightWindow.cursorW or gameNightWindow.cursor:getWidth()
     gameNightWindow.cursorH = gameNightWindow.cursorH or gameNightWindow.cursor:getHeight()
@@ -287,7 +306,25 @@ function gameNightWindow:render()
         movingElement:drawTexture(texture, movingElement:getMouseX()-(offsetX), movingElement:getMouseY()-(offsetY), 0.55, 1, 1, 1)
     else
         local mouseOver = self:getClickedPriorityPiece(getMouseX(), getMouseY(), false)
-        if mouseOver then mouseOver:labelWithName() end
+        if mouseOver then self:labelWithName(mouseOver) end
+    end
+end
+
+
+function gameNightWindow:labelWithName(element)
+    if not self:isVisible() then return end
+
+    local sandbox = SandboxVars.GameNight.DisplayItemNames
+    if sandbox and (not self.movingPiece) then
+        local nameTag = (element.itemObject and element.itemObject:getName())
+        if nameTag then
+            local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
+            local nameTagHeight = getTextManager():getFontHeight(UIFont.NewSmall)
+
+            local x, y = self:getMouseX()+((self.cursorW*0.66) or 0), self:getMouseY()-((self.cursorH*0.66) or 0)
+            self:drawRect(x, y, nameTagWidth, nameTagHeight, 0.7, 0, 0, 0)
+            self:drawTextCentre(nameTag, x+(nameTagWidth/2), y, 1, 1, 1, 0.7, UIFont.NewSmall)
+        end
     end
 end
 
