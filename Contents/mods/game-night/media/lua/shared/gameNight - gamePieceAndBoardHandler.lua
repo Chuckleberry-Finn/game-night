@@ -194,33 +194,13 @@ function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete, deta
     local pBD = player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 
-    --[[if luautils.haveToBeTransfered(player, gamePiece, true) then
-        local pickUpAction = ISInventoryTransferAction:new(player, gamePiece, gamePiece:getContainer(), player:getInventory(), 0)
-        if onComplete and type(onComplete)=="table" then pickUpAction:setOnComplete(unpack(onComplete)) end
-        ISTimedActionQueue.add(pickUpAction)
+    if onComplete and type(onComplete)=="table" then
+        local onCompleteFuncArgs = onComplete
+        local func = onCompleteFuncArgs[1]
+        local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = onCompleteFuncArgs[2], onCompleteFuncArgs[3], onCompleteFuncArgs[4], onCompleteFuncArgs[5], onCompleteFuncArgs[6], onCompleteFuncArgs[7], onCompleteFuncArgs[8], onCompleteFuncArgs[9]
+        func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+    end
 
-        local xPos, yPos, zPos, square = 0, 0, 0, nil
-
-        ---@type IsoWorldInventoryObject|IsoObject
-        local worldItem = gamePiece:getWorldItem()
-        if worldItem then
-            square = worldItem:getSquare()
-            xPos, yPos, zPos = worldItem:getWorldPosX()-worldItem:getX(), worldItem:getWorldPosY()-worldItem:getY(), worldItem:getWorldPosZ()-worldItem:getZ()
-        end
-        if square then
-            local dropAction = ISDropWorldItemAction:new(player, gamePiece, square, xPos, yPos, zPos, 0, false)
-            dropAction.maxTime = 0
-            ISTimedActionQueue.add(dropAction)
-        end
-    else--]]
-
-        if onComplete and type(onComplete)=="table" then
-            local onCompleteFuncArgs = onComplete
-            local func = onCompleteFuncArgs[1]
-            local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = onCompleteFuncArgs[2], onCompleteFuncArgs[3], onCompleteFuncArgs[4], onCompleteFuncArgs[5], onCompleteFuncArgs[6], onCompleteFuncArgs[7], onCompleteFuncArgs[8], onCompleteFuncArgs[9]
-            func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-        end
-    --end
     detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
     detailsFunc(gamePiece)
 end
