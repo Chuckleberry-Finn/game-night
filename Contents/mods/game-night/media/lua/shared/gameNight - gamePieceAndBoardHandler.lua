@@ -132,6 +132,40 @@ function gamePieceAndBoardHandler.playSound(gamePiece, player, sound)
 end
 
 
+function gamePieceAndBoardHandler.placeGamePiece(item, sq, player, xOffset, yOffset)
+    local sound = item:getModData()["gameNight_sound"]
+    if sound then player:getEmitter():playSound(sound) end
+
+    ---@type IsoObject|IsoWorldInventoryObject
+    local worldItemObj = item:getWorldItem()
+
+    local oldZ = 0
+    if worldItemObj then
+        oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
+        sq:transmitRemoveItemFromSquare(worldItemObj)
+        sq:removeWorldObject(worldItemObj)
+        item:setWorldItem(nil)
+        worldItemObj = nil
+    end
+
+    ---@type InventoryItem
+    local invItemToWorld = sq:AddWorldInventoryItem(item, xOffset, yOffset, oldZ, false)
+    if (not worldItemObj) and invItemToWorld then
+        invItemToWorld:setWorldZRotation(0)
+        invItemToWorld:getWorldItem():setIgnoreRemoveSandbox(true)
+        invItemToWorld:getWorldItem():transmitCompleteItemToServer()
+    end
+
+    local playerNum = player:getPlayerNum()
+
+    local inventory = getPlayerInventory(playerNum)
+    if inventory then inventory:refreshBackpacks() end
+
+    local loot = getPlayerLoot(playerNum)
+    if loot then loot:refreshBackpacks() end
+end
+
+
 ---@param player IsoPlayer|IsoGameCharacter
 ---@param gamePiece InventoryItem
 function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete, detailsFunc)

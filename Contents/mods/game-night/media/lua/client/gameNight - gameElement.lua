@@ -14,6 +14,7 @@ function gameNightElement:onMouseUp(x, y)
 end
 
 
+local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 function gameNightElement:moveElement(x, y)
 
     local window = gameNightWindow.instance
@@ -26,10 +27,6 @@ function gameNightElement:moveElement(x, y)
     ---@type IsoObject|IsoWorldInventoryObject
     local item = self.itemObject
     if not item then return end
-
-    ---@type IsoObject|IsoWorldInventoryObject
-    local worldItemObj = item:getWorldItem()
-    if not worldItemObj then return end
 
     local selfW, selfH = self:getWidth(), self:getHeight()
 
@@ -48,37 +45,11 @@ function gameNightElement:moveElement(x, y)
     local scaledX = (newX/(window.width-boundsDifference))
     local scaledY = (newY/(window.height-boundsDifference))
 
-    local sound = item:getModData()["gameNight_sound"]
-    if sound then window.player:getEmitter():playSound(sound) end
-
-    local cont = item:getContainer()
-    if cont then cont:DoRemoveItem(item) end
-
-    local oldZ = 0
-    if worldItemObj then
-        oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
-        window.square:transmitRemoveItemFromSquare(worldItemObj)
-        window.square:removeWorldObject(worldItemObj)
-        item:setWorldItem(nil)
-        worldItemObj = nil
-    end
-
-    ---@type InventoryItem
-    local invItemToWorld = window.square:AddWorldInventoryItem(item, scaledX, scaledY, oldZ, false)
-    if (not worldItemObj) and invItemToWorld then
-        invItemToWorld:setWorldZRotation(0)
-        invItemToWorld:getWorldItem():setIgnoreRemoveSandbox(true)
-        invItemToWorld:getWorldItem():transmitCompleteItemToServer()
-    end
-
-    local playerNum = window.player:getPlayerNum()
-
-    local inventory = getPlayerInventory(playerNum)
-    if inventory then inventory:refreshBackpacks() end
-
-    local loot = getPlayerLoot(playerNum)
-    if loot then loot:refreshBackpacks() end
-
+    local transferAction = ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory())
+    transferAction:setOnComplete(gamePieceAndBoardHandler.placeGamePiece, item, window.square, window.player, scaledX, scaledY)
+    transferAction.maxTime = 0.1
+    ISTimedActionQueue.add(transferAction)
+    
     local pBD = window.player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 end
