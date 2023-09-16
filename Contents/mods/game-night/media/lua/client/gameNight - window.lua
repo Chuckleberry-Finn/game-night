@@ -159,8 +159,10 @@ function gameNightWindow:onMouseDown(x, y)
         if clickedOn then
             self.movingPiece = clickedOn
             self.movingPieceOffset = {clickedOn:getMouseX(),clickedOn:getMouseY()}
+            self.moveWithMouse = false
+        else
+            self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
         end
-        self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
         ISPanelJoypad.onMouseDown(self, x, y)
     end
 end
