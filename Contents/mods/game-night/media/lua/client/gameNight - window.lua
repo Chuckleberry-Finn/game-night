@@ -97,7 +97,7 @@ end
 function gameNightWindow:processMouseUp(old, x, y)
     if not self.moveWithMouse then
         local piece = self.movingPiece
-        if piece and piece:isVisible() then
+        if piece and piece:isVisible() and piece.moveWithMouse then
             local posX, posY = piece:getMouseX(), piece:getMouseY()
             if deckActionHandler.isDeckItem(piece.itemObject) then
                 local offsetX, offsetY = self.movingPieceOffset[1], self.movingPieceOffset[2]
