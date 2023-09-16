@@ -16,15 +16,13 @@ end
 
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 function gameNightElement:moveElement(x, y)
-
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
 
     if not self.moveWithMouse or not window.movingPiece or self~=window.movingPiece then return end
-
     window.movingPiece = nil
 
-    ---@type IsoObject|IsoWorldInventoryObject
+    ---@type IsoObject|InventoryItem
     local item = self.itemObject
     if not item then return end
 
@@ -45,11 +43,8 @@ function gameNightElement:moveElement(x, y)
     local scaledX = (newX/(window.width-boundsDifference))
     local scaledY = (newY/(window.height-boundsDifference))
 
-    local transferAction = ISInventoryTransferAction:new(window.player, item, item:getContainer(), window.player:getInventory())
-    transferAction:setOnComplete(gamePieceAndBoardHandler.placeGamePiece, item, window.square, window.player, scaledX, scaledY)
-    transferAction.maxTime = 0.1
-    ISTimedActionQueue.add(transferAction)
-    
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, window.square, window.player, scaledX, scaledY)
+
     local pBD = window.player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 end

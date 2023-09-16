@@ -132,10 +132,30 @@ function gamePieceAndBoardHandler.playSound(gamePiece, player, sound)
 end
 
 
-function gamePieceAndBoardHandler.placeGamePiece(item, sq, player, xOffset, yOffset)
-    local sound = item:getModData()["gameNight_sound"]
-    if sound then player:getEmitter():playSound(sound) end
 
+function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, square, player, xOffset, yOffset)
+
+    if luautils.haveToBeTransfered(player, item) then
+        local oldZ = 0
+        ---@type IsoObject|IsoWorldInventoryObject
+        local worldItemObj = item:getWorldItem()
+        if not worldItemObj then return end
+        if worldItemObj then oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ() end
+
+        local transferAction = ISInventoryTransferAction:new(player, item, item:getContainer(), player:getInventory())
+        transferAction.maxTime = 1
+        transferAction.putSoundTime = getTimestamp() + 100
+        ISTimedActionQueue.add(transferAction)
+        
+        local sound = item:getModData()["gameNight_sound"]
+        if sound then player:getEmitter():playSound(sound) end
+
+        local dropAction = ISDropWorldItemAction:new(player, item, square, xOffset, yOffset, oldZ, 0, false)
+        dropAction.maxTime = 1
+        ISTimedActionQueue.addAfter(transferAction, dropAction)
+    end
+
+    --[[
     ---@type IsoObject|IsoWorldInventoryObject
     local worldItemObj = item:getWorldItem()
 
@@ -163,6 +183,7 @@ function gamePieceAndBoardHandler.placeGamePiece(item, sq, player, xOffset, yOff
 
     local loot = getPlayerLoot(playerNum)
     if loot then loot:refreshBackpacks() end
+    --]]
 end
 
 
