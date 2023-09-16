@@ -73,7 +73,7 @@ function gameNightWindow:dropItemsOn(x, y)
             local worldItem = item:getWorldItem()
             if worldItem then surfaceZ = worldItem:getWorldPosZ()-worldItem:getZ() break end
         end
-        
+
         for _,item in pairs(itemFound) do
 
             local sound = item:getModData()["gameNight_sound"]
@@ -123,6 +123,8 @@ function gameNightWindow:processMouseUp(old, x, y)
     self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
     self.movingPiece = nil
 end
+
+
 function gameNightWindow:onMouseUpOutside(x, y)
     if self:isVisible() then
         self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y)
@@ -130,6 +132,8 @@ function gameNightWindow:onMouseUpOutside(x, y)
         ISPanelJoypad.onMouseUpOutside(self, x, y)
     end
 end
+
+
 function gameNightWindow:onMouseUp(x, y)
     if self:isVisible() then
         if ISMouseDrag.dragging then self:dropItemsOn(x, y) end
@@ -144,6 +148,7 @@ function gameNightWindow:onRightMouseDown(x, y)
     if self:isVisible() then
         local clickedOn = self:getClickedPriorityPiece(getMouseX(), getMouseY(), false)
         if clickedOn then clickedOn:onContextSelection(self, x, y) end
+        ISPanelJoypad.onRightMouseDown(x, y)
     end
 end
 
@@ -214,11 +219,6 @@ function gameNightWindow.compareElements(a, b)
     return (a.object:getWorldPosY() < b.object:getWorldPosY()) and ((a.item:getDisplayCategory() == b.item:getDisplayCategory()) or (a.item:getDisplayCategory() ~= "GameBoard" and b.item:getDisplayCategory() ~= "GameBoard"))
 end
 
-function gameNightWindow:bringToTop()
-    ISPanelJoypad.bringToTop(self)
-    for item,element in pairs(self.elements) do element:bringToTop() end
-end
-
 
 function gameNightWindow:prerender()
     ISPanelJoypad.prerender(self)
@@ -260,6 +260,8 @@ function gameNightWindow:render()
 
     for priority,stuff in pairs(loadOrder) do self:generateElement(stuff.item, stuff.object, priority) end
 
+    self:bringToTop()
+    
     gameNightWindow.cursor = gameNightWindow.cursor or getTexture("media/textures/gamenight_cursor.png")
     gameNightWindow.cursorW = gameNightWindow.cursorW or gameNightWindow.cursor:getWidth()
     gameNightWindow.cursorH = gameNightWindow.cursorH or gameNightWindow.cursor:getHeight()

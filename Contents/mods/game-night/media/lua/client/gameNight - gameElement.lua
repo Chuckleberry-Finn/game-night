@@ -13,6 +13,18 @@ function gameNightElement:onMouseUp(x, y)
     window:onMouseUp(window:getMouseX(), window:getMouseY())
 end
 
+function gameNightElement:onRightMouseDown(x, y)
+    local window = gameNightWindow.instance
+    if not window or not window:isVisible() then return end
+    window:onRightMouseDown(window:getMouseX(), window:getMouseY())
+end
+
+function gameNightElement:onMouseDown(x, y)
+    local window = gameNightWindow.instance
+    if not window or not window:isVisible() then return end
+    window:onMouseDown(window:getMouseX(), window:getMouseY())
+end
+
 
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 function gameNightElement:moveElement(x, y)
@@ -79,24 +91,6 @@ function gameNightElement:onContextSelection(o, x, y)
     return true
 end
 
-
-function gameNightElement:onRightMouseDown(x, y)
-    local window = gameNightWindow.instance
-    if not window or not window:isVisible() then return end
-    local selection = window:getClickedPriorityPiece(x, y, self)
-    selection:onContextSelection(self, x, y)
-    ISPanelJoypad.onRightMouseDown(selection, x, y)
-end
-
-
-function gameNightElement:onMouseDown(x, y)
-    local window = gameNightWindow.instance
-    if not window or not window:isVisible() or not self.moveWithMouse then return end
-    local selection = window:getClickedPriorityPiece(x, y, self)
-    window.movingPiece = selection
-    window.movingPieceOffset = {selection:getMouseX(),selection:getMouseY()}
-    ISPanelJoypad.onMouseDown(selection, x, y)
-end
 
 function gameNightElement:labelWithName()
     if not self:isVisible() then return end
