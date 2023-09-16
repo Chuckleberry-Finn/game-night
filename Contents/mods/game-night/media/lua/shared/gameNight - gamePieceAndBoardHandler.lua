@@ -142,8 +142,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, square, player, 
         if not worldItemObj then return end
         if worldItemObj then oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ() end
 
-        local transferAction = ISInventoryTransferAction:new(player, item, item:getContainer(), player:getInventory())
-        transferAction.maxTime = 1
+        local transferAction = ISInventoryTransferAction:new(player, item, item:getContainer(), player:getInventory(), 1)
         transferAction.putSoundTime = getTimestamp() + 100
         ISTimedActionQueue.add(transferAction)
 
