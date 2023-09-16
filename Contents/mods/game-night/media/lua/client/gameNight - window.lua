@@ -64,7 +64,15 @@ function gameNightWindow:dropItemsOn(x, y)
         local boundsDifference = self.padding*2
         local scaledX = (x/(self.width-boundsDifference))
         local scaledY = (y/(self.height-boundsDifference))
+
         local surfaceZ = 0
+
+        for _,element in pairs(self.elements) do
+            ---@type InventoryItem
+            local item = element.itemObject
+            local worldItem = item:getWorldItem()
+            if worldItem then surfaceZ = worldItem:getWorldPosZ()-worldItem:getZ() break end
+        end
         
         for _,item in pairs(itemFound) do
 
