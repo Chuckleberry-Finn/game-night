@@ -97,12 +97,12 @@ function gameNightWindow:processMouseUp(old, x, y)
         local piece = self.movingPiece
         if piece then
             local posX, posY = self:getMouseX(), self:getMouseY()
-            if deckActionHandler.isDeckItem(piece.item) then
+            if deckActionHandler.isDeckItem(piece) then
                 local offsetX, offsetY = self.movingPieceOffset[1], self.movingPieceOffset[2]
                 local placeX, placeY = x+self.x-offsetX, y+self.y-offsetY
                 local selection
                 for _,element in pairs(self.elements) do
-                    if (element~=piece) and deckActionHandler.isDeckItem(element.item) then
+                    if (element.item~=piece) and deckActionHandler.isDeckItem(element.item) then
                         local inBounds = (math.abs(element.x-placeX) <= 4) and (math.abs(element.y-placeY) <= 4)
                         if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
                     end
@@ -155,9 +155,17 @@ function gameNightWindow:onMouseDown(x, y)
     if self:isVisible() then
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn then
-            self.movingPiece = clickedOn
-            self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y}
+            self.movingPiece = clickedOn.item
+
+            local worldItemObj = clickedOn.item:getWorldItem()
+            local oldZ = 0
+            if worldItemObj then oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ() end
+
+            self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}
             self.moveWithMouse = false
+            local transferAction = ISInventoryTransferAction:new(self.player, clickedOn.item, clickedOn.item:getContainer(), self.player:getInventory(), 1)
+            transferAction.putSoundTime = getTimestamp() + 100
+            ISTimedActionQueue.add(transferAction)
         else
             self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
         end
@@ -166,23 +174,24 @@ function gameNightWindow:onMouseDown(x, y)
 end
 
 
-function gameNightWindow:moveElement(element, x, y)
+function gameNightWindow:moveElement(gamePiece, x, y)
 
-    if not self.movingPiece or element~=self.movingPiece then return end
+    if not self.movingPiece or gamePiece~=self.movingPiece then return end
     self.movingPiece = nil
 
     ---@type IsoObject|InventoryItem
-    local item = element.item
+    local item = gamePiece
     if not item then return end
 
     local offsetX = self.movingPieceOffset and self.movingPieceOffset[1] or 0
     local offsetY = self.movingPieceOffset and self.movingPieceOffset[2] or 0
+    local offsetZ = self.movingPieceOffset and self.movingPieceOffset[3] or 0
 
     local newX = x-offsetX
     local newY = y-offsetY
 
-    newX = math.min(math.max(newX, self.bounds.x1), self.bounds.x2-element.w)
-    newY = math.min(math.max(newY, self.bounds.y1), self.bounds.y2-element.h)
+    newX = math.min(math.max(newX, self.bounds.x1), self.bounds.x2)-- -element.w)
+    newY = math.min(math.max(newY, self.bounds.y1), self.bounds.y2)-- -element.h)
 
     if newX < self.bounds.x1 or newY < self.bounds.y1 or newX > self.bounds.x2 or newY > self.bounds.y2 then return end
 
@@ -190,7 +199,10 @@ function gameNightWindow:moveElement(element, x, y)
     local scaledX = (newX/(self.width-boundsDifference))
     local scaledY = (newY/(self.height-boundsDifference))
 
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, self.square, self.player, scaledX, scaledY)
+    --gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, self.square, self.player, scaledX, scaledY)
+    local dropAction = ISDropWorldItemAction:new(self.player, item, self.square, scaledX, scaledY, offsetZ, 0, false)
+    dropAction.maxTime = 1
+    ISTimedActionQueue.add(dropAction)
 
     local pBD = self.player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
@@ -306,7 +318,7 @@ function gameNightWindow:render()
 
     if movingElement then
         if not isMouseButtonDown(0) then return end
-        local texture = movingElement.item:getModData()["gameNight_textureInPlay"] or movingElement.item:getTexture()
+        local texture = movingElement:getModData()["gameNight_textureInPlay"] or movingElement:getTexture()
         local offsetX, offsetY = self.movingPieceOffset[1], self.movingPieceOffset[2]
         self:drawTexture(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), 0.55, 1, 1, 1)
     else

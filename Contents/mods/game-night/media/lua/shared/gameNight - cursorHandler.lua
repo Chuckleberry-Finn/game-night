@@ -28,7 +28,7 @@ function cursorHandler.sendUpdate(player)
     sendClientCommand(player, "gameNightCursor", "update", {dataToSend})
 end
 
-function cursorHandler.receiveUpdate(data)--sqX, sqY, sqZ, playerUsername, mouseX, mouseY, r, g, b)
+function cursorHandler.receiveUpdate(data)--sqX, sqY, sqZ, playerUsername, mouseX, mouseY, r, g, b, pieceTexture)
     ---@type gameNightWindow
     local window = gameNightWindow.instance
     if not window or not window:isVisible() then return end
@@ -37,7 +37,7 @@ function cursorHandler.receiveUpdate(data)--sqX, sqY, sqZ, playerUsername, mouse
     for str in string.gmatch(data, "([^".."_".."]+)") do table.insert(dataPoints, str) end
 
     local playerUsername = dataPoints[4]
-    if playerUsername == window.player:getUsername() then return end
+    --if playerUsername == window.player:getUsername() then return end
 
     local sqX, sqY, sqZ = tonumber(dataPoints[1]), tonumber(dataPoints[2]), tonumber(dataPoints[3])
 
