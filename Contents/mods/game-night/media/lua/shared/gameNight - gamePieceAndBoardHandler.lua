@@ -117,10 +117,12 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
     local icon = Texture.trygetTexture(iconPath)
     if icon then gamePiece:setTexture(icon) end
 
+    --[[
     if isClient() then
         local worldItem = gamePiece:getWorldItem()
         if worldItem then worldItem:transmitModData() end
     end
+    --]]
 end
 
 
@@ -142,6 +144,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, square, player, 
         if not worldItemObj then return end
         if worldItemObj then oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ() end
 
+        print("TEST")
         local transferAction = ISInventoryTransferAction:new(player, item, item:getContainer(), player:getInventory(), 1)
         transferAction.putSoundTime = getTimestamp() + 100
         ISTimedActionQueue.add(transferAction)
