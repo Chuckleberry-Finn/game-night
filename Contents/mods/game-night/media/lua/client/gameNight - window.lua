@@ -80,7 +80,7 @@ function gameNightWindow:dropItemsOn(x, y)
             if luautils.haveToBeTransfered(self.player, item) then
                 ISTimedActionQueue.add(ISInventoryTransferAction:new(self.player, item, item:getContainer(), self.player:getInventory()))
             end
-            
+
             local dropAction = ISDropWorldItemAction:new(self.player, item, self.square, scaledX, scaledY, surfaceZ, 0, false)
             dropAction.maxTime = 1
             ISTimedActionQueue.add(dropAction)
@@ -205,7 +205,7 @@ function gameNightWindow:moveElement(gamePiece, x, y)
     local scaledX = (newX/(self.width-boundsDifference))
     local scaledY = (newY/(self.height-boundsDifference))
 
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, self.square, self.player, scaledX, scaledY)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, self.player, scaledX, scaledY)
 
     --local dropAction = ISDropWorldItemAction:new(self.player, item, self.square, scaledX, scaledY, offsetZ, 0, false)
     --dropAction.maxTime = 1
