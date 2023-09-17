@@ -117,12 +117,10 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
     local icon = Texture.trygetTexture(iconPath)
     if icon then gamePiece:setTexture(icon) end
 
-    --[[
     if isClient() then
         local worldItem = gamePiece:getWorldItem()
         if worldItem then worldItem:transmitModData() end
     end
-    --]]
 end
 
 
@@ -136,60 +134,55 @@ end
 
 
 function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, square, player, xOffset, yOffset)
-
+--[[
     local oldZ = 0
     ---@type IsoObject|IsoWorldInventoryObject
     local worldItemObj = item:getWorldItem()
     if worldItemObj then
         oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
-        square:transmitRemoveItemFromSquare(worldItemObj)
+        --square:transmitRemoveItemFromSquare(worldItemObj)
     end
 
-    --[[local transferAction = ISInventoryTransferAction:new(player, item, item:getContainer(), player:getInventory(), 1)
+    local transferAction = ISInventoryTransferAction:new(player, item, item:getContainer(), player:getInventory(), 1)
     transferAction.putSoundTime = getTimestamp() + 100
     ISTimedActionQueue.add(transferAction)
-    --]]
 
     local sound = item:getModData()["gameNight_sound"]
     if sound then player:getEmitter():playSound(sound) end
 
-    return square:AddWorldInventoryItem(item, xOffset, yOffset, oldZ)
+    --return square:AddWorldInventoryItem(item, xOffset, yOffset, oldZ)
 
-    --[[
     local dropAction = ISDropWorldItemAction:new(player, item, square, xOffset, yOffset, oldZ, 0, false)
     dropAction.maxTime = 1
     ISTimedActionQueue.addAfter(transferAction, dropAction)
-    --]]
+--]]
 
-    --[[
     ---@type IsoObject|IsoWorldInventoryObject
     local worldItemObj = item:getWorldItem()
 
     local oldZ = 0
     if worldItemObj then
         oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
-        sq:transmitRemoveItemFromSquare(worldItemObj)
-        sq:removeWorldObject(worldItemObj)
+        square:transmitRemoveItemFromSquare(worldItemObj)
+        square:removeWorldObject(worldItemObj)
         item:setWorldItem(nil)
         worldItemObj = nil
     end
 
     ---@type InventoryItem
-    local invItemToWorld = sq:AddWorldInventoryItem(item, xOffset, yOffset, oldZ, false)
+    local invItemToWorld = square:AddWorldInventoryItem(item, xOffset, yOffset, oldZ, false)
     if (not worldItemObj) and invItemToWorld then
         invItemToWorld:setWorldZRotation(0)
         invItemToWorld:getWorldItem():setIgnoreRemoveSandbox(true)
         invItemToWorld:getWorldItem():transmitCompleteItemToServer()
     end
 
-    local playerNum = player:getPlayerNum()
 
+    local playerNum = player:getPlayerNum()
     local inventory = getPlayerInventory(playerNum)
     if inventory then inventory:refreshBackpacks() end
-
     local loot = getPlayerLoot(playerNum)
     if loot then loot:refreshBackpacks() end
-    --]]
 end
 
 

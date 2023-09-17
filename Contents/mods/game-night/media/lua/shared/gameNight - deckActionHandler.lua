@@ -37,7 +37,6 @@ function deckActionHandler.handleDetails(deckItem)
 
     local category = #deckStates>1 and "Deck" or "Card"
     deckItem:setDisplayCategory(category)
-
     deckItem:getModData()["gameNight_sound"] = "cardFlip"
 
     local name_suffix = #deckStates>1 and " ["..#deckStates.."]" or ""
@@ -56,12 +55,10 @@ function deckActionHandler.handleDetails(deckItem)
 
     if texture then deckItem:setTexture(texture) end
 
-    --[[
     if isClient() then
         local worldItem = deckItem:getWorldItem()
         if worldItem then worldItem:transmitModData() end
     end
-    --]]
 end
 
 
