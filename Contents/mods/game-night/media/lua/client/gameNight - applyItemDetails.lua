@@ -16,6 +16,8 @@ function applyItemDetails.applyGameNightToItem(item)
 
     if (not applyItemDetails.parsedItems[item]) then
 
+        applyItemDetails.parsedItems[item] = true
+        
         if not gamePieceAndBoardHandler._itemTypes then gamePieceAndBoardHandler.generate_itemTypes() end
 
         gamePiece = gamePieceAndBoardHandler.isGamePiece(item)
@@ -23,7 +25,6 @@ function applyItemDetails.applyGameNightToItem(item)
 
         deck = applyItemDetails.deckCatalogues[item:getType()]
         if deck then
-            applyItemDetails.parsedItems[item] = true
             if deck then
                 item:getModData()["gameNight_cardDeck"] = item:getModData()["gameNight_cardDeck"] or copyTable(deck)
 
