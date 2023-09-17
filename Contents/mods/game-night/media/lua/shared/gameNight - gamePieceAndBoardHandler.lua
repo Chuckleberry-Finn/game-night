@@ -132,26 +132,110 @@ function gamePieceAndBoardHandler.playSound(gamePiece, player, sound)
 end
 
 
-
-function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, square, player, xOffset, yOffset)
-
-    ---LINKED ACTIONS
+function gamePieceAndBoardHandler.pickupGamePiece(item, player)
     local oldZ = 0
     ---@type IsoObject|IsoWorldInventoryObject
     local worldItemObj = item:getWorldItem()
     if worldItemObj then
         oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
         local grabAction = ISGrabItemAction:new(player, worldItemObj, 1)
-        ISTimedActionQueue.add(grabAction)
-
-        local sound = item:getModData()["gameNight_sound"]
-        if sound then player:getEmitter():playSound(sound) end
-
-        local dropAction = ISDropWorldItemAction:new(player, item, square, xOffset, yOffset, oldZ, 0, false)
-        dropAction.maxTime = 1
-        ISTimedActionQueue.addAfter(grabAction, dropAction)
+        return grabAction, oldZ
     end
+end
 
+
+function gamePieceAndBoardHandler.placeGamePiece(item, square, player, xOffset, yOffset, oldZ)
+    local sound = item:getModData()["gameNight_sound"]
+    if sound then player:getEmitter():playSound(sound) end
+    local dropAction = ISDropWorldItemAction:new(player, item, square, xOffset, yOffset, oldZ, 0, false)
+    dropAction.maxTime = 1
+    return dropAction
+end
+
+
+---@param item InventoryItem
+---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
+---@param xOffset number
+---@param yOffset number
+function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, player, xOffset, yOffset)
+
+    local worldItem = item:getWorldItem()
+    local worldItemSq = worldItem:getSquare()
+    local itemCont = item:getContainer()
+
+    local playerInv = player:getInventory()
+    local playerSq = player:getSquare()
+    local playerNum = player:getPlayerNum()
+
+    ---isVALID
+    if not isItemTransactionConsistent(item, itemCont, playerInv) then return false end
+    if worldItemSq and playerSq and worldItemSq:isBlockedTo(playerSq) then return false end
+    if worldItem == nil or worldItemSq == nil then return false end
+    if not worldItemSq:getWorldObjects():contains(worldItem) then return false end
+    if not playerInv:hasRoomFor(player, item) then return false end
+
+    ---START
+    --    self:setActionAnim("Loot")
+    --    self:setAnimVariable("LootPosition", "Low")
+    --    self:setOverrideHandModels(nil, nil)
+    --    self.item:getItem():setJobType(getText("ContextMenu_Grab"))
+    --    self.item:getItem():setJobDelta(0.0)
+    --    self.character:reportEvent("EventLootItem")
+
+    createItemTransaction(item, itemCont, playerInv)
+
+    local placementZ = 0
+    if worldItem then placementZ = worldItem:getWorldPosZ()-worldItem:getZ() end
+
+    worldItemSq:transmitRemoveItemFromSquare(worldItem)
+    worldItem:removeFromWorld()
+    worldItem:removeFromSquare()
+    worldItem:setSquare(nil)
+    item:setWorldItem(nil)
+    item:setJobDelta(0.0)
+    playerInv:setDrawDirty(true)
+    playerInv:AddItem(item)
+
+    local pdata = getPlayerData(playerNum)
+    if pdata ~= nil then ISInventoryPage.renderDirty = true end
+
+    if not playerInv:contains(item) then return end
+
+    local sound = item:getModData()["gameNight_sound"]
+    if sound then player:getEmitter():playSound(sound) end
+
+    item:getContainer():setDrawDirty(true)
+    item:setJobDelta(0.0)
+
+    local placeItem = worldItemSq:AddWorldInventoryItem(item, xOffset, yOffset, placementZ, false)
+    if placeItem then
+        placeItem:setWorldZRotation(0)
+        local placedWorldItem = placeItem:getWorldItem()
+        placedWorldItem:setIgnoreRemoveSandbox(true)
+        placedWorldItem:transmitCompleteItemToServer()
+    end
+    playerInv:Remove(item)
+
+    local inventory = getPlayerInventory(playerNum)
+    if inventory then inventory:refreshBackpacks() end
+    local loot = getPlayerLoot(playerNum)
+    if loot then loot:refreshBackpacks() end
+
+    if isItemTransactionConsistent(item, itemCont, playerInv) then removeItemTransaction(item, itemCont, playerInv) end
+
+    --[[
+    ---LINKED ACTIONS
+    local grabAction, oldZ = gamePieceAndBoardHandler.pickupGamePiece(item, player)
+    local sound = item:getModData()["gameNight_sound"]
+    if sound then player:getEmitter():playSound(sound) end
+    local placeAction = gamePieceAndBoardHandler.placeGamePiece(item, square, player, xOffset, yOffset, oldZ)
+
+    if grabAction and placeAction then
+        ISTimedActionQueue.add(grabAction)
+        ISTimedActionQueue.addAfter(grabAction, placeAction)
+    end
+    --]]
+end
 
 --[[
     ---USING BEHIND THE SCENES FUNCTIONS
@@ -181,7 +265,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, square, player, 
     local loot = getPlayerLoot(playerNum)
     if loot then loot:refreshBackpacks() end
    --]]
-end
+
 
 
 ---@param player IsoPlayer|IsoGameCharacter
