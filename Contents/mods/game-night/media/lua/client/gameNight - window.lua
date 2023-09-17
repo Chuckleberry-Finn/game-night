@@ -94,7 +94,7 @@ function gameNightWindow:dropItemsOn(x, y)
 end
 
 
-function gameNightWindow:processMouseUp(x, y)
+function gameNightWindow:processMouseUp(old, x, y)
     if not self.moveWithMouse then
         local piece = self.movingPiece
         if piece and piece:isVisible() and piece.moveWithMouse then
@@ -119,6 +119,7 @@ function gameNightWindow:processMouseUp(x, y)
             piece:moveElement(posX, posY)
         end
     end
+    old(self, x, y)
     self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
     self.movingPiece = nil
 end
@@ -126,7 +127,7 @@ end
 
 function gameNightWindow:onMouseUpOutside(x, y)
     if self:isVisible() then
-        self:processMouseUp(x, y)
+        self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y)
     else
         ISPanelJoypad.onMouseUpOutside(self, x, y)
     end
@@ -136,7 +137,7 @@ end
 function gameNightWindow:onMouseUp(x, y)
     if self:isVisible() then
         if ISMouseDrag.dragging then self:dropItemsOn(x, y) end
-        self:processMouseUp(x, y)
+        self:processMouseUp(ISPanelJoypad.onMouseUp, x, y)
     else
         ISPanelJoypad.onMouseUp(self, x, y)
     end
