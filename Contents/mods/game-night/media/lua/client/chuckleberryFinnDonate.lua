@@ -34,7 +34,7 @@ function donationSystem:initialise()
     local btnWid = 100
     local btnHgt = 20
 
-    self.donate = ISButton:new(((self.width-btnWid)/2)-self.padding*1.3, self:getHeight()-(self.padding*1.3)-btnHgt, btnWid, btnHgt, "Donate", self, donationSystem.onClickDonate)
+    self.donate = ISButton:new(((self.width-btnWid)/2)-self.padding*1.3, self:getHeight()-(self.padding*1.3)-btnHgt, btnWid, btnHgt, "Go to Chuck's Kofi", self, donationSystem.onClickDonate)
     self.donate.borderColor = {r=0.64, g=0.8, b=0.02, a=0.9}
     self.donate.backgroundColor = {r=0, g=0, b=0, a=0.6}
     --self.donate.backgroundColorMouseOver = {r=1, g=1, b=1, a=0.8}

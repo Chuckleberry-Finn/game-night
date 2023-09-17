@@ -125,7 +125,7 @@ end
 
 
 function gameNightWindow:onMouseUpOutside(x, y)
-    if self:isVisible() then
+    if self:isVisible() and self.movingPiece then
         self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y)
         return
     end
@@ -187,13 +187,14 @@ function gameNightWindow:moveElement(element, x, y)
 
     if newX < self.bounds.x1 or newY < self.bounds.y1 or newX > self.bounds.x2 or newY > self.bounds.y2 then return end
 
+    element.x = newX
+    element.y = newY
+
     local boundsDifference = self.padding*2
     local scaledX = (newX/(self.width-boundsDifference))
     local scaledY = (newY/(self.height-boundsDifference))
 
-    self.moveWithMouse = false
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, self.square, self.player, scaledX, scaledY)
-    self.moveWithMouse = true
+    element.item = gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, self.square, self.player, scaledX, scaledY)
 
     local pBD = self.player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
@@ -242,20 +243,26 @@ local applyItemDetails = require "gameNight - applyItemDetails"
 ---@param object IsoObject|IsoWorldInventoryObject
 function gameNightWindow:generateElement(item, object, priority)
 
-    local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
-    local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
+    local texture
+    if not self.elements[item:getID()] then
 
-    applyItemDetails.applyGameNightToItem(item)
-    
-    ---@type Texture
-    local texture = item:getModData()["gameNight_textureInPlay"] or item:getTexture()
-    local w, h = texture:getWidth(), texture:getHeight()
+        applyItemDetails.applyGameNightToItem(item)
 
-    x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-w)
-    y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-h)
+        local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
+        local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
 
-    self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, priority=priority}
-    self:drawTexture(texture, x, y, w, h, 1, 1, 1, 1)
+        ---@type Texture
+        texture = item:getModData()["gameNight_textureInPlay"] or item:getTexture()
+        local w, h = texture:getWidth(), texture:getHeight()
+
+        x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-w)
+        y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-h)
+
+        self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, priority=priority}
+    end
+    local element = self.elements[item:getID()]
+    texture = texture or item:getModData()["gameNight_textureInPlay"] or item:getTexture()
+    self:drawTexture(texture, element.x, element.y, element.w, element.h, 1, 1, 1, 1)
 end
 
 
