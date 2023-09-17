@@ -307,6 +307,7 @@ function gameNightWindow:render()
     end
     table.sort(loadOrder, gameNightWindow.compareElements)
 
+    self.elements = {}
     for priority,stuff in pairs(loadOrder) do self:generateElement(stuff.item, stuff.object, priority) end
 
     gameNightWindow.cursor = gameNightWindow.cursor or getTexture("media/textures/gamenight_cursor.png")
