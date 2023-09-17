@@ -159,13 +159,15 @@ function gameNightWindow:onMouseDown(x, y)
 
             local worldItemObj = clickedOn.item:getWorldItem()
             local oldZ = 0
-            if worldItemObj then oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ() end
+            if worldItemObj then
+                oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
 
-            self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}
-            self.moveWithMouse = false
-            local transferAction = ISInventoryTransferAction:new(self.player, clickedOn.item, clickedOn.item:getContainer(), self.player:getInventory(), 1)
-            transferAction.putSoundTime = getTimestamp() + 100
-            ISTimedActionQueue.add(transferAction)
+                self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}
+                self.moveWithMouse = false
+
+                --ISTimedActionQueue.add(ISGrabItemAction:new(self.player, worldItemObj, 1))
+            end
+
         else
             self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
         end
@@ -185,7 +187,7 @@ function gameNightWindow:moveElement(gamePiece, x, y)
 
     local offsetX = self.movingPieceOffset and self.movingPieceOffset[1] or 0
     local offsetY = self.movingPieceOffset and self.movingPieceOffset[2] or 0
-    local offsetZ = self.movingPieceOffset and self.movingPieceOffset[3] or 0
+    --local offsetZ = self.movingPieceOffset and self.movingPieceOffset[3] or 0
 
     local newX = x-offsetX
     local newY = y-offsetY
@@ -199,10 +201,11 @@ function gameNightWindow:moveElement(gamePiece, x, y)
     local scaledX = (newX/(self.width-boundsDifference))
     local scaledY = (newY/(self.height-boundsDifference))
 
-    --gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, self.square, self.player, scaledX, scaledY)
-    local dropAction = ISDropWorldItemAction:new(self.player, item, self.square, scaledX, scaledY, offsetZ, 0, false)
-    dropAction.maxTime = 1
-    ISTimedActionQueue.add(dropAction)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, self.square, self.player, scaledX, scaledY)
+
+    --local dropAction = ISDropWorldItemAction:new(self.player, item, self.square, scaledX, scaledY, offsetZ, 0, false)
+    --dropAction.maxTime = 1
+    --ISTimedActionQueue.add(dropAction)
 
     local pBD = self.player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
