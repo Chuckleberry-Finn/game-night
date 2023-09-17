@@ -77,6 +77,10 @@ function gameNightWindow:dropItemsOn(x, y)
             local sound = item:getModData()["gameNight_sound"]
             if sound then self.player:getEmitter():playSound(sound) end
 
+            if luautils.haveToBeTransfered(self.player, item) then
+                ISTimedActionQueue.add(ISInventoryTransferAction:new(self.player, item, item:getContainer(), self.player:getInventory()))
+            end
+            
             local dropAction = ISDropWorldItemAction:new(self.player, item, self.square, scaledX, scaledY, surfaceZ, 0, false)
             dropAction.maxTime = 1
             ISTimedActionQueue.add(dropAction)
