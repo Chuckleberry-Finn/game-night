@@ -128,9 +128,9 @@ end
 function gameNightWindow:onMouseUpOutside(x, y)
     if self:isVisible() then
         self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y)
-    else
-        ISPanelJoypad.onMouseUpOutside(self, x, y)
+        return
     end
+    ISPanelJoypad.onMouseUpOutside(self, x, y)
 end
 
 
@@ -138,9 +138,9 @@ function gameNightWindow:onMouseUp(x, y)
     if self:isVisible() then
         if ISMouseDrag.dragging then self:dropItemsOn(x, y) end
         self:processMouseUp(ISPanelJoypad.onMouseUp, x, y)
-    else
-        ISPanelJoypad.onMouseUp(self, x, y)
+        return
     end
+    ISPanelJoypad.onMouseUp(self, x, y)
 end
 
 
@@ -148,8 +148,8 @@ function gameNightWindow:onRightMouseDown(x, y)
     if self:isVisible() then
         local clickedOn = self:getClickedPriorityPiece(getMouseX(), getMouseY(), false)
         if clickedOn then self:onContextSelection(clickedOn, x, y) end
-        ISPanelJoypad.onRightMouseDown(x, y)
     end
+    ISPanelJoypad.onRightMouseDown(x, y)
 end
 
 
