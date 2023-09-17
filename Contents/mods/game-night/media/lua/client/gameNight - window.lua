@@ -5,7 +5,6 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 ---@class gameNightWindow : ISPanelJoypad
 gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 
-gameNightWindow.elements = {}
 
 function gameNightWindow:update()
     if (not self.player) or (not self.square) or (self.square~=self.player:getSquare() and (not luautils.isSquareAdjacentToSquare(self.square, self.player:getSquare()))) then
@@ -276,10 +275,6 @@ function gameNightWindow:prerender()
     self:drawRectBorder(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), 0.8, 0.8, 0.8, 0.8)
 end
 
-gameNightWindow.cursorDraws = {}
-gameNightWindow.cursor = nil
-gameNightWindow.cursorW = nil
-gameNightWindow.cursorH = nil
 
 function gameNightWindow:render()
     ISPanelJoypad.render(self)
@@ -385,6 +380,13 @@ function gameNightWindow:new(x, y, width, height, player, square)
     o.height = height
     o.player = player
     o.square = square
+
+    o.elements = {}
+
+    o.cursorDraws = {}
+    o.cursor = nil
+    o.cursorW = nil
+    o.cursorH = nil
 
     o.padding = 45
     o.bounds = {x1=o.padding, y1=o.padding, x2=o.width-o.padding, y2=o.height-o.padding}
