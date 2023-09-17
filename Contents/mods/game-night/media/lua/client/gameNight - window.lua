@@ -1,5 +1,4 @@
 require "ISUI/ISPanelJoypad"
-require "gameNight - gameElement"
 local deckActionHandler = require "gameNight - deckActionHandler"
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 
@@ -69,7 +68,7 @@ function gameNightWindow:dropItemsOn(x, y)
 
         for _,element in pairs(self.elements) do
             ---@type InventoryItem
-            local item = element.itemObject
+            local item = element.item
             local worldItem = item:getWorldItem()
             if worldItem then surfaceZ = worldItem:getWorldPosZ()-worldItem:getZ() break end
         end
@@ -97,26 +96,26 @@ end
 function gameNightWindow:processMouseUp(old, x, y)
     if not self.moveWithMouse then
         local piece = self.movingPiece
-        if piece and piece:isVisible() and piece.moveWithMouse then
-            local posX, posY = piece:getMouseX(), piece:getMouseY()
-            if deckActionHandler.isDeckItem(piece.itemObject) then
+        if piece then
+            local posX, posY = self:getMouseX(), self:getMouseY()
+            if deckActionHandler.isDeckItem(piece.item) then
                 local offsetX, offsetY = self.movingPieceOffset[1], self.movingPieceOffset[2]
                 local placeX, placeY = x+self.x-offsetX, y+self.y-offsetY
                 local selection
-                for item,element in pairs(self.elements) do
-                    if (element~=piece) and element:isVisible() and deckActionHandler.isDeckItem(element.itemObject) then
+                for _,element in pairs(self.elements) do
+                    if (element~=piece) and deckActionHandler.isDeckItem(element.item) then
                         local inBounds = (math.abs(element.x-placeX) <= 4) and (math.abs(element.y-placeY) <= 4)
                         if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
                     end
                 end
                 if selection then
-                    deckActionHandler.mergeDecks(piece.itemObject, selection.itemObject, self.player)
+                    deckActionHandler.mergeDecks(piece.item, selection.item, self.player)
                     self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
                     self.movingPiece = nil
                     return
                 end
             end
-            piece:moveElement(posX, posY)
+            self:moveElement(piece, posX, posY)
         end
     end
     old(self, x, y)
@@ -146,7 +145,7 @@ end
 
 function gameNightWindow:onRightMouseDown(x, y)
     if self:isVisible() then
-        local clickedOn = self:getClickedPriorityPiece(getMouseX(), getMouseY(), false)
+        local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn then self:onContextSelection(clickedOn, x, y) end
     end
     ISPanelJoypad.onRightMouseDown(x, y)
@@ -155,16 +154,49 @@ end
 
 function gameNightWindow:onMouseDown(x, y)
     if self:isVisible() then
-        local clickedOn = self:getClickedPriorityPiece(getMouseX(), getMouseY(), false)
+        local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn then
             self.movingPiece = clickedOn
-            self.movingPieceOffset = {clickedOn:getMouseX(),clickedOn:getMouseY()}
+            self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y}
             self.moveWithMouse = false
         else
             self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
         end
         ISPanelJoypad.onMouseDown(self, x, y)
     end
+end
+
+
+function gameNightWindow:moveElement(element, x, y)
+
+    if not self.movingPiece or element~=self.movingPiece then return end
+    self.movingPiece = nil
+
+    ---@type IsoObject|InventoryItem
+    local item = element.item
+    if not item then return end
+
+    local offsetX = self.movingPieceOffset and self.movingPieceOffset[1] or 0
+    local offsetY = self.movingPieceOffset and self.movingPieceOffset[2] or 0
+
+    local newX = x-offsetX
+    local newY = y-offsetY
+
+    newX = math.min(math.max(newX, self.bounds.x1), self.bounds.x2-element.w)
+    newY = math.min(math.max(newY, self.bounds.y1), self.bounds.y2-element.h)
+
+    if newX < self.bounds.x1 or newY < self.bounds.y1 or newX > self.bounds.x2 or newY > self.bounds.y2 then return end
+
+    local boundsDifference = self.padding*2
+    local scaledX = (newX/(self.width-boundsDifference))
+    local scaledY = (newY/(self.height-boundsDifference))
+
+    self.moveWithMouse = false
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, self.square, self.player, scaledX, scaledY)
+    self.moveWithMouse = true
+
+    local pBD = self.player:getBodyDamage()
+    pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 end
 
 
@@ -175,7 +207,7 @@ function gameNightWindow:onContextSelection(element, x, y)
     local playerID = playerObj:getPlayerNum()
 
     ---@type InventoryItem
-    local item = element.itemObject
+    local item = element.item
     local itemContainer = item and item:getContainer() or false
     local isInInv = itemContainer and itemContainer:isInCharacterInventory(playerObj) or false
 
@@ -195,11 +227,9 @@ function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
 
     local selection = clicked
     for item,element in pairs(self.elements) do
-        if element:isVisible() and element.moveWithMouse then
-            local inBounds = ((cursorX >= element.x) and (cursorY >= element.y) and (cursorX <= element.x+element.width) and (cursorY <= element.y+element.height))
-            if inBounds and ((not selection) or element.priority > selection.priority) then
-                selection = element
-            end
+        local inBounds = ((cursorX >= element.x) and (cursorY >= element.y) and (cursorX <= element.x+element.w) and (cursorY <= element.y+element.h))
+        if inBounds and ((not selection) or element.priority > selection.priority) then
+            selection = element
         end
     end
 
@@ -211,8 +241,7 @@ local applyItemDetails = require "gameNight - applyItemDetails"
 ---@param item IsoObject|InventoryItem
 ---@param object IsoObject|IsoWorldInventoryObject
 function gameNightWindow:generateElement(item, object, priority)
-    ---@type gameNightElement
-    local element = self.elements[item:getID()]
+
     local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
     local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
 
@@ -222,23 +251,11 @@ function gameNightWindow:generateElement(item, object, priority)
     local texture = item:getModData()["gameNight_textureInPlay"] or item:getTexture()
     local w, h = texture:getWidth(), texture:getHeight()
 
-    if not element then
-        self.elements[item:getID()] = gameNightElement:new(x, y, w, h, item)
-        element = self.elements[item:getID()]
-        element:addToUIManager()
-    end
+    x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-w)
+    y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-h)
 
-    if element then
-        element:setVisible(true)
-        element:backMost()
-        x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-element:getWidth())
-        y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-element:getHeight())
-
-        element:setX(self.x+x)
-        element:setY(self.y+y)
-        element:drawTextureScaledAspect(texture, 0, 0, w, h, 1, 1, 1, 1)
-        element.priority = priority
-    end
+    self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, priority=priority}
+    self:drawTexture(texture, x, y, w, h, 1, 1, 1, 1)
 end
 
 
@@ -249,12 +266,6 @@ end
 
 function gameNightWindow:prerender()
     ISPanelJoypad.prerender(self)
-    for item,element in pairs(self.elements) do
-        element:setVisible(false)
-        element:setX(-10-self.width)
-        element:setY(-10-self.height)
-    end
-
     self:drawRectBorder(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), 0.8, 0.8, 0.8, 0.8)
 end
 
@@ -301,22 +312,20 @@ function gameNightWindow:render()
 
     if movingElement then
         if not isMouseButtonDown(0) then return end
-        local texture = movingElement.itemObject:getModData()["gameNight_textureInPlay"] or movingElement.itemObject:getTexture()
+        local texture = movingElement.item:getModData()["gameNight_textureInPlay"] or movingElement.item:getTexture()
         local offsetX, offsetY = self.movingPieceOffset[1], self.movingPieceOffset[2]
-        movingElement:drawTexture(texture, movingElement:getMouseX()-(offsetX), movingElement:getMouseY()-(offsetY), 0.55, 1, 1, 1)
+        self:drawTexture(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), 0.55, 1, 1, 1)
     else
-        local mouseOver = self:getClickedPriorityPiece(getMouseX(), getMouseY(), false)
+        local mouseOver = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if mouseOver then self:labelWithName(mouseOver) end
     end
 end
 
 
 function gameNightWindow:labelWithName(element)
-    if not self:isVisible() then return end
-
     local sandbox = SandboxVars.GameNight.DisplayItemNames
     if sandbox and (not self.movingPiece) then
-        local nameTag = (element.itemObject and element.itemObject:getName())
+        local nameTag = (element.item and element.item:getName())
         if nameTag then
             local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
             local nameTagHeight = getTextManager():getFontHeight(UIFont.NewSmall)
@@ -331,12 +340,6 @@ end
 
 function gameNightWindow:closeAndRemove()
     self:setVisible(false)
-
-    for item,element in pairs(self.elements) do
-        element:setVisible(false)
-        element:removeFromUIManager()
-    end
-
     self.elements = {}
     self.movingPiece = nil
     self:removeFromUIManager()
