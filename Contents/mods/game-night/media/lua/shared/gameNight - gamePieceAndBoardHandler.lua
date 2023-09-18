@@ -191,8 +191,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, player, xOffset,
         func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
     end
 
-    if item and floorCont and (not floorCont:contains(item)) then
-
+    if item and floorCont then
         ---@type IsoWorldInventoryObject|IsoObject
         local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
         if placedItem then
@@ -216,6 +215,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, player, xOffset,
             placedItem:transmitCompleteItemToServer()
 
             if playerInv:contains(item) then playerInv:Remove(item) end
+            if not floorCont:contains(item) then floorCont:AddItem(item) end
         end
     end
 
