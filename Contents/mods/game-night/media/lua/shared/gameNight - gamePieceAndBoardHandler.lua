@@ -132,28 +132,16 @@ function gamePieceAndBoardHandler.playSound(gamePiece, player, sound)
 end
 
 
-function gamePieceAndBoardHandler.pickupGamePiece(item, player)
-
+function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value)
+    gamePiece:getModData()[key] = value
 end
 
+function gamePieceAndBoardHandler.pickupGamePiece(player, item, justPickUp)
 
-function gamePieceAndBoardHandler.placeGamePiece(item, square, player, xOffset, yOffset, oldZ)
-
-end
-
-
----@param item InventoryItem
----@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
----@param xOffset number
----@param yOffset number
-function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, player, xOffset, yOffset, zPos, onPickUp)
-
-    ---@type ItemContainer
-    local floorCont = item:getContainer()
     ---@type ItemContainer
     local playerInv = player:getInventory()
 
-    if not isItemTransactionConsistent(item, floorCont, playerInv) then return end
+    if not justPickUp and not isItemTransactionConsistent(item, nil, playerInv) then return end
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
@@ -168,13 +156,11 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, player, xOffset,
     if worldItemSq and playerSq and worldItemSq:isBlockedTo(playerSq) then return end
     if not worldItemSq:getWorldObjects():contains(worldItem) then return end
 
-    createItemTransaction(item, floorCont, playerInv)
+    if not justPickUp then createItemTransaction(item, nil, playerInv) end
 
-    if worldItem then
-        zPos = zPos or worldItem:getWorldPosZ()-worldItem:getZ() or 0
-        xOffset = xOffset or worldItem:getWorldPosX()-worldItem:getX() or 0
-        yOffset = yOffset or worldItem:getWorldPosY()-worldItem:getY() or 0
-    end
+    local zPos = worldItem and worldItem:getWorldPosZ()-worldItem:getZ() or 0
+    local xOffset = worldItem and worldItem:getWorldPosX()-worldItem:getX() or 0
+    local yOffset = worldItem and worldItem:getWorldPosY()-worldItem:getY() or 0
 
     worldItemSq:transmitRemoveItemFromSquare(worldItem)
     worldItem:removeFromWorld()
@@ -182,16 +168,52 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, player, xOffset,
     worldItem:setSquare(nil)
     item:setWorldItem(nil)
 
+    playerInv:setDrawDirty(true)
     playerInv:AddItem(item)
+
+    return true, zPos, xOffset, yOffset
+end
+
+
+---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
+---@param item InventoryItem
+---@param xOffset number
+---@param yOffset number
+function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos)
+
+    ---@type ItemContainer
+    local playerInv = player:getInventory()
+    ---@type IsoWorldInventoryObject|IsoObject
+
+    local worldItem = item:getWorldItem()
+    ---@type IsoGridSquare
+    local worldItemSq = worldItem:getSquare()
+
+    local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item)
+    if not pickedUp then
+        if isItemTransactionConsistent(item, nil, playerInv) then removeItemTransaction(item, nil, playerInv) end
+        return
+    end
+
+    zPos = zPos or x or 0
+    xOffset = xOffset or y or 0
+    yOffset = yOffset or z or 0
 
     if onPickUp and type(onPickUp)=="table" then
         local onCompleteFuncArgs = onPickUp
         local func = onCompleteFuncArgs[1]
         local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = onCompleteFuncArgs[2], onCompleteFuncArgs[3], onCompleteFuncArgs[4], onCompleteFuncArgs[5], onCompleteFuncArgs[6], onCompleteFuncArgs[7], onCompleteFuncArgs[8], onCompleteFuncArgs[9]
         func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+
+        detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
+        detailsFunc(item)
     end
 
-    if item and floorCont then
+    if item then
+
+        local pBD = player:getBodyDamage()
+        pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
+
         ---@type IsoWorldInventoryObject|IsoObject
         local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
         if placedItem then
@@ -215,48 +237,36 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, player, xOffset,
             placedItem:transmitCompleteItemToServer()
 
             if playerInv:contains(item) then playerInv:Remove(item) end
-            if not floorCont:contains(item) then floorCont:AddItem(item) end
+
+            local playerNum = player:getPlayerNum()
+
+            local inventory = getPlayerInventory(playerNum)
+            if inventory then inventory:refreshBackpacks() end
+
+            local loot = getPlayerLoot(playerNum)
+            if loot then loot:refreshBackpacks() end
+
         end
     end
 
-    if isItemTransactionConsistent(item, floorCont, playerInv) then removeItemTransaction(item, floorCont, playerInv) end
+    if isItemTransactionConsistent(item, nil, playerInv) then removeItemTransaction(item, nil, playerInv) end
 end
-
-
----@param player IsoPlayer|IsoGameCharacter
----@param gamePiece InventoryItem
-function gamePieceAndBoardHandler.takeAction(player, gamePiece, onComplete, detailsFunc)
-
-    local pBD = player:getBodyDamage()
-    pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
-
-    if onComplete then gamePieceAndBoardHandler.pickupAndPlaceGamePiece(gamePiece, player, nil, nil, nil, onComplete) end
-
-    detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
-    detailsFunc(gamePiece)
-end
-
-
-function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value) gamePiece:getModData()[key] = value end
 
 
 function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
     sides = sides or 6
     local result = ZombRand(sides)+1
     result = result>1 and result or ""
-
-    gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
     gamePieceAndBoardHandler.playSound(gamePiece, player, "dieRoll")
 end
-
 
 
 function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
     local current = gamePiece:getModData()["gameNight_altState"]
     local result = "Flipped"
     if current then result = nil end
-    gamePieceAndBoardHandler.playSound(gamePiece, player)
-    gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
 end
 
 return gamePieceAndBoardHandler

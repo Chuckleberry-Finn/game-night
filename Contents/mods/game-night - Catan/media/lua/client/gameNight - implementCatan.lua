@@ -67,5 +67,5 @@ function gamePieceAndBoardHandler.rotatePiece(gamePiece, player)
     end
 
     gamePieceAndBoardHandler.playSound(gamePiece, player)
-    gamePieceAndBoardHandler.takeAction(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", current})
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", current})
 end

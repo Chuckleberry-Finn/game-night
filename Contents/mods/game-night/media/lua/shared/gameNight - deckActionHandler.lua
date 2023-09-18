@@ -100,7 +100,7 @@ function deckActionHandler._flipSpecificCard(deckItem, flipIndex)
     deckItem:getModData()["gameNight_cardFlipped"][flipIndex] = not currentFlipStates[flipIndex]
 end
 function deckActionHandler.flipSpecificCard(deckItem, player, index)
-    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._flipSpecificCard, deckItem, index}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._flipSpecificCard, deckItem, index}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
@@ -121,7 +121,7 @@ function deckActionHandler._flipCard(deckItem)
     deckItem:getModData()["gameNight_cardFlipped"] = handleFlippedStates
 end
 function deckActionHandler.flipCard(deckItem, player)
-    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._flipCard, deckItem}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._flipCard, deckItem}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
@@ -153,13 +153,14 @@ function deckActionHandler._mergeDecks(deckItemA, deckItemB)
 
     for _,card in pairs(deckA) do table.insert(deckB, card) end
     for _,flip in pairs(flippedA) do table.insert(flippedB, flip) end
+
     deckActionHandler.safelyRemoveCard(deckItemA)
 end
 ---@param deckItemA InventoryItem
 ---@param deckItemB InventoryItem
 function deckActionHandler.mergeDecks(deckItemA, deckItemB, player)
-    gamePieceAndBoardHandler.takeAction(player, deckItemA, nil)
-    gamePieceAndBoardHandler.takeAction(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupGamePiece(player, deckItemA, true)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItemB, player)
 end
 
@@ -189,7 +190,7 @@ function deckActionHandler._drawCards(num, deckItem, player)
 end
 ---@param deckItem InventoryItem
 function deckActionHandler.drawCards(num, deckItem, player)
-    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player}, deckActionHandler.handleDetails)
 end
 function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(1, deckItem, player) end
 
@@ -224,13 +225,13 @@ function deckActionHandler._drawCardIndex(deckItem, drawIndex)
 end
 ---@param deckItem InventoryItem
 function deckActionHandler.drawRandCard(deckItem, player)
-    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawCardIndex, deckItem}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCardIndex, deckItem}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
 ---@param deckItem InventoryItem
 function deckActionHandler.drawSpecificCard(deckItem, player, index)
-    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._drawCardIndex, deckItem, index}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCardIndex, deckItem, index}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
@@ -245,7 +246,7 @@ function deckActionHandler._shuffleCards(deckItem)
     end
 end
 function deckActionHandler.shuffleCards(deckItem, player)
-    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._shuffleCards, deckItem}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._shuffleCards, deckItem}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
@@ -257,7 +258,7 @@ function deckActionHandler._searchDeck(deckItem, player)
     if deckActionHandler.isDeckItem(deckItem) then gameNightDeckSearch.open(player, deckItem) end
 end
 function deckActionHandler.searchDeck(deckItem, player)
-    gamePieceAndBoardHandler.takeAction(player, deckItem, {deckActionHandler._searchDeck, deckItem, player}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._searchDeck, deckItem, player}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 

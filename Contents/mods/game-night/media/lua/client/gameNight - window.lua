@@ -103,7 +103,7 @@ function gameNightWindow:processMouseUp(old, x, y)
             local posX, posY = self:getMouseX(), self:getMouseY()
             if deckActionHandler.isDeckItem(piece) then
                 local offsetX, offsetY = self.movingPieceOffset[1], self.movingPieceOffset[2]
-                local placeX, placeY = x+self.x-offsetX, y+self.y-offsetY
+                local placeX, placeY = x-offsetX, y-offsetY
                 local selection
                 for _,element in pairs(self.elements) do
                     if (element.item~=piece) and deckActionHandler.isDeckItem(element.item) then
@@ -205,7 +205,7 @@ function gameNightWindow:moveElement(gamePiece, x, y)
     local scaledX = (newX/(self.width-boundsDifference))
     local scaledY = (newY/(self.height-boundsDifference))
 
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, self.player, scaledX, scaledY, offsetZ)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, nil, nil, scaledX, scaledY, offsetZ)
 
     local pBD = self.player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
