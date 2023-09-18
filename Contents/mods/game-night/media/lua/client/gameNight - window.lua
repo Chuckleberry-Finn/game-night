@@ -191,13 +191,13 @@ function gameNightWindow:moveElement(gamePiece, x, y)
 
     local offsetX = self.movingPieceOffset and self.movingPieceOffset[1] or 0
     local offsetY = self.movingPieceOffset and self.movingPieceOffset[2] or 0
-    --local offsetZ = self.movingPieceOffset and self.movingPieceOffset[3] or 0
+    local offsetZ = self.movingPieceOffset and self.movingPieceOffset[3] or 0
 
     local newX = x-offsetX
     local newY = y-offsetY
 
-    newX = math.min(math.max(newX, self.bounds.x1), self.bounds.x2)-- -element.w)
-    newY = math.min(math.max(newY, self.bounds.y1), self.bounds.y2)-- -element.h)
+    newX = math.min(math.max(newX, self.bounds.x1), self.bounds.x2)
+    newY = math.min(math.max(newY, self.bounds.y1), self.bounds.y2)
 
     if newX < self.bounds.x1 or newY < self.bounds.y1 or newX > self.bounds.x2 or newY > self.bounds.y2 then return end
 
@@ -205,11 +205,7 @@ function gameNightWindow:moveElement(gamePiece, x, y)
     local scaledX = (newX/(self.width-boundsDifference))
     local scaledY = (newY/(self.height-boundsDifference))
 
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, self.player, scaledX, scaledY)
-
-    --local dropAction = ISDropWorldItemAction:new(self.player, item, self.square, scaledX, scaledY, offsetZ, 0, false)
-    --dropAction.maxTime = 1
-    --ISTimedActionQueue.add(dropAction)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, self.player, scaledX, scaledY, offsetZ)
 
     local pBD = self.player:getBodyDamage()
     pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
