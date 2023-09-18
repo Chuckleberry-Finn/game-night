@@ -112,7 +112,7 @@ function gameNightWindow:processMouseUp(old, x, y)
                     end
                 end
                 if selection then
-                    deckActionHandler.mergeDecks(piece.item, selection.item, self.player)
+                    deckActionHandler.mergeDecks(piece, selection.item, self.player)
                     self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
                     self.movingPiece = nil
                     return
