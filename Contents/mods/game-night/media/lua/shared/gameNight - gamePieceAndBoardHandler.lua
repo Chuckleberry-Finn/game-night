@@ -207,12 +207,14 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, player, xOffset,
     item:getContainer():setDrawDirty(true)
     item:setJobDelta(0.0)
 
-    local placeItem = worldItemSq:AddWorldInventoryItem(item, xOffset, yOffset, placementZ, false)
-    if placeItem then
-        placeItem:setWorldZRotation(0)
-        local placedWorldItem = placeItem:getWorldItem()
-        placedWorldItem:setIgnoreRemoveSandbox(true)
-        placedWorldItem:transmitCompleteItemToServer()
+    if item and item:getWorldItem() then
+        local placeItem = worldItemSq:AddWorldInventoryItem(item, xOffset, yOffset, placementZ, false)
+        if placeItem then
+            placeItem:setWorldZRotation(0)
+            local placedWorldItem = placeItem:getWorldItem()
+            placedWorldItem:setIgnoreRemoveSandbox(true)
+            placedWorldItem:transmitCompleteItemToServer()
+        end
     end
     playerInv:Remove(item)
 
