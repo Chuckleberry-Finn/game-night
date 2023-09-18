@@ -153,18 +153,20 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, player, xOffset,
     ---@type ItemContainer
     local playerInv = player:getInventory()
 
-    if not isItemTransactionConsistent(item, floorCont, playerInv) then return false end
+    if not isItemTransactionConsistent(item, floorCont, playerInv) then return end
 
-    ---@type IsoGridSquare
-    local playerSq = player:getSquare()
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
     ---@type IsoGridSquare
     local worldItemSq = worldItem:getSquare()
 
-    if worldItemSq and playerSq and worldItemSq:isBlockedTo(playerSq) then return false end
-    if worldItem == nil or worldItemSq == nil then return false end
-    if not worldItemSq:getWorldObjects():contains(worldItem) then return false end
+    if worldItem == nil or worldItemSq == nil then return end
+
+    ---@type IsoGridSquare
+    local playerSq = player:getSquare()
+
+    if worldItemSq and playerSq and worldItemSq:isBlockedTo(playerSq) then return end
+    if not worldItemSq:getWorldObjects():contains(worldItem) then return end
 
     createItemTransaction(item, floorCont, playerInv)
 
@@ -191,26 +193,30 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, player, xOffset,
 
     if item and floorCont and (not floorCont:contains(item)) then
 
-        local sound = item:getModData()["gameNight_sound"]
-        if sound then player:getEmitter():playSound(sound) end
-
-        if playerInv:contains(item) then playerInv:Remove(item) end
-
         ---@type IsoWorldInventoryObject|IsoObject
         local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
-        placedItem:setName(item:getName())
-        placedItem:setKeyId(item:getKeyId())
+        if placedItem then
 
-        worldItemSq:getObjects():add(placedItem)
-        worldItemSq:getWorldObjects():add(placedItem)
-        worldItemSq:getChunk():recalcHashCodeObjects()
+            local sound = item:getModData()["gameNight_sound"]
+            if sound then player:getEmitter():playSound(sound) end
 
-        item:setWorldItem(placedItem)
-        item:setWorldZRotation(0)
+            placedItem:setName(item:getName())
+            placedItem:setKeyId(item:getKeyId())
 
-        placedItem:addToWorld()
-        placedItem:setIgnoreRemoveSandbox(true)
-        placedItem:transmitCompleteItemToServer()
+            worldItemSq:getObjects():add(placedItem)
+            worldItemSq:getWorldObjects():add(placedItem)
+            worldItemSq:getChunk():recalcHashCodeObjects()
+
+            item:setWorldItem(placedItem)
+            item:setWorldZRotation(0)
+
+            placedItem:addToWorld()
+
+            placedItem:setIgnoreRemoveSandbox(true)
+            placedItem:transmitCompleteItemToServer()
+
+            if playerInv:contains(item) then playerInv:Remove(item) end
+        end
     end
 
     if isItemTransactionConsistent(item, floorCont, playerInv) then removeItemTransaction(item, floorCont, playerInv) end
