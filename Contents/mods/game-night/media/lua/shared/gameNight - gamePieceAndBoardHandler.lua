@@ -207,7 +207,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, player, xOffset,
     item:getContainer():setDrawDirty(true)
     item:setJobDelta(0.0)
 
-    if item and item:getWorldItem() then
+    if item and not item:getWorldItem() then
         local placeItem = worldItemSq:AddWorldInventoryItem(item, xOffset, yOffset, placementZ, false)
         if placeItem then
             placeItem:setWorldZRotation(0)
@@ -216,7 +216,8 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(item, player, xOffset,
             placedWorldItem:transmitCompleteItemToServer()
         end
     end
-    playerInv:Remove(item)
+
+    if playerInv:contains(item) then playerInv:Remove(item) end
 
     local inventory = getPlayerInventory(playerNum)
     if inventory then inventory:refreshBackpacks() end
