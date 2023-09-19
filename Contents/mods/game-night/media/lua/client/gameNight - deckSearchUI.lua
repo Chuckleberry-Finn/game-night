@@ -150,7 +150,7 @@ function gameNightDeckSearch:cardOnMouseUp(x, y)
     end
 
     searchWindow.gamePieceAndBoardHandler.playSound(deckItem, searchWindow.player)
-    self.deckActionHandler.handleDetails(deckItem)
+    searchWindow.deckActionHandler.handleDetails(deckItem)
     searchWindow:clearDragging()
 end
 

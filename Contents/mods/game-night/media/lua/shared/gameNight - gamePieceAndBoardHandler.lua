@@ -189,10 +189,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     local worldItemSq = worldItem and worldItem:getSquare()
 
     local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item)
-    if not pickedUp then
-        if isItemTransactionConsistent(item, nil, playerInv) then removeItemTransaction(item, nil, playerInv) end
-        return
-    end
+    if not pickedUp and isItemTransactionConsistent(item, nil, playerInv) then removeItemTransaction(item, nil, playerInv) end
 
     zPos = zPos or x or 0
     xOffset = xOffset or y or 0
