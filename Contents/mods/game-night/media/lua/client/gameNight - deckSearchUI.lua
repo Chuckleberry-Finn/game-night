@@ -12,8 +12,7 @@ end
 
 
 function gameNightDeckSearch:update()
-    local close = false
-    if (not self.player) or (not self.deck) then close = true end
+    if (not self.player) or (not self.deck) then self:closeAndRemove() return end
 
     ---@type InventoryItem
     local item = self.deck
@@ -25,17 +24,17 @@ function gameNightDeckSearch:update()
     local contParent = outerMostCont and outerMostCont:getParent()
     local contParentSq = contParent and contParent:getSquare()
     if contParentSq and contParentSq~=self.player:getSquare() and (not luautils.isSquareAdjacentToSquare(contParentSq, self.player:getSquare())) then
-        close = true
+        self:closeAndRemove()
+        return
     end
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
     local worldItemSq = worldItem and worldItem:getSquare()
     if worldItemSq and worldItemSq~=self.player:getSquare() and (not luautils.isSquareAdjacentToSquare(worldItemSq, self.player:getSquare())) then
-        close = true
+        self:closeAndRemove()
+        return
     end
-
-    if close then self:closeAndRemove() end
 end
 
 
