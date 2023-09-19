@@ -18,8 +18,8 @@ function gameNightDeckSearch:update()
     ---@type InventoryItem
     local item = self.deck
 
-    local cont = item:getContainer()
-    if cont and cont:isInCharacterInventory(self.player) then return end
+    local playerInv = self.player:getInventory()
+    if playerInv:contains(item) then return end
 
     local outerMostCont = item:getOutermostContainer()
     local contParent = outerMostCont and outerMostCont:getParent()
