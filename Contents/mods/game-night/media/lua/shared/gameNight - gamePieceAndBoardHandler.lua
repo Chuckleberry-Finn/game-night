@@ -146,7 +146,7 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item, justPickUp)
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
     ---@type IsoGridSquare
-    local worldItemSq = worldItem:getSquare()
+    local worldItemSq = worldItem and worldItem:getSquare()
 
     if worldItem == nil or worldItemSq == nil then return end
 
@@ -184,10 +184,9 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     ---@type ItemContainer
     local playerInv = player:getInventory()
     ---@type IsoWorldInventoryObject|IsoObject
-
     local worldItem = item:getWorldItem()
     ---@type IsoGridSquare
-    local worldItemSq = worldItem:getSquare()
+    local worldItemSq = worldItem and worldItem:getSquare()
 
     local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item)
     if not pickedUp then
@@ -209,7 +208,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
         detailsFunc(item)
     end
 
-    if item then
+    if item and worldItemSq then
 
         local pBD = player:getBodyDamage()
         pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
