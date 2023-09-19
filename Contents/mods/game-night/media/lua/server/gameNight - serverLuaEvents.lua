@@ -4,4 +4,5 @@ Events.OnGameBoot.Add(gameNightDistro.overrideProceduralDist())
 Events.OnGameBoot.Add(gameNightDistro.fillProceduralDist())
 
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
-Events.OnGameBoot.Add(gamePieceAndBoardHandler.applyScriptChanges)
+Events.OnLoad.Add(gamePieceAndBoardHandler.applyScriptChanges)
+if isServer() then Events.OnGameBoot.Add(gamePieceAndBoardHandler.applyScriptChanges) end
