@@ -9,8 +9,6 @@ gamePieceContext.gameNightContextMenuIcon = {
     play=getTexture("media/textures/gamenight_icon.png"),
     deal=getTexture("media/textures/dealCard.png"),
     draw=getTexture("media/textures/drawCard.png"),
-    flip=getTexture("media/textures/flipCard.png"),
-    shuffle=getTexture("media/textures/shuffleCards.png"),
     search=getTexture("media/textures/searchCards.png"),
 }
 
@@ -31,13 +29,11 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
         if deckStates then
 
             local flip = context:addOptionOnTop(getText("IGUI_flipCard"), item, deckActionHandler.flipCard, playerObj)
-            flip.iconTexture = gamePieceContext.gameNightContextMenuIcon.flip
 
             if #deckStates>1 then
 
                 local shuffle = context:addOptionOnTop(getText("IGUI_shuffleCards"), item, deckActionHandler.shuffleCards, playerObj)
-                shuffle.iconTexture = gamePieceContext.gameNightContextMenuIcon.shuffle
-
+      
                 local drawOption = context:addOptionOnTop(getText("IGUI_draw"), item, nil)
                 local subDrawMenu = ISContextMenu:getNew(context)
                 context:addSubMenu(drawOption, subDrawMenu)
