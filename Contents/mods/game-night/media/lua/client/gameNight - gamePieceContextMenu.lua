@@ -5,8 +5,17 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 
 local gamePieceContext = {}
 
-gamePieceContext.gameNightContextMenuIcon = getTexture("media/textures/gamenight_icon.png")
+gamePieceContext.gameNightContextMenuIcon = {
+    play=getTexture("media/textures/gamenight_icon.png"),
+    deal=getTexture("media/textures/dealCard.png"),
+    draw=getTexture("media/textures/drawCard.png"),
+    flip=getTexture("media/textures/flipCard.png"),
+    shuffle=getTexture("media/textures/shuffleCards.png"),
+    search=getTexture("media/textures/searchCards.png"),
+}
 
+
+---@param context ISContextMenu
 function gamePieceContext.addInventoryItemContext(playerID, context, items)
     local playerObj = getSpecificPlayer(playerID)
     for _, v in ipairs(items) do
@@ -20,12 +29,30 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
 
         local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
         if deckStates then
-            context:addOptionOnTop(getText("IGUI_flipCard"), item, deckActionHandler.flipCard, playerObj)
+
+            local flip = context:addOptionOnTop(getText("IGUI_flipCard"), item, deckActionHandler.flipCard, playerObj)
+            flip.iconTexture = gamePieceContext.gameNightContextMenuIcon.flip
+
             if #deckStates>1 then
-                context:addOptionOnTop(getText("IGUI_shuffleCards"), item, deckActionHandler.shuffleCards, playerObj)
-                context:addOptionOnTop(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard, playerObj)
-                context:addOptionOnTop(getText("IGUI_drawCard"), item, deckActionHandler.drawCard, playerObj)
-                context:addOptionOnTop(getText("IGUI_searchDeck"), item, deckActionHandler.searchDeck, playerObj)
+
+                local shuffle = context:addOptionOnTop(getText("IGUI_shuffleCards"), item, deckActionHandler.shuffleCards, playerObj)
+                shuffle.iconTexture = gamePieceContext.gameNightContextMenuIcon.shuffle
+
+                local drawOption = context:addOptionOnTop(getText("IGUI_draw"), item, nil)
+                local subDrawMenu = ISContextMenu:getNew(context)
+                context:addSubMenu(drawOption, subDrawMenu)
+
+                local drawRand = subDrawMenu:addOptionOnTop(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard, playerObj)
+                drawRand.iconTexture = gamePieceContext.gameNightContextMenuIcon.draw
+
+                local draw = subDrawMenu:addOptionOnTop(getText("IGUI_drawCard"), item, deckActionHandler.drawCard, playerObj)
+                draw.iconTexture = gamePieceContext.gameNightContextMenuIcon.draw
+
+                local deal = subDrawMenu:addOptionOnTop(getText("IGUI_deal"), item, deckActionHandler.dealCard, playerObj)
+                deal.iconTexture = gamePieceContext.gameNightContextMenuIcon.deal
+
+                local search = context:addOptionOnTop(getText("IGUI_searchDeck"), item, deckActionHandler.searchDeck, playerObj)
+                search.iconTexture = gamePieceContext.gameNightContextMenuIcon.search
             end
             break
         end
@@ -63,7 +90,7 @@ function gamePieceContext.addWorldContext(playerID, context, worldObjects, test)
 
         if validObjectCount > 0 then
             local option = context:addOptionOnTop(getText("IGUI_Play_Game"), worldObjects, gameNightWindow.open, playerObj, square)
-            option.iconTexture = gamePieceContext.gameNightContextMenuIcon
+            option.iconTexture = gamePieceContext.gameNightContextMenuIcon.play
         end
     end
     return false

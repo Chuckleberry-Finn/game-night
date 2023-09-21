@@ -289,13 +289,15 @@ function gameNightWindow:render()
     local square = self.square
     if not square then return end
 
+    local loaded = {}
     local loadOrder = {}
     for i=0, square:getObjects():size()-1 do
         ---@type IsoObject|IsoWorldInventoryObject
         local object = square:getObjects():get(i)
         if object and instanceof(object, "IsoWorldInventoryObject") then
             local item = object:getItem()
-            if item and item:getTags():contains("gameNight") then
+            if not loaded[item] and item and item:getTags():contains("gameNight") then
+                loaded[item] = true
                 local position = item:getDisplayCategory() == "GameBoard" and 1 or #loadOrder+1
                 table.insert(loadOrder, position, {item=item, object=object})
             end

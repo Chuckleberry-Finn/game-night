@@ -1,5 +1,6 @@
 IGUI_EN = {
     IGUI_draw = "Draw",
+    IGUI_deal = "Deal Card",
     IGUI_drawCard = "Draw Card From Top",
     IGUI_drawRandCard = "Draw Random Card",
     IGUI_shuffleCards = "Shuffle",

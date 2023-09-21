@@ -64,27 +64,29 @@ end
 
 ---@param drawnCard string
 ---@param deckItem InventoryItem
-function deckActionHandler.generateCard(drawnCard, deckItem, flipped)
+function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
+    --sq=sq, offsets={x=wiX,y=wiY,z=wiZ}, container=container
     local newCard = InventoryItemFactory.CreateItem(deckItem:getType())
     if newCard then
         newCard:getModData()["gameNight_cardDeck"] = {drawnCard}
         newCard:getModData()["gameNight_cardFlipped"] = {flipped}
 
         ---@type IsoObject|IsoWorldInventoryObject
-        local worldItem = deckItem:getWorldItem()
-        if worldItem then
+        local worldItem = locations and locations.worldItem or deckItem:getWorldItem()
 
-            local wiX = (worldItem:getWorldPosX()-worldItem:getX())+ZombRandFloat(-0.1,0.1)
-            local wiY = (worldItem:getWorldPosY()-worldItem:getY())+ZombRandFloat(-0.1,0.1)
-            local wiZ = (worldItem:getWorldPosZ()-worldItem:getZ())
+        local wiX = (locations and locations.offsets and locations.offsets.x) or (worldItem and (worldItem:getWorldPosX()-worldItem:getX())) or 0
+        local wiY = (locations and locations.offsets and locations.offsets.y) or (worldItem and (worldItem:getWorldPosY()-worldItem:getY())) or 0
+        local wiZ = (locations and locations.offsets and locations.offsets.z) or (worldItem and (worldItem:getWorldPosZ()-worldItem:getZ())) or 0
 
-            ---@type IsoGridSquare
-            local sq = worldItem:getSquare()
-            if sq then sq:AddWorldInventoryItem(newCard, wiX, wiY, wiZ) end
-        end
+        wiX = wiX+ZombRandFloat(-0.1,0.1)
+        wiY = wiY+ZombRandFloat(-0.1,0.1)
+
+        ---@type IsoGridSquare
+        local sq = (locations and locations.sq) or (worldItem and worldItem:getSquare())
+        if sq then sq:AddWorldInventoryItem(newCard, wiX, wiY, wiZ) end
 
         ---@type ItemContainer
-        local container = deckItem:getContainer()
+        local container = (locations and locations.container) or deckItem:getContainer()
         if container then container:AddItem(newCard) end
 
         deckActionHandler.handleDetails(deckItem)
@@ -165,7 +167,7 @@ function deckActionHandler.mergeDecks(deckItemA, deckItemB, player)
 end
 
 
-function deckActionHandler._drawCards(num, deckItem, player)
+function deckActionHandler._drawCards(num, deckItem, player, locations)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
 
@@ -183,17 +185,29 @@ function deckActionHandler._drawCards(num, deckItem, player)
 
     for n,card in pairs(drawnCards) do
         gamePieceAndBoardHandler.playSound(deckItem, player)
-        local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n])
+        local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n], locations)
     end
 
     return drawnCards, drawnFlippedStates
 end
 ---@param deckItem InventoryItem
-function deckActionHandler.drawCards(num, deckItem, player)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player}, deckActionHandler.handleDetails)
+function deckActionHandler.drawCards(num, deckItem, player, locations)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player, locations}, deckActionHandler.handleDetails)
 end
-function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(1, deckItem, player) end
+function deckActionHandler.drawCard(deckItem, player)
+    deckActionHandler.drawCards(1, deckItem, player)
+end
+function deckActionHandler.dealCard(deckItem, player)
 
+    local worldItem, container = deckItem:getWorldItem(), deckItem:getContainer()
+    local wiX = worldItem and (worldItem:getWorldPosX()-worldItem:getX())+ZombRandFloat(-0.1,0.1)
+    local wiY = worldItem and (worldItem:getWorldPosY()-worldItem:getY())+ZombRandFloat(-0.1,0.1)
+    local wiZ = worldItem and (worldItem:getWorldPosZ()-worldItem:getZ())
+    ---@type IsoGridSquare
+    local sq = worldItem and worldItem:getSquare()
+
+    deckActionHandler.drawCards(1, deckItem, player, { sq=sq, offsets={x=wiX,y=wiY,z=wiZ}, container=container })
+end
 
 function deckActionHandler._drawCardIndex(deckItem, drawIndex)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
