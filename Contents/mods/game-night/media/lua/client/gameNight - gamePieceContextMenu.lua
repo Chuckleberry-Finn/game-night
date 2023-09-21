@@ -38,18 +38,21 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
                 local subDrawMenu = ISContextMenu:getNew(context)
                 context:addSubMenu(drawOption, subDrawMenu)
 
-                local deal = subDrawMenu:addOptionOnTop(getText("IGUI_deal"), item, deckActionHandler.dealCard, playerObj)
-                deal.iconTexture = gamePieceContext.gameNightContextMenuIcon.deal
-                
+                local worldItem = item:getWorldItem()
+                if worldItem then
+                    local deal = subDrawMenu:addOptionOnTop(getText("IGUI_deal"), item, deckActionHandler.dealCard, playerObj)
+                    deal.iconTexture = gamePieceContext.gameNightContextMenuIcon.deal
+                end
+
                 local drawRand = subDrawMenu:addOptionOnTop(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard, playerObj)
                 drawRand.iconTexture = gamePieceContext.gameNightContextMenuIcon.draw
 
                 local draw = subDrawMenu:addOptionOnTop(getText("IGUI_drawCard"), item, deckActionHandler.drawCard, playerObj)
-                draw.iconTexture = gamePieceContext.gameNightContextMenuIcon.draw
+            draw.iconTexture = gamePieceContext.gameNightContextMenuIcon.draw
 
-                local search = context:addOptionOnTop(getText("IGUI_searchDeck"), item, deckActionHandler.searchDeck, playerObj)
-                search.iconTexture = gamePieceContext.gameNightContextMenuIcon.search
-            end
+            local search = context:addOptionOnTop(getText("IGUI_searchDeck"), item, deckActionHandler.searchDeck, playerObj)
+            search.iconTexture = gamePieceContext.gameNightContextMenuIcon.searc
+                end
             break
         end
     end
