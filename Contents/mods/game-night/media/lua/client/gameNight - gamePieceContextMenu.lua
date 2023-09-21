@@ -76,7 +76,7 @@ function gamePieceContext.addWorldContext(playerID, context, worldObjects, test)
     for _,v in ipairs(worldObjects) do square = v:getSquare() end
     if not square then return false end
 
-    if square==playerObj:getSquare() or luautils.isSquareAdjacentToSquare(square, playerObj:getSquare()) then
+    if square and ( square:DistToProper(playerObj) <= 1.5 ) then
 
         local validObjectCount = 0
 

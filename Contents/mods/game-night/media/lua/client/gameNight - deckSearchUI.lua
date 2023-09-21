@@ -23,7 +23,7 @@ function gameNightDeckSearch:update()
     local outerMostCont = item:getOutermostContainer()
     local contParent = outerMostCont and outerMostCont:getParent()
     local contParentSq = contParent and contParent:getSquare()
-    if contParentSq and contParentSq~=self.player:getSquare() and (not luautils.isSquareAdjacentToSquare(contParentSq, self.player:getSquare())) then
+    if contParentSq and ( contParentSq:DistToProper(self.player) > 2 ) then
         self:closeAndRemove()
         return
     end
@@ -31,7 +31,7 @@ function gameNightDeckSearch:update()
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
     local worldItemSq = worldItem and worldItem:getSquare()
-    if worldItemSq and worldItemSq~=self.player:getSquare() and (not luautils.isSquareAdjacentToSquare(worldItemSq, self.player:getSquare())) then
+    if worldItemSq and ( worldItemSq:DistToProper(self.player) > 2 ) then
         self:closeAndRemove()
         return
     end
