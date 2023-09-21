@@ -72,13 +72,18 @@ function gameNightWindow:dropItemsOn(x, y)
             if worldItem then surfaceZ = worldItem:getWorldPosZ()-worldItem:getZ() break end
         end
 
-        for _,item in pairs(itemFound) do
+        for n,item in pairs(itemFound) do
 
             local sound = item:getModData()["gameNight_sound"]
             if sound then self.player:getEmitter():playSound(sound) end
 
             if luautils.haveToBeTransfered(self.player, item) then
                 ISTimedActionQueue.add(ISInventoryTransferAction:new(self.player, item, item:getContainer(), self.player:getInventory()))
+            end
+
+            if n > 1 then
+                scaledX = scaledX+ZombRandFloat(-0.02,0.02)
+                scaledY = scaledY+ZombRandFloat(-0.02,0.02)
             end
 
             local dropAction = ISDropWorldItemAction:new(self.player, item, self.square, scaledX, scaledY, surfaceZ, 0, false)
@@ -102,7 +107,7 @@ function gameNightWindow:processMouseUp(old, x, y)
         if piece then
             local posX, posY = self:getMouseX(), self:getMouseY()
             if deckActionHandler.isDeckItem(piece) then
-                local offsetX, offsetY = self.movingPieceOffset[1], self.movingPieceOffset[2]
+                local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
                 local placeX, placeY = x-offsetX, y-offsetY
                 local selection
                 for _,element in pairs(self.elements) do
@@ -289,15 +294,13 @@ function gameNightWindow:render()
     local square = self.square
     if not square then return end
 
-    local loaded = {}
     local loadOrder = {}
     for i=0, square:getObjects():size()-1 do
         ---@type IsoObject|IsoWorldInventoryObject
         local object = square:getObjects():get(i)
         if object and instanceof(object, "IsoWorldInventoryObject") then
             local item = object:getItem()
-            if not loaded[item] and item and item:getTags():contains("gameNight") then
-                loaded[item] = true
+            if item and item:getTags():contains("gameNight") then
                 local position = item:getDisplayCategory() == "GameBoard" and 1 or #loadOrder+1
                 table.insert(loadOrder, position, {item=item, object=object})
             end
@@ -323,7 +326,7 @@ function gameNightWindow:render()
     if movingElement then
         if not isMouseButtonDown(0) then return end
         local texture = movingElement:getModData()["gameNight_textureInPlay"] or movingElement:getTexture()
-        local offsetX, offsetY = self.movingPieceOffset[1], self.movingPieceOffset[2]
+        local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
         self:drawTexture(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), 0.55, 1, 1, 1)
     else
         local mouseOver = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
@@ -353,6 +356,7 @@ function gameNightWindow:closeAndRemove()
     self.elements = {}
     self.movingPiece = nil
     self:removeFromUIManager()
+    if gameNightWindow.instance == self then gameNightWindow.instance = nil end
 end
 
 

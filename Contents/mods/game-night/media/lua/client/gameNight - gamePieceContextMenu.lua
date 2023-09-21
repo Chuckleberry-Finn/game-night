@@ -2,6 +2,7 @@ require "ISUI/ISInventoryPaneContextMenu"
 local applyItemDetails = require "gameNight - applyItemDetails"
 local deckActionHandler = require "gameNight - deckActionHandler"
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
+require "gameNight - window"
 
 local gamePieceContext = {}
 
@@ -9,7 +10,9 @@ gamePieceContext.gameNightContextMenuIcon = {
     play=getTexture("media/textures/gamenight_icon.png"),
     deal=getTexture("media/textures/dealCard.png"),
     draw=getTexture("media/textures/drawCard.png"),
+    drawRand=getTexture("media/textures/drawRandCard.png"),
     search=getTexture("media/textures/searchCards.png"),
+    flip=getTexture("media/textures/flipCard.png"),
 }
 
 
@@ -29,6 +32,7 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
         if deckStates then
 
             local flip = context:addOptionOnTop(getText("IGUI_flipCard"), item, deckActionHandler.flipCard, playerObj)
+            flip.iconTexture = gamePieceContext.gameNightContextMenuIcon.flip
 
             if #deckStates>1 then
 
@@ -39,19 +43,20 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
                 context:addSubMenu(drawOption, subDrawMenu)
 
                 local worldItem = item:getWorldItem()
-                if worldItem then
+                local playSq = gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square
+                if worldItem or playSq then
                     local deal = subDrawMenu:addOptionOnTop(getText("IGUI_deal"), item, deckActionHandler.dealCard, playerObj)
                     deal.iconTexture = gamePieceContext.gameNightContextMenuIcon.deal
                 end
 
                 local drawRand = subDrawMenu:addOptionOnTop(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard, playerObj)
-                drawRand.iconTexture = gamePieceContext.gameNightContextMenuIcon.draw
+                drawRand.iconTexture = gamePieceContext.gameNightContextMenuIcon.drawRand
 
                 local draw = subDrawMenu:addOptionOnTop(getText("IGUI_drawCard"), item, deckActionHandler.drawCard, playerObj)
-            draw.iconTexture = gamePieceContext.gameNightContextMenuIcon.draw
+                draw.iconTexture = gamePieceContext.gameNightContextMenuIcon.draw
 
-            local search = context:addOptionOnTop(getText("IGUI_searchDeck"), item, deckActionHandler.searchDeck, playerObj)
-            search.iconTexture = gamePieceContext.gameNightContextMenuIcon.searc
+                local search = context:addOptionOnTop(getText("IGUI_searchDeck"), item, deckActionHandler.searchDeck, playerObj)
+                search.iconTexture = gamePieceContext.gameNightContextMenuIcon.search
                 end
             break
         end

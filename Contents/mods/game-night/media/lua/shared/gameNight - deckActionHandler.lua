@@ -1,4 +1,5 @@
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
+require "gameNight - window"
 
 local deckActionHandler = {}
 
@@ -83,11 +84,13 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
 
         ---@type IsoGridSquare
         local sq = (locations and locations.sq) or (worldItem and worldItem:getSquare())
-        if sq then sq:AddWorldInventoryItem(newCard, wiX, wiY, wiZ) end
-
-        ---@type ItemContainer
-        local container = (locations and locations.container) or deckItem:getContainer()
-        if container then container:AddItem(newCard) end
+        if sq then
+            sq:AddWorldInventoryItem(newCard, wiX, wiY, wiZ)
+        else
+            ---@type ItemContainer
+            local container = (locations and locations.container) or deckItem:getContainer()
+            if container then container:AddItem(newCard) end
+        end
 
         deckActionHandler.handleDetails(deckItem)
         deckActionHandler.handleDetails(newCard)
@@ -200,12 +203,12 @@ end
 function deckActionHandler.dealCard(deckItem, player)
 
     local worldItem, container = deckItem:getWorldItem(), deckItem:getContainer()
-    local wiX = worldItem and (worldItem:getWorldPosX()-worldItem:getX())+ZombRandFloat(-0.1,0.1)
-    local wiY = worldItem and (worldItem:getWorldPosY()-worldItem:getY())+ZombRandFloat(-0.1,0.1)
-    local wiZ = worldItem and (worldItem:getWorldPosZ()-worldItem:getZ())
+    local wiX = worldItem and (worldItem:getWorldPosX()-worldItem:getX()) or 0
+    local wiY = worldItem and (worldItem:getWorldPosY()-worldItem:getY()) or 0
+    local wiZ = worldItem and (worldItem:getWorldPosZ()-worldItem:getZ()) or 0
     ---@type IsoGridSquare
-    local sq = worldItem and worldItem:getSquare()
-
+    local sq = (worldItem and worldItem:getSquare()) or (gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square)
+    
     deckActionHandler.drawCards(1, deckItem, player, { sq=sq, offsets={x=wiX,y=wiY,z=wiZ}, container=container })
 end
 

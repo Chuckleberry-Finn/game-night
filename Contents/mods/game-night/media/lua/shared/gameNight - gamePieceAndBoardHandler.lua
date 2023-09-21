@@ -205,44 +205,46 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
         detailsFunc(item)
     end
 
-    if item and worldItemSq then
+    if item then
+        if worldItemSq then
+        
+            local pBD = player:getBodyDamage()
+            pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 
-        local pBD = player:getBodyDamage()
-        pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
+            ---@type IsoWorldInventoryObject|IsoObject
+            local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
+            if placedItem then
 
-        ---@type IsoWorldInventoryObject|IsoObject
-        local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
-        if placedItem then
+                local sound = item:getModData()["gameNight_sound"]
+                if sound then player:getEmitter():playSound(sound) end
 
-            local sound = item:getModData()["gameNight_sound"]
-            if sound then player:getEmitter():playSound(sound) end
+                placedItem:setName(item:getName())
+                placedItem:setKeyId(item:getKeyId())
 
-            placedItem:setName(item:getName())
-            placedItem:setKeyId(item:getKeyId())
+                worldItemSq:getObjects():add(placedItem)
+                worldItemSq:getWorldObjects():add(placedItem)
+                worldItemSq:getChunk():recalcHashCodeObjects()
 
-            worldItemSq:getObjects():add(placedItem)
-            worldItemSq:getWorldObjects():add(placedItem)
-            worldItemSq:getChunk():recalcHashCodeObjects()
+                item:setWorldItem(placedItem)
+                item:setWorldZRotation(0)
 
-            item:setWorldItem(placedItem)
-            item:setWorldZRotation(0)
+                placedItem:addToWorld()
 
-            placedItem:addToWorld()
+                placedItem:setIgnoreRemoveSandbox(true)
+                placedItem:transmitCompleteItemToServer()
 
-            placedItem:setIgnoreRemoveSandbox(true)
-            placedItem:transmitCompleteItemToServer()
-
-            if playerInv:contains(item) then playerInv:Remove(item) end
-
-            local playerNum = player:getPlayerNum()
-
-            local inventory = getPlayerInventory(playerNum)
-            if inventory then inventory:refreshBackpacks() end
-
-            local loot = getPlayerLoot(playerNum)
-            if loot then loot:refreshBackpacks() end
-
+                if playerInv:contains(item) then playerInv:Remove(item) end
+            end
         end
+
+        local playerNum = player:getPlayerNum()
+
+        local inventory = getPlayerInventory(playerNum)
+        if inventory then inventory:refreshBackpacks() end
+
+        local loot = getPlayerLoot(playerNum)
+        if loot then loot:refreshBackpacks() end
+
     end
 
     if isItemTransactionConsistent(item, nil, playerInv) then removeItemTransaction(item, nil, playerInv) end
