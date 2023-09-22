@@ -8,8 +8,8 @@ ItemName_EN = {
     ItemName_Base.CheckersBox = "Checkers Box",
     ItemName_Base.BackgammonBox = "Backgammon Box",
 
-    ItemName_Base.ChessWhite = "White Chess Piece",
-    ItemName_Base.ChessBlack = "Black Chess Piece",
+    ItemName_Base.ChessWhite = "White Pawn Chess Piece",
+    ItemName_Base.ChessBlack = "Black Pawn Chess Piece",
     ItemName_Base.ChessWhiteKing = "White King Chess Piece",
     ItemName_Base.ChessBlackKing = "Black King Chess Piece",
     ItemName_Base.ChessWhiteBishop = "White Bishop Chess Piece",
