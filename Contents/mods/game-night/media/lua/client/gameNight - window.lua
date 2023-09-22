@@ -124,9 +124,9 @@ function gameNightWindow:processMouseUp(old, x, y)
                 end
             end
             self:moveElement(piece, posX, posY)
-
+            
             local shiftAction, _ = gameNightWindow.fetchShiftAction(piece)
-            if shiftAction then shiftAction(piece, self.player) end
+            if shiftAction and gamePieceAndBoardHandler[shiftAction] then gamePieceAndBoardHandler[shiftAction](piece, self.player) end
         end
     end
     old(self, x, y)
@@ -290,10 +290,10 @@ end
 
 
 gameNightWindow.cachedActionIcons = {}
-function gameNightWindow.fetchShiftAction(mouseOver)
+function gameNightWindow.fetchShiftAction(gamePiece)
     --isShiftKeyDown() --isAltKeyDown()
     if not isShiftKeyDown() then return end
-    local fullType = mouseOver.item:getFullType()
+    local fullType = gamePiece:getFullType()
     local specialCase = gamePieceAndBoardHandler.specials[fullType]
     if specialCase and specialCase.shiftAction and specialCase.actions[specialCase.shiftAction] then
         local texture
@@ -302,7 +302,7 @@ function gameNightWindow.fetchShiftAction(mouseOver)
         else
             texture = gameNightWindow.cachedActionIcons[fullType]
         end
-        return specialCase.actions[specialCase.shiftAction], texture
+        return specialCase.shiftAction, texture
     end
 end
 
@@ -354,7 +354,7 @@ function gameNightWindow:render()
         if mouseOver then
             self:labelWithName(mouseOver)
 
-            local _, texture = gameNightWindow.fetchShiftAction(mouseOver)
+            local _, texture = gameNightWindow.fetchShiftAction(mouseOver.item)
             if texture and texture~=true then self:drawTexture(texture, mouseOver.x, mouseOver.y, 1, 1, 1, 1) end
         end
     end
