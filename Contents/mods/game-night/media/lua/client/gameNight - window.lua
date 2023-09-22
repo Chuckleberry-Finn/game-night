@@ -106,7 +106,9 @@ function gameNightWindow:processMouseUp(old, x, y)
         local piece = self.movingPiece
         if piece then
             local posX, posY = self:getMouseX(), self:getMouseY()
+            local isDeck = false
             if deckActionHandler.isDeckItem(piece) then
+                isDeck = true
                 local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
                 local placeX, placeY = x-offsetX, y-offsetY
                 local selection
@@ -126,7 +128,16 @@ function gameNightWindow:processMouseUp(old, x, y)
             self:moveElement(piece, posX, posY)
             
             local shiftAction, _ = gameNightWindow.fetchShiftAction(piece)
-            if shiftAction and gamePieceAndBoardHandler[shiftAction] then gamePieceAndBoardHandler[shiftAction](piece, self.player) end
+            if shiftAction then
+
+                if isDeck and deckActionHandler[shiftAction] then
+                    deckActionHandler[shiftAction](piece, self.player)
+                end
+
+                if gamePieceAndBoardHandler[shiftAction] then
+                    gamePieceAndBoardHandler[shiftAction](piece, self.player)
+                end
+            end
         end
     end
     old(self, x, y)
@@ -293,16 +304,21 @@ gameNightWindow.cachedActionIcons = {}
 function gameNightWindow.fetchShiftAction(gamePiece)
     --isShiftKeyDown() --isAltKeyDown()
     if not isShiftKeyDown() then return end
-    local fullType = gamePiece:getFullType()
-    local specialCase = gamePieceAndBoardHandler.specials[fullType]
-    if specialCase and specialCase.shiftAction and specialCase.actions[specialCase.shiftAction] then
-        local texture
-        if not gameNightWindow.cachedActionIcons[fullType] then
-            gameNightWindow.cachedActionIcons[fullType] = getTexture("media/textures/actionIcons/"..specialCase.shiftAction..".png") or true
-        else
-            texture = gameNightWindow.cachedActionIcons[fullType]
+
+    local specialCase = gamePieceAndBoardHandler.specials[gamePiece:getFullType()]
+    local shiftActionID = specialCase and specialCase.shiftAction
+
+    local deckStates, flippedStates = deckActionHandler.getDeckStates(gamePiece)
+    if (not specialCase) and deckStates then
+        shiftActionID = (#deckStates <= 1) and "flipCard" or "dealCard"
+    end
+    
+    if shiftActionID then
+        if not gameNightWindow.cachedActionIcons[shiftActionID] then
+            gameNightWindow.cachedActionIcons[shiftActionID] = getTexture("media/textures/actionIcons/"..shiftActionID..".png") or true
         end
-        return specialCase.shiftAction, texture
+        local texture = gameNightWindow.cachedActionIcons[shiftActionID]
+        return shiftActionID, texture
     end
 end
 
