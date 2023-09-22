@@ -55,7 +55,7 @@ end
 function donationSystem.display()
 
     local rand = ZombRand(2)+1
-    donationSystem.texture = donationSystem.texture or getTexture("media/textures/gamenightDonate"..rand..".png")
+    donationSystem.texture = donationSystem.texture or getTexture("media/textures/gamenightDonate/"..rand..".png")
 
     local textManager = getTextManager()
     donationSystem.headerFont = UIFont.NewLarge

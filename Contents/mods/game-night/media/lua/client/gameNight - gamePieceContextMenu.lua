@@ -7,12 +7,12 @@ require "gameNight - window"
 local gamePieceContext = {}
 
 gamePieceContext.gameNightContextMenuIcon = {
-    play=getTexture("media/textures/gamenight_icon.png"),
-    deal=getTexture("media/textures/dealCard.png"),
-    draw=getTexture("media/textures/drawCard.png"),
-    drawRand=getTexture("media/textures/drawRandCard.png"),
-    search=getTexture("media/textures/searchCards.png"),
-    flip=getTexture("media/textures/flipCard.png"),
+    play=getTexture("media/textures/actionIcons/gamenight_icon.png"),
+    deal=getTexture("media/textures/actionIcons/dealCard.png"),
+    draw=getTexture("media/textures/actionIcons/drawCard.png"),
+    drawRand=getTexture("media/textures/actionIcons/drawRandCard.png"),
+    search=getTexture("media/textures/actionIcons/searchCards.png"),
+    flip=getTexture("media/textures/actionIcons/flipCard.png"),
 }
 
 
