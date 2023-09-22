@@ -27,23 +27,23 @@ module Base
     {
         mesh = WorldItems/BackgammonBoard,
         texture = Item_InPlayTextures/BackgammonBoard,
-        scale = 0.4,
-        attachment world { offset = -0.2 -0.0500 0.2, rotate = 0.0000 0.0000 0.0000, }
+		scale = 0.48,
+		attachment world { offset = -0.215 -0.0700 0.245, rotate = 0.0000 0.0000 0.0000, }
     }
 
     model CheckerBoard_Ground
     {
         mesh = WorldItems/CheckerBoard,
         texture = Item_InPlayTextures/CheckerBoard,
-        scale = 0.4,
-        attachment world { offset = -0.2 -0.0500 0.2, rotate = 0.0000 0.0000 0.0000, }
+		scale = 0.48,
+		attachment world { offset = -0.215 -0.0700 0.245, rotate = 0.0000 0.0000 0.0000, }
     }
 
 	model ChessBoard_Ground
 	{
 		mesh = WorldItems/CheckerBoard,
 		texture = Item_InPlayTextures/ChessBoard,
-		scale = 0.4,
-		attachment world { offset = -0.2 -0.0500 0.2, rotate = 0.0000 0.0000 0.0000, }
+		scale = 0.48,
+		attachment world { offset = -0.215 -0.0700 0.245, rotate = 0.0000 0.0000 0.0000, }
 	}
 }
