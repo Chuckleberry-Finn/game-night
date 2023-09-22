@@ -114,7 +114,7 @@ function gameNightWindow:processMouseUp(old, x, y)
                 local selection
                 for _,element in pairs(self.elements) do
                     if (element.item~=piece) and deckActionHandler.isDeckItem(element.item) then
-                        local inBounds = (math.abs(element.x-placeX) <= 4) and (math.abs(element.y-placeY) <= 4)
+                        local inBounds = (math.abs(element.x-placeX) <= 5) and (math.abs(element.y-placeY) <= 5)
                         if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
                     end
                 end
@@ -366,8 +366,23 @@ function gameNightWindow:render()
         local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
         local x, y = self:getMouseX()-(offsetX), self:getMouseY()-(offsetY)
         self:drawTexture(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), 0.55, 1, 1, 1)
-        local _, shiftActionTexture = gameNightWindow.fetchShiftAction(movingElement)
-        if shiftActionTexture and shiftActionTexture~=true then self:drawTexture(shiftActionTexture, x, y, 0.65, 1, 1, 1) end
+
+        local selection
+        for _,element in pairs(self.elements) do
+            if (element.item~=movingElement) and deckActionHandler.isDeckItem(element.item) then
+                local inBounds = (math.abs(element.x-x) <= 5) and (math.abs(element.y-y) <= 5)
+                if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
+            end
+        end
+        if selection then
+            gameNightWindow.cachedActionIcons.mergeCards = gameNightWindow.cachedActionIcons.mergeCards or getTexture("media/textures/actionIcons/mergeCards.png")
+            local mergeCards = gameNightWindow.cachedActionIcons.mergeCards
+            self:drawTexture(mergeCards, x, y, 0.65, 1, 1, 1)
+        else
+            local _, shiftActionTexture = gameNightWindow.fetchShiftAction(movingElement)
+            if shiftActionTexture and shiftActionTexture~=true then self:drawTexture(shiftActionTexture, x, y, 0.65, 1, 1, 1) end
+        end
+
     else
         local mouseOver = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if mouseOver then
