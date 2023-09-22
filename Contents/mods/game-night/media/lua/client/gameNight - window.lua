@@ -312,7 +312,7 @@ function gameNightWindow.fetchShiftAction(gamePiece)
     if (not specialCase) and deckStates then
         shiftActionID = (#deckStates <= 1) and "flipCard" or "dealCard"
     end
-    
+
     if shiftActionID then
         if not gameNightWindow.cachedActionIcons[shiftActionID] then
             gameNightWindow.cachedActionIcons[shiftActionID] = getTexture("media/textures/actionIcons/"..shiftActionID..".png") or true
@@ -364,14 +364,17 @@ function gameNightWindow:render()
         if not isMouseButtonDown(0) then return end
         local texture = movingElement:getModData()["gameNight_textureInPlay"] or movingElement:getTexture()
         local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
+        local x, y = self:getMouseX()-(offsetX), self:getMouseY()-(offsetY)
         self:drawTexture(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), 0.55, 1, 1, 1)
+        local _, shiftActionTexture = gameNightWindow.fetchShiftAction(movingElement)
+        if shiftActionTexture and shiftActionTexture~=true then self:drawTexture(shiftActionTexture, x, y, 0.65, 1, 1, 1) end
     else
         local mouseOver = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if mouseOver then
             self:labelWithName(mouseOver)
 
             local _, texture = gameNightWindow.fetchShiftAction(mouseOver.item)
-            if texture and texture~=true then self:drawTexture(texture, mouseOver.x, mouseOver.y, 1, 1, 1, 1) end
+            if texture and texture~=true then self:drawTexture(texture, mouseOver.x, mouseOver.y, 0.75, 1, 1, 1) end
         end
     end
 end
