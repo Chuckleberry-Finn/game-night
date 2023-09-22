@@ -124,6 +124,9 @@ function gameNightWindow:processMouseUp(old, x, y)
                 end
             end
             self:moveElement(piece, posX, posY)
+
+            local shiftAction, _ = gameNightWindow.fetchShiftAction(piece)
+            if shiftAction then shiftAction(piece, self.player) end
         end
     end
     old(self, x, y)
@@ -159,7 +162,7 @@ function gameNightWindow:onRightMouseDown(x, y)
     ISPanelJoypad.onRightMouseDown(x, y)
 end
 
-
+--isShiftKeyDown() --isAltKeyDown()
 function gameNightWindow:onMouseDown(x, y)
     if self:isVisible() then
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
@@ -286,6 +289,24 @@ function gameNightWindow:prerender()
 end
 
 
+gameNightWindow.cachedActionIcons = {}
+function gameNightWindow.fetchShiftAction(mouseOver)
+    --isShiftKeyDown() --isAltKeyDown()
+    if not isShiftKeyDown() then return end
+    local fullType = mouseOver.item:getFullType()
+    local specialCase = gamePieceAndBoardHandler.specials[fullType]
+    if specialCase and specialCase.shiftAction and specialCase.actions[specialCase.shiftAction] then
+        local texture
+        if not gameNightWindow.cachedActionIcons[fullType] then
+            gameNightWindow.cachedActionIcons[fullType] = getTexture("media/textures/actionIcons/"..specialCase.shiftAction..".png") or true
+        else
+            texture = gameNightWindow.cachedActionIcons[fullType]
+        end
+        return specialCase.actions[specialCase.shiftAction], texture
+    end
+end
+
+
 function gameNightWindow:render()
     ISPanelJoypad.render(self)
     local movingElement = self.movingPiece
@@ -311,7 +332,7 @@ function gameNightWindow:render()
     self.elements = {}
     for priority,stuff in pairs(loadOrder) do self:generateElement(stuff.item, stuff.object, priority) end
 
-    gameNightWindow.cursor = gameNightWindow.cursor or getTexture("media/textures/gamenight_cursor.png")
+    gameNightWindow.cursor = gameNightWindow.cursor or getTexture("media/textures/actionIcons/gamenight_cursor.png")
     gameNightWindow.cursorW = gameNightWindow.cursorW or gameNightWindow.cursor:getWidth()
     gameNightWindow.cursorH = gameNightWindow.cursorH or gameNightWindow.cursor:getHeight()
 
@@ -330,7 +351,12 @@ function gameNightWindow:render()
         self:drawTexture(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), 0.55, 1, 1, 1)
     else
         local mouseOver = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
-        if mouseOver then self:labelWithName(mouseOver) end
+        if mouseOver then
+            self:labelWithName(mouseOver)
+
+            local _, texture = gameNightWindow.fetchShiftAction(mouseOver)
+            if texture and texture~=true then self:drawTexture(texture, mouseOver.x, mouseOver.y, 1, 1, 1, 1) end
+        end
     end
 end
 

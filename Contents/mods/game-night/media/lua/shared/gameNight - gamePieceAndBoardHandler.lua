@@ -35,11 +35,25 @@ function gamePieceAndBoardHandler.generate_itemTypes()
 end
 
 gamePieceAndBoardHandler.specials = {
-    ["Base.Dice"]={ category = "Die", actions = { rollDie=6 }, },
-    ["Base.DiceWhite"]={ category = "Die", actions = { rollDie=6 }, },
+    ["Base.Dice"]={
+        category = "Die",
+        actions = { rollDie=6 },
+        shiftAction = "rollDie",
+    },
+    ["Base.DiceWhite"]={
+        category = "Die",
+        actions = { rollDie=6 },
+        shiftAction = "rollDie",
+    },
 
-    ["Base.GamePieceRed"]={ actions = { flipPiece=true } },
-    ["Base.GamePieceBlack"]={ actions = { flipPiece=true } },
+    ["Base.GamePieceRed"]={
+        actions = { flipPiece=true },
+        shiftAction = "flipPiece",
+    },
+    ["Base.GamePieceBlack"]={
+        actions = { flipPiece=true },
+        shiftAction = "flipPiece",
+    },
 
     ["Base.BackgammonBoard"]={ category = "GameBoard" },
     ["Base.CheckerBoard"]={ category = "GameBoard" },
@@ -102,6 +116,7 @@ end
 function gamePieceAndBoardHandler.handleDetails(gamePiece)
 
     local fullType = gamePiece:getFullType()
+
     if not gamePieceAndBoardHandler._itemTypes then gamePieceAndBoardHandler.generate_itemTypes() end
     if not gamePieceAndBoardHandler._itemTypes[fullType] then return end
 
@@ -207,7 +222,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
     if item then
         if worldItemSq then
-        
+
             local pBD = player:getBodyDamage()
             pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 
@@ -252,7 +267,11 @@ end
 
 
 function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
-    sides = sides or 6
+
+    local fullType = gamePiece:getFullType()
+    local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
+    sides = sides or (specialCase and specialCase.actions and specialCase.actions.rollDie)
+
     local result = ZombRand(sides)+1
     result = result>1 and result or ""
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})

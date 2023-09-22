@@ -48,10 +48,25 @@ gamePieceAndBoardHandler.registerTypes({
 --- This `special` case changes the category from `GamePiece` to `GameBoard`.
 gamePieceAndBoardHandler.registerSpecial("Base.CatanBoard", { category = "GameBoard" })
 
-gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadWhite", { actions = { rotatePiece=true } })
-gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadRed", { actions = { rotatePiece=true } })
-gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadBlue", { actions = { rotatePiece=true } })
-gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", { actions = { rotatePiece=true } })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadWhite", {
+    actions = { rotatePiece=true },
+    shiftAction = "rotatePiece",
+})
+
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadRed", {
+    actions = { rotatePiece=true },
+    shiftAction = "rotatePiece",
+})
+
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadBlue", {
+    actions = { rotatePiece=true },
+    shiftAction = "rotatePiece",
+})
+
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", {
+    actions = { rotatePiece=true },
+    shiftAction = "rotatePiece",
+})
 
 
 ---Define new function under `gamePieceAndBoardHandler`
