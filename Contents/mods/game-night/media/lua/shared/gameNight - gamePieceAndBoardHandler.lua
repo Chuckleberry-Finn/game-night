@@ -186,7 +186,7 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item, justPickUp)
     playerInv:setDrawDirty(true)
     playerInv:AddItem(item)
 
-    return true, zPos, xOffset, yOffset
+    return zPos, xOffset, yOffset
 end
 
 
@@ -203,8 +203,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     ---@type IsoGridSquare
     local worldItemSq = worldItem and worldItem:getSquare()
 
-    local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item)
-    if not pickedUp and isItemTransactionConsistent(item, nil, playerInv) then removeItemTransaction(item, nil, playerInv) end
+    local x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item)
 
     zPos = zPos or x or 0
     xOffset = xOffset or y or 0
@@ -216,11 +215,13 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
         local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = onCompleteFuncArgs[2], onCompleteFuncArgs[3], onCompleteFuncArgs[4], onCompleteFuncArgs[5], onCompleteFuncArgs[6], onCompleteFuncArgs[7], onCompleteFuncArgs[8], onCompleteFuncArgs[9]
         func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 
-        detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
-        detailsFunc(item)
     end
 
     if item then
+        
+        detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
+        detailsFunc(item)
+
         if worldItemSq then
 
             local pBD = player:getBodyDamage()
