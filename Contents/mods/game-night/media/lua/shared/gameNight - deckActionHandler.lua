@@ -3,6 +3,8 @@ require "gameNight - window"
 
 local deckActionHandler = {}
 
+deckActionHandler.staticDeckActions = {dealCard=true}
+
 function deckActionHandler.isDeckItem(deckItem)
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
     if deckData then return true end
@@ -74,9 +76,6 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
         local wiX = (locations and locations.offsets and locations.offsets.x) or (worldItem and (worldItem:getWorldPosX()-worldItem:getX())) or 0
         local wiY = (locations and locations.offsets and locations.offsets.y) or (worldItem and (worldItem:getWorldPosY()-worldItem:getY())) or 0
         local wiZ = (locations and locations.offsets and locations.offsets.z) or (worldItem and (worldItem:getWorldPosZ()-worldItem:getZ())) or 0
-
-        wiX = wiX+ZombRandFloat(-0.1,0.1)
-        wiY = wiY+ZombRandFloat(-0.1,0.1)
 
         ---@type IsoGridSquare
         local sq = (locations and locations.sq) or (worldItem and worldItem:getSquare())
@@ -182,12 +181,14 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
         table.insert(drawnFlippedStates, drawnFlip)
     end
 
+    local newCards = {}
     for n,card in pairs(drawnCards) do
         gamePieceAndBoardHandler.playSound(deckItem, player)
         local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n], locations)
+        table.insert(newCards, newCard)
     end
 
-    return drawnCards, drawnFlippedStates
+    return newCards
 end
 ---@param deckItem InventoryItem
 function deckActionHandler.drawCards(num, deckItem, player, locations)
@@ -196,16 +197,18 @@ end
 function deckActionHandler.drawCard(deckItem, player)
     deckActionHandler.drawCards(1, deckItem, player)
 end
-function deckActionHandler.dealCard(deckItem, player)
+function deckActionHandler.dealCard(deckItem, player, x, y)
 
     local worldItem, container = deckItem:getWorldItem(), deckItem:getContainer()
-    local wiX = worldItem and (worldItem:getWorldPosX()-worldItem:getX()) or 0
-    local wiY = worldItem and (worldItem:getWorldPosY()-worldItem:getY()) or 0
-    local wiZ = worldItem and (worldItem:getWorldPosZ()-worldItem:getZ()) or 0
+    x = x or worldItem and (worldItem:getWorldPosX()-worldItem:getX()) or 0
+    y = y or worldItem and (worldItem:getWorldPosY()-worldItem:getY()) or 0
+    local z = worldItem and (worldItem:getWorldPosZ()-worldItem:getZ()) or 0
     ---@type IsoGridSquare
     local sq = (worldItem and worldItem:getSquare()) or (gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square)
     
-    deckActionHandler.drawCards(1, deckItem, player, { sq=sq, offsets={x=wiX,y=wiY,z=wiZ}, container=container })
+    deckActionHandler.drawCards(1, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z}, container=container })
+
+    return false
 end
 
 function deckActionHandler._drawCardIndex(deckItem, drawIndex)

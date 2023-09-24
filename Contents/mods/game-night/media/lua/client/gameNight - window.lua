@@ -125,19 +125,23 @@ function gameNightWindow:processMouseUp(old, x, y)
                     return
                 end
             end
-            self:moveElement(piece, posX, posY)
-            
+
+            local moveDeckItem = true
             local shiftAction, _ = gameNightWindow.fetchShiftAction(piece)
             if shiftAction then
 
                 if isDeck and deckActionHandler[shiftAction] then
-                    deckActionHandler[shiftAction](piece, self.player)
+                    moveDeckItem = (not deckActionHandler.staticDeckActions[shiftAction])
+                    local rX, rY = self:determineScaledWorldXY(posX, posY)
+                    deckActionHandler[shiftAction](piece, self.player, rX, rY)
                 end
 
                 if gamePieceAndBoardHandler[shiftAction] then
                     gamePieceAndBoardHandler[shiftAction](piece, self.player)
                 end
             end
+
+            if moveDeckItem then self:moveElement(piece, posX, posY) end
         end
     end
     old(self, x, y)
@@ -199,15 +203,7 @@ function gameNightWindow:onMouseDown(x, y)
 end
 
 
-function gameNightWindow:moveElement(gamePiece, x, y)
-
-    if not self.movingPiece or gamePiece~=self.movingPiece then return end
-    self.movingPiece = nil
-
-    ---@type IsoObject|InventoryItem
-    local item = gamePiece
-    if not item then return end
-
+function gameNightWindow:determineScaledWorldXY(x, y)
     local offsetX = self.movingPieceOffset and self.movingPieceOffset[1] or 0
     local offsetY = self.movingPieceOffset and self.movingPieceOffset[2] or 0
     local offsetZ = self.movingPieceOffset and self.movingPieceOffset[3] or 0
@@ -223,6 +219,21 @@ function gameNightWindow:moveElement(gamePiece, x, y)
     local boundsDifference = self.padding*2
     local scaledX = (newX/(self.width-boundsDifference))
     local scaledY = (newY/(self.height-boundsDifference))
+
+    return scaledX, scaledY, offsetZ
+end
+
+
+function gameNightWindow:moveElement(gamePiece, x, y)
+
+    if not self.movingPiece or gamePiece~=self.movingPiece then return end
+    self.movingPiece = nil
+
+    ---@type IsoObject|InventoryItem
+    local item = gamePiece
+    if not item then return end
+
+    local scaledX, scaledY, offsetZ = self:determineScaledWorldXY(x, y)
 
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, nil, nil, scaledX, scaledY, offsetZ)
 
