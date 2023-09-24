@@ -195,7 +195,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     ---@type ItemContainer
     local playerInv = player:getInventory()
 
-    if isItemTransactionConsistent(item, nil, playerInv) then return end
+    if not isItemTransactionConsistent(item, nil, playerInv) then return end
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
