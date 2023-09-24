@@ -132,10 +132,6 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
     local icon = Texture.trygetTexture(iconPath)
     if icon then gamePiece:setTexture(icon) end
 
-    if isClient() then
-        local worldItem = gamePiece:getWorldItem()
-        if worldItem then worldItem:transmitModData() end
-    end
 end
 
 
@@ -251,6 +247,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
                 placedItem:setIgnoreRemoveSandbox(true)
                 placedItem:transmitCompleteItemToServer()
+                placedItem:transmitModData()
 
                 if playerInv:contains(item) then playerInv:Remove(item) end
             end

@@ -56,10 +56,6 @@ function deckActionHandler.handleDetails(deckItem)
 
     if texture then deckItem:setTexture(texture) end
 
-    if isClient() then
-        local worldItem = deckItem:getWorldItem()
-        if worldItem then worldItem:transmitModData() end
-    end
 end
 
 
