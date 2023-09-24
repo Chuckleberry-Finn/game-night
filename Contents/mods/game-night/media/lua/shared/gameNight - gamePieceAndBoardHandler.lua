@@ -156,8 +156,6 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item, justPickUp)
     ---@type ItemContainer
     local playerInv = player:getInventory()
 
-    if not justPickUp and not isItemTransactionConsistent(item, nil, playerInv) then return end
-
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
     ---@type IsoGridSquare
@@ -170,8 +168,6 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item, justPickUp)
 
     if worldItemSq and playerSq and worldItemSq:isBlockedTo(playerSq) then return end
     if not worldItemSq:getWorldObjects():contains(worldItem) then return end
-
-    if not justPickUp then createItemTransaction(item, nil, playerInv) end
 
     local zPos = worldItem and worldItem:getWorldPosZ()-worldItem:getZ() or 0
     local xOffset = worldItem and worldItem:getWorldPosX()-worldItem:getX() or 0
@@ -198,12 +194,19 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
     ---@type ItemContainer
     local playerInv = player:getInventory()
+
+    if isItemTransactionConsistent(item, nil, playerInv) then return end
+
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
     ---@type IsoGridSquare
     local worldItemSq = worldItem and worldItem:getSquare()
 
     local x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item)
+
+    if playerInv:contains(item) then
+        createItemTransaction(item, nil, playerInv)
+    end
 
     zPos = zPos or x or 0
     xOffset = xOffset or y or 0
