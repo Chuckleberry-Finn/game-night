@@ -116,9 +116,8 @@ function gameNightWindow:processMouseUp(old, x, y)
     if not self.moveWithMouse then
         local piece = self.movingPiece
 
-        if piece and self.movePieceLastMoved ~= piece:getModData().gameNight_lastMoved then piece = nil end
-
-        if piece then
+        
+        if piece and self.movePieceLastMoved == piece:getModData().gameNight_lastMoved then
 
             local posX, posY = self:getMouseX(), self:getMouseY()
             local isDeck = false
