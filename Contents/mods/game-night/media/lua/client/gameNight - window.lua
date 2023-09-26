@@ -11,10 +11,6 @@ function gameNightWindow:update()
         self:closeAndRemove()
         return
     end
-
-    if self.movingPiece and self.movePieceLastMoved ~= self.movingPiece:getModData().gameNight_lastMoved then
-        self:clearMovingPiece()
-    end
 end
 
 function gameNightWindow:initialise()
@@ -108,7 +104,6 @@ end
 function gameNightWindow:clearMovingPiece(x, y)
     if x and y then self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2)) end
     self.movingPiece = nil
-    self.movePieceLastMoved = nil
 end
 
 
@@ -116,8 +111,7 @@ function gameNightWindow:processMouseUp(old, x, y)
     if not self.moveWithMouse then
         local piece = self.movingPiece
 
-        
-        if piece and self.movePieceLastMoved == piece:getModData().gameNight_lastMoved then
+        if piece then
 
             local posX, posY = self:getMouseX(), self:getMouseY()
             local isDeck = false
@@ -197,14 +191,18 @@ function gameNightWindow:onMouseDown(x, y)
     if self:isVisible() then
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn then
-
             self.movingPiece = clickedOn.item
-            clickedOn.item:getModData().gameNight_lastMoved = getTimestamp()
-            self.movePieceLastMoved = clickedOn.item:getModData().gameNight_lastMoved
-
+            ---@type IsoWorldInventoryObject|IsoObject
             local worldItemObj = clickedOn.item:getWorldItem()
             local oldZ = 0
             if worldItemObj then
+
+                local inUse = worldItemObj:getModData().gameNightInUseBy
+                local verifiedInUse = inUse and getPlayerFromUsername(inUse)
+                if inUse and verifiedInUse then return end
+
+                worldItemObj:getModData().gameNightInUseBy = self.player:getUsername()
+                worldItemObj:transmitModData()
                 oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
 
                 self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}
@@ -441,7 +439,7 @@ end
 function gameNightWindow:closeAndRemove()
     self:setVisible(false)
     self.elements = {}
-    self.movingPiece = nil
+    self:clearMovingPiece()
     self:removeFromUIManager()
     if gameNightWindow.instance == self then gameNightWindow.instance = nil end
 end
