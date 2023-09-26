@@ -199,6 +199,7 @@ function gameNightWindow:onMouseDown(x, y)
         if clickedOn then
 
             self.movingPiece = clickedOn.item
+            clickedOn.item:getModData().gameNight_lastMoved = getTimestamp()
             self.movePieceLastMoved = clickedOn.item:getModData().gameNight_lastMoved
 
             local worldItemObj = clickedOn.item:getWorldItem()
