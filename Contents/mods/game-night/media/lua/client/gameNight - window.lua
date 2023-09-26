@@ -104,7 +104,7 @@ end
 function gameNightWindow:processMouseUp(old, x, y)
     if not self.moveWithMouse then
         local piece = self.movingPiece
-        if piece then
+        if piece and isItemTransactionConsistent(piece, nil, self.player:getInventory()) then
             local posX, posY = self:getMouseX(), self:getMouseY()
             local isDeck = false
             if deckActionHandler.isDeckItem(piece) then
@@ -172,7 +172,11 @@ end
 function gameNightWindow:onRightMouseDown(x, y)
     if self:isVisible() then
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
-        if clickedOn then self:onContextSelection(clickedOn, x, y) end
+        if clickedOn then
+            if isItemTransactionConsistent(clickedOn.item, nil, self.player:getInventory()) then
+                self:onContextSelection(clickedOn, x, y)
+            end
+        end
     end
     ISPanelJoypad.onRightMouseDown(x, y)
 end
@@ -182,17 +186,21 @@ function gameNightWindow:onMouseDown(x, y)
     if self:isVisible() then
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn then
-            self.movingPiece = clickedOn.item
+            if isItemTransactionConsistent(clickedOn.item, nil, self.player:getInventory()) then
+                self.movingPiece = clickedOn.item
 
-            local worldItemObj = clickedOn.item:getWorldItem()
-            local oldZ = 0
-            if worldItemObj then
-                oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
+                createItemTransaction(self.movingPiece, nil, self.player:getInventory())
 
-                self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}
-                self.moveWithMouse = false
+                local worldItemObj = clickedOn.item:getWorldItem()
+                local oldZ = 0
+                if worldItemObj then
+                    oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
 
-                --ISTimedActionQueue.add(ISGrabItemAction:new(self.player, worldItemObj, 1))
+                    self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}
+                    self.moveWithMouse = false
+
+                    --ISTimedActionQueue.add(ISGrabItemAction:new(self.player, worldItemObj, 1))
+                end
             end
 
         else
@@ -411,6 +419,11 @@ function gameNightWindow:labelWithName(element)
     if sandbox and (not self.movingPiece) then
         local nameTag = (element.item and element.item:getName())
         if nameTag then
+
+            if not isItemTransactionConsistent(element.item, nil, self.player:getInventory()) then
+                nameTag = nameTag.." [In Use]"
+            end
+
             local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
             local nameTagHeight = getTextManager():getFontHeight(UIFont.NewSmall)
 

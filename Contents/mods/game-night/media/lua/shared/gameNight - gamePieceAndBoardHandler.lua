@@ -200,9 +200,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
     local x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item)
 
-    if playerInv:contains(item) then
-        createItemTransaction(item, nil, playerInv)
-    end
+    --if playerInv:contains(item) then createItemTransaction(item, nil, playerInv) end
 
     zPos = zPos or x or 0
     xOffset = xOffset or y or 0
@@ -263,7 +261,9 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
     end
 
-    if isItemTransactionConsistent(item, nil, playerInv) then removeItemTransaction(item, nil, playerInv) end
+    if isItemTransactionConsistent(item, nil, playerInv) then
+        removeItemTransaction(item, nil, playerInv)
+    end
 end
 
 
