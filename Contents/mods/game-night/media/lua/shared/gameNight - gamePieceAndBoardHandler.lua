@@ -191,8 +191,6 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     ---@type ItemContainer
     local playerInv = player:getInventory()
 
-    if not isItemTransactionConsistent(item, nil, playerInv) then return end
-
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
     ---@type IsoGridSquare
@@ -200,7 +198,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
     local x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item)
 
-    --if playerInv:contains(item) then createItemTransaction(item, nil, playerInv) end
+    item:getModData().gameNight_lastMoved = getTimestamp()
 
     zPos = zPos or x or 0
     xOffset = xOffset or y or 0
@@ -259,10 +257,6 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
         local loot = getPlayerLoot(playerNum)
         if loot then loot:refreshBackpacks() end
 
-    end
-
-    if isItemTransactionConsistent(item, nil, playerInv) then
-        removeItemTransaction(item, nil, playerInv)
     end
 end
 

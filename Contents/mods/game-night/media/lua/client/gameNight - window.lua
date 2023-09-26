@@ -11,6 +11,10 @@ function gameNightWindow:update()
         self:closeAndRemove()
         return
     end
+
+    if self.movingPiece and self.movePieceLastMoved ~= self.movingPiece:getModData().gameNight_lastMoved then
+        self:clearMovingPiece()
+    end
 end
 
 function gameNightWindow:initialise()
@@ -101,10 +105,21 @@ function gameNightWindow:dropItemsOn(x, y)
 end
 
 
+function gameNightWindow:clearMovingPiece(x, y)
+    if x and y then self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2)) end
+    self.movingPiece = nil
+    self.movePieceLastMoved = nil
+end
+
+
 function gameNightWindow:processMouseUp(old, x, y)
     if not self.moveWithMouse then
         local piece = self.movingPiece
-        if piece and isItemTransactionConsistent(piece, nil, self.player:getInventory()) then
+
+        if piece and self.movePieceLastMoved ~= piece:getModData().gameNight_lastMoved then piece = nil end
+
+        if piece then
+
             local posX, posY = self:getMouseX(), self:getMouseY()
             local isDeck = false
             if deckActionHandler.isDeckItem(piece) then
@@ -120,8 +135,7 @@ function gameNightWindow:processMouseUp(old, x, y)
                 end
                 if selection then
                     deckActionHandler.mergeDecks(piece, selection.item, self.player)
-                    self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
-                    self.movingPiece = nil
+                    self:clearMovingPiece(x, y)
                     return
                 end
             end
@@ -145,8 +159,7 @@ function gameNightWindow:processMouseUp(old, x, y)
         end
     end
     old(self, x, y)
-    self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
-    self.movingPiece = nil
+    self:clearMovingPiece(x, y)
 end
 
 
@@ -173,36 +186,31 @@ function gameNightWindow:onRightMouseDown(x, y)
     if self:isVisible() then
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn then
-            if isItemTransactionConsistent(clickedOn.item, nil, self.player:getInventory()) then
-                self:onContextSelection(clickedOn, x, y)
-            end
+            self:onContextSelection(clickedOn, x, y)
         end
     end
     ISPanelJoypad.onRightMouseDown(x, y)
 end
+
 
 --isShiftKeyDown() --isAltKeyDown()
 function gameNightWindow:onMouseDown(x, y)
     if self:isVisible() then
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn then
-            if isItemTransactionConsistent(clickedOn.item, nil, self.player:getInventory()) then
-                self.movingPiece = clickedOn.item
 
-                createItemTransaction(self.movingPiece, nil, self.player:getInventory())
+            self.movingPiece = clickedOn.item
+            self.movePieceLastMoved = clickedOn.item:getModData().gameNight_lastMoved
 
-                local worldItemObj = clickedOn.item:getWorldItem()
-                local oldZ = 0
-                if worldItemObj then
-                    oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
+            local worldItemObj = clickedOn.item:getWorldItem()
+            local oldZ = 0
+            if worldItemObj then
+                oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
 
-                    self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}
-                    self.moveWithMouse = false
+                self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}
+                self.moveWithMouse = false
 
-                    --ISTimedActionQueue.add(ISGrabItemAction:new(self.player, worldItemObj, 1))
-                end
             end
-
         else
             self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
         end
@@ -235,7 +243,6 @@ end
 function gameNightWindow:moveElement(gamePiece, x, y)
 
     if not self.movingPiece or gamePiece~=self.movingPiece then return end
-    self.movingPiece = nil
 
     ---@type IsoObject|InventoryItem
     local item = gamePiece
@@ -419,10 +426,6 @@ function gameNightWindow:labelWithName(element)
     if sandbox and (not self.movingPiece) then
         local nameTag = (element.item and element.item:getName())
         if nameTag then
-
-            if not isItemTransactionConsistent(element.item, nil, self.player:getInventory()) then
-                nameTag = nameTag.." [In Use]"
-            end
 
             local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
             local nameTagHeight = getTextManager():getFontHeight(UIFont.NewSmall)
