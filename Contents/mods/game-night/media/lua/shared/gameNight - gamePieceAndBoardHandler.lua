@@ -211,7 +211,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     end
 
     if item then
-        item:getModData().gameNight_lastMoved = getTimestamp()
+
         detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
         detailsFunc(item)
 
