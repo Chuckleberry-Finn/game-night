@@ -198,8 +198,6 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
     local x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item)
 
-    item:getModData().gameNight_lastMoved = getTimestamp()
-
     zPos = zPos or x or 0
     xOffset = xOffset or y or 0
     yOffset = yOffset or z or 0
@@ -213,7 +211,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     end
 
     if item then
-        
+        item:getModData().gameNight_lastMoved = getTimestamp()
         detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
         detailsFunc(item)
 
