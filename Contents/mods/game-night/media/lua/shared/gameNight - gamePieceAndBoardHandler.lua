@@ -178,6 +178,11 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item, justPickUp)
     playerInv:setDrawDirty(true)
     playerInv:AddItem(item)
 
+    local playerNum = player:getPlayerNum()
+    local pdata = getPlayerData(playerNum)
+    if pdata ~= nil then ISInventoryPage.renderDirty = true end
+
+
     return zPos, xOffset, yOffset
 end
 
@@ -185,10 +190,13 @@ end
 ---@param item InventoryItem
 ---@param xOffset number
 ---@param yOffset number
-function gamePieceAndBoardHandler.placeGamePiece(item, worldItemSq, xOffset, yOffset, zPos)
+function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOffset, zPos)
     ---@type IsoWorldInventoryObject|IsoObject
     local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
     if placedItem then
+
+        local playerInv = player:getInventory()
+        playerInv:setDrawDirty(true)
 
         placedItem:setName(item:getName())
         placedItem:setKeyId(item:getKeyId())
@@ -244,17 +252,18 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
         detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
         detailsFunc(item)
 
+        local itemCont = item:getContainer()
+        if itemCont then itemCont:Remove(item) end
+
         if worldItemSq then
 
             local pBD = player:getBodyDamage()
             pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 
-            if playerInv:contains(item) then playerInv:Remove(item) end
-
             local sound = item:getModData()["gameNight_sound"]
             if sound then player:getEmitter():playSound(sound) end
 
-            gamePieceAndBoardHandler.placeGamePiece(item, worldItemSq, xOffset, yOffset, zPos)
+            gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOffset, zPos)
         end
 
 

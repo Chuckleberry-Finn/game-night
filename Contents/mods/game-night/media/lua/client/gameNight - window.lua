@@ -111,7 +111,6 @@ end
 function gameNightWindow:clearMovingPiece(x, y)
     if x and y then self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2)) end
     self.movingPiece = nil
-    print("clearing moving piece")
 end
 
 
