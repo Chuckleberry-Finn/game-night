@@ -1,0 +1,6 @@
+name=Game Night - Monopoly
+id=gamenight_Monopoly
+description=
+poster=poster.png
+require=gamenight
+
