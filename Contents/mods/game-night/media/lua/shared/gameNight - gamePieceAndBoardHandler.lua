@@ -182,17 +182,45 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item, justPickUp)
 end
 
 
+---@param item InventoryItem
+---@param xOffset number
+---@param yOffset number
+function gamePieceAndBoardHandler.placeGamePiece(item, worldItemSq, xOffset, yOffset, zPos)
+    ---@type IsoWorldInventoryObject|IsoObject
+    local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
+    if placedItem then
+
+        placedItem:setName(item:getName())
+        placedItem:setKeyId(item:getKeyId())
+
+        worldItemSq:getObjects():add(placedItem)
+        worldItemSq:getWorldObjects():add(placedItem)
+        worldItemSq:getChunk():recalcHashCodeObjects()
+
+        item:setWorldItem(placedItem)
+        item:setWorldZRotation(0)
+
+        placedItem:addToWorld()
+        placedItem:setIgnoreRemoveSandbox(true)
+        placedItem:transmitCompleteItemToServer()
+        placedItem:transmitModData()
+    end
+end
+
+
 ---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
 ---@param item InventoryItem
 ---@param xOffset number
 ---@param yOffset number
 function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos)
 
+    ---@type IsoWorldInventoryObject|IsoObject
+    local worldItem = item:getWorldItem()
+    if worldItem:getModData().gameNightInUse then return end
+
     ---@type ItemContainer
     local playerInv = player:getInventory()
 
-    ---@type IsoWorldInventoryObject|IsoObject
-    local worldItem = item:getWorldItem()
     ---@type IsoGridSquare
     local worldItemSq = worldItem and worldItem:getSquare()
 
@@ -220,40 +248,21 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
             local pBD = player:getBodyDamage()
             pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 
-            ---@type IsoWorldInventoryObject|IsoObject
-            local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
-            if placedItem then
+            if playerInv:contains(item) then playerInv:Remove(item) end
 
-                local sound = item:getModData()["gameNight_sound"]
-                if sound then player:getEmitter():playSound(sound) end
+            local sound = item:getModData()["gameNight_sound"]
+            if sound then player:getEmitter():playSound(sound) end
 
-                placedItem:setName(item:getName())
-                placedItem:setKeyId(item:getKeyId())
-
-                worldItemSq:getObjects():add(placedItem)
-                worldItemSq:getWorldObjects():add(placedItem)
-                worldItemSq:getChunk():recalcHashCodeObjects()
-
-                item:setWorldItem(placedItem)
-                item:setWorldZRotation(0)
-
-                placedItem:addToWorld()
-
-                placedItem:setIgnoreRemoveSandbox(true)
-                placedItem:transmitCompleteItemToServer()
-                placedItem:transmitModData()
-
-                if playerInv:contains(item) then playerInv:Remove(item) end
-            end
+            gamePieceAndBoardHandler.placeGamePiece(item, worldItemSq, xOffset, yOffset, zPos)
         end
 
+        --[[
         local playerNum = player:getPlayerNum()
-
         local inventory = getPlayerInventory(playerNum)
         if inventory then inventory:refreshBackpacks() end
-
         local loot = getPlayerLoot(playerNum)
         if loot then loot:refreshBackpacks() end
+        --]]
 
     end
 end

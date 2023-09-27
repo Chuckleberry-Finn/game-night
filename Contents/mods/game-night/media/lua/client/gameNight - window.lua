@@ -191,23 +191,24 @@ function gameNightWindow:onMouseDown(x, y)
     if self:isVisible() then
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn then
+
             self.movingPiece = clickedOn.item
             ---@type IsoWorldInventoryObject|IsoObject
             local worldItemObj = clickedOn.item:getWorldItem()
             local oldZ = 0
             if worldItemObj then
 
-                local inUse = worldItemObj:getModData().gameNightInUseBy
-                local verifiedInUse = inUse and getPlayerFromUsername(inUse)
-                if inUse and verifiedInUse then return end
+                if worldItemObj:getModData().gameNightInUse then
+                    self:clearMovingPiece()
+                    return
+                end
 
-                worldItemObj:getModData().gameNightInUseBy = self.player:getUsername()
-                worldItemObj:transmitModData()
+                sendClientCommand(self.player, "gameNightGamePiece", "updateGamePiece", {item=clickedOn.item})
+
                 oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
-
                 self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}
                 self.moveWithMouse = false
-
+                self.moveWithMouse = false
             end
         else
             self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2))
