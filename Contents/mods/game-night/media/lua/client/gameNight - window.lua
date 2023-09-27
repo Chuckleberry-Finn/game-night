@@ -198,12 +198,14 @@ function gameNightWindow:onMouseDown(x, y)
             local oldZ = 0
             if worldItemObj then
 
-                if worldItemObj:getModData().gameNightInUse then
+                local inUse = worldItemObj:getModData().gameNightInUse
+                local userUsing = inUse and getPlayerFromUsername(inUse)
+                if inUse and userUsing then
                     self:clearMovingPiece()
                     return
                 end
 
-                sendClientCommand(self.player, "gameNightGamePiece", "updateGamePiece", {item=clickedOn.item})
+                sendClientCommand(self.player, "gameNightGamePiece", "updateGamePiece", {item=clickedOn.item, username=self.player:getUsername()})
 
                 oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
                 self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}

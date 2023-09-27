@@ -13,11 +13,11 @@ if isClient() then
         if _module ~= "gameNightGamePiece" then return end
         if _command == "updateGamePiece" then
             ---@type ComboItem|InventoryItem
-            local item = _data.item
+            local item, username = _data.item, _data.username
             ---@type IsoWorldInventoryObject|IsoObject
             local itemWorldItem = item and item:getWorldItem()
             if itemWorldItem then
-                itemWorldItem:getModData().gameNightInUse = true
+                itemWorldItem:getModData().gameNightInUse = username
             end
         end
     end
