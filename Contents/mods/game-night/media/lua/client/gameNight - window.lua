@@ -11,6 +11,14 @@ function gameNightWindow:update()
         self:closeAndRemove()
         return
     end
+
+    local worldItemObj = self.movingPiece and self.movingPiece:getWorldItem()
+    local inUse = worldItemObj and worldItemObj:getModData().gameNightInUse
+    local wrongUser = inUse and inUse~=self.player:getUsername()
+    if wrongUser then
+        self:clearMovingPiece()
+        return
+    end
 end
 
 function gameNightWindow:initialise()
