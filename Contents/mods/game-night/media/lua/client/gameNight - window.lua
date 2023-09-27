@@ -121,6 +121,14 @@ function gameNightWindow:processMouseUp(old, x, y)
 
         if piece then
 
+            local worldItemObj = piece and piece:getWorldItem()
+            local inUse = worldItemObj and worldItemObj:getModData().gameNightInUse
+            local wrongUser = inUse and inUse~=self.player:getUsername()
+            if wrongUser then
+                self:clearMovingPiece()
+                return
+            end
+
             local posX, posY = self:getMouseX(), self:getMouseY()
             local isDeck = false
             if deckActionHandler.isDeckItem(piece) then
