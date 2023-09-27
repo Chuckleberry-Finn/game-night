@@ -12,8 +12,7 @@ function gameNightWindow:update()
         return
     end
 
-    local worldItemObj = self.movingPiece and self.movingPiece:getWorldItem()
-    local inUse = worldItemObj and worldItemObj:getModData().gameNightInUse
+    local inUse = self.movingPiece and self.movingPiece:getModData().gameNightInUse
     local wrongUser = inUse and inUse~=self.player:getUsername()
     if wrongUser then
         self:clearMovingPiece()
@@ -112,6 +111,7 @@ end
 function gameNightWindow:clearMovingPiece(x, y)
     if x and y then self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2)) end
     self.movingPiece = nil
+    print("clearing moving piece")
 end
 
 
@@ -121,8 +121,7 @@ function gameNightWindow:processMouseUp(old, x, y)
 
         if piece then
 
-            local worldItemObj = piece and piece:getWorldItem()
-            local inUse = worldItemObj and worldItemObj:getModData().gameNightInUse
+            local inUse = piece:getModData().gameNightInUse
             local wrongUser = inUse and inUse~=self.player:getUsername()
             if wrongUser then
                 self:clearMovingPiece()
@@ -208,18 +207,18 @@ function gameNightWindow:onMouseDown(x, y)
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn then
 
+            local inUse = clickedOn.item:getModData().gameNightInUse
+            local userUsing = inUse and getPlayerFromUsername(inUse)
+            if inUse and userUsing then
+                self:clearMovingPiece()
+                return
+            end
+
             self.movingPiece = clickedOn.item
             ---@type IsoWorldInventoryObject|IsoObject
             local worldItemObj = clickedOn.item:getWorldItem()
             local oldZ = 0
             if worldItemObj then
-
-                local inUse = worldItemObj:getModData().gameNightInUse
-                local userUsing = inUse and getPlayerFromUsername(inUse)
-                if inUse and userUsing then
-                    self:clearMovingPiece()
-                    return
-                end
 
                 sendClientCommand(self.player, "gameNightGamePiece", "updateGamePiece", {item=clickedOn.item, username=self.player:getUsername()})
 
@@ -258,19 +257,12 @@ end
 
 
 function gameNightWindow:moveElement(gamePiece, x, y)
-
     if not self.movingPiece or gamePiece~=self.movingPiece then return end
-
     ---@type IsoObject|InventoryItem
     local item = gamePiece
     if not item then return end
-
     local scaledX, scaledY, offsetZ = self:determineScaledWorldXY(x, y)
-
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, nil, nil, scaledX, scaledY, offsetZ)
-
-    local pBD = self.player:getBodyDamage()
-    pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 end
 
 
@@ -379,7 +371,12 @@ function gameNightWindow:render()
         ---@type IsoObject|IsoWorldInventoryObject
         local object = square:getObjects():get(i)
         if object and instanceof(object, "IsoWorldInventoryObject") then
+            ---@type InventoryItem
             local item = object:getItem()
+
+            print("object: ", object:getName(), " ("..object:getKeyId(),")")
+            if item then print("item  (",item:getID(),") ",item:getName()) end
+
             if item and item:getTags():contains("gameNight") then
                 local position = item:getDisplayCategory() == "GameBoard" and 1 or #loadOrder+1
                 table.insert(loadOrder, position, {item=item, object=object})

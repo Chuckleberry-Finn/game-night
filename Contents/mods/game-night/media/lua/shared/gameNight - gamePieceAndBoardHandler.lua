@@ -214,12 +214,14 @@ end
 ---@param yOffset number
 function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos)
 
-    ---@type IsoWorldInventoryObject|IsoObject
-    local worldItem = item:getWorldItem()
-    if worldItem:getModData().gameNightInUse then return end
+    local inUse = item:getModData().gameNightInUse
+    if inUse and inUse ~= player:getUsername() then return end
 
     ---@type ItemContainer
     local playerInv = player:getInventory()
+
+    ---@type IsoWorldInventoryObject|IsoObject
+    local worldItem = item:getWorldItem()
 
     ---@type IsoGridSquare
     local worldItemSq = worldItem and worldItem:getSquare()
@@ -235,7 +237,6 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
         local func = onCompleteFuncArgs[1]
         local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = onCompleteFuncArgs[2], onCompleteFuncArgs[3], onCompleteFuncArgs[4], onCompleteFuncArgs[5], onCompleteFuncArgs[6], onCompleteFuncArgs[7], onCompleteFuncArgs[8], onCompleteFuncArgs[9]
         func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-
     end
 
     if item then
@@ -256,14 +257,13 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
             gamePieceAndBoardHandler.placeGamePiece(item, worldItemSq, xOffset, yOffset, zPos)
         end
 
-        --[[
+
         local playerNum = player:getPlayerNum()
         local inventory = getPlayerInventory(playerNum)
         if inventory then inventory:refreshBackpacks() end
         local loot = getPlayerLoot(playerNum)
         if loot then loot:refreshBackpacks() end
-        --]]
-
+  
     end
 end
 

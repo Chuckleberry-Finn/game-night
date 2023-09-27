@@ -13,12 +13,11 @@ if isClient() then
         if _module ~= "gameNightGamePiece" then return end
         if _command == "updateGamePiece" then
             ---@type ComboItem|InventoryItem
+
+            print("PIECE HERE: ",_data.username)
+
             local item, username = _data.item, _data.username
-            ---@type IsoWorldInventoryObject|IsoObject
-            local itemWorldItem = item and item:getWorldItem()
-            if itemWorldItem then
-                itemWorldItem:getModData().gameNightInUse = username
-            end
+            item:getModData().gameNightInUse = username
         end
     end
     Events.OnServerCommand.Add(onServerCommand)--what clients gets from the server
