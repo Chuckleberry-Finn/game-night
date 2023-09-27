@@ -374,9 +374,6 @@ function gameNightWindow:render()
             ---@type InventoryItem
             local item = object:getItem()
 
-            print("object: ", object:getName(), " ("..object:getKeyId(),")")
-            if item then print("item  (",item:getID(),") ",item:getName()) end
-
             if item and item:getTags():contains("gameNight") then
                 local position = item:getDisplayCategory() == "GameBoard" and 1 or #loadOrder+1
                 table.insert(loadOrder, position, {item=item, object=object})

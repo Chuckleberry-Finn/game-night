@@ -14,8 +14,6 @@ if isClient() then
         if _command == "updateGamePiece" then
             ---@type ComboItem|InventoryItem
 
-            print("PIECE HERE: ",_data.username)
-
             local item, username = _data.item, _data.username
             item:getModData().gameNightInUse = username
         end
