@@ -220,7 +220,7 @@ end
 ---@param xOffset number
 ---@param yOffset number
 function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos)
-    
+
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
 
@@ -248,10 +248,10 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
         detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
         detailsFunc(item)
 
-        local itemCont = item:getContainer()
-        if itemCont then itemCont:Remove(item) end
-
         if worldItemSq then
+
+            local itemCont = item:getContainer()
+            if itemCont then itemCont:Remove(item) end
 
             local pBD = player:getBodyDamage()
             pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
