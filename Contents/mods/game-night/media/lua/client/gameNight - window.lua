@@ -323,8 +323,7 @@ function gameNightWindow:generateElement(item, object, priority)
     y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-h)
 
     self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, priority=priority}
-    
-    texture = texture or item:getModData()["gameNight_textureInPlay"] or item:getTexture()
+
     self:drawTexture(texture, x, y, w, h, 1, 1, 1, 1)
 end
 

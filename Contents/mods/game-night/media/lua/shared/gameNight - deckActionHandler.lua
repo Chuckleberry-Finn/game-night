@@ -47,7 +47,7 @@ function deckActionHandler.handleDetails(deckItem)
     if flippedStates[#deckStates] ~= true then
         deckItem:setName(deckStates[#deckStates]..name_suffix)
         texture = getTexture("media/textures/Item_"..itemType.."/"..deckStates[#deckStates]..".png")
-        deckItem:getModData()["gameNight_textureInPlay"] = nil
+        deckItem:getModData()["gameNight_textureInPlay"] = texture
 
     else
         local textureID = #deckStates>1 and "deck" or "card"
