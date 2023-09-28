@@ -45,12 +45,20 @@ function deckActionHandler.handleDetails(deckItem)
     local name_suffix = #deckStates>1 and " ["..#deckStates.."]" or ""
 
     if flippedStates[#deckStates] ~= true then
+
+        local tooltip = getTextOrNull("Tooltip_"..deckStates[#deckStates])
+        if tooltip then deckItem:setTooltip(tooltip) end
+
         deckItem:setName(deckStates[#deckStates]..name_suffix)
         texture = getTexture("media/textures/Item_"..itemType.."/"..deckStates[#deckStates]..".png")
         deckItem:getModData()["gameNight_textureInPlay"] = texture
 
     else
         local textureID = #deckStates>1 and "deck" or "card"
+
+        local tooltip = getTextOrNull("Tooltip_"..itemType)
+        if tooltip then deckItem:setTooltip(tooltip) end
+
         deckItem:setName(getText("IGUI_"..itemType)..name_suffix)
         texture = getTexture("media/textures/Item_"..itemType.."/"..textureID..".png")
         deckItem:getModData()["gameNight_textureInPlay"] = getTexture("media/textures/Item_"..itemType.."/FlippedInPlay.png")

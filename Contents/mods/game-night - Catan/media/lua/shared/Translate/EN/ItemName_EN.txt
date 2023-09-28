@@ -16,8 +16,9 @@ ItemName_EN = {
     ItemName_Base.CatanSheep = "Sheep Resource"
     ItemName_Base.CatanStone = "Stone Resource"
 
+    ItemName_Base.CatanKnight = "Knight"
     ItemName_Base.CatanMonopoly = "Monopoly"
-    ItemName_Base.CatanYearOfPlenty = "Year Of Plenty"
+    ItemName_Base.CatanYearOfPlenty = "Year of Plenty"
     ItemName_Base.CatanRoadBuilding = "Road Building"
     ItemName_Base.CatanPalace = "Palace"
     ItemName_Base.CatanMarket = "Market"

@@ -24,7 +24,11 @@ CatanDevelopmentDeck.cards = {"Chapel", "Library", "Market", "Palace", "Universi
 CatanDevelopmentDeck.types = {"Knight","Monopoly","Road Building","Year of Plenty"}
 CatanDevelopmentDeck.count = {14,2,2,2}
 
-for i,s in pairs(CatanDevelopmentDeck.types) do for ii=1, i do table.insert(CatanDevelopmentDeck.cards, s) end end
+for i,s in pairs(CatanDevelopmentDeck.types) do
+    for ii=1, CatanDevelopmentDeck.count[i] do
+        table.insert(CatanDevelopmentDeck.cards, s)
+    end
+end
 applyItemDetails.addDeck("CatanDevelopmentDeck", CatanDevelopmentDeck.cards)
 
 

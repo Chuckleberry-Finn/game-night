@@ -23,10 +23,8 @@ module Base
 
     item CatanDevelopmentDeck
     {
-        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
-        DisplayName = Development Card,
-        Icon = CatanDevelopmentDeck/deck,
-        WorldStaticModel = CatanDevelopmentDeck,
+        DisplayCategory = Deck, Weight = 0.01, Type = Normal, DisplayName = Development Card,
+        Icon = CatanDevelopmentDeck/deck, WorldStaticModel = CatanDevelopmentDeck,
     }
 
     item CatanRobber
@@ -109,37 +107,37 @@ module Base
 
     item CatanPlayerCostsWhite
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, Tooltip = Tooltip_PlayerCosts,
         DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsWhite, WorldStaticModel = CatanPlayerCostsWhite,
     }
 
    item CatanPlayerCostsRed
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, Tooltip = Tooltip_PlayerCosts,
         DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsRed, WorldStaticModel = CatanPlayerCostsRed,
     }
 
    item CatanPlayerCostsOrange
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, Tooltip = Tooltip_PlayerCosts,
         DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsOrange, WorldStaticModel = CatanPlayerCostsOrange,
     }
 
    item CatanPlayerCostsBlue
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, Tooltip = Tooltip_PlayerCosts,
         DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsBlue, WorldStaticModel = CatanPlayerCostsBlue,
     }
 
    item CatanLongestRoad
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, Tooltip = Tooltip_CatanLongestRoad,
         DisplayName = CatanLongestRoad, Icon = OutOfPlayTextures/LongestRoad, WorldStaticModel = CatanLongestRoad,
     }
 
    item CatanLargestArmy
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, Tooltip = Tooltip_CatanLargestArmy,
         DisplayName = CatanLargestArmy, Icon = OutOfPlayTextures/LargestArmy, WorldStaticModel = CatanLargestArmy,
     }
 

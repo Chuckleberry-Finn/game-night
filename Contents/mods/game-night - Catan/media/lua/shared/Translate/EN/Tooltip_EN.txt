@@ -1,0 +1,14 @@
+Tooltip_EN = {
+    Tooltip_PlayerCosts = "Road: 1 Brick, 1 Wood  (0 VP)<br>Settlement: 1 Brick, 1 Wood, 1 Wheat, 1 Sheep  (1 VP)<br>City: 2 Wheat, 3 Stone  (2 VP)<br>Development Card: 1 Sheep, 1 Wheat, 1 Stone  (?)",
+    Tooltip_CatanLongestRoad = "The first player to have 5 or more continuous road segments earns this card.<br>Another player must build a road which is longer to take it.  (2 VP)",
+    Tooltip_CatanLargestArmy = "The first player to play 3 knights earns this card.<br>Another player must play more knights to take this card.  (2 VP)",
+    Tooltip_Knight = "Move the robber and place it onto a new hex.<br>Steal a random card from an opponent with settlements or cities adjacent to it.",
+    Tooltip_Road Building = "Place two roads for free."
+    Tooltip_Year of Plenty = "Draw two resource cards of your choice."
+    Tooltip_Monopoly = "Declare 1 resource type.<br>Collect all cards of that type from all players."
+    Tooltip_Chapel = "This card is worth 1 Victory Point.<br>Does not need to be played."
+    Tooltip_Library = "This card is worth 1 Victory Point.<br>Does not need to be played."
+    Tooltip_Market = "This card is worth 1 Victory Point.<br>Does not need to be played."
+    Tooltip_Palace = "This card is worth 1 Victory Point.<br>Does not need to be played."
+    Tooltip_University = "This card is worth 1 Victory Point.<br>Does not need to be played."
+}
