@@ -220,14 +220,11 @@ end
 ---@param xOffset number
 ---@param yOffset number
 function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos)
-
-    ---@type ItemContainer
-    local playerInv = player:getInventory()
-
+    
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
 
-    local inUse = worldItem:getModData().gameNightInUse
+    local inUse = worldItem and worldItem:getModData().gameNightInUse
     if inUse and inUse ~= player:getUsername() then return end
 
     ---@type IsoGridSquare
