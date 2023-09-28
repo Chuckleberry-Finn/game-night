@@ -313,6 +313,8 @@ local applyItemDetails = require "gameNight - applyItemDetails"
 ---@param object IsoObject|IsoWorldInventoryObject
 function gameNightWindow:generateElement(item, object, priority)
 
+    applyItemDetails.applyGameNightToItem(item)
+
     ---@type Texture
     local texture = item:getModData()["gameNight_textureInPlay"] or item:getTexture()
     local w, h = texture:getWidth(), texture:getHeight()
