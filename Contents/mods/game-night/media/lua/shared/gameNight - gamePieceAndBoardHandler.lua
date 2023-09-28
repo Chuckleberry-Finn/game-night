@@ -211,7 +211,6 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         placedItem:addToWorld()
         placedItem:setIgnoreRemoveSandbox(true)
         placedItem:transmitCompleteItemToServer()
-        placedItem:transmitModData()
     end
 end
 
@@ -222,14 +221,14 @@ end
 ---@param yOffset number
 function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos)
 
-    local inUse = item:getModData().gameNightInUse
-    if inUse and inUse ~= player:getUsername() then return end
-
     ---@type ItemContainer
     local playerInv = player:getInventory()
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
+
+    local inUse = worldItem:getModData().gameNightInUse
+    if inUse and inUse ~= player:getUsername() then return end
 
     ---@type IsoGridSquare
     local worldItemSq = worldItem and worldItem:getSquare()

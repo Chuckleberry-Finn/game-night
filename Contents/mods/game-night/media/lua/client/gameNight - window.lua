@@ -12,7 +12,8 @@ function gameNightWindow:update()
         return
     end
 
-    local inUse = self.movingPiece and self.movingPiece:getModData().gameNightInUse
+    local worldItem = self.movingPiece and self.movingPiece:getWorldItem()
+    local inUse = worldItem and worldItem:getModData().gameNightInUse
     local wrongUser = inUse and inUse~=self.player:getUsername()
     if wrongUser then
         self:clearMovingPiece()
@@ -116,11 +117,13 @@ end
 
 function gameNightWindow:processMouseUp(old, x, y)
     if not self.moveWithMouse then
+        ---@type InventoryItem
         local piece = self.movingPiece
 
         if piece then
 
-            local inUse = piece:getModData().gameNightInUse
+            local worldItem = piece:getWorldItem()
+            local inUse = worldItem and worldItem:getModData().gameNightInUse
             local wrongUser = inUse and inUse~=self.player:getUsername()
             if wrongUser then
                 self:clearMovingPiece()
@@ -206,22 +209,25 @@ function gameNightWindow:onMouseDown(x, y)
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn then
 
-            local inUse = clickedOn.item:getModData().gameNightInUse
+            ---@type IsoWorldInventoryObject|IsoObject
+            local worldItem = clickedOn.item and clickedOn.item:getWorldItem()
+            local inUse = worldItem:getModData().gameNightInUse
             local userUsing = inUse and getPlayerFromUsername(inUse)
             if inUse and userUsing then
                 self:clearMovingPiece()
                 return
             end
 
-            self.movingPiece = clickedOn.item
-            ---@type IsoWorldInventoryObject|IsoObject
-            local worldItemObj = clickedOn.item:getWorldItem()
-            local oldZ = 0
-            if worldItemObj then
+            if worldItem then
 
-                sendClientCommand(self.player, "gameNightGamePiece", "updateGamePiece", {item=clickedOn.item, username=self.player:getUsername()})
+                worldItem:getModData().gameNightInUse = self.player:getUsername()
+                worldItem:transmitModData()
 
-                oldZ = worldItemObj:getWorldPosZ()-worldItemObj:getZ()
+                self.movingPiece = clickedOn.item
+
+                local oldZ = 0
+                oldZ = worldItem:getWorldPosZ()-worldItem:getZ()
+
                 self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}
                 self.moveWithMouse = false
                 self.moveWithMouse = false
@@ -436,6 +442,11 @@ function gameNightWindow:labelWithName(element)
     if sandbox and (not self.movingPiece) then
         local nameTag = (element.item and element.item:getName())
         if nameTag then
+
+            local worldItem = element.item:getWorldItem()
+            local inUse = worldItem and worldItem:getModData().gameNightInUse
+            local wrongUser = inUse and inUse~=self.player:getUsername()
+            if wrongUser then nameTag = nameTag.." [In Use]" end
 
             local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
             local nameTagHeight = getTextManager():getFontHeight(UIFont.NewSmall)
