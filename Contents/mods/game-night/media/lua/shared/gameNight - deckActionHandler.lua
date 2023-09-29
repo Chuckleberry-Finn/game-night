@@ -152,23 +152,29 @@ function deckActionHandler.safelyRemoveCard(inventoryItem)
 end
 
 
-function deckActionHandler._mergeDecks(deckItemA, deckItemB)
+function deckActionHandler._mergeDecks(deckItemA, deckItemB, index)
     local deckB, flippedB = deckActionHandler.getDeckStates(deckItemB)
     if not deckB then return end
 
     local deckA, flippedA = deckActionHandler.getDeckStates(deckItemA)
     if not deckA then return end
 
-    for _,card in pairs(deckA) do table.insert(deckB, card) end
-    for _,flip in pairs(flippedA) do table.insert(flippedB, flip) end
+    local iB4 = index
+
+    index = index and math.max(index,1) or 1
+
+    for i=1, #deckA do
+        table.insert(deckB, index, deckA[i])
+        table.insert(flippedB, index, flippedA[i])
+    end
 
     deckActionHandler.safelyRemoveCard(deckItemA)
 end
 ---@param deckItemA InventoryItem
 ---@param deckItemB InventoryItem
-function deckActionHandler.mergeDecks(deckItemA, deckItemB, player)
+function deckActionHandler.mergeDecks(deckItemA, deckItemB, player, index)
     gamePieceAndBoardHandler.pickupGamePiece(player, deckItemA, true)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB, index}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItemB, player)
 end
 
@@ -198,13 +204,17 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
 
     return newCards
 end
+
+
 ---@param deckItem InventoryItem
 function deckActionHandler.drawCards(num, deckItem, player, locations)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player, locations}, deckActionHandler.handleDetails)
 end
-function deckActionHandler.drawCard(deckItem, player)
-    deckActionHandler.drawCards(1, deckItem, player)
-end
+
+
+function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(1, deckItem, player) end
+
+
 function deckActionHandler.dealCard(deckItem, player, x, y)
 
     local worldItem, container = deckItem:getWorldItem(), deckItem:getContainer()
@@ -213,10 +223,8 @@ function deckActionHandler.dealCard(deckItem, player, x, y)
     local z = worldItem and (worldItem:getWorldPosZ()-worldItem:getZ()) or 0
     ---@type IsoGridSquare
     local sq = (worldItem and worldItem:getSquare()) or (gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square)
-    
-    deckActionHandler.drawCards(1, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z}, container=container })
 
-    return false
+    deckActionHandler.drawCards(1, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z}, container=container })
 end
 
 function deckActionHandler._drawCardIndex(deckItem, drawIndex)
@@ -246,6 +254,7 @@ function deckActionHandler._drawCardIndex(deckItem, drawIndex)
     end
 
     local newCard = deckActionHandler.generateCard(drawnCard, deckItem, drawnFlipped)
+    return newCard
 end
 ---@param deckItem InventoryItem
 function deckActionHandler.drawRandCard(deckItem, player)

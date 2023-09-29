@@ -48,6 +48,33 @@ end
 function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self:closeAndRemove() end end
 
 
+function gameNightWindow:calculateItemDrop(x, y, items)
+    local boundsDifference = self.padding*2
+    local scaledX = (x/(self.width-boundsDifference))
+    local scaledY = (y/(self.height-boundsDifference))
+
+    local surfaceZ = 0
+
+    for _,element in pairs(self.elements) do
+        ---@type InventoryItem
+        local item = element.item
+        local worldItem = item:getWorldItem()
+        if worldItem then surfaceZ = worldItem:getWorldPosZ()-worldItem:getZ() break end
+    end
+
+    for n,item in pairs(items) do
+
+        local sound = item:getModData()["gameNight_sound"]
+        if sound then self.player:getEmitter():playSound(sound) end
+
+        if n > 1 then
+            scaledX = scaledX+ZombRandFloat(-0.02,0.02)
+            scaledY = scaledY+ZombRandFloat(-0.02,0.02)
+        end
+        gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, nil, nil, scaledX, scaledY, surfaceZ, self.square)
+    end
+end
+
 function gameNightWindow:dropItemsOn(x, y)
     if not self:getIsVisible() then return end
     local dragging = ISMouseDrag.dragging
@@ -67,38 +94,7 @@ function gameNightWindow:dropItemsOn(x, y)
         getPlayerLoot(playerNum).inventoryPane.selected = {}
         getPlayerInventory(playerNum).inventoryPane.selected = {}
 
-        local boundsDifference = self.padding*2
-        local scaledX = (x/(self.width-boundsDifference))
-        local scaledY = (y/(self.height-boundsDifference))
-
-        local surfaceZ = 0
-
-        for _,element in pairs(self.elements) do
-            ---@type InventoryItem
-            local item = element.item
-            local worldItem = item:getWorldItem()
-            if worldItem then surfaceZ = worldItem:getWorldPosZ()-worldItem:getZ() break end
-        end
-
-        for n,item in pairs(itemFound) do
-
-            local sound = item:getModData()["gameNight_sound"]
-            if sound then self.player:getEmitter():playSound(sound) end
-
-            if luautils.haveToBeTransfered(self.player, item) then
-                ISTimedActionQueue.add(ISInventoryTransferAction:new(self.player, item, item:getContainer(), self.player:getInventory()))
-            end
-
-            if n > 1 then
-                scaledX = scaledX+ZombRandFloat(-0.02,0.02)
-                scaledY = scaledY+ZombRandFloat(-0.02,0.02)
-            end
-
-            local dropAction = ISDropWorldItemAction:new(self.player, item, self.square, scaledX, scaledY, surfaceZ, 0, false)
-            dropAction.maxTime = 1
-            ISTimedActionQueue.add(dropAction)
-
-        end
+        self:calculateItemDrop(x, y, itemFound)
     end
 
     if ISMouseDrag.draggingFocus then
@@ -126,7 +122,16 @@ function gameNightWindow:processMouseUp(old, x, y)
             local inUse = worldItem and worldItem:getModData().gameNightInUse
             local wrongUser = inUse and inUse~=self.player:getUsername()
             if wrongUser then
-                self:clearMovingPiece()
+                self:clearMovingPiece(x, y)
+                return
+            end
+
+            ---@type gameNightWindow
+            local deckSearch = gameNightDeckSearch.instance
+            if deckSearch and deckSearch:isMouseOver() then
+                local selection, inBetween = deckSearch:getCardAtXY(deckSearch.cardDisplay:getMouseX(), deckSearch.cardDisplay:getMouseY())
+                deckActionHandler.mergeDecks(piece, deckSearch.deck, self.player, selection+(inBetween and 0 or 1))
+                self:clearMovingPiece(x, y)
                 return
             end
 

@@ -1,5 +1,6 @@
 require "ISUI/ISPanel"
 require "ISUI/ISPanelJoypad"
+require "gameNight - window"
 
 ---@class gameNightDeckSearch : ISPanel
 gameNightDeckSearch = ISPanel:derive("gameNightDeckSearch")
@@ -101,7 +102,12 @@ end
 
 function gameNightDeckSearch:onMouseMove(dx, dy)
     if not self:isMouseOver() then return end
-    if self.dragging then
+
+    ---@type gameNightWindow
+    local gameNightWin = gameNightWindow.instance
+    local piece = gameNightWin and gameNightWin.movingPiece
+
+    if self.dragging or piece then
         local x = self.cardDisplay:getMouseX()
         local y = self.cardDisplay:getMouseY()
         local selected, inBetween = self:getCardAtXY(x, y)
@@ -115,6 +121,17 @@ end
 
 function gameNightDeckSearch:cardOnMouseUpOutside(x, y)
     local searchWindow = self.parent
+
+    ---@type gameNightWindow
+    local gameNightWin = gameNightWindow.instance
+    if gameNightWin and gameNightWin:isMouseOver() then
+        local deckItem = searchWindow.deck
+        local cardBeingDragged = searchWindow.dragging
+
+        local cardDrawn = searchWindow.deckActionHandler._drawCardIndex(deckItem, cardBeingDragged)
+        if cardDrawn then gameNightWin:calculateItemDrop(gameNightWin:getMouseX(), gameNightWin:getMouseY(), {cardDrawn}) end
+    end
+
     searchWindow:clearDragging()
 end
 
@@ -126,36 +143,36 @@ function gameNightDeckSearch:cardOnMouseUp(x, y)
     local deckItem = searchWindow.deck
     local cardData, flippedStates = searchWindow.deckActionHandler.getDeckStates(deckItem)
 
-    local cardA, flippedA = cardData[searchWindow.dragging], flippedStates[searchWindow.dragging]
+    if searchWindow.dragging and selection and selection >= 1 then
+        local cardA, flippedA = cardData[searchWindow.dragging], flippedStates[searchWindow.dragging]
+        if searchWindow.dragInBetween then
+            local selectionDrag = -1
+            if searchWindow.dragging < selection then
+                selectionDrag = 1
+                selection = selection-1
+            end
 
-    if searchWindow.dragInBetween then
+            for n=searchWindow.dragging, selection, selectionDrag do
+                local nextCard, nextFlip = cardData[n+selectionDrag], flippedStates[n+selectionDrag]
+                cardData[n] = nextCard
+                flippedStates[n] = nextFlip
+            end
 
-        local selectionDrag = -1
-        if searchWindow.dragging < selection then
-            selectionDrag = 1
-            selection = selection-1
+            cardData[selection] = cardA
+            flippedStates[selection] = flippedA
+        else
+            local cardB, flippedB = cardData[selection], flippedStates[selection]
+
+            cardData[searchWindow.dragging] = cardB
+            flippedStates[searchWindow.dragging] = flippedB
+
+            cardData[selection] = cardA
+            flippedStates[selection] = flippedA
         end
-
-        for n=searchWindow.dragging, selection, selectionDrag do
-            local nextCard, nextFlip = cardData[n+selectionDrag], flippedStates[n+selectionDrag]
-            cardData[n] = nextCard
-            flippedStates[n] = nextFlip
-        end
-
-        cardData[selection] = cardA
-        flippedStates[selection] = flippedA
-    else
-        local cardB, flippedB = cardData[selection], flippedStates[selection]
-
-        cardData[searchWindow.dragging] = cardB
-        flippedStates[searchWindow.dragging] = flippedB
-
-        cardData[selection] = cardA
-        flippedStates[selection] = flippedA
+        searchWindow.gamePieceAndBoardHandler.playSound(deckItem, searchWindow.player)
+        searchWindow.deckActionHandler.handleDetails(deckItem)
     end
 
-    searchWindow.gamePieceAndBoardHandler.playSound(deckItem, searchWindow.player)
-    searchWindow.deckActionHandler.handleDetails(deckItem)
     searchWindow:clearDragging()
 end
 

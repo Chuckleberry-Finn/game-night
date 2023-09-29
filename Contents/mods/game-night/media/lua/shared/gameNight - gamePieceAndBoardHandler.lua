@@ -147,10 +147,7 @@ function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value)
     gamePiece:getModData()[key] = value
 end
 
-function gamePieceAndBoardHandler.pickupGamePiece(player, item, justPickUp)
-
-    ---@type ItemContainer
-    local playerInv = player:getInventory()
+function gamePieceAndBoardHandler.pickupGamePiece(player, item)
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
@@ -175,13 +172,14 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item, justPickUp)
     worldItem:setSquare(nil)
     item:setWorldItem(nil)
 
+    ---@type ItemContainer
+    local playerInv = player:getInventory()
     playerInv:setDrawDirty(true)
     playerInv:AddItem(item)
 
     local playerNum = player:getPlayerNum()
     local pdata = getPlayerData(playerNum)
     if pdata ~= nil then ISInventoryPage.renderDirty = true end
-
 
     return zPos, xOffset, yOffset
 end
@@ -195,8 +193,8 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
     local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
     if placedItem then
 
-        local playerInv = player:getInventory()
-        playerInv:setDrawDirty(true)
+        local itemCont = item:getContainer()
+        if itemCont then itemCont:setDrawDirty(true) end
 
         placedItem:setName(item:getName())
         placedItem:setKeyId(item:getKeyId())
@@ -211,6 +209,14 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         placedItem:addToWorld()
         placedItem:setIgnoreRemoveSandbox(true)
         placedItem:transmitCompleteItemToServer()
+
+        player:getInventory():Remove(item)
+
+        local playerNum = player:getPlayerNum()
+        local inventory = getPlayerInventory(playerNum)
+        if inventory then inventory:refreshBackpacks() end
+        local loot = getPlayerLoot(playerNum)
+        if loot then loot:refreshBackpacks() end
     end
 end
 
@@ -219,7 +225,7 @@ end
 ---@param item InventoryItem
 ---@param xOffset number
 ---@param yOffset number
-function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos)
+function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos, square)
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
@@ -228,9 +234,9 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     if inUse and inUse ~= player:getUsername() then return end
 
     ---@type IsoGridSquare
-    local worldItemSq = worldItem and worldItem:getSquare()
+    local worldItemSq = square or worldItem and worldItem:getSquare()
 
-    local x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item)
+    local x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp)
 
     zPos = zPos or x or 0
     xOffset = xOffset or y or 0
@@ -250,9 +256,6 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
         if worldItemSq then
 
-            local itemCont = item:getContainer()
-            if itemCont then itemCont:Remove(item) end
-
             local pBD = player:getBodyDamage()
             pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
 
@@ -261,14 +264,6 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
             gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOffset, zPos)
         end
-
-
-        local playerNum = player:getPlayerNum()
-        local inventory = getPlayerInventory(playerNum)
-        if inventory then inventory:refreshBackpacks() end
-        local loot = getPlayerLoot(playerNum)
-        if loot then loot:refreshBackpacks() end
-  
     end
 end
 
