@@ -451,6 +451,13 @@ function gameNightWindow:labelWithName(element)
 
             local worldItem = element.item:getWorldItem()
             local inUse = worldItem and worldItem:getModData().gameNightInUse
+
+            local needsClear = inUse and inUse==self.player:getUsername() and (self.movingPiece~=element.item)
+            if needsClear then
+                worldItem:getModData().gameNightInUse = nil
+                worldItem:transmitModData()
+            end
+            
             local wrongUser = inUse and inUse~=self.player:getUsername()
             if wrongUser then nameTag = nameTag.." [In Use]" end
 
