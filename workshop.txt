@@ -23,7 +23,7 @@ description=
 description=[url=https://discord.gg/SReMnbV4V7][img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/main/PZmodCommBanner2.png[/img][/url]
 description=
 description=
-description=[h3][i]Additional Credits: Shark (Models), Nurver, EtherealShigure, Fed_Cap (Testing), Tchernobill and Albion (Advice)[/i][/h3]
+description=[h3][i]Additional Credits: Shark, Nurver, Ash, BowlOfOodaLoops, Fed_Cap, Tchernobill, Albion, Tsuki[/i][/h3]
 description=[i][b]Catan[/b] is a registered trademark of Catan GmbH. Copyright Catan GmbH. All rights reserved.[/i]
 description=[i][b]Uno[/b] is a registered trademark of Mattel, Inc. Copyright Mattel, Inc. All rights reserved.[/i]
 description=
