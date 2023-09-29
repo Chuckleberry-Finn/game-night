@@ -17,6 +17,12 @@ function gameNightDeckSearch:update()
     ---@type InventoryItem
     local item = self.deck
 
+    local values,flipped = self.deckActionHandler.getDeckStates(item)
+    if not values or #values <= 1 then
+        self:closeAndRemove()
+        return
+    end
+
     local playerInv = self.player:getInventory()
     if playerInv:contains(item) then return end
 
