@@ -450,7 +450,7 @@ function gameNightWindow:labelWithName(element)
         local itemName = element.item:getName()
 
         if deckActionHandler.isDeckItem(element.item) then
-            itemName = self.deckActionHandler.fetchAltName(itemName, element.item) or itemName
+            itemName = deckActionHandler.fetchAltName(itemName, element.item)
         end
 
         local nameTag = (element.item and element.item:getName())

@@ -24,15 +24,11 @@ end
 
 
 function deckActionHandler.fetchAltName(cardName, deckItem)
-    local nameOfCard = false
-    if deckItem:getModData()["gameNight_cardAltNames"] then nameOfCard = deckItem:getModData()["gameNight_cardAltNames"][cardName] or nameOfCard end
-    return nameOfCard
+    return (deckItem:getModData()["gameNight_cardAltNames"] and deckItem:getModData()["gameNight_cardAltNames"][cardName] or cardName)
 end
 
 function deckActionHandler.fetchAltIcon(cardName, deckItem)
-    local textureToUse = false
-    if deckItem:getModData()["gameNight_cardAltIcons"] then textureToUse = deckItem:getModData()["gameNight_cardAltIcons"][cardName] or textureToUse end
-    return textureToUse
+    return (deckItem:getModData()["gameNight_cardAltIcons"] and deckItem:getModData()["gameNight_cardAltIcons"][cardName] or cardName)
 end
 
 
@@ -64,11 +60,11 @@ function deckActionHandler.handleDetails(deckItem)
 
         local cardName = deckStates[#deckStates]
 
-        local nameOfCard = deckActionHandler.fetchAltName(cardName, deckItem) or cardName
+        local nameOfCard = deckActionHandler.fetchAltName(cardName, deckItem)
         deckItem:setName(nameOfCard..name_suffix)
 
 
-        local textureToUse = deckActionHandler.fetchAltIcon(cardName, deckItem) or cardName
+        local textureToUse = deckActionHandler.fetchAltIcon(cardName, deckItem)
         texture = getTexture("media/textures/Item_"..itemType.."/"..textureToUse..".png")
 
         deckItem:getModData()["gameNight_textureInPlay"] = texture
