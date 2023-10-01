@@ -49,8 +49,18 @@ function deckActionHandler.handleDetails(deckItem)
         local tooltip = getTextOrNull("Tooltip_"..deckStates[#deckStates])
         if tooltip then deckItem:setTooltip(tooltip) end
 
-        deckItem:setName(deckStates[#deckStates]..name_suffix)
-        texture = getTexture("media/textures/Item_"..itemType.."/"..deckStates[#deckStates]..".png")
+        local nameOfCard = deckStates[#deckStates]
+        if deckItem:getModData()["gameNight_cardAltNames"] then
+            nameOfCard = deckItem:getModData()["gameNight_cardAltNames"][nameOfCard] or nameOfCard
+        end
+        deckItem:setName(nameOfCard..name_suffix)
+
+        local textureToUse = deckStates[#deckStates]
+        if deckItem:getModData()["gameNight_cardAltIcons"] then
+            textureToUse = deckItem:getModData()["gameNight_cardAltIcons"][textureToUse] or textureToUse
+        end
+        texture = getTexture("media/textures/Item_"..itemType.."/"..textureToUse..".png")
+
         deckItem:getModData()["gameNight_textureInPlay"] = texture
 
     else

@@ -1,4 +1,22 @@
 module Base
 {
+   item MonopolyBoard
+   {
+       DisplayCategory = GameBoard, Weight = 0.01, Type = Normal,
+       DisplayName = Monopoly Board, Icon = OutOfPlayTextures/MonopolyBoard, WorldStaticModel = MonopolyBoard,
+   }
 
+    item MonopolyBox
+   {
+       DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
+       DisplayName = Monopoly Box, Icon = Boxes/monopolyBox, WorldStaticModel = MonopolyBox,
+   }
+
+    item MonopolyDeed
+    {
+        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
+        DisplayName = Monopoly Deed,
+        Icon = MonopolyDeed/deck,
+        WorldStaticModel = MonopolyDeedDeck,
+    }
 }

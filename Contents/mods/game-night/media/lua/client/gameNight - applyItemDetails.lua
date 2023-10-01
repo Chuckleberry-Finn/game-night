@@ -4,8 +4,17 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 local applyItemDetails = {}
 
 applyItemDetails.deckCatalogues = {}
+applyItemDetails.altDetails = {} --altNames, altIcons
 
-function applyItemDetails.addDeck(name, cards) applyItemDetails.deckCatalogues[name] = cards end
+function applyItemDetails.addDeck(name, cards, altNames, altIcons)
+    applyItemDetails.deckCatalogues[name] = cards
+
+    if altNames or altIcons then
+        applyItemDetails.altDetails[name] = {}
+        if altNames then applyItemDetails.altDetails[name].altNames = altNames end
+        if altIcons then applyItemDetails.altDetails[name].altIcons = altIcons end
+    end
+end
 
 
 applyItemDetails.parsedItems = {}
@@ -23,18 +32,25 @@ function applyItemDetails.applyGameNightToItem(item)
         gamePiece = gamePieceAndBoardHandler.isGamePiece(item)
         if gamePiece then gamePieceAndBoardHandler.handleDetails(item) end
 
-        deck = applyItemDetails.deckCatalogues[item:getType()]
+        local itemType = item:getType()
+
+        deck = applyItemDetails.deckCatalogues[itemType]
         if deck then
             if deck then
                 item:getModData()["gameNight_cardDeck"] = item:getModData()["gameNight_cardDeck"] or copyTable(deck)
 
+                if applyItemDetails.altDetails[itemType] then
+                    item:getModData()["gameNight_cardAltNames"] = applyItemDetails.altDetails[itemType].altNames
+                    item:getModData()["gameNight_cardAltIcons"] = applyItemDetails.altDetails[itemType].altIcons
+                end
+
                 local flippedStates = item:getModData()["gameNight_cardFlipped"]
-                if not flippedStates then
-                    item:getModData()["gameNight_cardFlipped"] = {}
-                    for i=1, #deck do item:getModData()["gameNight_cardFlipped"][i] = true end
+            if not flippedStates then
+            item:getModData()["gameNight_cardFlipped"] = {}
+                for i=1, #deck do item:getModData()["gameNight_cardFlipped"][i] = true end
                 end
                 deckActionHandler.handleDetails(item)
-            end
+                end
         end
     end
 end
