@@ -54,7 +54,7 @@ for n=1, 25 do
     end
 end
 
-applyItemDetails.addDeck("MonopolyDeedDeck", MonopolyChanceDeck.cards)
+applyItemDetails.addDeck("MonopolyChance", MonopolyChanceDeck.cards, MonopolyChanceDeck.altNames, MonopolyChanceDeck.altIcons)
 
 
 ---Community Chest
@@ -72,7 +72,7 @@ for n=1, 25 do
     end
 end
 
-applyItemDetails.addDeck("MonopolyCommunityChestDeck", MonopolyCommunityChestDeck.cards)
+applyItemDetails.addDeck("MonopolyCommunityChest", MonopolyCommunityChestDeck.cards, MonopolyCommunityChestDeck.altNames, MonopolyCommunityChestDeck.altIcons)
 
 
 ---REGISTER GAME PIECES AND BOARD -- SEE CATAN IMPLEMENTATION FOR MORE INFO
