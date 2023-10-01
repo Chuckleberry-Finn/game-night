@@ -51,7 +51,7 @@ for n=1, 25 do
     if fetchCard then
         table.insert(MonopolyChanceDeck.cards, cardID)
         MonopolyChanceDeck.altNames[fetchCard] = "Chance"
-        MonopolyChanceDeck.altIcons[fetchCard] = "MonopolyChance"
+        MonopolyChanceDeck.altIcons[fetchCard] = "ChanceCard"
     end
 end
 
@@ -70,7 +70,7 @@ for n=1, 25 do
     if fetchCard then
         table.insert(MonopolyCommunityChestDeck.cards, cardID)
         MonopolyCommunityChestDeck.altNames[fetchCard] = "Community Chest"
-        MonopolyCommunityChestDeck.altIcons[fetchCard] = "MonopolyCommunityChest"
+        MonopolyCommunityChestDeck.altIcons[fetchCard] = "CommunityChest"
     end
 end
 
