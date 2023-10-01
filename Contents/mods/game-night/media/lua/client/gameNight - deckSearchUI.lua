@@ -1,6 +1,8 @@
 require "ISUI/ISPanel"
 require "ISUI/ISPanelJoypad"
 require "gameNight - window"
+local deckActionHandler = require "gameNight - deckActionHandler"
+local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 
 ---@class gameNightDeckSearch : ISPanel
 gameNightDeckSearch = ISPanel:derive("gameNightDeckSearch")
@@ -18,7 +20,7 @@ function gameNightDeckSearch:update()
     ---@type InventoryItem
     local item = self.deck
 
-    local values,flipped = self.deckActionHandler.getDeckStates(item)
+    local values,flipped = deckActionHandler.getDeckStates(item)
     if not values or #values <= 1 then
         self:closeAndRemove()
         return
@@ -74,7 +76,7 @@ function gameNightDeckSearch:getCardAtXY(x, y)
 
     --print("x:",x,"  y:",y,"    col:",col," (",colMod,")    row:",row," (",rowMod,")")
 
-    local cardData, _ = self.deckActionHandler.getDeckStates(self.deck)
+    local cardData, _ = deckActionHandler.getDeckStates(self.deck)
     local selected = #cardData - math.floor(col + (row*colFactor))
 
     return selected, (colMod > self.cardWidth)
@@ -93,8 +95,8 @@ function gameNightDeckSearch:cardOnRightMouseUp(x, y)
     local selected, _ = searchWindow:getCardAtXY(x, y)
     if selected then
         local context = ISContextMenu.get(searchWindow.player:getPlayerNum(), getMouseX(), getMouseY())
-        context:addOption(getText("IGUI_draw"), searchWindow.deck, searchWindow.deckActionHandler.drawSpecificCard, searchWindow.player, selected)
-        context:addOption(getText("IGUI_flipCard"), searchWindow.deck, searchWindow.deckActionHandler.flipSpecificCard, searchWindow.player, selected)
+        context:addOption(getText("IGUI_draw"), searchWindow.deck, deckActionHandler.drawSpecificCard, searchWindow.player, selected)
+        context:addOption(getText("IGUI_flipCard"), searchWindow.deck, deckActionHandler.flipSpecificCard, searchWindow.player, selected)
     end
     searchWindow:clearDragging()
 end
@@ -128,7 +130,7 @@ function gameNightDeckSearch:cardOnMouseUpOutside(x, y)
         local deckItem = searchWindow.deck
         local cardBeingDragged = searchWindow.dragging
 
-        local cardDrawn = searchWindow.deckActionHandler._drawCardIndex(deckItem, cardBeingDragged)
+        local cardDrawn = deckActionHandler._drawCardIndex(deckItem, cardBeingDragged)
         if cardDrawn then gameNightWin:calculateItemDrop(gameNightWin:getMouseX(), gameNightWin:getMouseY(), {cardDrawn}) end
     end
 
@@ -141,7 +143,7 @@ function gameNightDeckSearch:cardOnMouseUp(x, y)
 
     local selection, _ = searchWindow:getCardAtXY(x, y)
     local deckItem = searchWindow.deck
-    local cardData, flippedStates = searchWindow.deckActionHandler.getDeckStates(deckItem)
+    local cardData, flippedStates = deckActionHandler.getDeckStates(deckItem)
 
     if searchWindow.dragging and selection and selection >= 1 then
         local cardA, flippedA = cardData[searchWindow.dragging], flippedStates[searchWindow.dragging]
@@ -169,8 +171,8 @@ function gameNightDeckSearch:cardOnMouseUp(x, y)
             cardData[selection] = cardA
             flippedStates[selection] = flippedA
         end
-        searchWindow.gamePieceAndBoardHandler.playSound(deckItem, searchWindow.player)
-        searchWindow.deckActionHandler.handleDetails(deckItem)
+        gamePieceAndBoardHandler.playSound(deckItem, searchWindow.player)
+        deckActionHandler.handleDetails(deckItem)
     end
 
     searchWindow:clearDragging()
@@ -201,7 +203,7 @@ end
 function gameNightDeckSearch:render()
     self.cardDisplay:setStencilRect(0, 0, self.cardDisplay.width, self.cardDisplay.height)
     ISPanel.render(self)
-    local cardData, cardFlipStates = self.deckActionHandler.getDeckStates(self.deck)
+    local cardData, cardFlipStates = deckActionHandler.getDeckStates(self.deck)
     local itemType = self.deck:getType()
 
     local halfPad = math.floor((self.padding/2)+0.5)
@@ -215,7 +217,7 @@ function gameNightDeckSearch:render()
 
         if card then
 
-            local textureToUse = self.deckActionHandler.fetchAltIcon(card, self.deck)
+            local textureToUse = deckActionHandler.fetchAltIcon(card, self.deck)
             local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..itemType.."/"..textureToUse..".png"
             local texture = getTexture(texturePath)
 
@@ -243,19 +245,21 @@ function gameNightDeckSearch:render()
     self.hiddenHeight = math.max(0, yOffset-(self.cardDisplay.height-halfPad-self.cardHeight))
     self.cardDisplay:clearStencilRect()
 
-    local mouseX, mouseY = self.cardDisplay:getMouseX(), self.cardDisplay:getMouseY()
-    local selected, _ = self:getCardAtXY(mouseX, mouseY)
-    local sandbox = SandboxVars.GameNight.DisplayItemNames
-    if sandbox and selected then
-        local card = cardData[selected]
-        local nameToUse = self.deckActionHandler.fetchAltName(card, self.deck)
-        local flipped = cardFlipStates[selected]
-        local cardName = flipped and getText("IGUI_"..itemType) or nameToUse
-        if cardName then
-            local cardNameW = getTextManager():MeasureStringX(UIFont.NewSmall, " "..cardName.." ")
-            local cardNameH = getTextManager():getFontHeight(UIFont.NewSmall)
-            self.cardDisplay:drawRect(mouseX+(cardNameW/3), mouseY-cardNameH-(self.scrollY or 0), cardNameW, cardNameH, 0.7, 0, 0, 0)
-            self.cardDisplay:drawTextCentre(cardName, mouseX+(cardNameW*0.833), mouseY-cardNameH-(self.scrollY or 0), 1, 1, 1, 0.7, UIFont.NewSmall)
+    if self:isMouseOver() then
+        local mouseX, mouseY = self.cardDisplay:getMouseX(), self.cardDisplay:getMouseY()
+        local selected, _ = self:getCardAtXY(mouseX, mouseY)
+        local sandbox = SandboxVars.GameNight.DisplayItemNames
+        if sandbox and selected and selected>0 then
+            local card = cardData[selected]
+            local nameToUse = deckActionHandler.fetchAltName(card, self.deck)
+            local flipped = cardFlipStates[selected]
+            local cardName = flipped and getText("IGUI_"..itemType) or nameToUse
+            if cardName then
+                local cardNameW = getTextManager():MeasureStringX(UIFont.NewSmall, " "..cardName.." ")
+                local cardNameH = getTextManager():getFontHeight(UIFont.NewSmall)
+                self.cardDisplay:drawRect(mouseX+(cardNameW/3), mouseY-cardNameH, cardNameW, cardNameH, 0.7, 0, 0, 0)
+                self.cardDisplay:drawTextCentre(cardName, mouseX+(cardNameW*0.833), mouseY-cardNameH, 1, 1, 1, 0.7, UIFont.NewSmall)
+            end
         end
     end
 
@@ -289,9 +293,6 @@ function gameNightDeckSearch:initialise()
     self.cardDisplay.onRightMouseUp = self.cardOnRightMouseUp
 
     self:addChild(self.cardDisplay)
-
-    self.deckActionHandler = require "gameNight - deckActionHandler"
-    self.gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 end
 
 
