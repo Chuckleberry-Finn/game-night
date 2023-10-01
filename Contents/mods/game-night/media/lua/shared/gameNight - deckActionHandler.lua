@@ -23,6 +23,19 @@ function deckActionHandler.getDeckStates(deckItem)
 end
 
 
+function deckActionHandler.fetchAltName(cardName, deckItem)
+    local nameOfCard = false
+    if deckItem:getModData()["gameNight_cardAltNames"] then nameOfCard = deckItem:getModData()["gameNight_cardAltNames"][cardName] or nameOfCard end
+    return nameOfCard
+end
+
+function deckActionHandler.fetchAltIcon(cardName, deckItem)
+    local textureToUse = false
+    if deckItem:getModData()["gameNight_cardAltIcons"] then textureToUse = deckItem:getModData()["gameNight_cardAltIcons"][cardName] or textureToUse end
+    return textureToUse
+end
+
+
 deckActionHandler.cardWeight = 0.003
 ---@param deckItem InventoryItem
 function deckActionHandler.handleDetails(deckItem)
@@ -49,16 +62,13 @@ function deckActionHandler.handleDetails(deckItem)
         local tooltip = getTextOrNull("Tooltip_"..deckStates[#deckStates])
         if tooltip then deckItem:setTooltip(tooltip) end
 
-        local nameOfCard = deckStates[#deckStates]
-        if deckItem:getModData()["gameNight_cardAltNames"] then
-            nameOfCard = deckItem:getModData()["gameNight_cardAltNames"][nameOfCard] or nameOfCard
-        end
+        local cardName = deckStates[#deckStates]
+
+        local nameOfCard = deckActionHandler.fetchAltName(cardName, deckItem) or cardName
         deckItem:setName(nameOfCard..name_suffix)
 
-        local textureToUse = deckStates[#deckStates]
-        if deckItem:getModData()["gameNight_cardAltIcons"] then
-            textureToUse = deckItem:getModData()["gameNight_cardAltIcons"][textureToUse] or textureToUse
-        end
+
+        local textureToUse = deckActionHandler.fetchAltIcon(cardName, deckItem) or cardName
         texture = getTexture("media/textures/Item_"..itemType.."/"..textureToUse..".png")
 
         deckItem:getModData()["gameNight_textureInPlay"] = texture

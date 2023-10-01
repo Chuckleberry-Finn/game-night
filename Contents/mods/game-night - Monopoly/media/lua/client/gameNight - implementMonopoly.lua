@@ -2,7 +2,6 @@
 --- ! SEE: `gameNight - implementUno` for a simpler example on adding decks.
 --- MONOPOLY includes 'alternative' names/icons for cards that will either have the same name or look the same but operate differently.
 
-
 local applyItemDetails = require "gameNight - applyItemDetails"
 
 --- MONOPOLY DEED DECK
@@ -31,7 +30,7 @@ for set,cards in pairs(MonopolyDeedDeck.set) do
     end
 end
 
-applyItemDetails.addDeck("MonopolyDeedDeck", MonopolyDeedDeck.cards, nil, MonopolyDeedDeck.altIcons)
+applyItemDetails.addDeck("MonopolyDeed", MonopolyDeedDeck.cards, nil, MonopolyDeedDeck.altIcons)
 
 
 ---Money
@@ -81,3 +80,12 @@ applyItemDetails.addDeck("MonopolyDeedDeck", MonopolyChanceDeck.cards)
 local MonopolyCommunityChestDeck = {}
 MonopolyCommunityChestDeck.cards = {}
 applyItemDetails.addDeck("MonopolyDeedDeck", MonopolyCommunityChestDeck.cards)
+
+
+
+local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
+gamePieceAndBoardHandler.registerTypes({
+    "Base.MonopolyBoard", "Base.MonopolyBoat", "Base.MonopolyBoot", "Base.MonopolyCar", "Base.MonopolyDog",
+    "Base.MonopolyHat", "Base.MonopolyIron", "Base.MonopolyThimble", "Base.MonopolyWheelbarrow"
+})
+

@@ -214,7 +214,9 @@ function gameNightDeckSearch:render()
         local flipped = cardFlipStates[n]
 
         if card then
-            local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..itemType.."/"..card..".png"
+
+            local textureToUse = self.deckActionHandler.fetchAltIcon(card, self.deck)
+            local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..itemType.."/"..textureToUse..".png"
             local texture = getTexture(texturePath)
 
             if self.cardWidth+xOffset > self.cardDisplay.width+halfPad then
@@ -246,8 +248,9 @@ function gameNightDeckSearch:render()
     local sandbox = SandboxVars.GameNight.DisplayItemNames
     if sandbox and selected then
         local card = cardData[selected]
+        local nameToUse = self.deckActionHandler.fetchAltName(card, self.deck)
         local flipped = cardFlipStates[selected]
-        local cardName = flipped and getText("IGUI_"..itemType) or card
+        local cardName = flipped and getText("IGUI_"..itemType) or nameToUse
         if cardName then
             local cardNameW = getTextManager():MeasureStringX(UIFont.NewSmall, " "..cardName.." ")
             local cardNameH = getTextManager():getFontHeight(UIFont.NewSmall)

@@ -19,4 +19,53 @@ module Base
         Icon = MonopolyDeed/deck,
         WorldStaticModel = MonopolyDeedDeck,
     }
+
+    item MonopolyBoat
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Boat, Icon = OutOfPlayTextures/MonopolyBoat, WorldStaticModel = MonopolyPiece,
+    }
+
+    item MonopolyBoot
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Boot, Icon = OutOfPlayTextures/MonopolyBoot, WorldStaticModel = MonopolyPiece,
+    }
+
+    item MonopolyCar
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Car, Icon = OutOfPlayTextures/MonopolyCar, WorldStaticModel = MonopolyPiece,
+    }
+
+    item MonopolyDog
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Dog, Icon = OutOfPlayTextures/MonopolyDog, WorldStaticModel = MonopolyPiece,
+    }
+
+    item MonopolyHat
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Hat, Icon = OutOfPlayTextures/MonopolyHat, WorldStaticModel = MonopolyPiece,
+    }
+
+    item MonopolyIron
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Iron, Icon = OutOfPlayTextures/MonopolyIron, WorldStaticModel = MonopolyPiece,
+    }
+
+    item MonopolyThimble
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Thimble, Icon = OutOfPlayTextures/MonopolyThimble, WorldStaticModel = MonopolyPiece,
+    }
+
+    item MonopolyWheelbarrow
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Wheelbarrow, Icon = OutOfPlayTextures/MonopolyWheelbarrow, WorldStaticModel = MonopolyPiece,
+    }
+
 }
