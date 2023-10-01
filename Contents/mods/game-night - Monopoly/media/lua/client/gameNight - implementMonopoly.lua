@@ -46,9 +46,10 @@ MonopolyChanceDeck.altIcons = {}
 MonopolyChanceDeck.altNames = {}
 
 for n=1, 25 do
-    local fetchCard = getTextOrNull("Tooltip_Chance"..n)
+    local cardID = "Chance"..n
+    local fetchCard = getTextOrNull("Tooltip_"..cardID)
     if fetchCard then
-        table.insert(MonopolyChanceDeck.cards, fetchCard)
+        table.insert(MonopolyChanceDeck.cards, cardID)
         MonopolyChanceDeck.altNames[fetchCard] = "Chance"
         MonopolyChanceDeck.altIcons[fetchCard] = "MonopolyChance"
     end
@@ -64,9 +65,10 @@ MonopolyCommunityChestDeck.altIcons = {}
 MonopolyCommunityChestDeck.altNames = {}
 
 for n=1, 25 do
-    local fetchCard = getTextOrNull("Tooltip_CommunityChest"..n)
+    local cardID = "CommunityChest"..n
+    local fetchCard = getTextOrNull("Tooltip_"..cardID)
     if fetchCard then
-        table.insert(MonopolyChanceDeck.cards, fetchCard)
+        table.insert(MonopolyCommunityChestDeck.cards, cardID)
         MonopolyCommunityChestDeck.altNames[fetchCard] = "Community Chest"
         MonopolyCommunityChestDeck.altIcons[fetchCard] = "MonopolyCommunityChest"
     end
