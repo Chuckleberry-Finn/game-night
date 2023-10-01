@@ -50,8 +50,8 @@ for n=1, 25 do
     local fetchCard = getTextOrNull("Tooltip_"..cardID)
     if fetchCard then
         table.insert(MonopolyChanceDeck.cards, cardID)
-        MonopolyChanceDeck.altNames[fetchCard] = "Chance"
-        MonopolyChanceDeck.altIcons[fetchCard] = "ChanceCard"
+        MonopolyChanceDeck.altNames[cardID] = "Chance"
+        MonopolyChanceDeck.altIcons[cardID] = "ChanceCard"
     end
 end
 
@@ -69,8 +69,8 @@ for n=1, 25 do
     local fetchCard = getTextOrNull("Tooltip_"..cardID)
     if fetchCard then
         table.insert(MonopolyCommunityChestDeck.cards, cardID)
-        MonopolyCommunityChestDeck.altNames[fetchCard] = "Community Chest"
-        MonopolyCommunityChestDeck.altIcons[fetchCard] = "CommunityChest"
+        MonopolyCommunityChestDeck.altNames[cardID] = "Community Chest"
+        MonopolyCommunityChestDeck.altIcons[cardID] = "CommunityChest"
     end
 end
 
