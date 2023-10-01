@@ -1,7 +1,14 @@
 module Base
 {
     model MonopolyDeedDeck { mesh = WorldItems/cardpack, texture = Item_MonopolyDeed/deckTexture, scale = 0.02, }
-    model MonopolyDeedDeckSingle { mesh = WorldItems/card, texture = Item_MonopolyDeed/deckTexture, scale = 0.02, }
+    model MonopolyDeedSingle { mesh = WorldItems/card, texture = Item_MonopolyDeed/deckTexture, scale = 0.02, }
+
+    model MonopolyChanceDeck { mesh = WorldItems/cardpack, texture = Item_MonopolyChance/deckTexture, scale = 0.02, }
+    model MonopolyChanceSingle { mesh = WorldItems/card, texture = Item_MonopolyChance/deckTexture, scale = 0.02, }
+
+    model MonopolyCommunityChestDeck { mesh = WorldItems/cardpack, texture = Item_MonopolyCommunityChest/deckTexture, scale = 0.02, }
+    model MonopolyCommunityChestSingle { mesh = WorldItems/card, texture = Item_MonopolyCommunityChest/deckTexture, scale = 0.02, }
+
 
     model MonopolyBox { mesh = WorldItems/cardpack, texture = Item_Boxes/monopolyBox_ground, scale = 0.06, }
     model MonopolyBoard {

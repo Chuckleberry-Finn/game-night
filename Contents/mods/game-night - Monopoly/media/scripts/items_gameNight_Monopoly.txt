@@ -20,6 +20,22 @@ module Base
         WorldStaticModel = MonopolyDeedDeck,
     }
 
+    item MonopolyChance
+    {
+        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
+        DisplayName = Monopoly Chance,
+        Icon = MonopolyChance/deck,
+        WorldStaticModel = MonopolyChanceDeck,
+    }
+
+    item MonopolyCommunityChest
+    {
+        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
+        DisplayName = Monopoly Community Chest,
+        Icon = MonopolyCommunityChest/deck,
+        WorldStaticModel = MonopolyCommunityChestDeck,
+    }
+
     item MonopolyBoat
     {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,

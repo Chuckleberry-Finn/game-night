@@ -40,49 +40,42 @@ applyItemDetails.addDeck("MonopolyDeed", MonopolyDeedDeck.cards, nil, MonopolyDe
 --20 $100,$500
 
 ---Chance
---Advance to "Go". (Collect $200)
---Advance to Illinois Ave. If you pass Go, collect $200.
---Advance to St. Charles Place. If you pass Go, collect $200.
---Advance to the nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total 10 (ten) times the amount thrown.
---Advance to the nearest Railroad. If unowned, you may buy it from the Bank. If owned, pay owner twice the rent to which they are otherwise entitled.
---Bank pays you dividend of $50.
---Get out of Jail Free. This card may be kept until needed, or traded/sold.
---Go Back Three Spaces.
---Go directly to Jail. Do not pass GO, do not collect $200.
---Make general repairs on all your property: For each house pay $25, For each hotel pay $100.
---Take a trip to Reading Railroad. If you pass Go, collect $200.
---Pay Poor Tax of $15
---Take a walk on the Boardwalk. Advance to Boardwalk.
---You have been elected Chairman of the Board. Pay each player $50.
---Your building loan matures. Collect $150 from the bank.
 local MonopolyChanceDeck = {}
 MonopolyChanceDeck.cards = {}
+MonopolyChanceDeck.altIcons = {}
+MonopolyChanceDeck.altNames = {}
+
+for n=1, 25 do
+    local fetchCard = getTextOrNull("Tooltip_Chance"..n)
+    if fetchCard then
+        table.insert(MonopolyChanceDeck.cards, fetchCard)
+        MonopolyChanceDeck.altNames[fetchCard] = "Chance"
+        MonopolyChanceDeck.altIcons[fetchCard] = "MonopolyChance"
+    end
+end
+
 applyItemDetails.addDeck("MonopolyDeedDeck", MonopolyChanceDeck.cards)
 
+
 ---Community Chest
---Advance to "Go". Collect $200.
---Bank error in your favor. Collect $200.
---Doctor's fees. {fee} Pay $50.
---From sale of stock you get $50. {$45.}
---Get Out of Jail Free. {Get out of Jail, Free. in previous US editions} – This card may be kept until needed or sold/traded.
---Go to Jail. Go directly to jail. Do not pass Go, Do not collect $200.
---Grand Opera Opening Night. Collect $50 from every player for opening night seats.
---Christmas Fund Matures. Collect $100.
---Income tax refund. Collect $20.
---It's your birthday. Collect $10 from every player.
---Life insurance matures – Collect $100
---Hospital Fees. Pay $50. {Pay hospital fees of $100.} {Pay hospital $100.}
---School fees. Pay $50. {Pay school fees {tax} of $150}
---Receive $25 consultancy fee. {Receive for services $25.}
---You are assessed for street repairs: Pay $40 per house and $115 per hotel you own.
---You have won second prize in a beauty contest. Collect $10.
---You inherit $100.
 local MonopolyCommunityChestDeck = {}
 MonopolyCommunityChestDeck.cards = {}
-applyItemDetails.addDeck("MonopolyDeedDeck", MonopolyCommunityChestDeck.cards)
+MonopolyCommunityChestDeck.altIcons = {}
+MonopolyCommunityChestDeck.altNames = {}
+
+for n=1, 25 do
+    local fetchCard = getTextOrNull("Tooltip_CommunityChest"..n)
+    if fetchCard then
+        table.insert(MonopolyChanceDeck.cards, fetchCard)
+        MonopolyCommunityChestDeck.altNames[fetchCard] = "Community Chest"
+        MonopolyCommunityChestDeck.altIcons[fetchCard] = "MonopolyCommunityChest"
+    end
+end
+
+applyItemDetails.addDeck("MonopolyCommunityChestDeck", MonopolyCommunityChestDeck.cards)
 
 
-
+---REGISTER GAME PIECES AND BOARD -- SEE CATAN IMPLEMENTATION FOR MORE INFO
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 gamePieceAndBoardHandler.registerTypes({
     "Base.MonopolyBoard", "Base.MonopolyBoat", "Base.MonopolyBoot", "Base.MonopolyCar", "Base.MonopolyDog",
