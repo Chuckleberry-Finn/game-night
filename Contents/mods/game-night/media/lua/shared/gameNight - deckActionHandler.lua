@@ -24,7 +24,7 @@ end
 
 
 function deckActionHandler.fetchAltName(cardName, deckItem)
-    return (deckItem:getModData()["gameNight_cardAltNames"] and deckItem:getModData()["gameNight_cardAltNames"][cardName] or cardName)
+    return getTextOrNull(deckItem:getModData()["gameNight_cardAltNames"] and deckItem:getModData()["gameNight_cardAltNames"][cardName] or cardName) or cardName
 end
 
 function deckActionHandler.fetchAltIcon(cardName, deckItem)
@@ -62,7 +62,6 @@ function deckActionHandler.handleDetails(deckItem)
 
         local nameOfCard = deckActionHandler.fetchAltName(cardName, deckItem)
         deckItem:setName(nameOfCard..name_suffix)
-
 
         local textureToUse = deckActionHandler.fetchAltIcon(cardName, deckItem)
         texture = getTexture("media/textures/Item_"..itemType.."/"..textureToUse..".png")
