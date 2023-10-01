@@ -22,6 +22,8 @@ MonopolyDeedDeck.set.Purple = {"Park Place","Boardwalk"}
 
 MonopolyDeedDeck.set.RailRoad = {"Reading Railroad","Pennsylvania Railroad","B & D Railroad", "Short Line"}
 
+MonopolyDeedDeck.altIcons = {}
+
 for set,cards in pairs(MonopolyDeedDeck.set) do
     for _,card in pairs(cards) do
         MonopolyDeedDeck.altIcons[card] = set.."Deed"
@@ -29,7 +31,7 @@ for set,cards in pairs(MonopolyDeedDeck.set) do
     end
 end
 
-applyItemDetails.addDeck("MonopolyDeedDeck", MonopolyDeedDeck.cards)
+applyItemDetails.addDeck("MonopolyDeedDeck", MonopolyDeedDeck.cards, nil, MonopolyDeedDeck.altIcons)
 
 
 ---Money
