@@ -251,9 +251,8 @@ function gameNightDeckSearch:render()
         local sandbox = SandboxVars.GameNight.DisplayItemNames
         if sandbox and selected and selected>0 then
             local card = cardData[selected]
-            local nameToUse = deckActionHandler.fetchAltName(card, self.deck)
             local flipped = cardFlipStates[selected]
-            local cardName = flipped and getItemText(self.deck:getFullType()) or nameToUse
+            local cardName = flipped and getItemText(self.deck:getFullType()) or deckActionHandler.fetchAltName(card, self.deck)
             if cardName then
                 local cardNameW = getTextManager():MeasureStringX(UIFont.NewSmall, " "..cardName.." ")
                 local cardNameH = getTextManager():getFontHeight(UIFont.NewSmall)
