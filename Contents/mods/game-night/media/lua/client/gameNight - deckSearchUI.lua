@@ -253,7 +253,7 @@ function gameNightDeckSearch:render()
             local card = cardData[selected]
             local nameToUse = deckActionHandler.fetchAltName(card, self.deck)
             local flipped = cardFlipStates[selected]
-            local cardName = flipped and getText("IGUI_"..itemType) or nameToUse
+            local cardName = flipped and getItemText(self.deck:getFullType()) or nameToUse
             if cardName then
                 local cardNameW = getTextManager():MeasureStringX(UIFont.NewSmall, " "..cardName.." ")
                 local cardNameH = getTextManager():getFontHeight(UIFont.NewSmall)

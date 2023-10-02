@@ -24,7 +24,7 @@ end
 
 
 function deckActionHandler.fetchAltName(cardName, deckItem)
-    return getTextOrNull(deckItem:getModData()["gameNight_cardAltNames"] and deckItem:getModData()["gameNight_cardAltNames"][cardName] or cardName) or cardName
+    return getItemNameFromFullType(deckItem:getModData()["gameNight_cardAltNames"] and deckItem:getModData()["gameNight_cardAltNames"][cardName] or cardName) or cardName
 end
 
 function deckActionHandler.fetchAltIcon(cardName, deckItem)
@@ -74,7 +74,7 @@ function deckActionHandler.handleDetails(deckItem)
         local tooltip = getTextOrNull("Tooltip_"..itemType)
         if tooltip then deckItem:setTooltip(tooltip) end
 
-        deckItem:setName(getText("IGUI_"..itemType)..name_suffix)
+        deckItem:setName(getItemNameFromFullType(deckItem:getFullType())..name_suffix)
         texture = getTexture("media/textures/Item_"..itemType.."/"..textureID..".png")
         deckItem:getModData()["gameNight_textureInPlay"] = getTexture("media/textures/Item_"..itemType.."/FlippedInPlay.png")
     end

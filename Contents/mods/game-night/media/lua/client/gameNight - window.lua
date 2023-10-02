@@ -447,12 +447,6 @@ function gameNightWindow:labelWithName(element)
     local sandbox = SandboxVars.GameNight.DisplayItemNames
     if sandbox and (not self.movingPiece) then
 
-        local itemName = element.item:getName()
-
-        if deckActionHandler.isDeckItem(element.item) then
-            itemName = deckActionHandler.fetchAltName(itemName, element.item)
-        end
-
         local nameTag = (element.item and element.item:getName())
         if nameTag then
 
