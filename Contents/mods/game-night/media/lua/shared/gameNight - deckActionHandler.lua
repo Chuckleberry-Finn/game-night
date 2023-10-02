@@ -24,7 +24,8 @@ end
 
 
 function deckActionHandler.fetchAltName(cardName, deckItem)
-    return getItemNameFromFullType(deckItem:getModData()["gameNight_cardAltNames"] and deckItem:getModData()["gameNight_cardAltNames"][cardName] or cardName) or cardName
+    local altName = deckItem:getModData()["gameNight_cardAltNames"] and deckItem:getModData()["gameNight_cardAltNames"][cardName]
+    return ((altName and getItemNameFromFullType(altName)) or cardName)
 end
 
 function deckActionHandler.fetchAltIcon(cardName, deckItem)
