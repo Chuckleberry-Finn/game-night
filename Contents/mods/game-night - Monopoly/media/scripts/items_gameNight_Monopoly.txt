@@ -1,16 +1,58 @@
 module Base
 {
-   item MonopolyBoard
-   {
+    item MonopolyBoard
+    {
        DisplayCategory = GameBoard, Weight = 0.01, Type = Normal,
        DisplayName = Monopoly Board, Icon = OutOfPlayTextures/MonopolyBoard, WorldStaticModel = MonopolyBoard,
-   }
+    }
 
     item MonopolyBox
-   {
+    {
        DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
        DisplayName = Monopoly Box, Icon = Boxes/monopolyBox, WorldStaticModel = MonopolyBox,
-   }
+    }
+
+    item MonopolyMoney1
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly Money,
+        Icon = OutOfPlayTextures/monopolyMoney1, WorldStaticModel = MonopolyMoney1,
+    }
+
+    item MonopolyMoney5
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly Money,
+        Icon = OutOfPlayTextures/monopolyMoney5, WorldStaticModel = MonopolyMoney5,
+    }
+
+    item MonopolyMoney10
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly Money,
+        Icon = OutOfPlayTextures/monopolyMoney10, WorldStaticModel = MonopolyMoney10,
+    }
+
+    item MonopolyMoney20
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly Money,
+        Icon = OutOfPlayTextures/monopolyMoney20, WorldStaticModel = MonopolyMoney20,
+    }
+
+    item MonopolyMoney50
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly Money,
+        Icon = OutOfPlayTextures/monopolyMoney50, WorldStaticModel = MonopolyMoney50,
+    }
+
+    item MonopolyMoney100
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly Money,
+        Icon = OutOfPlayTextures/monopolyMoney100, WorldStaticModel = MonopolyMoney100,
+    }
+
+    item MonopolyMoney500
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly Money,
+        Icon = OutOfPlayTextures/monopolyMoney500, WorldStaticModel = MonopolyMoney500,
+    }
 
     item MonopolyDeed
     {

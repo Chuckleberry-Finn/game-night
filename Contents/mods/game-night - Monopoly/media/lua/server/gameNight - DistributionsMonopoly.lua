@@ -24,6 +24,9 @@ gameNightDistro.gameNightBoxes["MonopolyBox"] = {
         "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999,
         "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999,
         "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999,
+
+        "MonopolyMoney1", 9999, "MonopolyMoney5", 9999, "MonopolyMoney10", 9999, "MonopolyMoney20", 9999,
+        "MonopolyMoney50", 9999, "MonopolyMoney100", 9999, "MonopolyMoney500", 9999,
     },
     junk = { rolls = 1, items = {} }, fillRand = 0,
 }
