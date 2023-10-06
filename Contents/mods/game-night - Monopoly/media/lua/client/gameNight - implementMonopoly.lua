@@ -84,3 +84,11 @@ gamePieceAndBoardHandler.registerTypes({
     "Base.MonopolyHat", "Base.MonopolyIron", "Base.MonopolyThimble", "Base.MonopolyWheelbarrow"
 })
 
+
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", { canStack = true })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", { canStack = true })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", { canStack = true })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney20", { canStack = true })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney50", { canStack = true })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney100", { canStack = true })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney500", { canStack = true })

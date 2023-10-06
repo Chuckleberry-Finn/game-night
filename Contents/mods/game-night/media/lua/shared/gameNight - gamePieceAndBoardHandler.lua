@@ -59,14 +59,14 @@ gamePieceAndBoardHandler.specials = {
     ["Base.CheckerBoard"]={ category = "GameBoard" },
     ["Base.ChessBoard"]={ category = "GameBoard" },
 
-    ["Base.PokerChips"]={ weight = 0.003 },
-    ["Base.PokerChipsBlue"]={ weight = 0.003 },
-    ["Base.PokerChipsYellow"]={ weight = 0.003 },
-    ["Base.PokerChipsWhite"]={ weight = 0.003 },
-    ["Base.PokerChipsBlack"]={ weight = 0.003 },
-    ["Base.PokerChipsOrange"]={ weight = 0.003 },
-    ["Base.PokerChipsPurple"]={ weight = 0.003 },
-    ["Base.PokerChipsGreen"]={ weight = 0.003 },
+    ["Base.PokerChips"]={ weight = 0.003, canStack=true },
+    ["Base.PokerChipsBlue"]={ weight = 0.003, canStack=true },
+    ["Base.PokerChipsYellow"]={ weight = 0.003, canStack=true },
+    ["Base.PokerChipsWhite"]={ weight = 0.003, canStack=true },
+    ["Base.PokerChipsBlack"]={ weight = 0.003, canStack=true },
+    ["Base.PokerChipsOrange"]={ weight = 0.003, canStack=true },
+    ["Base.PokerChipsPurple"]={ weight = 0.003, canStack=true },
+    ["Base.PokerChipsGreen"]={ weight = 0.003, canStack=true },
 }
 --Weight
 
