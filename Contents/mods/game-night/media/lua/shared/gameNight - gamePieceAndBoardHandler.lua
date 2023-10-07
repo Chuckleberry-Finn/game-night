@@ -68,7 +68,7 @@ gamePieceAndBoardHandler.specials = {
     ["Base.PokerChipsPurple"]={ weight = 0.003, canStack=true },
     ["Base.PokerChipsGreen"]={ weight = 0.003, canStack=true },
 }
---Weight
+
 
 function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, gamePiece)
     local fullType = gamePiece:getFullType()
