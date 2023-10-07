@@ -150,22 +150,6 @@ function deckActionHandler.flipCard(deckItem, player)
 end
 
 
----@param inventoryItem InventoryItem
-function deckActionHandler.safelyRemoveCard(inventoryItem)
-    local worldItem = inventoryItem:getWorldItem()
-    if worldItem then
-        ---@type IsoGridSquare
-        local sq = worldItem:getSquare()
-        if sq then
-            sq:transmitRemoveItemFromSquare(worldItem)
-            sq:removeWorldObject(worldItem)
-            inventoryItem:setWorldItem(nil)
-        end
-    end
-    ---@type ItemContainer
-    local container = inventoryItem:getContainer()
-    if container then container:DoRemoveItem(inventoryItem) end
-end
 
 
 function deckActionHandler._mergeDecks(deckItemA, deckItemB, index)
@@ -184,7 +168,7 @@ function deckActionHandler._mergeDecks(deckItemA, deckItemB, index)
         table.insert(flippedB, index, flippedA[i])
     end
 
-    deckActionHandler.safelyRemoveCard(deckItemA)
+    gamePieceAndBoardHandler.safelyRemoveGamePiece(deckItemA)
 end
 ---@param deckItemA InventoryItem
 ---@param deckItemB InventoryItem

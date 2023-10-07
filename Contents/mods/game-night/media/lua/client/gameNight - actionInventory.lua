@@ -1,4 +1,6 @@
 local deckActionHandler = require "gameNight - deckActionHandler"
+local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
+
 require "ISUI/ISInventoryPane"
 --[[
 local ISInventoryPane_doContextualDblClick = ISInventoryPane.doContextualDblClick
@@ -43,7 +45,7 @@ function ISInventoryPane:onMouseUp(x, y)
         local doWalk = true
         local dragging = ISInventoryPane.getActualItems(draggingOld)
         for i,v in ipairs(dragging) do
-            if deckActionHandler.isDeckItem(v) then
+            if deckActionHandler.isDeckItem(v) or gamePieceAndBoardHandler.canStackPiece(v) then
                 local transfer = v:getContainer() and not self.inventory:isInside(v)
                 if v:isFavorite() and not self.inventory:isInCharacterInventory(playerObj) then transfer = false end
                 if transfer then
@@ -70,8 +72,20 @@ function ISInventoryPane:onMouseUp(x, y)
         local pushToActual
         if instanceof(pushTo, "InventoryItem") then pushToActual = pushTo else pushToActual = pushTo.items[1] end
 
-        for _,deck in pairs(itemFound) do if deck==pushToActual then return end end
+        for _,item in pairs(itemFound) do if item==pushToActual then return end end
 
-        if pushToActual and deckActionHandler.isDeckItem(pushToActual) then for _,deck in pairs(itemFound) do deckActionHandler.mergeDecks(deck, pushToActual, playerObj) end end
+        if pushToActual then
+            if deckActionHandler.isDeckItem(pushToActual) then
+                for _,deck in pairs(itemFound) do
+                    deckActionHandler.mergeDecks(deck, pushToActual, playerObj)
+                end
+
+            elseif gamePieceAndBoardHandler.canStackPiece(pushToActual) then
+
+                for _,gamePiece in pairs(itemFound) do
+                    gamePieceAndBoardHandler.tryStack(gamePiece, pushToActual, playerObj)
+                end
+            end
+        end
     end
 end

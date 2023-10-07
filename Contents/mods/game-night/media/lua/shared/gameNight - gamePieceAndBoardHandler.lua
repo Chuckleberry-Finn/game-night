@@ -81,8 +81,48 @@ function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context,
 end
 
 
+---@param inventoryItem InventoryItem
+function gamePieceAndBoardHandler.safelyRemoveGamePiece(inventoryItem)
+    local worldItem = inventoryItem:getWorldItem()
+    if worldItem then
+        ---@type IsoGridSquare
+        local sq = worldItem:getSquare()
+        if sq then
+            sq:transmitRemoveItemFromSquare(worldItem)
+            sq:removeWorldObject(worldItem)
+            inventoryItem:setWorldItem(nil)
+        end
+    end
+    ---@type ItemContainer
+    local container = inventoryItem:getContainer()
+    if container then container:DoRemoveItem(inventoryItem) end
+end
+
+
+
 function gamePieceAndBoardHandler.isGamePiece(gamePiece)
     return gamePieceAndBoardHandler._itemTypes[gamePiece:getFullType()]
+end
+
+
+function gamePieceAndBoardHandler.canStackPiece(gamePiece)
+    return gamePieceAndBoardHandler.specials[gamePiece:getFullType()].canStack
+end
+
+
+function gamePieceAndBoardHandler._tryStack(gamePieceA, gamePieceB)
+    if not gamePieceAndBoardHandler.canStackPiece(gamePieceA) or not gamePieceAndBoardHandler.canStackPiece(gamePieceB) then return end
+    local aStack = (gamePieceA:getModData()["gameNight_stacked"] or 1)
+    gamePieceB:getModData()["gameNight_stacked"] = (gamePieceB:getModData()["gameNight_stacked"] or 1) + aStack
+    gamePieceAndBoardHandler.safelyRemoveGamePiece(gamePieceA)
+end
+---@param gamePieceA InventoryItem
+---@param gamePieceB InventoryItem
+function gamePieceAndBoardHandler.tryStack(gamePieceA, gamePieceB, player)
+    if gamePieceA:getFullType() ~= gamePieceB:getFullType() then return end
+    gamePieceAndBoardHandler.pickupGamePiece(player, gamePieceA, true)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePieceB, {gamePieceAndBoardHandler._tryStack, gamePieceA, gamePieceB})
+    gamePieceAndBoardHandler.playSound(gamePieceB, player)
 end
 
 
@@ -122,6 +162,10 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
 
     gamePiece:getModData()["gameNight_sound"] = "pieceMove"
 
+    local stack = gamePiece:getModData()["gameNight_stacked"]
+    local name_suffix = stack and stack>1 and " ["..stack.."]" or ""
+    gamePiece:setName(gamePiece..name_suffix)
+    
     local altState = gamePiece:getModData()["gameNight_altState"] or ""
 
     local texturePath = "Item_InPlayTextures/"..gamePiece:getType()..altState..".png"
