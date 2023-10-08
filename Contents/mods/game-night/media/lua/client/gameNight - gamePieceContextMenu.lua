@@ -27,9 +27,7 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
 
         local isGamePiece = gamePieceAndBoardHandler.isGamePiece(item)
         if isGamePiece then
-            if gamePieceAndBoardHandler.canUnstackPiece(item) then
-                local unStack = context:addOptionOnTop(getText("IGUI_take"), item, gamePieceAndBoardHandler.unstack, 1)
-            end
+            gamePieceAndBoardHandler.generateContextMenuForStacking(context, playerObj, item)
             gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, playerObj, item)
         end
 

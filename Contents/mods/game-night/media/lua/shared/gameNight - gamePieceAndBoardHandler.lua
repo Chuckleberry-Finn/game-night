@@ -161,6 +161,25 @@ function gamePieceAndBoardHandler.tryStack(gamePieceA, gamePieceB, player)
 end
 
 
+function gamePieceAndBoardHandler.generateContextMenuForStacking(context, player, gamePiece)
+    if not gamePieceAndBoardHandler.canUnstackPiece(gamePiece) then return end
+
+    local stack = gamePiece:getModData()["gameNight_stacked"] and gamePiece:getModData()["gameNight_stacked"]>1 and gamePiece:getModData()["gameNight_stacked"]
+    if not stack then return end
+
+    local unStack = context:addOptionOnTop(getText("IGUI_take"), gamePiece, gamePieceAndBoardHandler.unstack, 1)
+
+    local subDrawMenu = ISContextMenu:getNew(context)
+    context:addSubMenu(unStack, subDrawMenu)
+
+    for i=5, 25, 5 do
+        if stack >= i then
+            local option = subDrawMenu:addOption(getText("IGUI_takeMore", i), gamePiece, gamePieceAndBoardHandler.unstack, i)
+        end
+    end
+end
+
+
 function gamePieceAndBoardHandler.applyScriptChanges()
 
     local scriptManager = getScriptManager()
