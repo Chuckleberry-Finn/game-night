@@ -26,7 +26,12 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
         if not instanceof(v, "InventoryItem") then item = v.items[1] end
 
         local isGamePiece = gamePieceAndBoardHandler.isGamePiece(item)
-        if isGamePiece then gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, playerObj, item) end
+        if isGamePiece then
+            if gamePieceAndBoardHandler.canUnstackPiece(item) then
+                local unStack = context:addOptionOnTop(getText("IGUI_take"), item, gamePieceAndBoardHandler.unstack, 1)
+            end
+            gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, playerObj, item)
+        end
 
         local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
         if deckStates then

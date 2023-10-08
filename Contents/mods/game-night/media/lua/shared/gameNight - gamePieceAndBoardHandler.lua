@@ -105,8 +105,43 @@ function gamePieceAndBoardHandler.isGamePiece(gamePiece)
 end
 
 
-function gamePieceAndBoardHandler.canStackPiece(gamePiece)
-    return gamePieceAndBoardHandler.specials[gamePiece:getFullType()].canStack
+function gamePieceAndBoardHandler.canStackPiece(gamePiece) return gamePieceAndBoardHandler.specials[gamePiece:getFullType()].canStack end
+function gamePieceAndBoardHandler.canUnstackPiece(gamePiece)
+    return (gamePieceAndBoardHandler.canStackPiece(gamePiece) and gamePiece:getModData()["gameNight_stacked"] and gamePiece:getModData()["gameNight_stacked"] > 1)
+end
+
+function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, locations)
+    --sq=sq, offsets={x=wiX,y=wiY,z=wiZ}, container=container
+
+    local newPiece = InventoryItemFactory.CreateItem(gamePiece:getType())
+    if newPiece then
+
+        numberOf = numberOf or 1
+        if numberOf > 1 then newPiece:getModData()["gameNight_stacked"] = numberOf end
+
+        gamePiece:getModData()["gameNight_stacked"] = gamePiece:getModData()["gameNight_stacked"]-numberOf
+
+        ---@type IsoObject|IsoWorldInventoryObject
+        local worldItem = locations and locations.worldItem or gamePiece:getWorldItem()
+
+        local wiX = (locations and locations.offsets and locations.offsets.x) or (worldItem and (worldItem:getWorldPosX()-worldItem:getX())) or 0
+        local wiY = (locations and locations.offsets and locations.offsets.y) or (worldItem and (worldItem:getWorldPosY()-worldItem:getY())) or 0
+        local wiZ = (locations and locations.offsets and locations.offsets.z) or (worldItem and (worldItem:getWorldPosZ()-worldItem:getZ())) or 0
+
+        ---@type IsoGridSquare
+        local sq = (locations and locations.sq) or (worldItem and worldItem:getSquare())
+        if sq then
+            sq:AddWorldInventoryItem(newPiece, wiX, wiY, wiZ)
+        else
+            ---@type ItemContainer
+            local container = (locations and locations.container) or gamePiece:getContainer()
+            if container then container:AddItem(newPiece) end
+        end
+
+        gamePieceAndBoardHandler.handleDetails(gamePiece)
+        gamePieceAndBoardHandler.handleDetails(newPiece)
+        return gamePiece
+    end
 end
 
 
@@ -162,10 +197,11 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
 
     gamePiece:getModData()["gameNight_sound"] = "pieceMove"
 
-    local stack = gamePiece:getModData()["gameNight_stacked"]
+    local stack = gamePiece:getModData()["gameNight_stacked"] or 1
     local name_suffix = stack and stack>1 and " ["..stack.."]" or ""
-    gamePiece:setName(gamePiece..name_suffix)
-    
+    gamePiece:setName(gamePiece:getScriptItem():getDisplayName()..name_suffix)
+    gamePiece:setActualWeight(gamePiece:getScriptItem():getActualWeight()*stack)
+
     local altState = gamePiece:getModData()["gameNight_altState"] or ""
 
     local texturePath = "Item_InPlayTextures/"..gamePiece:getType()..altState..".png"
