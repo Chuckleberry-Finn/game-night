@@ -85,10 +85,10 @@ gamePieceAndBoardHandler.registerTypes({
 })
 
 
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", { canStack = true })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", { canStack = true })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", { canStack = true })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney20", { canStack = true })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney50", { canStack = true })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney100", { canStack = true })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney500", { canStack = true })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", { canStack = 40 })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", { canStack = 40 })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", { canStack = 40 })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney20", { canStack = 50 })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney50", { canStack = 30 })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney100", { canStack = 20 })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney500", { canStack = 20 })

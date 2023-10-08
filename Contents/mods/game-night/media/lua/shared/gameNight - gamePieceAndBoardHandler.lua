@@ -59,14 +59,14 @@ gamePieceAndBoardHandler.specials = {
     ["Base.CheckerBoard"]={ category = "GameBoard" },
     ["Base.ChessBoard"]={ category = "GameBoard" },
 
-    ["Base.PokerChips"]={ weight = 0.003, canStack=true },
-    ["Base.PokerChipsBlue"]={ weight = 0.003, canStack=true },
-    ["Base.PokerChipsYellow"]={ weight = 0.003, canStack=true },
-    ["Base.PokerChipsWhite"]={ weight = 0.003, canStack=true },
-    ["Base.PokerChipsBlack"]={ weight = 0.003, canStack=true },
-    ["Base.PokerChipsOrange"]={ weight = 0.003, canStack=true },
-    ["Base.PokerChipsPurple"]={ weight = 0.003, canStack=true },
-    ["Base.PokerChipsGreen"]={ weight = 0.003, canStack=true },
+    ["Base.PokerChips"]={ weight = 0.003, canStack=50 },
+    ["Base.PokerChipsBlue"]={ weight = 0.003, canStack=50 },
+    ["Base.PokerChipsYellow"]={ weight = 0.003, canStack=50 },
+    ["Base.PokerChipsWhite"]={ weight = 0.003, canStack=50 },
+    ["Base.PokerChipsBlack"]={ weight = 0.003, canStack=50 },
+    ["Base.PokerChipsOrange"]={ weight = 0.003, canStack=50 },
+    ["Base.PokerChipsPurple"]={ weight = 0.003, canStack=50 },
+    ["Base.PokerChipsGreen"]={ weight = 0.003, canStack=50 },
 }
 
 
@@ -99,16 +99,14 @@ function gamePieceAndBoardHandler.safelyRemoveGamePiece(inventoryItem)
 end
 
 
-
-function gamePieceAndBoardHandler.isGamePiece(gamePiece)
-    return gamePieceAndBoardHandler._itemTypes[gamePiece:getFullType()]
-end
+function gamePieceAndBoardHandler.isGamePiece(gamePiece) return gamePieceAndBoardHandler._itemTypes[gamePiece:getFullType()] end
 
 
 function gamePieceAndBoardHandler.canStackPiece(gamePiece) return gamePieceAndBoardHandler.specials[gamePiece:getFullType()].canStack end
 function gamePieceAndBoardHandler.canUnstackPiece(gamePiece)
     return (gamePieceAndBoardHandler.canStackPiece(gamePiece) and gamePiece:getModData()["gameNight_stacked"] and gamePiece:getModData()["gameNight_stacked"] > 1)
 end
+
 
 function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, locations)
     --sq=sq, offsets={x=wiX,y=wiY,z=wiZ}, container=container
@@ -117,8 +115,7 @@ function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, locations)
     if newPiece then
 
         numberOf = numberOf or 1
-        if numberOf > 1 then newPiece:getModData()["gameNight_stacked"] = numberOf end
-
+        newPiece:getModData()["gameNight_stacked"] = numberOf
         gamePiece:getModData()["gameNight_stacked"] = gamePiece:getModData()["gameNight_stacked"]-numberOf
 
         ---@type IsoObject|IsoWorldInventoryObject
@@ -216,7 +213,13 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
 
     gamePiece:getModData()["gameNight_sound"] = "pieceMove"
 
-    local stack = gamePiece:getModData()["gameNight_stacked"] or 1
+    local canStack = gamePieceAndBoardHandler.canStackPiece(gamePiece)
+    if canStack and not gamePiece:getModData()["gameNight_stacked"] then
+        if type(canStack)~="number" then canStack = 1 end
+        gamePiece:getModData()["gameNight_stacked"] = canStack
+    end
+
+    local stack = gamePiece:getModData()["gameNight_stacked"]
     local name_suffix = stack and stack>1 and " ["..stack.."]" or ""
     gamePiece:setName(gamePiece:getScriptItem():getDisplayName()..name_suffix)
     gamePiece:setActualWeight(gamePiece:getScriptItem():getActualWeight()*stack)
