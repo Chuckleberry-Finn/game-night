@@ -102,7 +102,11 @@ end
 function gamePieceAndBoardHandler.isGamePiece(gamePiece) return gamePieceAndBoardHandler._itemTypes[gamePiece:getFullType()] end
 
 
-function gamePieceAndBoardHandler.canStackPiece(gamePiece) return gamePieceAndBoardHandler.specials[gamePiece:getFullType()].canStack end
+function gamePieceAndBoardHandler.canStackPiece(gamePiece)
+    return (gamePieceAndBoardHandler.specials[gamePiece:getFullType()] and gamePieceAndBoardHandler.specials[gamePiece:getFullType()].canStack)
+end
+
+
 function gamePieceAndBoardHandler.canUnstackPiece(gamePiece)
     return (gamePieceAndBoardHandler.canStackPiece(gamePiece) and gamePiece:getModData()["gameNight_stacked"] and gamePiece:getModData()["gameNight_stacked"] > 1)
 end
