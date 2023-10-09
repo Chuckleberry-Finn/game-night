@@ -226,7 +226,7 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
     local stack = gamePiece:getModData()["gameNight_stacked"]
     local name_suffix = stack and stack>1 and " ["..stack.."]" or ""
     gamePiece:setName(gamePiece:getScriptItem():getDisplayName()..name_suffix)
-    gamePiece:setActualWeight(gamePiece:getScriptItem():getActualWeight()*stack)
+    gamePiece:setActualWeight(gamePiece:getScriptItem():getActualWeight()*(stack or 1))
 
     local altState = gamePiece:getModData()["gameNight_altState"] or ""
 
