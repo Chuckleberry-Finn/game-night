@@ -13,7 +13,7 @@ description=Dice, GamePieceWhite/Red/Black, Backgammon/CheckerBoard, ChessWhite/
 description=[i][b]Adds a number of new items to fill-out missing items/variants for the vanilla items.[/b][/i]
 description=[i]Note: Removing the mod will remove [b]added[/b] items - vanilla items will return to default values.[/i]
 description=
-description=[h2]Also includes Add-Ons: [b]Uno[/b], [b]Catan[/b], [b]Monopoly[/b][/h2]
+description=[h2]Also includes Add-Ons: [b]Uno[/b], [b]Catan[/b], and [b]Monopoly[/b][/h2]
 description=[b]For more Add-Ons visit the github page, and read the Uno/Catan/Monopoly files.[/b]
 description=
 description=[h2][b]Comments, Suggestions, Issues, Bugs? [url=https://github.com/Chuckleberry-Finn/game-night]GitHub[/url][/b][/h2]
