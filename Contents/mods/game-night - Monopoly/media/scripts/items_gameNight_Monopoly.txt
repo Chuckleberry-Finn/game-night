@@ -87,7 +87,7 @@ module Base
     item MonopolyHotel
     {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= House, Icon = OutOfPlayTextures/monopolyHotel, WorldStaticModel = MonopolyHotel,
+        DisplayName	= Hotel, Icon = OutOfPlayTextures/monopolyHotel, WorldStaticModel = MonopolyHotel,
     }
 
     item MonopolyBoat

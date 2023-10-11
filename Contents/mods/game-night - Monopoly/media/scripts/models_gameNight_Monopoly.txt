@@ -25,6 +25,6 @@ module Base
     }
 
     model MonopolyPiece { mesh = WorldItems/cube, texture = modelTextures/ChessPieceBlack, scale = 0.001, }
-    model MonopolyHouse { mesh = WorldItems/cube, texture = modelTextures/ChessPieceBlack, scale = 0.001, }
-    model MonopolyHotel { mesh = WorldItems/cube, texture = modelTextures/ChessPieceBlack, scale = 0.001, }
+    model MonopolyHouse { mesh = WorldItems/cube, texture = modelTextures/house, scale = 0.001, }
+    model MonopolyHotel { mesh = WorldItems/cube, texture = modelTextures/hotel, scale = 0.001, }
 }
