@@ -173,7 +173,7 @@ function gamePieceAndBoardHandler.generateContextMenuForStacking(context, player
     local subDrawMenu = ISContextMenu:getNew(context)
     context:addSubMenu(unStack, subDrawMenu)
 
-    for i=5, 25, 5 do
+    for i=1, 25, 5 do
         if stack >= i then
             local option = subDrawMenu:addOption(getText("IGUI_takeMore", i), gamePiece, gamePieceAndBoardHandler.unstack, i)
         end
