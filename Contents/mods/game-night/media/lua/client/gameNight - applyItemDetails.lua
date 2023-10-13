@@ -18,7 +18,7 @@ end
 
 
 applyItemDetails.parsedItems = {}
-function applyItemDetails.applyGameNightToItem(item)
+function applyItemDetails.applyGameNightToItem(item, stackInit)
     if not item then return end
 
     local gamePiece, deck
@@ -30,7 +30,7 @@ function applyItemDetails.applyGameNightToItem(item)
         if not gamePieceAndBoardHandler._itemTypes then gamePieceAndBoardHandler.generate_itemTypes() end
 
         gamePiece = gamePieceAndBoardHandler.isGamePiece(item)
-        if gamePiece then gamePieceAndBoardHandler.handleDetails(item) end
+        if gamePiece then gamePieceAndBoardHandler.handleDetails(item, stackInit) end
 
         local itemType = item:getType()
 
@@ -57,14 +57,14 @@ end
 
 
 ---@param ItemContainer ItemContainer
-function applyItemDetails.applyGameNightToInventory(ItemContainer)
+function applyItemDetails.applyGameNightToInventory(ItemContainer, stackInit)
 
     if not ItemContainer then return end
     local items = ItemContainer:getItems()
     for iteration=0, items:size()-1 do
         ---@type InventoryItem
         local item = items:get(iteration)
-        applyItemDetails.applyGameNightToItem(item)
+        applyItemDetails.applyGameNightToItem(item, stackInit)
     end
 end
 
@@ -75,7 +75,7 @@ function applyItemDetails.applyToInventory(ISInventoryPage, step)
 end
 
 function applyItemDetails.applyToFillContainer(contName, contType, container)
-    applyItemDetails.applyGameNightToInventory(container)
+    applyItemDetails.applyGameNightToInventory(container, true)
 end
 
 return applyItemDetails

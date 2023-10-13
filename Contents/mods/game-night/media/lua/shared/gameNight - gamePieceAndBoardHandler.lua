@@ -208,7 +208,7 @@ end
 
 
 ---@param gamePiece InventoryItem
-function gamePieceAndBoardHandler.handleDetails(gamePiece)
+function gamePieceAndBoardHandler.handleDetails(gamePiece, stackInit)
 
     local fullType = gamePiece:getFullType()
 
@@ -220,7 +220,7 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece)
     local canStack = gamePieceAndBoardHandler.canStackPiece(gamePiece)
     if canStack and not gamePiece:getModData()["gameNight_stacked"] then
         if type(canStack)~="number" then canStack = 1 end
-        gamePiece:getModData()["gameNight_stacked"] = canStack
+        gamePiece:getModData()["gameNight_stacked"] = stackInit and canStack or 1
     end
 
     local stack = gamePiece:getModData()["gameNight_stacked"]
