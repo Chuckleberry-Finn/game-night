@@ -58,13 +58,20 @@ end
 
 ---@param ItemContainer ItemContainer
 function applyItemDetails.applyGameNightToInventory(ItemContainer, stackInit)
-
     if not ItemContainer then return end
+
+    local applyStacks = false
+    local containingItem = ItemContainer:getContainingItem()
+    if containingItem and containingItem:getDisplayCategory() == "GameBox" and (not containingItem:getModData().gameNight_gameBoxFill) then
+        containingItem:getModData().gameNight_gameBoxFill = true
+        applyStacks = true
+    end
+
     local items = ItemContainer:getItems()
     for iteration=0, items:size()-1 do
         ---@type InventoryItem
         local item = items:get(iteration)
-        applyItemDetails.applyGameNightToItem(item, stackInit)
+        applyItemDetails.applyGameNightToItem(item, (applyStacks or stackInit))
     end
 end
 
