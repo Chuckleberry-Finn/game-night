@@ -78,7 +78,7 @@ end
 
 ---@param ItemContainer ItemContainer
 function applyItemDetails.listenForDuplicateIDsInContainer(ItemContainer)
-
+    if not ItemContainer then return end
     local items = ItemContainer:getItems()
     local containsID = {}
     for iteration=items:size()-1, 0, -1 do
