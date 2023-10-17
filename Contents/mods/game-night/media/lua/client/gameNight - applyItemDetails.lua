@@ -76,26 +76,8 @@ function applyItemDetails.applyGameNightToInventory(ItemContainer, stackInit)
 end
 
 
----@param ItemContainer ItemContainer
-function applyItemDetails.listenForDuplicateIDsInContainer(ItemContainer)
-    if not ItemContainer then return end
-    local items = ItemContainer:getItems()
-    local containsID = {}
-    for iteration=items:size()-1, 0, -1 do
-        ---@type InventoryItem
-        local item = items:get(iteration)
-        if containsID[item:getID()] then
-            items:remove(item:getID())
-        else
-            containsID[item:getID()] = true
-        end
-    end
-end
-
-
 function applyItemDetails.applyToInventory(ISInventoryPage, step)
     if step == "begin" then
-        applyItemDetails.listenForDuplicateIDsInContainer(ISInventoryPage.inventory)
         applyItemDetails.applyGameNightToInventory(ISInventoryPage.inventory)
     end
 end

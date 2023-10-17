@@ -378,16 +378,22 @@ function gameNightWindow:render()
     if not square then return end
 
     local loadOrder = {}
-    for i=0, square:getObjects():size()-1 do
+    local containsID = {}
+    local sqObjects = square:getObjects()
+    for i=sqObjects:size()-1, 0, -1 do
         ---@type IsoObject|IsoWorldInventoryObject
-        local object = square:getObjects():get(i)
+        local object = sqObjects:get(i)
         if object and instanceof(object, "IsoWorldInventoryObject") then
             ---@type InventoryItem
             local item = object:getItem()
-
             if item and item:getTags():contains("gameNight") then
-                local position = item:getDisplayCategory() == "GameBoard" and 1 or #loadOrder+1
-                table.insert(loadOrder, position, {item=item, object=object})
+                if containsID[item:getID()] then
+                    sqObjects:remove(object)
+                else
+                    containsID[item:getID()] = true
+                    local position = item:getDisplayCategory() == "GameBoard" and 1 or #loadOrder+1
+                    table.insert(loadOrder, position, {item=item, object=object})
+                end
             end
         end
     end
