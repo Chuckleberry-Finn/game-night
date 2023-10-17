@@ -15,7 +15,8 @@ function gameNightWindow:update()
     local worldItem = self.movingPiece and self.movingPiece:getWorldItem()
     local inUse = worldItem and worldItem:getModData().gameNightInUse
     local wrongUser = inUse and inUse~=self.player:getUsername()
-    if wrongUser then
+    local coolDown = (not inUse) and worldItem and worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimeInMillis()
+    if wrongUser or coolDown then
         self:clearMovingPiece()
         return
     end
@@ -120,7 +121,7 @@ function gameNightWindow:processMouseUp(old, x, y)
 
             local worldItem = piece:getWorldItem()
             local inUse = worldItem and worldItem:getModData().gameNightInUse
-            local wrongUser = inUse and inUse~=self.player:getUsername()
+            local wrongUser = inUse and (inUse~=self.player:getUsername())
             if wrongUser then
                 self:clearMovingPiece(x, y)
                 return
@@ -218,14 +219,16 @@ function gameNightWindow:onMouseDown(x, y)
             local worldItem = clickedOn.item and clickedOn.item:getWorldItem()
             local inUse = worldItem:getModData().gameNightInUse
             local userUsing = inUse and getPlayerFromUsername(inUse)
-            if inUse and userUsing then
+            local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimeInMillis())
+            if coolDown or userUsing then
                 self:clearMovingPiece()
                 return
             end
 
             if worldItem then
-
-                worldItem:getModData().gameNightInUse = self.player:getUsername()
+                local worldItemModData = worldItem:getModData()
+                worldItemModData.gameNightInUse = self.player:getUsername()
+                worldItemModData.gameNightCoolDown = getTimeInMillis()+500
                 worldItem:transmitModData()
 
                 self.movingPiece = clickedOn.item
@@ -380,7 +383,7 @@ function gameNightWindow:render()
     local loadOrder = {}
 
     local sqObjects = square:getObjects()
-    for i=sqObjects:size()-1, 0, -1 do
+    for i=0, sqObjects:size()-1 do
         ---@type IsoObject|IsoWorldInventoryObject
         local object = sqObjects:get(i)
         if object and instanceof(object, "IsoWorldInventoryObject") then
@@ -452,6 +455,7 @@ function gameNightWindow:labelWithName(element)
         if nameTag then
 
             local worldItem = element.item:getWorldItem()
+            local coolDown = worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimeInMillis()
             local inUse = worldItem and worldItem:getModData().gameNightInUse
 
             local needsClear = inUse and inUse==self.player:getUsername() and (self.movingPiece~=element.item)
@@ -460,7 +464,7 @@ function gameNightWindow:labelWithName(element)
                 worldItem:transmitModData()
             end
             
-            local wrongUser = inUse and inUse~=self.player:getUsername()
+            local wrongUser = (inUse and inUse~=self.player:getUsername()) or coolDown
             if wrongUser then nameTag = nameTag.." [In Use]" end
 
             local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
