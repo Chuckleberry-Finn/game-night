@@ -468,7 +468,7 @@ function gameNightWindow:labelWithName(element)
             if wrongUser then nameTag = nameTag.." [In Use]" end
 
             if coolDown then
-                self:drawTexture(self.waitCursor, element.x+(element.w/2), element.y+(element.h/2),1, 1, 1, 1)
+                self:drawTexture(self.waitCursor.texture, element.x+(element.w/2)-self.waitCursor.xOffset, element.y+(element.h/2)-self.waitCursor.yOffset,1, 1, 1, 1)
             end
 
             local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
@@ -524,7 +524,13 @@ function gameNightWindow:new(x, y, width, height, player, square)
     o.player = player
     o.square = square
 
-    o.waitCursor = getTexture("media/textures/actionIcons/gamenight_wait.png")
+    o.waitCursor = {}
+
+    o.waitCursor = {
+        texture = getTexture("media/textures/actionIcons/gamenight_wait.png"),
+        xOffset=o.waitCursor:getWidth()/2,
+        yOffset=o.waitCursor:getHeight()/2,
+    }
 
     o.elements = {}
 
