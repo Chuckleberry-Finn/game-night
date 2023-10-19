@@ -13,9 +13,9 @@ function gameNightWindow:update()
     end
 
     local worldItem = self.movingPiece and self.movingPiece:getWorldItem()
-    local inUse = worldItem and worldItem:getModData().gameNightInUse
-    local wrongUser = inUse and inUse~=self.player:getUsername()
-    local coolDown = (not inUse) and worldItem and worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimeInMillis()
+    local userUsing = worldItem and worldItem:getModData().gameNightInUse
+    local wrongUser = userUsing and userUsing~=self.player:getUsername()
+    local coolDown = wrongUser and worldItem and worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimestampMs()
     if wrongUser or coolDown then
         self:clearMovingPiece()
         return
@@ -122,10 +122,7 @@ function gameNightWindow:processMouseUp(old, x, y)
             local worldItem = piece:getWorldItem()
             local inUse = worldItem and worldItem:getModData().gameNightInUse
             local wrongUser = inUse and (inUse~=self.player:getUsername())
-            if wrongUser then
-                self:clearMovingPiece(x, y)
-                return
-            end
+            if wrongUser then self:clearMovingPiece(x, y) return end
 
             ---@type gameNightWindow
             local deckSearch = gameNightDeckSearch.instance
@@ -219,16 +216,13 @@ function gameNightWindow:onMouseDown(x, y)
             local worldItem = clickedOn.item and clickedOn.item:getWorldItem()
             local inUse = worldItem:getModData().gameNightInUse
             local userUsing = inUse and getPlayerFromUsername(inUse)
-            local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimeInMillis())
-            if coolDown or userUsing then
-                self:clearMovingPiece()
-                return
-            end
+            local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
+            if coolDown or userUsing then self:clearMovingPiece() return end
 
             if worldItem then
                 local worldItemModData = worldItem:getModData()
                 worldItemModData.gameNightInUse = self.player:getUsername()
-                worldItemModData.gameNightCoolDown = getTimeInMillis()+500
+                worldItemModData.gameNightCoolDown = getTimestampMs()+500
                 worldItem:transmitModData()
 
                 self.movingPiece = clickedOn.item
@@ -285,7 +279,7 @@ function gameNightWindow:onContextSelection(element, x, y)
     local worldItem = clickedOn.item and clickedOn.item:getWorldItem()
     local inUse = worldItem:getModData().gameNightInUse
     local userUsing = inUse and getPlayerFromUsername(inUse)
-    local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimeInMillis())
+    local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
     if userUsing or coolDown then return end
 
     ---@type IsoPlayer|IsoGameCharacter
@@ -462,7 +456,7 @@ function gameNightWindow:labelWithName(element)
         if nameTag then
 
             local worldItem = element.item:getWorldItem()
-            local coolDown = worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimeInMillis()
+            local coolDown = worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimestampMs()
             local inUse = worldItem and worldItem:getModData().gameNightInUse
 
             local needsClear = inUse and inUse==self.player:getUsername() and (self.movingPiece~=element.item)
@@ -475,7 +469,8 @@ function gameNightWindow:labelWithName(element)
             if wrongUser then nameTag = nameTag.." [In Use]" end
 
             if coolDown then
-                self:drawTexture(self.waitCursor.texture, element.x+(element.w/2)-self.waitCursor.xOffset, element.y+(element.h/2)-self.waitCursor.yOffset,1, 1, 1, 1)
+                local waitX, waitY = element.x+(element.w/2)-self.waitCursor.xOffset, element.y+(element.h/2)-self.waitCursor.yOffset
+                self:drawTexture(self.waitCursor.texture, waitX, waitY,1, 1, 1, 1)
             end
 
             local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
