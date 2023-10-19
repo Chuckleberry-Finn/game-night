@@ -287,7 +287,7 @@ function gameNightWindow:onContextSelection(element, x, y)
     local userUsing = inUse and getPlayerFromUsername(inUse)
     local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimeInMillis())
     if userUsing or coolDown then return end
-    
+
     ---@type IsoPlayer|IsoGameCharacter
     local playerObj = self.player
     local playerID = playerObj:getPlayerNum()
@@ -532,12 +532,9 @@ function gameNightWindow:new(x, y, width, height, player, square)
     o.square = square
 
     o.waitCursor = {}
-
-    o.waitCursor = {
-        texture = getTexture("media/textures/actionIcons/gamenight_wait.png"),
-        xOffset=o.waitCursor:getWidth()/2,
-        yOffset=o.waitCursor:getHeight()/2,
-    }
+    o.waitCursor.texture = getTexture("media/textures/actionIcons/gamenight_wait.png")
+    o.waitCursor.xOffset = o.waitCursor.texture:getWidth()/2
+    o.waitCursor.yOffset = o.waitCursor.texture:getHeight()/2
 
     o.elements = {}
 
