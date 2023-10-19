@@ -314,6 +314,7 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
 
         placedItem:addToWorld()
         placedItem:setIgnoreRemoveSandbox(true)
+        placedItem:getModData().gameNightCoolDown = getTimeInMillis()+500
         placedItem:transmitCompleteItemToServer()
 
         player:getInventory():Remove(item)
@@ -335,6 +336,9 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
+
+    local coolDown = worldItem and worldItem:getModData().gameNightCoolDown
+    if coolDown and coolDown>getTimeInMillis() then return end
 
     local inUse = worldItem and worldItem:getModData().gameNightInUse
     if inUse and inUse ~= player:getUsername() then return end

@@ -335,6 +335,10 @@ function gameNightWindow:generateElement(item, object, priority)
     self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, priority=priority}
     
     self:drawTextureScaledAspect(texture, x, y, w, h, 1, 1, 1, 1)
+
+    local worldItem = item:getWorldItem()
+    local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown-getTimeInMillis())
+    if coolDown then self:drawText(tostring(coolDown), x, y, 1, 1, 1, 1, UIFont.NewSmall) end
 end
 
 
