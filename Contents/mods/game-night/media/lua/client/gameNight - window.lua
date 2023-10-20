@@ -276,7 +276,7 @@ end
 function gameNightWindow:onContextSelection(element, x, y)
 
     ---@type IsoWorldInventoryObject|IsoObject
-    local worldItem = clickedOn.item and clickedOn.item:getWorldItem()
+    local worldItem = element.item and element.item:getWorldItem()
     local inUse = worldItem:getModData().gameNightInUse
     local userUsing = inUse and getPlayerFromUsername(inUse)
     local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
