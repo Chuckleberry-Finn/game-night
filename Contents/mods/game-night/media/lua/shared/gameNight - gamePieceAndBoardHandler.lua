@@ -366,7 +366,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
         if worldItemSq then
 
             local pBD = player:getBodyDamage()
-            pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-0.5))
+            pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-1))
 
             local sound = item:getModData()["gameNight_sound"]
             if sound then player:getEmitter():playSound(sound) end
