@@ -314,8 +314,9 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
 
         placedItem:addToWorld()
         placedItem:setIgnoreRemoveSandbox(true)
-        placedItem:getModData().gameNightCoolDown = getTimestampMs()+500
         placedItem:transmitCompleteItemToServer()
+        placedItem:getModData().gameNightCoolDown = getTimestampMs()+1000
+        placedItem:transmitModData()
 
         player:getInventory():Remove(item)
 

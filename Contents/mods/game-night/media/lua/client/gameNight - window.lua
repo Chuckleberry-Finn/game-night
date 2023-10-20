@@ -108,6 +108,16 @@ end
 
 function gameNightWindow:clearMovingPiece(x, y)
     if x and y then self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2)) end
+
+    local piece = self.movingPiece
+    if piece then
+        local worldItem = piece:getWorldItem()
+        local inUse = worldItem and worldItem:getModData().gameNightInUse
+        if (inUse~=self.player:getUsername()) then
+            worldItem:getModData().gameNightInUse = nil
+            worldItem:transmitModData()
+        end
+    end
     self.movingPiece = nil
 end
 
@@ -222,7 +232,7 @@ function gameNightWindow:onMouseDown(x, y)
             if worldItem then
                 local worldItemModData = worldItem:getModData()
                 worldItemModData.gameNightInUse = self.player:getUsername()
-                worldItemModData.gameNightCoolDown = getTimestampMs()+500
+                worldItemModData.gameNightCoolDown = getTimestampMs()+1000
                 worldItem:transmitModData()
 
                 self.movingPiece = clickedOn.item
