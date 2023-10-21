@@ -300,8 +300,7 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
     local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
     if placedItem then
 
-        local itemCont = item:getContainer()
-        if itemCont then itemCont:setDrawDirty(true) end
+        player:getInventory():setDrawDirty(true)
 
         placedItem:setName(item:getName())
         placedItem:setKeyId(item:getKeyId())
@@ -319,10 +318,7 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         placedItem:getModData().gameNightCoolDown = getTimestampMs()+1000
         placedItem:transmitModData()
 
-        if itemCont then
-            itemCont:Remove(item)
-        end
-        --player:getInventory():Remove(item)
+        player:getInventory():Remove(item)
 
         local playerNum = player:getPlayerNum()
         local inventory = getPlayerInventory(playerNum)
