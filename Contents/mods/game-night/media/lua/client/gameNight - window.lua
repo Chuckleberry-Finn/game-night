@@ -113,7 +113,7 @@ function gameNightWindow:clearMovingPiece(x, y)
     if piece then
         local worldItem = piece:getWorldItem()
         local inUse = worldItem and worldItem:getModData().gameNightInUse
-        if (inUse~=self.player:getUsername()) then
+        if inUse and (inUse~=self.player:getUsername()) then
             worldItem:getModData().gameNightInUse = nil
             worldItem:transmitModData()
         end
