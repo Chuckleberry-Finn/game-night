@@ -300,7 +300,10 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
     if placedItem then
 
         local itemCont = item:getContainer()
-        if itemCont then itemCont:setDrawDirty(true) end
+        if itemCont then
+            itemCont:setDrawDirty(true)
+            itemCont:Remove(item)
+        end
 
         placedItem:setName(item:getName())
         placedItem:setKeyId(item:getKeyId())
@@ -317,8 +320,6 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         placedItem:transmitCompleteItemToServer()
         placedItem:getModData().gameNightCoolDown = getTimestampMs()+1000
         placedItem:transmitModData()
-
-        player:getInventory():Remove(item)
 
         local playerNum = player:getPlayerNum()
         local inventory = getPlayerInventory(playerNum)
