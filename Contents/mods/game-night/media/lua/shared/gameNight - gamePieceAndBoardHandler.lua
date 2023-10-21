@@ -291,6 +291,7 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item)
 end
 
 
+---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
 ---@param item InventoryItem
 ---@param xOffset number
 ---@param yOffset number
@@ -300,10 +301,7 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
     if placedItem then
 
         local itemCont = item:getContainer()
-        if itemCont then
-            itemCont:setDrawDirty(true)
-            itemCont:Remove(item)
-        end
+        if itemCont then itemCont:setDrawDirty(true) end
 
         placedItem:setName(item:getName())
         placedItem:setKeyId(item:getKeyId())
@@ -320,6 +318,11 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         placedItem:transmitCompleteItemToServer()
         placedItem:getModData().gameNightCoolDown = getTimestampMs()+1000
         placedItem:transmitModData()
+
+        if itemCont then
+            itemCont:Remove(item)
+        end
+        --player:getInventory():Remove(item)
 
         local playerNum = player:getPlayerNum()
         local inventory = getPlayerInventory(playerNum)
