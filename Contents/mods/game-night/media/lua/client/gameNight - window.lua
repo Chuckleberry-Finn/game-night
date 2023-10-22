@@ -232,7 +232,7 @@ function gameNightWindow:onMouseDown(x, y)
             if worldItem then
                 local worldItemModData = worldItem:getModData()
                 worldItemModData.gameNightInUse = self.player:getUsername()
-                worldItemModData.gameNightCoolDown = getTimestampMs()+1000
+                worldItemModData.gameNightCoolDown = getTimestampMs()+750
                 worldItem:transmitModData()
 
                 self.movingPiece = clickedOn.item
