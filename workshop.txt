@@ -1,5 +1,5 @@
 version=1
-id=3027382749
+id=3058279917
 title=Game Night
 description=[h2]This mod adds a UI window in order to play card/board games.[/h2]
 description=[h3]Interactions with the UI reflect those changes to the items in world.[/h3]
@@ -31,4 +31,4 @@ description=[i][b]Monopoly[/b] is a registered trademark of Hasbro. Copyright Ha
 description=
 description=[h3]Copyright 2023 Chuckleberry Finn. This item is not authorized for posting on Steam, except under the Steam account named Chuckleberry Finn.[/h3]
 tags=Build 41;Framework;Misc;Multiplayer;Pop Culture;Silly/Fun
-visibility=unlisted
+visibility=public
