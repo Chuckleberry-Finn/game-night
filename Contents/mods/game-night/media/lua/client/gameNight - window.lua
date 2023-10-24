@@ -415,11 +415,13 @@ function gameNightWindow:render()
     gameNightWindow.cursorW = gameNightWindow.cursorW or gameNightWindow.cursor:getWidth()
     gameNightWindow.cursorH = gameNightWindow.cursorH or gameNightWindow.cursor:getHeight()
 
-    for username,data in pairs(self.cursorDraws) do
-        data.ticks = data.ticks - 1
-        self:drawTexture(gameNightWindow.cursor, data.x, data.y, 1, data.r, data.g, data.b)
-        self:drawText(username, data.x+gameNightWindow.cursorW, data.y, data.r, data.g, data.b, 1, UIFont.NewSmall)
-        if data.ticks <= 0 then self.cursorDraws[username] = nil end
+    if gameNightWindow.cursor then
+        for username,data in pairs(self.cursorDraws) do
+            data.ticks = data.ticks - 1
+            self:drawTexture(gameNightWindow.cursor, data.x, data.y, 1, data.r, data.g, data.b)
+            self:drawText(username, data.x+(gameNightWindow.cursorW or 0), data.y, data.r, data.g, data.b, 1, UIFont.NewSmall)
+            if data.ticks <= 0 then self.cursorDraws[username] = nil end
+        end
     end
     --self.cursorDraws = {}
 
