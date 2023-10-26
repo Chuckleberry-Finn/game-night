@@ -24,7 +24,7 @@ module Base
         attachment world { offset = -0.215 -0.0700 0.245, rotate = 0.0000 0.0000 0.0000, }
     }
 
-    model MonopolyPiece { mesh = WorldItems/cube, texture = modelTextures/ChessPieceBlack, scale = 0.001, }
-    model MonopolyHouse { mesh = WorldItems/cube, texture = modelTextures/house, scale = 0.001, }
-    model MonopolyHotel { mesh = WorldItems/cube, texture = modelTextures/hotel, scale = 0.001, }
+    model MonopolyPiece { mesh = WorldItems/gameNightCube, texture = modelTextures/ChessPieceBlack, scale = 0.001, }
+    model MonopolyHouse { mesh = WorldItems/gameNightCube, texture = modelTextures/house, scale = 0.001, }
+    model MonopolyHotel { mesh = WorldItems/gameNightCube, texture = modelTextures/hotel, scale = 0.001, }
 }
