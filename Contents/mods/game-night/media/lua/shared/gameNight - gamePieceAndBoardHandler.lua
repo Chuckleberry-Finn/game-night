@@ -260,23 +260,24 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item)
     ---@type IsoGridSquare
     local worldItemSq = worldItem and worldItem:getSquare()
 
-    if worldItem == nil or worldItemSq == nil then return end
+   -- if worldItem == nil or worldItemSq == nil then return end
 
     ---@type IsoGridSquare
     local playerSq = player:getSquare()
 
     if worldItemSq and playerSq and worldItemSq:isBlockedTo(playerSq) then return end
-    if not worldItemSq:getWorldObjects():contains(worldItem) then return end
 
     local zPos = worldItem and worldItem:getWorldPosZ()-worldItem:getZ() or 0
     local xOffset = worldItem and worldItem:getWorldPosX()-worldItem:getX() or 0
     local yOffset = worldItem and worldItem:getWorldPosY()-worldItem:getY() or 0
 
-    worldItemSq:transmitRemoveItemFromSquare(worldItem)
-    worldItem:removeFromWorld()
-    worldItem:removeFromSquare()
-    worldItem:setSquare(nil)
-    item:setWorldItem(nil)
+    if worldItem and worldItemSq and worldItemSq:getWorldObjects():contains(worldItem) then
+        worldItemSq:transmitRemoveItemFromSquare(worldItem)
+        worldItem:removeFromWorld()
+        worldItem:removeFromSquare()
+        worldItem:setSquare(nil)
+        item:setWorldItem(nil)
+    end
 
     ---@type ItemContainer
     local playerInv = player:getInventory()
@@ -287,7 +288,7 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item)
     local pdata = getPlayerData(playerNum)
     if pdata ~= nil then ISInventoryPage.renderDirty = true end
 
-    return zPos, xOffset, yOffset
+    return true, zPos, xOffset, yOffset
 end
 
 
@@ -300,7 +301,9 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
     local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
     if placedItem then
 
-        player:getInventory():setDrawDirty(true)
+        local itemCont = player:getInventory()
+
+        itemCont:setDrawDirty(true)
 
         placedItem:setName(item:getName())
         placedItem:setKeyId(item:getKeyId())
@@ -318,7 +321,9 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         placedItem:getModData().gameNightCoolDown = getTimestampMs()+750
         placedItem:transmitModData()
 
-        player:getInventory():Remove(item)
+        itemCont:Remove(item)
+
+        ISInventoryPage.renderDirty = true
 
         local playerNum = player:getPlayerNum()
         local inventory = getPlayerInventory(playerNum)
@@ -341,7 +346,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     ---@type IsoGridSquare
     local worldItemSq = square or worldItem and worldItem:getSquare()
 
-    local x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp)
+    local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp)
 
     zPos = zPos or x or 0
     xOffset = xOffset or y or 0
