@@ -138,7 +138,15 @@ function gameNightWindow:processMouseUp(old, x, y)
             local deckSearch = gameNightDeckSearch.instance
             if deckSearch and deckSearch:isMouseOver() then
                 local selection, inBetween = deckSearch:getCardAtXY(deckSearch.cardDisplay:getMouseX(), deckSearch.cardDisplay:getMouseY())
+
+                local deckSearchWorldItem = deckSearch.deck and deckSearch.deck:getWorldItem()
+                local deckSearchCoolDown = deckSearchWorldItem:getModData().gameNightCoolDown and (deckSearchWorldItem:getModData().gameNightCoolDown>getTimestampMs())
+                local deckSearchInUse = deckSearchWorldItem:getModData().gameNightInUse
+                local userUsing = deckSearchInUse and getPlayerFromUsername(deckSearchInUse)
+                if deckSearchCoolDown or userUsing then self:clearMovingPiece() return end
+
                 deckActionHandler.mergeDecks(piece, deckSearch.deck, self.player, selection+(inBetween and 0 or 1))
+
                 self:clearMovingPiece(x, y)
                 return
             end
@@ -157,6 +165,13 @@ function gameNightWindow:processMouseUp(old, x, y)
                     end
                 end
                 if selection then
+
+                    local mouseOverWorldItem = selection.item and selection.item:getWorldItem()
+                    local deckSearchCoolDown = mouseOverWorldItem:getModData().gameNightCoolDown and (mouseOverWorldItem:getModData().gameNightCoolDown>getTimestampMs())
+                    local deckSearchInUse = mouseOverWorldItem:getModData().gameNightInUse
+                    local userUsing = deckSearchInUse and getPlayerFromUsername(deckSearchInUse)
+                    if deckSearchCoolDown or userUsing then self:clearMovingPiece() return end
+
                     deckActionHandler.mergeDecks(piece, selection.item, self.player)
                     self:clearMovingPiece(x, y)
                     return
