@@ -5,6 +5,9 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 ---@class gameNightWindow : ISPanelJoypad
 gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 
+gameNightWindow.scaleSize = 1
+function gameNightWindow:toggleScale() gameNightWindow.scaleSize = gameNightWindow.scaleSize==1 and 2 or 1 end
+
 
 function gameNightWindow:update()
     if (not self.player) or (not self.square) or ( self.square:DistToProper(self.player) > 1.5 ) then
@@ -35,6 +38,15 @@ function gameNightWindow:initialise()
     self.close:initialise()
     self.close:instantiate()
     self:addChild(self.close)
+
+    if getDebug() then
+        self.resize = ISButton:new(self.close.x+self.close.width+padBottom, self:getHeight() - padBottom - btnHgt, btnHgt, btnHgt, "2x", self, gameNightWindow.toggleScale)
+        --self.close.internal = "CLOSE"
+        self.resize.borderColor = {r=1, g=1, b=1, a=0.4}
+        self.resize:initialise()
+        self.resize:instantiate()
+        self:addChild(self.resize)
+    end
 
     local playerNum = self.player:getPlayerNum()
 
@@ -351,7 +363,8 @@ function gameNightWindow:generateElement(item, object, priority)
 
     ---@type Texture
     local texture = item:getModData()["gameNight_textureInPlay"] or item:getTexture()
-    local w, h = texture:getWidth(), texture:getHeight()
+    local w, h = texture:getWidth()*gameNightWindow.scaleSize, texture:getHeight()*gameNightWindow.scaleSize
+
     local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
     local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
 
