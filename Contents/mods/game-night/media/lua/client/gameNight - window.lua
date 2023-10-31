@@ -6,7 +6,14 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 
 gameNightWindow.scaleSize = 1
-function gameNightWindow:toggleScale() gameNightWindow.scaleSize = gameNightWindow.scaleSize==1 and 2 or 1 end
+function gameNightWindow:toggleScale()
+    gameNightWindow.scaleSize = gameNightWindow.scaleSize==1 and 2 or 1
+    self:setHeight(self.defaultSize.width * gameNightWindow.scaleSize)
+    self:setWidth(self.defaultSize.height * gameNightWindow.scaleSize)
+
+    self.close:setY(self:getHeight()-self.btnOffsetFromBottom)
+    self.resize:setY(self:getHeight()-self.btnOffsetFromBottom)
+end
 
 
 function gameNightWindow:update()
@@ -32,7 +39,10 @@ function gameNightWindow:initialise()
     local btnHgt = 25
     local padBottom = 10
 
-    self.close = ISButton:new(self.padding, self:getHeight() - padBottom - btnHgt, btnWid, btnHgt, getText("UI_Close"), self, gameNightWindow.onClick)
+    self.btnOffsetFromBottom = padBottom+btnHgt
+
+    self.close = ISButton:new(self.padding, self:getHeight()-self.btnOffsetFromBottom, btnWid, btnHgt, getText("UI_Close"), self, gameNightWindow.onClick)
+    self.close.offsetFromBottom = padBottom+btnHgt
     self.close.internal = "CLOSE"
     self.close.borderColor = {r=1, g=1, b=1, a=0.4}
     self.close:initialise()
@@ -40,7 +50,7 @@ function gameNightWindow:initialise()
     self:addChild(self.close)
 
     if getDebug() then
-        self.resize = ISButton:new(self.close.x+self.close.width+padBottom, self:getHeight() - padBottom - btnHgt, btnHgt, btnHgt, "2x", self, gameNightWindow.toggleScale)
+        self.resize = ISButton:new(self.close.x+self.close.width+padBottom, self:getHeight()-self.btnOffsetFromBottom, btnHgt, btnHgt, "2x", self, gameNightWindow.toggleScale)
         --self.close.internal = "CLOSE"
         self.resize.borderColor = {r=1, g=1, b=1, a=0.4}
         self.resize:initialise()
@@ -563,6 +573,7 @@ function gameNightWindow:new(x, y, width, height, player, square)
 
     o.width = width
     o.height = height
+    o.defaultSize = {width=o.width, height=o.height}
     o.player = player
     o.square = square
 
