@@ -104,3 +104,5 @@ function MainScreen:setBottomPanelVisible(visible)
     MainScreen_setBottomPanelVisible(self, visible)
     donationSystem.display(visible)
 end
+
+Events.OnMainMenuEnter.Add(function() donationSystem.display(true) end)
