@@ -81,7 +81,8 @@ applyItemDetails.addDeck("MonopolyCommunityChest", MonopolyCommunityChestDeck.ca
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 gamePieceAndBoardHandler.registerTypes({
     "Base.MonopolyBoard", "Base.MonopolyBoat", "Base.MonopolyBoot", "Base.MonopolyCar", "Base.MonopolyDog",
-    "Base.MonopolyHat", "Base.MonopolyIron", "Base.MonopolyThimble", "Base.MonopolyWheelbarrow"
+    "Base.MonopolyHat", "Base.MonopolyIron", "Base.MonopolyThimble", "Base.MonopolyWheelbarrow",
+    "Base.MonopolyHouse","Base.MonopolyHotel"
 })
 
 
