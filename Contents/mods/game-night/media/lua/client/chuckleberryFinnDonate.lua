@@ -7,18 +7,26 @@ local donationSystem = ISPanelJoypad:derive("donationSystem")
 
 function donationSystem:prerender()
     ISPanelJoypad.prerender(self)
-    self:drawRect(self.padding, self.padding, self.width-(self.padding*2), self.height-(self.padding*2), 0.5, 0, 0, 0)
-    local headerX, headerY = self.padding*1.6, self.padding*1.3
-    self:drawText("Welcome to GAME NIGHT!", headerX, headerY, 1, 1, 1, 0.9, donationSystem.headerFont)
-    local bodyX, bodyY = self.padding*1.7, (self.padding*1.4)+donationSystem.headerHeight
-    self:drawText("If you enjoy Chuckleberry Finn's work,\nconsider showing your support.", bodyX, bodyY, 1, 1, 1, 0.8, donationSystem.bodyFont)
-    self:drawRectBorder(self.padding, self.padding, self.width-(self.padding*2), self.height-(self.padding*2), 0.6, 1, 1, 1)
+
+    self:drawRect(donationSystem.padding, donationSystem.padding, self.width, self.height-(donationSystem.padding*2), 0.5, 0, 0, 0)
+
+    local centerX = (self.width/2)
+
+    local headerY = donationSystem.padding*1.3
+
+    self:drawTextCentre(donationSystem.header, centerX, headerY, 1, 1, 1, 0.9, donationSystem.headerFont)
+
+    local bodyY = (donationSystem.padding*1.6)+(donationSystem.headerH)
+
+    self:drawTextCentre(donationSystem.body, centerX, bodyY, 1, 1, 1, 0.8, donationSystem.bodyFont)
+
+    self:drawRectBorder(donationSystem.padding, donationSystem.padding, self.width, self.height-(donationSystem.padding*2), 0.6, 1, 1, 1)
 end
 
 
 function donationSystem:render()
     ISPanelJoypad.render(self)
-    if donationSystem.texture then self:drawTexture(donationSystem.texture, donationSystem.texturePos[1], donationSystem.texturePos[2], 1, 1, 1, 1) end
+    if donationSystem.texture then self:drawTexture(donationSystem.texture, self.width-donationSystem.padding*2, self.height-donationSystem.texture:getHeight(), 1, 1, 1, 1) end
 end
 
 
@@ -28,10 +36,10 @@ function donationSystem:onClickRate() openUrl("https://steamcommunity.com/shared
 function donationSystem:initialise()
     ISPanelJoypad.initialise(self)
 
-    local btnWid = 100
-    local btnHgt = 20
+    local btnHgt = donationSystem.btnHgt
+    local btnWid = donationSystem.btnWid
 
-    self.donate = ISButton:new(((self.width-btnWid)/2)-self.padding*1.3, self:getHeight()-(self.padding*1.3)-btnHgt, btnWid, btnHgt, "Go to Chuck's Kofi", self, donationSystem.onClickDonate)
+    self.donate = ISButton:new(((self.width-btnWid)/2), self:getHeight()-(donationSystem.padding*1.5)-btnHgt, btnWid, btnHgt, "Go to Chuck's Kofi", self, donationSystem.onClickDonate)
     self.donate.borderColor = {r=0.64, g=0.8, b=0.02, a=0.9}
     self.donate.backgroundColor = {r=0, g=0, b=0, a=0.6}
     self.donate.textColor = {r=0.64, g=0.8, b=0.02, a=1}
@@ -40,7 +48,7 @@ function donationSystem:initialise()
     self:addChild(self.donate)
 
     self.rateTexture = self.rateTexture or getTexture("media/textures/gamenightDonate/rate.png")
-    self.rate = ISButton:new(self.donate.x-btnHgt-6, self:getHeight()-(self.padding*1.3)-btnHgt, btnHgt, btnHgt, "", self, donationSystem.onClickRate)
+    self.rate = ISButton:new(self.donate.x-btnHgt-6, self:getHeight()-(donationSystem.padding*1.5)-btnHgt, btnHgt, btnHgt, "", self, donationSystem.onClickRate)
     self.rate:setImage(self.rateTexture)
     self.rate.borderColor = {r=0.39, g=0.66, b=0.3, a=0.9}
     self.rate.backgroundColor = {r=0.07, g=0.13, b=0.19, a=1}
@@ -56,17 +64,31 @@ function donationSystem.display(visible)
 
     local textManager = getTextManager()
     donationSystem.headerFont = UIFont.NewLarge
-    donationSystem.headerHeight = textManager:getFontHeight(donationSystem.headerFont)
     donationSystem.bodyFont = UIFont.AutoNormSmall
 
-    local FONT_SMALL = textManager:getFontHeight(UIFont.Small)
-    local windowW, windowH = 400, 150
-    local textureW, textureH = donationSystem.texture:getWidth(), donationSystem.texture:getHeight()
-    local textureOffsetX, textureOffsetY = (textureW*0.8), (textureH*0.22)
-    local x = getCore():getScreenWidth() - windowW - (textureW*0.15) - 15
-    local y = getCore():getScreenHeight() - FONT_SMALL - 80 - windowH - (textureH*0.1)
+    donationSystem.padding = 24
+    donationSystem.padding = 24
+    donationSystem.btnWid = 100
+    donationSystem.btnHgt = 20
 
-    donationSystem.texturePos = {windowW-textureOffsetX,0-textureOffsetY}
+    local FONT_SMALL = textManager:getFontHeight(UIFont.Small)
+
+    donationSystem.header = "Welcome to GAME NIGHT!"
+    donationSystem.headerW = textManager:MeasureStringX(donationSystem.headerFont, donationSystem.header)
+    donationSystem.headerH = textManager:MeasureStringY(donationSystem.headerFont, donationSystem.header)
+
+    donationSystem.body = "If you enjoy Chuckleberry Finn's work,\nconsider showing your support."
+    donationSystem.bodyW = textManager:MeasureStringX(donationSystem.bodyFont, donationSystem.body)
+    donationSystem.bodyH = textManager:MeasureStringY(donationSystem.bodyFont, donationSystem.body)
+
+    local alertH = (donationSystem.padding*4) + donationSystem.headerH + donationSystem.bodyH + donationSystem.btnHgt
+
+    local windowW, windowH = (donationSystem.headerW+(donationSystem.padding*3)), alertH
+
+    local textureW, textureH = donationSystem.texture:getWidth(), donationSystem.texture:getHeight()
+
+    local x = getCore():getScreenWidth() - windowW - textureW + (donationSystem.padding*1.5)
+    local y = getCore():getScreenHeight() - FONT_SMALL - 80 - windowH - (textureH*0.1)
 
     local alert = MainScreen.instance.donateAlert
     if not MainScreen.instance.donateAlert then
@@ -85,10 +107,9 @@ function donationSystem:new(x, y, width, height)
     local o = ISPanelJoypad:new(x, y, width, height)
     setmetatable(o, self)
     self.__index = self
-    o.padding = 24
-    o.borderColor = {r=0, g=0, b=0, a=0}
-    o.backgroundColor = {r=0, g=0, b=0, a=0}
-    o.width, o.height = width, height
+    o.borderColor, o.backgroundColor = {r=0, g=0, b=0, a=0}, {r=0, g=0, b=0, a=0}
+    o.width, o.height =  width, height
+    o.moveWithMouse = true
     return o
 end
 
