@@ -26,7 +26,10 @@ end
 
 function donationSystem:render()
     ISPanelJoypad.render(self)
-    if donationSystem.texture then self:drawTexture(donationSystem.texture, self.width-donationSystem.padding*2, self.height-donationSystem.texture:getHeight(), 1, 1, 1, 1) end
+    if donationSystem.texture then
+        local textureYOffset = (self.height-donationSystem.texture:getHeight()*(donationSystem.textureScale*1.25))/2
+        self:drawTextureScaledUniform(donationSystem.texture, self.width-donationSystem.padding*2, textureYOffset, donationSystem.textureScale, 1, 1, 1, 1)
+    end
 end
 
 
@@ -38,6 +41,16 @@ function donationSystem:initialise()
 
     local btnHgt = donationSystem.btnHgt
     local btnWid = donationSystem.btnWid
+
+    self.collapseTexture = self.collapseTexture or getTexture("media/textures/gamenightDonate/collapse.png")
+    self.collapse = ISButton:new(donationSystem.padding+5, self:getHeight()-(donationSystem.padding)-20, 10, 16, "", self, donationSystem.onClickCollapse)
+    self.collapse:setImage(self.collapseTexture)
+    self.collapse.borderColor = {r=0, g=0, b=0, a=0}
+    self.collapse.backgroundColor = {r=0, g=0, b=0, a=0}
+    self.collapse.backgroundColorMouseOver = {r=0, g=0, b=0, a=0}
+    self.collapse:initialise()
+    self.collapse:instantiate()
+    self:addChild(self.collapse)
 
     self.donate = ISButton:new(((self.width-btnWid)/2), self:getHeight()-(donationSystem.padding*1.5)-btnHgt, btnWid, btnHgt, "Go to Chuck's Kofi", self, donationSystem.onClickDonate)
     self.donate.borderColor = {r=0.64, g=0.8, b=0.02, a=0.9}
@@ -61,6 +74,7 @@ end
 function donationSystem.display(visible)
     local rand = ZombRand(2)+1
     donationSystem.texture = donationSystem.texture or getTexture("media/textures/gamenightDonate/"..rand..".png")
+    donationSystem.textureScale = 0.8
 
     local textManager = getTextManager()
     donationSystem.headerFont = UIFont.NewLarge
@@ -82,13 +96,11 @@ function donationSystem.display(visible)
     donationSystem.bodyH = textManager:MeasureStringY(donationSystem.bodyFont, donationSystem.body)
 
     local alertH = (donationSystem.padding*4) + donationSystem.headerH + donationSystem.bodyH + donationSystem.btnHgt
-
     local windowW, windowH = (donationSystem.headerW+(donationSystem.padding*3)), alertH
-
-    local textureW, textureH = donationSystem.texture:getWidth(), donationSystem.texture:getHeight()
+    local textureW = donationSystem.texture:getWidth()*donationSystem.textureScale
 
     local x = getCore():getScreenWidth() - windowW - textureW + (donationSystem.padding*1.5)
-    local y = getCore():getScreenHeight() - FONT_SMALL - 80 - windowH - (textureH*0.1)
+    local y = getCore():getScreenHeight() - FONT_SMALL - 80 - windowH
 
     local alert = MainScreen.instance.donateAlert
     if not MainScreen.instance.donateAlert then
