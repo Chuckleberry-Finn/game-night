@@ -45,6 +45,8 @@ function donationSystem:onClickCollapse()
     if self.collapseTexture and self.expandTexture then
         self.collapse:setImage(not self.collapsed and self.collapseTexture or self.expandTexture)
     end
+
+    self:setX(not self.collapsed and self.originalX or getCore():getScreenWidth()-(self.collapse.width*2)-donationSystem.padding)
 end
 
 function donationSystem:initialise()
@@ -132,6 +134,7 @@ function donationSystem:new(x, y, width, height)
     setmetatable(o, self)
     self.__index = self
     o.borderColor, o.backgroundColor = {r=0, g=0, b=0, a=0}, {r=0, g=0, b=0, a=0}
+    o.originalX = x
     o.width, o.height =  width, height
     return o
 end
