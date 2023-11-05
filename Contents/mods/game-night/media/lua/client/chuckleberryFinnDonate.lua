@@ -8,25 +8,26 @@ local donationSystem = ISPanelJoypad:derive("donationSystem")
 function donationSystem:prerender()
     ISPanelJoypad.prerender(self)
 
-    self:drawRect(donationSystem.padding, donationSystem.padding, self.width, self.height-(donationSystem.padding*2), 0.5, 0, 0, 0)
+    local collapseWidth = not self.collapsed and self.width or self.collapse.width*2
 
-    local centerX = (self.width/2)
+    self:drawRect(donationSystem.padding, donationSystem.padding, collapseWidth, self.height-(donationSystem.padding*2), 0.5, 0, 0, 0)
 
-    local headerY = donationSystem.padding*1.3
+    if not self.collapsed then
+        local centerX = (self.width/2)
+        local headerY = donationSystem.padding*1.3
+        self:drawTextCentre(donationSystem.header, centerX, headerY, 1, 1, 1, 0.9, donationSystem.headerFont)
 
-    self:drawTextCentre(donationSystem.header, centerX, headerY, 1, 1, 1, 0.9, donationSystem.headerFont)
+        local bodyY = (donationSystem.padding*1.6)+(donationSystem.headerH)
+        self:drawTextCentre(donationSystem.body, centerX, bodyY, 1, 1, 1, 0.8, donationSystem.bodyFont)
+    end
 
-    local bodyY = (donationSystem.padding*1.6)+(donationSystem.headerH)
-
-    self:drawTextCentre(donationSystem.body, centerX, bodyY, 1, 1, 1, 0.8, donationSystem.bodyFont)
-
-    self:drawRectBorder(donationSystem.padding, donationSystem.padding, self.width, self.height-(donationSystem.padding*2), 0.6, 1, 1, 1)
+    self:drawRectBorder(donationSystem.padding, donationSystem.padding, collapseWidth, self.height-(donationSystem.padding*2), 0.6, 1, 1, 1)
 end
 
 
 function donationSystem:render()
     ISPanelJoypad.render(self)
-    if donationSystem.texture then
+    if donationSystem.texture and (not self.collapsed) then
         local textureYOffset = (self.height-(donationSystem.texture:getHeight()*donationSystem.textureScale))/2
         self:drawTextureScaledUniform(donationSystem.texture, self.width-donationSystem.padding*2, textureYOffset, donationSystem.textureScale, 1, 1, 1, 1)
     end
@@ -35,6 +36,16 @@ end
 
 function donationSystem:onClickDonate() openUrl("https://ko-fi.com/chuckleberryfinn") end
 function donationSystem:onClickRate() openUrl("https://steamcommunity.com/sharedfiles/filedetails/?id=3058279917") end
+function donationSystem:onClickCollapse()
+    self.collapsed = not self.collapsed
+
+    self.rate:setVisible(not self.collapsed)
+    self.donate:setVisible(not self.collapsed)
+
+    if self.collapseTexture and self.expandTexture then
+        self.collapse:setImage(not self.collapsed and self.collapseTexture or self.expandTexture)
+    end
+end
 
 function donationSystem:initialise()
     ISPanelJoypad.initialise(self)
@@ -42,7 +53,9 @@ function donationSystem:initialise()
     local btnHgt = donationSystem.btnHgt
     local btnWid = donationSystem.btnWid
 
+    self.expandTexture = self.expandTexture or getTexture("media/textures/gamenightDonate/expand.png")
     self.collapseTexture = self.collapseTexture or getTexture("media/textures/gamenightDonate/collapse.png")
+
     self.collapse = ISButton:new(donationSystem.padding+5, self:getHeight()-(donationSystem.padding)-20, 10, 16, "", self, donationSystem.onClickCollapse)
     self.collapse:setImage(self.collapseTexture)
     self.collapse.borderColor = {r=0, g=0, b=0, a=0}
@@ -120,7 +133,6 @@ function donationSystem:new(x, y, width, height)
     self.__index = self
     o.borderColor, o.backgroundColor = {r=0, g=0, b=0, a=0}, {r=0, g=0, b=0, a=0}
     o.width, o.height =  width, height
-    o.moveWithMouse = true
     return o
 end
 
