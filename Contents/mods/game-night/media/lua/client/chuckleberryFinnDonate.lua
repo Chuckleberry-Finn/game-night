@@ -99,7 +99,7 @@ function donationSystem.display(visible)
     local textureH = donationSystem.texture:getHeight()*donationSystem.textureScale
 
     local x = getCore():getScreenWidth() - windowW - textureW + (donationSystem.padding*1.5)
-    local y = getCore():getScreenHeight() - math.max(windowH,textureH) - 80
+    local y = getCore():getScreenHeight() - math.max(windowH,textureH) - 80 - donationSystem.padding
 
     local alert = MainScreen.instance.donateAlert
     if not MainScreen.instance.donateAlert then
