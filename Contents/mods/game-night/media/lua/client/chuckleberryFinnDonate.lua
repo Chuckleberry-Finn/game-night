@@ -27,7 +27,7 @@ end
 function donationSystem:render()
     ISPanelJoypad.render(self)
     if donationSystem.texture then
-        local textureYOffset = (self.height-donationSystem.texture:getHeight()*(donationSystem.textureScale*1.25))/2
+        local textureYOffset = (self.height-(donationSystem.texture:getHeight()*donationSystem.textureScale))/2
         self:drawTextureScaledUniform(donationSystem.texture, self.width-donationSystem.padding*2, textureYOffset, donationSystem.textureScale, 1, 1, 1, 1)
     end
 end
@@ -81,11 +81,8 @@ function donationSystem.display(visible)
     donationSystem.bodyFont = UIFont.AutoNormSmall
 
     donationSystem.padding = 24
-    donationSystem.padding = 24
     donationSystem.btnWid = 100
     donationSystem.btnHgt = 20
-
-    local FONT_SMALL = textManager:getFontHeight(UIFont.Small)
 
     donationSystem.header = "Welcome to GAME NIGHT!"
     donationSystem.headerW = textManager:MeasureStringX(donationSystem.headerFont, donationSystem.header)
@@ -97,10 +94,12 @@ function donationSystem.display(visible)
 
     local alertH = (donationSystem.padding*4) + donationSystem.headerH + donationSystem.bodyH + donationSystem.btnHgt
     local windowW, windowH = (donationSystem.headerW+(donationSystem.padding*3)), alertH
+
     local textureW = donationSystem.texture:getWidth()*donationSystem.textureScale
+    local textureH = donationSystem.texture:getHeight()*donationSystem.textureScale
 
     local x = getCore():getScreenWidth() - windowW - textureW + (donationSystem.padding*1.5)
-    local y = getCore():getScreenHeight() - FONT_SMALL - 80 - windowH
+    local y = getCore():getScreenHeight() - math.max(windowH,textureH) - 80
 
     local alert = MainScreen.instance.donateAlert
     if not MainScreen.instance.donateAlert then
