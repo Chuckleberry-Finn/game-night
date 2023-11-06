@@ -1,18 +1,9 @@
-CHUCKLEBERRY_DONATION_SYSTEM = (CHUCKLEBERRY_DONATION_SYSTEM or 0) + 1
+CHUCKLEBERRY_DONATION_SYSTEM = CHUCKLEBERRY_DONATION_SYSTEM or {}
+CHUCKLEBERRY_DONATION_SYSTEM.modCount = (CHUCKLEBERRY_DONATION_SYSTEM.modCount or 0) + 1
 
 require "ISUI/ISPanelJoypad"
 ---@class donationSystem : ISPanelJoypad
 local donationSystem = ISPanelJoypad:derive("donationSystem")
-
-function donationSystem.RestoreLayout(self, name, layout)
-    ISLayoutManager.DefaultRestoreWindow(self, layout)
-    if layout.collapsed == 'true' then self:onClickCollapse(true) end
-end
-
-function donationSystem.SaveLayout(self, name, layout)
-    ISLayoutManager.DefaultSaveWindow(self, layout)
-    if self.collapsed then layout.collapsed = 'true' else layout.collapsed = 'false' end
-end
 
 function donationSystem:prerender()
     ISPanelJoypad.prerender(self)
@@ -45,17 +36,26 @@ end
 
 function donationSystem:onClickDonate() openUrl("https://ko-fi.com/chuckleberryfinn") end
 function donationSystem:onClickRate() openUrl("https://steamcommunity.com/sharedfiles/filedetails/?id=3058279917") end
-function donationSystem:onClickCollapse(override)
-    self.collapsed = override or not self.collapsed
 
+function donationSystem:collapseApply()
     self.rate:setVisible(not self.collapsed)
     self.donate:setVisible(not self.collapsed)
 
     if self.collapseTexture and self.expandTexture then
-        self.collapse:setImage(not self.collapsed and self.collapseTexture or self.expandTexture)
+        self.collapse:setImage(self.collapsed and self.expandTexture or self.collapseTexture)
     end
 
     self:setX(not self.collapsed and self.originalX or getCore():getScreenWidth()-(self.collapse.width*2)-donationSystem.padding)
+end
+
+function donationSystem:onClickCollapse()
+    self.collapsed = not self.collapsed
+
+    local writer = getFileWriter("chuckleberryfinnDonationSystem.txt", true, false)
+    writer:write("collapsed="..tostring(self.collapsed))
+    writer:close()
+
+    self:collapseApply()
 end
 
 function donationSystem:initialise()
@@ -133,8 +133,31 @@ function donationSystem.display(visible)
         MainScreen.instance:addChild(alert)
     end
 
-    if visible ~= false and visible ~= true then visible = MainScreen.instance:isVisible() end
+    if visible ~= false and visible ~= true then visible = MainScreen and MainScreen.instance and MainScreen.instance:isVisible() end
     alert:setVisible(visible)
+
+    local reader = getFileReader("chuckleberryfinnDonationSystem.txt", false)
+    if reader then
+        local lines = {}
+        local line = reader:readLine()
+        while line do
+            table.insert(lines, line)
+            line = reader:readLine()
+        end
+        reader:close()
+
+        for _,data in pairs(lines) do
+            local param,value = string.match(data, "(.*)=(.*)")
+            print("param:",param," = ",tostring(value))
+
+            local setValue = value
+            if setValue == "true" then setValue = true end
+            if setValue == "false" then setValue = false end
+            
+            alert[param] = setValue
+        end
+        alert:collapseApply()
+    end
 end
 
 
