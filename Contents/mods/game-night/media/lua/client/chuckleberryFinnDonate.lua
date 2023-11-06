@@ -4,6 +4,15 @@ require "ISUI/ISPanelJoypad"
 ---@class donationSystem : ISPanelJoypad
 local donationSystem = ISPanelJoypad:derive("donationSystem")
 
+function donationSystem.RestoreLayout(self, name, layout)
+    ISLayoutManager.DefaultRestoreWindow(self, layout)
+    if layout.collapsed == 'true' then self:onClickCollapse(true) end
+end
+
+function donationSystem.SaveLayout(self, name, layout)
+    ISLayoutManager.DefaultSaveWindow(self, layout)
+    if self.collapsed then layout.collapsed = 'true' else layout.collapsed = 'false' end
+end
 
 function donationSystem:prerender()
     ISPanelJoypad.prerender(self)
@@ -36,8 +45,8 @@ end
 
 function donationSystem:onClickDonate() openUrl("https://ko-fi.com/chuckleberryfinn") end
 function donationSystem:onClickRate() openUrl("https://steamcommunity.com/sharedfiles/filedetails/?id=3058279917") end
-function donationSystem:onClickCollapse()
-    self.collapsed = not self.collapsed
+function donationSystem:onClickCollapse(override)
+    self.collapsed = override or not self.collapsed
 
     self.rate:setVisible(not self.collapsed)
     self.donate:setVisible(not self.collapsed)
