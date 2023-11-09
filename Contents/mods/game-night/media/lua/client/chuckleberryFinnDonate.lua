@@ -5,6 +5,25 @@ require "ISUI/ISPanelJoypad"
 ---@class donationSystem : ISPanelJoypad
 local donationSystem = ISPanelJoypad:derive("donationSystem")
 
+
+function donationSystem.getWorkshopID()
+    local coroutine = getCurrentCoroutine()
+    local count = coroutine and getCallframeTop(coroutine)
+    for i= count - 1, 0, -1 do
+        ---@type LuaCallFrame
+        local luaCallFrame = getCoroutineCallframeStack(coroutine,i)
+        if luaCallFrame ~= nil and luaCallFrame then
+            local fileDir = getFilenameOfCallframe(luaCallFrame)
+            local modInfo = fileDir and getModInfo(fileDir:match("(.-)media/"))
+            local workshopID = modInfo and modInfo:getWorkshopID()
+            if workshopID then donationSystem.workshopID = workshopID end
+            local modName = modInfo and modInfo:getName()
+            if modName then donationSystem.modName = modName end
+        end
+    end
+end
+
+
 function donationSystem:prerender()
     ISPanelJoypad.prerender(self)
 
@@ -35,7 +54,11 @@ end
 
 
 function donationSystem:onClickDonate() openUrl("https://ko-fi.com/chuckleberryfinn") end
-function donationSystem:onClickRate() openUrl("https://steamcommunity.com/sharedfiles/filedetails/?id=3058279917") end
+function donationSystem:onClickRate()
+    local chucksWorkshop = "https://steamcommunity.com/id/Chuckleberry_Finn/myworkshopfiles/?appid=108600"
+    local openThisURL = self.workshopID and "https://steamcommunity.com/sharedfiles/filedetails/?id="..self.workshopID or chucksWorkshop
+    openUrl(openThisURL)
+end
 
 function donationSystem:collapseApply()
     self.rate:setVisible(not self.collapsed)
@@ -64,8 +87,8 @@ function donationSystem:initialise()
     local btnHgt = donationSystem.btnHgt
     local btnWid = donationSystem.btnWid
 
-    self.expandTexture = self.expandTexture or getTexture("media/textures/gamenightDonate/expand.png")
-    self.collapseTexture = self.collapseTexture or getTexture("media/textures/gamenightDonate/collapse.png")
+    self.expandTexture = self.expandTexture or getTexture("media/textures/chuckleberryfinnDonateSystem/expand.png")
+    self.collapseTexture = self.collapseTexture or getTexture("media/textures/chuckleberryfinnDonateSystem/collapse.png")
 
     self.collapse = ISButton:new(donationSystem.padding+5, self:getHeight()-(donationSystem.padding)-20, 10, 16, "", self, donationSystem.onClickCollapse)
     self.collapse:setImage(self.collapseTexture)
@@ -84,7 +107,7 @@ function donationSystem:initialise()
     self.donate:instantiate()
     self:addChild(self.donate)
 
-    self.rateTexture = self.rateTexture or getTexture("media/textures/gamenightDonate/rate.png")
+    self.rateTexture = self.rateTexture or getTexture("media/textures/chuckleberryfinnDonateSystem/rate.png")
     self.rate = ISButton:new(self.donate.x-btnHgt-6, self:getHeight()-(donationSystem.padding*1.5)-btnHgt, btnHgt, btnHgt, "", self, donationSystem.onClickRate)
     self.rate:setImage(self.rateTexture)
     self.rate.borderColor = {r=0.39, g=0.66, b=0.3, a=0.9}
@@ -97,7 +120,8 @@ end
 
 function donationSystem.display(visible)
     local rand = ZombRand(2)+1
-    donationSystem.texture = donationSystem.texture or getTexture("media/textures/gamenightDonate/"..rand..".png")
+    donationSystem.texture = donationSystem.texture or getTexture("media/textures/chuckleberryfinnDonateSystem/"..rand..".png")
+
     donationSystem.textureScale = 0.8
 
     local textManager = getTextManager()
@@ -108,7 +132,9 @@ function donationSystem.display(visible)
     donationSystem.btnWid = 100
     donationSystem.btnHgt = 20
 
-    donationSystem.header = "Welcome to GAME NIGHT!"
+    donationSystem.getWorkshopID()
+    donationSystem.header = donationSystem.modName and "I hope you enjoy "..donationSystem.modName or "Hey there!"
+
     donationSystem.headerW = textManager:MeasureStringX(donationSystem.headerFont, donationSystem.header)
     donationSystem.headerH = textManager:MeasureStringY(donationSystem.headerFont, donationSystem.header)
 
@@ -148,12 +174,9 @@ function donationSystem.display(visible)
 
         for _,data in pairs(lines) do
             local param,value = string.match(data, "(.*)=(.*)")
-            print("param:",param," = ",tostring(value))
-
             local setValue = value
             if setValue == "true" then setValue = true end
             if setValue == "false" then setValue = false end
-            
             alert[param] = setValue
         end
         alert:collapseApply()
@@ -168,6 +191,7 @@ function donationSystem:new(x, y, width, height)
     o.borderColor, o.backgroundColor = {r=0, g=0, b=0, a=0}, {r=0, g=0, b=0, a=0}
     o.originalX = x
     o.width, o.height =  width, height
+    o:getWorkshopID()
     return o
 end
 
