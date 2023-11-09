@@ -1,9 +1,14 @@
-CHUCKLEBERRY_DONATION_SYSTEM = CHUCKLEBERRY_DONATION_SYSTEM or {}
-CHUCKLEBERRY_DONATION_SYSTEM.modCount = (CHUCKLEBERRY_DONATION_SYSTEM.modCount or 0) + 1
-
 require "ISUI/ISPanelJoypad"
 ---@class donationSystem : ISPanelJoypad
 local donationSystem = ISPanelJoypad:derive("donationSystem")
+
+
+donationSystem.modCount = 0
+function donationSystem.addModCount() donationSystem.modCount = donationSystem.modCount + 1 end
+
+
+donationSystem.spiffoTextures = {}
+function donationSystem.addTexture(path) table.insert(donationSystem.spiffoTextures, path) end
 
 
 function donationSystem.getWorkshopID()
@@ -19,6 +24,8 @@ function donationSystem.getWorkshopID()
             if workshopID then donationSystem.workshopID = workshopID end
             local modName = modInfo and modInfo:getName()
             if modName then donationSystem.modName = modName end
+
+
         end
     end
 end
@@ -26,29 +33,24 @@ end
 
 function donationSystem:prerender()
     ISPanelJoypad.prerender(self)
-
     local collapseWidth = not self.collapsed and self.width or self.collapse.width*2
-
-    self:drawRect(donationSystem.padding, donationSystem.padding, collapseWidth, self.height-(donationSystem.padding*2), 0.5, 0, 0, 0)
+    self:drawRect(0, 0, collapseWidth, self.height, 0.5, 0, 0, 0)
 
     if not self.collapsed then
         local centerX = (self.width/2)
-        local headerY = donationSystem.padding*1.3
-        self:drawTextCentre(donationSystem.header, centerX, headerY, 1, 1, 1, 0.9, donationSystem.headerFont)
-
-        local bodyY = (donationSystem.padding*1.6)+(donationSystem.headerH)
-        self:drawTextCentre(donationSystem.body, centerX, bodyY, 1, 1, 1, 0.8, donationSystem.bodyFont)
+        self:drawTextCentre(donationSystem.header, centerX, donationSystem.headerYOffset, 1, 1, 1, 0.9, donationSystem.headerFont)
+        self:drawTextCentre(donationSystem.body, centerX, donationSystem.bodyYOffset, 1, 1, 1, 0.8, donationSystem.bodyFont)
     end
-
-    self:drawRectBorder(donationSystem.padding, donationSystem.padding, collapseWidth, self.height-(donationSystem.padding*2), 0.6, 1, 1, 1)
+    self:drawRectBorder(0, 0, collapseWidth, self.height, 0.6, 1, 1, 1)
 end
+
 
 
 function donationSystem:render()
     ISPanelJoypad.render(self)
-    if donationSystem.texture and (not self.collapsed) then
-        local textureYOffset = (self.height-(donationSystem.texture:getHeight()*donationSystem.textureScale))/2
-        self:drawTextureScaledUniform(donationSystem.texture, self.width-donationSystem.padding*2, textureYOffset, donationSystem.textureScale, 1, 1, 1, 1)
+    if donationSystem.spiffoTexture and (not self.collapsed) then
+        local textureYOffset = (self.height-donationSystem.spiffoTexture:getHeight())/2
+        self:drawTexture(donationSystem.spiffoTexture, self.width-(donationSystem.padding*1.75), textureYOffset, 1, 1, 1, 1)
     end
 end
 
@@ -68,7 +70,7 @@ function donationSystem:collapseApply()
         self.collapse:setImage(self.collapsed and self.expandTexture or self.collapseTexture)
     end
 
-    self:setX(not self.collapsed and self.originalX or getCore():getScreenWidth()-(self.collapse.width*2)-donationSystem.padding)
+    self:setX(not self.collapsed and self.originalX or getCore():getScreenWidth()-(self.collapse.width*2))
 end
 
 function donationSystem:onClickCollapse()
@@ -87,10 +89,10 @@ function donationSystem:initialise()
     local btnHgt = donationSystem.btnHgt
     local btnWid = donationSystem.btnWid
 
-    self.expandTexture = self.expandTexture or getTexture("media/textures/chuckleberryfinnDonateSystem/expand.png")
-    self.collapseTexture = self.collapseTexture or getTexture("media/textures/chuckleberryfinnDonateSystem/collapse.png")
+    self.expandTexture = self.expandTexture or getTexture("media/textures/donate/expand.png")
+    self.collapseTexture = self.collapseTexture or getTexture("media/textures/donate/collapse.png")
 
-    self.collapse = ISButton:new(donationSystem.padding+5, self:getHeight()-(donationSystem.padding)-20, 10, 16, "", self, donationSystem.onClickCollapse)
+    self.collapse = ISButton:new(5, self:getHeight()-20, 10, 16, "", self, donationSystem.onClickCollapse)
     self.collapse:setImage(self.collapseTexture)
     self.collapse.borderColor = {r=0, g=0, b=0, a=0}
     self.collapse.backgroundColor = {r=0, g=0, b=0, a=0}
@@ -99,7 +101,7 @@ function donationSystem:initialise()
     self.collapse:instantiate()
     self:addChild(self.collapse)
 
-    self.donate = ISButton:new(((self.width-btnWid)/2), self:getHeight()-(donationSystem.padding*1.5)-btnHgt, btnWid, btnHgt, "Go to Chuck's Kofi", self, donationSystem.onClickDonate)
+    self.donate = ISButton:new(((self.width-btnWid)/2), donationSystem.buttonsYOffset-btnHgt, btnWid, btnHgt, "Go to Chuck's Kofi", self, donationSystem.onClickDonate)
     self.donate.borderColor = {r=0.64, g=0.8, b=0.02, a=0.9}
     self.donate.backgroundColor = {r=0, g=0, b=0, a=0.6}
     self.donate.textColor = {r=0.64, g=0.8, b=0.02, a=1}
@@ -107,8 +109,8 @@ function donationSystem:initialise()
     self.donate:instantiate()
     self:addChild(self.donate)
 
-    self.rateTexture = self.rateTexture or getTexture("media/textures/chuckleberryfinnDonateSystem/rate.png")
-    self.rate = ISButton:new(self.donate.x-btnHgt-6, self:getHeight()-(donationSystem.padding*1.5)-btnHgt, btnHgt, btnHgt, "", self, donationSystem.onClickRate)
+    self.rateTexture = self.rateTexture or getTexture("media/textures/donate/rate.png")
+    self.rate = ISButton:new(self.donate.x-btnHgt-6, donationSystem.buttonsYOffset-btnHgt, btnHgt, btnHgt, "", self, donationSystem.onClickRate)
     self.rate:setImage(self.rateTexture)
     self.rate.borderColor = {r=0.39, g=0.66, b=0.3, a=0.9}
     self.rate.backgroundColor = {r=0.07, g=0.13, b=0.19, a=1}
@@ -119,44 +121,50 @@ end
 
 
 function donationSystem.display(visible)
-    local rand = ZombRand(2)+1
-    donationSystem.texture = donationSystem.texture or getTexture("media/textures/chuckleberryfinnDonateSystem/"..rand..".png")
-
-    donationSystem.textureScale = 0.8
-
-    local textManager = getTextManager()
-    donationSystem.headerFont = UIFont.NewLarge
-    donationSystem.bodyFont = UIFont.AutoNormSmall
-
-    donationSystem.padding = 24
-    donationSystem.btnWid = 100
-    donationSystem.btnHgt = 20
-
-    donationSystem.getWorkshopID()
-    donationSystem.header = donationSystem.modName and "I hope you enjoy "..donationSystem.modName or "Hey there!"
-
-    if CHUCKLEBERRY_DONATION_SYSTEM.modCount > 1 then
-        donationSystem.header = "Hey there, did you know you're\nusing "..CHUCKLEBERRY_DONATION_SYSTEM.modCount.." mods made by Chuck?"
-    end
-
-    donationSystem.headerW = textManager:MeasureStringX(donationSystem.headerFont, donationSystem.header)
-    donationSystem.headerH = textManager:MeasureStringY(donationSystem.headerFont, donationSystem.header)
-
-    donationSystem.body = "If you enjoy Chuckleberry Finn's work,\nconsider showing your support."
-    donationSystem.bodyW = textManager:MeasureStringX(donationSystem.bodyFont, donationSystem.body)
-    donationSystem.bodyH = textManager:MeasureStringY(donationSystem.bodyFont, donationSystem.body)
-
-    local alertH = (donationSystem.padding*4) + donationSystem.headerH + donationSystem.bodyH + donationSystem.btnHgt
-    local windowW, windowH = (donationSystem.headerW+(donationSystem.padding*3)), alertH
-
-    local textureW = donationSystem.texture:getWidth()*donationSystem.textureScale
-    local textureH = donationSystem.texture:getHeight()*donationSystem.textureScale
-
-    local x = getCore():getScreenWidth() - windowW - textureW + (donationSystem.padding*1.5)
-    local y = getCore():getScreenHeight() - math.max(windowH,textureH) - 80 - donationSystem.padding
 
     local alert = MainScreen.instance.donateAlert
     if not MainScreen.instance.donateAlert then
+
+        if (not donationSystem.spiffoTexture) and donationSystem.spiffoTextures and #donationSystem.spiffoTextures>0 then
+            local rand = ZombRand(#donationSystem.spiffoTextures)+1
+            donationSystem.spiffoTexture = getTexture(donationSystem.spiffoTextures[rand])
+        end
+
+        local textManager = getTextManager()
+        donationSystem.headerFont = UIFont.NewLarge
+        donationSystem.bodyFont = UIFont.AutoNormSmall
+
+        donationSystem.padding = 24
+        donationSystem.btnWid = 100
+        donationSystem.btnHgt = 20
+
+        donationSystem.getWorkshopID()
+        donationSystem.header = donationSystem.modName and "I hope you enjoy "..donationSystem.modName or "Hey there!"
+
+        if donationSystem.modCount > 1 then
+            donationSystem.header = "Hey there, did you know you're\nusing "..donationSystem.modCount.." mods made by Chuck?"
+        end
+
+        donationSystem.headerW = textManager:MeasureStringX(donationSystem.headerFont, donationSystem.header)
+        donationSystem.headerH = textManager:MeasureStringY(donationSystem.headerFont, donationSystem.header)
+        donationSystem.headerYOffset = donationSystem.padding*0.6
+
+        donationSystem.body = "If you enjoy Chuckleberry Finn's work,\nconsider showing your support."
+        donationSystem.bodyW = textManager:MeasureStringX(donationSystem.bodyFont, donationSystem.body)
+        donationSystem.bodyH = textManager:MeasureStringY(donationSystem.bodyFont, donationSystem.body)*2
+        donationSystem.bodyYOffset = donationSystem.headerYOffset+donationSystem.headerH+(donationSystem.padding*0.5)
+
+        donationSystem.buttonsYOffset = donationSystem.bodyYOffset+donationSystem.bodyH+(donationSystem.padding*0.5)
+
+        local textureW = donationSystem.spiffoTexture and donationSystem.spiffoTexture:getWidth() or 0
+        local textureH = donationSystem.spiffoTexture and donationSystem.spiffoTexture:getHeight() or 0
+
+        local windowW = (donationSystem.headerW+(donationSystem.padding*2))
+        local windowH = donationSystem.buttonsYOffset + donationSystem.btnHgt
+
+        local x = getCore():getScreenWidth() - windowW - (donationSystem.padding*1.5) - (textureW>0 and (textureW-(donationSystem.padding*2)) or 0)
+        local y = getCore():getScreenHeight() - math.max(windowH,textureH) - 80 - donationSystem.padding
+
         alert = donationSystem:new(x, y, windowW, windowH)
         alert:initialise()
         MainScreen.instance.donateAlert = alert
@@ -213,3 +221,6 @@ function MainScreen:setBottomPanelVisible(visible)
 end
 
 Events.OnMainMenuEnter.Add(function() donationSystem.display(true) end)
+
+
+return donationSystem
