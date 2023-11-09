@@ -135,6 +135,10 @@ function donationSystem.display(visible)
     donationSystem.getWorkshopID()
     donationSystem.header = donationSystem.modName and "I hope you enjoy "..donationSystem.modName or "Hey there!"
 
+    if CHUCKLEBERRY_DONATION_SYSTEM.modCount > 1 then
+        donationSystem.header = "Hey there, did you know you're\nusing "..CHUCKLEBERRY_DONATION_SYSTEM.modCount.." mods made by Chuck?"
+    end
+
     donationSystem.headerW = textManager:MeasureStringX(donationSystem.headerFont, donationSystem.header)
     donationSystem.headerH = textManager:MeasureStringY(donationSystem.headerFont, donationSystem.header)
 
