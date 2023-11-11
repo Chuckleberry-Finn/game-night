@@ -437,7 +437,7 @@ end
 
 function gameNightWindow:render()
     ISPanelJoypad.render(self)
-    local movingElement = self.movingPiece
+    local movingPiece = self.movingPiece
 
     ---@type IsoGridSquare
     local square = self.square
@@ -477,16 +477,18 @@ function gameNightWindow:render()
     end
     --self.cursorDraws = {}
 
-    if movingElement then
+    if movingPiece then
         if not isMouseButtonDown(0) then return end
-        local texture = movingElement:getModData()["gameNight_textureInPlay"] or movingElement:getTexture()
+        local texture = movingPiece:getModData()["gameNight_textureInPlay"] or movingPiece:getTexture()
         local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
         local x, y = self:getMouseX()-(offsetX), self:getMouseY()-(offsetY)
-        self:drawTextureScaledUniform(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), gameNightWindow.scaleSize, 0.55, 1, 1, 1)
+        local movingElement = self.elements[movingPiece:getID()]
+        local w, h = movingElement.w, movingElement.h
+        self:drawTextureScaled(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), w, h, 0.55, 1, 1, 1)
 
         local selection
         for _,element in pairs(self.elements) do
-            if (element.item~=movingElement) and deckActionHandler.isDeckItem(element.item) then
+            if (element.item~=movingPiece) and deckActionHandler.isDeckItem(element.item) then
                 local inBounds = (math.abs(element.x-x) <= 5) and (math.abs(element.y-y) <= 5)
                 if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
             end
@@ -496,7 +498,7 @@ function gameNightWindow:render()
             local mergeCards = gameNightWindow.cachedActionIcons.mergeCards
             self:drawTextureScaledUniform(mergeCards, x, y, gameNightWindow.scaleSize, 0.65, 1, 1, 1)
         else
-            local _, shiftActionTexture = gameNightWindow.fetchShiftAction(movingElement)
+            local _, shiftActionTexture = gameNightWindow.fetchShiftAction(movingPiece)
             if shiftActionTexture and shiftActionTexture~=true then self:drawTextureScaledUniform(shiftActionTexture, x, y, gameNightWindow.scaleSize, 0.65, 1, 1, 1) end
         end
 
