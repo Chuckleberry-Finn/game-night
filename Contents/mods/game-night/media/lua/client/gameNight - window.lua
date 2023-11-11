@@ -582,9 +582,9 @@ function gameNightWindow:new(x, y, width, height, player, square)
     o.borderColor = {r=0.4, g=0.4, b=0.4, a=1}
     o.backgroundColor = {r=0, g=0, b=0, a=0.3}
 
-    o.width = width
-    o.height = height
-    o.defaultSize = {width=o.width, height=o.height}
+    o.defaultSize = {width=width, height=height}
+    o.width = width * gameNightWindow.scaleSize
+    o.height = height * gameNightWindow.scaleSize
     o.player = player
     o.square = square
 
