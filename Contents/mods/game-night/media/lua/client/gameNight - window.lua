@@ -13,6 +13,9 @@ function gameNightWindow:toggleScale()
 
     self.bounds = {x1=self.padding, y1=self.padding, x2=self.width-self.padding, y2=self.height-self.padding}
 
+    self.waitCursor.xOffset = (self.waitCursor.texture:getWidth()/2) * gameNightWindow.scaleSize
+    self.waitCursor.yOffset = (self.waitCursor.texture:getHeight()/2) * gameNightWindow.scaleSize
+
     self.close:setY(self:getHeight()-self.btnOffsetFromBottom)
     self.resize:setY(self:getHeight()-self.btnOffsetFromBottom)
 end
@@ -590,8 +593,8 @@ function gameNightWindow:new(x, y, width, height, player, square)
 
     o.waitCursor = {}
     o.waitCursor.texture = getTexture("media/textures/actionIcons/gamenight_wait.png")
-    o.waitCursor.xOffset = o.waitCursor.texture:getWidth()/2
-    o.waitCursor.yOffset = o.waitCursor.texture:getHeight()/2
+    o.waitCursor.xOffset = (o.waitCursor.texture:getWidth()/2) * gameNightWindow.scaleSize
+    o.waitCursor.yOffset = (o.waitCursor.texture:getHeight()/2) * gameNightWindow.scaleSize
 
     o.elements = {}
 
