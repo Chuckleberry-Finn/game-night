@@ -7,9 +7,11 @@ gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 
 gameNightWindow.scaleSize = 1
 function gameNightWindow:toggleScale()
-    gameNightWindow.scaleSize = gameNightWindow.scaleSize==1 and 2 or 1
+    gameNightWindow.scaleSize = gameNightWindow.scaleSize==1 and 1.5 or gameNightWindow.scaleSize==1.5 and 2 or 1
     self:setHeight(self.defaultSize.width * gameNightWindow.scaleSize)
     self:setWidth(self.defaultSize.height * gameNightWindow.scaleSize)
+
+    self.bounds = {x1=self.padding, y1=self.padding, x2=self.width-self.padding, y2=self.height-self.padding}
 
     self.close:setY(self:getHeight()-self.btnOffsetFromBottom)
     self.resize:setY(self:getHeight()-self.btnOffsetFromBottom)
@@ -50,7 +52,7 @@ function gameNightWindow:initialise()
     self:addChild(self.close)
 
     if getDebug() then
-        self.resize = ISButton:new(self.close.x+self.close.width+padBottom, self:getHeight()-self.btnOffsetFromBottom, btnHgt, btnHgt, "2x", self, gameNightWindow.toggleScale)
+        self.resize = ISButton:new(self.close.x+self.close.width+padBottom, self:getHeight()-self.btnOffsetFromBottom, btnHgt, btnHgt, "+", self, gameNightWindow.toggleScale)
         --self.close.internal = "CLOSE"
         self.resize.borderColor = {r=1, g=1, b=1, a=0.4}
         self.resize:initialise()
@@ -373,7 +375,16 @@ function gameNightWindow:generateElement(item, object, priority)
 
     ---@type Texture
     local texture = item:getModData()["gameNight_textureInPlay"] or item:getTexture()
-    local w, h = texture:getWidth()*gameNightWindow.scaleSize, texture:getHeight()*gameNightWindow.scaleSize
+
+    local fullType = item:getFullType()
+    local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
+    local specialTextureSize = specialCase and specialCase.textureSize
+
+    local w = specialTextureSize and specialTextureSize[1] or texture:getWidth()
+    local h = specialTextureSize and specialTextureSize[2] or texture:getHeight()
+
+    w = w * gameNightWindow.scaleSize
+    h = h * gameNightWindow.scaleSize
 
     local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
     local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
@@ -456,7 +467,7 @@ function gameNightWindow:render()
     if gameNightWindow.cursor then
         for username,data in pairs(self.cursorDraws) do
             data.ticks = data.ticks - 1
-            self:drawTexture(gameNightWindow.cursor, data.x, data.y, 1, data.r, data.g, data.b)
+            self:drawTextureScaledUniform(gameNightWindow.cursor, data.x, data.y, gameNightWindow.scaleSize, 1, data.r, data.g, data.b)
             self:drawText(username, data.x+(gameNightWindow.cursorW or 0), data.y, data.r, data.g, data.b, 1, UIFont.NewSmall)
             if data.ticks <= 0 then self.cursorDraws[username] = nil end
         end
@@ -468,7 +479,7 @@ function gameNightWindow:render()
         local texture = movingElement:getModData()["gameNight_textureInPlay"] or movingElement:getTexture()
         local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
         local x, y = self:getMouseX()-(offsetX), self:getMouseY()-(offsetY)
-        self:drawTexture(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), 0.55, 1, 1, 1)
+        self:drawTextureScaledUniform(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), gameNightWindow.scaleSize, 0.55, 1, 1, 1)
 
         local selection
         for _,element in pairs(self.elements) do
@@ -480,10 +491,10 @@ function gameNightWindow:render()
         if selection then
             gameNightWindow.cachedActionIcons.mergeCards = gameNightWindow.cachedActionIcons.mergeCards or getTexture("media/textures/actionIcons/mergeCards.png")
             local mergeCards = gameNightWindow.cachedActionIcons.mergeCards
-            self:drawTexture(mergeCards, x, y, 0.65, 1, 1, 1)
+            self:drawTextureScaledUniform(mergeCards, x, y, gameNightWindow.scaleSize, 0.65, 1, 1, 1)
         else
             local _, shiftActionTexture = gameNightWindow.fetchShiftAction(movingElement)
-            if shiftActionTexture and shiftActionTexture~=true then self:drawTexture(shiftActionTexture, x, y, 0.65, 1, 1, 1) end
+            if shiftActionTexture and shiftActionTexture~=true then self:drawTextureScaledUniform(shiftActionTexture, x, y, gameNightWindow.scaleSize, 0.65, 1, 1, 1) end
         end
 
     else
@@ -492,7 +503,7 @@ function gameNightWindow:render()
             self:labelWithName(mouseOver)
 
             local _, texture = gameNightWindow.fetchShiftAction(mouseOver.item)
-            if texture and texture~=true then self:drawTexture(texture, mouseOver.x, mouseOver.y, 0.75, 1, 1, 1) end
+            if texture and texture~=true then self:drawTextureScaledUniform(texture, mouseOver.x, mouseOver.y, gameNightWindow.scaleSize, 0.75, 1, 1, 1) end
         end
     end
 end
@@ -520,7 +531,7 @@ function gameNightWindow:labelWithName(element)
 
             if coolDown then
                 local waitX, waitY = element.x+(element.w/2)-self.waitCursor.xOffset, element.y+(element.h/2)-self.waitCursor.yOffset
-                self:drawTexture(self.waitCursor.texture, waitX, waitY,1, 1, 1, 1)
+                self:drawTextureScaledUniform(self.waitCursor.texture, waitX, waitY, gameNightWindow.scaleSize,1, 1, 1, 1)
             end
 
             local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
