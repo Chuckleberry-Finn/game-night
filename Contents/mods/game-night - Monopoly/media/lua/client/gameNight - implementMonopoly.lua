@@ -86,6 +86,7 @@ gamePieceAndBoardHandler.registerTypes({
 })
 
 
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoard", { category = "GameBoard", textureSize = {266,266} })
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", { canStack = 40 })
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", { canStack = 40 })
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", { canStack = 40 })
