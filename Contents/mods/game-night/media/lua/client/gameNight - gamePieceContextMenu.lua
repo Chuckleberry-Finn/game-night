@@ -71,7 +71,7 @@ Events.OnPreFillInventoryObjectContextMenu.Add(gamePieceContext.addInventoryItem
 
 require "gameNight - window"
 function gamePieceContext.addWorldContext(playerID, context, worldObjects, test)
-    if test then return true end
+    --if test then return true end
     ---@type IsoObject|IsoGameCharacter|IsoPlayer
     local playerObj = getSpecificPlayer(playerID)
     local square
