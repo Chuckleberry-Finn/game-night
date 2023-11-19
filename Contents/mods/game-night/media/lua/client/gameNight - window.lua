@@ -54,14 +54,11 @@ function gameNightWindow:initialise()
     self.close:instantiate()
     self:addChild(self.close)
 
-    if getDebug() then
-        self.resize = ISButton:new(self.close.x+self.close.width+padBottom, self:getHeight()-self.btnOffsetFromBottom, btnHgt, btnHgt, "+", self, gameNightWindow.toggleScale)
-        --self.close.internal = "CLOSE"
-        self.resize.borderColor = {r=1, g=1, b=1, a=0.4}
-        self.resize:initialise()
-        self.resize:instantiate()
-        self:addChild(self.resize)
-    end
+    self.resize = ISButton:new(self.close.x+self.close.width+padBottom, self:getHeight()-self.btnOffsetFromBottom, btnHgt, btnHgt, "+", self, gameNightWindow.toggleScale)
+    self.resize.borderColor = {r=1, g=1, b=1, a=0.4}
+    self.resize:initialise()
+    self.resize:instantiate()
+    self:addChild(self.resize)
 
     local playerNum = self.player:getPlayerNum()
 
