@@ -518,6 +518,18 @@ function gameNightWindow:labelWithName(element)
         local nameTag = (element.item and element.item:getName())
         if nameTag then
 
+            local mX, mY = self:getMouseX(), self:getMouseY()
+
+            ---special tooltips
+            local fullType = element.item:getFullType()
+            local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
+            local tooltips = specialCase and specialCase.tooltips
+            if tooltips then
+                for _,tt in pairs(tooltips) do if mX >= tt.x and mX <= tt.x+tt.w and mY >= tt.y and mY <= tt.y+tt.h then
+                    nameTag = nameTag.." ("..tt.text..") "
+                end end
+            end
+            
             local worldItem = element.item:getWorldItem()
             local coolDown = worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimestampMs()
             local inUse = worldItem and worldItem:getModData().gameNightInUse
@@ -539,9 +551,10 @@ function gameNightWindow:labelWithName(element)
             local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
             local nameTagHeight = getTextManager():getFontHeight(UIFont.NewSmall)
 
-            local x, y = self:getMouseX()+((self.cursorW*0.66) or 0), self:getMouseY()-((self.cursorH*0.66) or 0)
+            local x, y = mX+((self.cursorW*0.66) or 0), mY-((self.cursorH*0.66) or 0)
             self:drawRect(x, y, nameTagWidth, nameTagHeight, 0.7, 0, 0, 0)
             self:drawTextCentre(nameTag, x+(nameTagWidth/2), y, 1, 1, 1, 0.7, UIFont.NewSmall)
+
         end
     end
 end
