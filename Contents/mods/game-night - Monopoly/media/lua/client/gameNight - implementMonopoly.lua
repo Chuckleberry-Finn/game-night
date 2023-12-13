@@ -86,7 +86,40 @@ gamePieceAndBoardHandler.registerTypes({
 })
 
 
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoard", { category = "GameBoard", textureSize = {266,266} })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoard", {
+    category = "GameBoard", textureSize = {266,266},
+    tooltips = {--used coords in photoshop which treats top-left as 0x0
+        { x = 208, y = 260, w = 20, h = 33, text = "Mediterranean Avenue" },
+        { x = 166, y = 260, w = 20, h = 33, text = "Baltic Avenue" },
+
+        { x = 103, y = 260, w = 20, h = 33, text = "Oriental Avenue" },
+        { x = 61, y = 260, w = 20, h = 33, text = "Vermont Avenue" },
+        { x = 39, y = 260, w = 20, h = 33, text = "Connecticut Avenue" },
+
+        { x = 5, y = 226, w = 33, h = 21, text = "St. Charles Place" },
+        { x = 5, y = 183, w = 33, h = 20, text = "States Avenue" },
+        { x = 5, y = 162, w = 33, h = 20, text = "Virginia Avenue" },
+
+        { x = 5, y = 120, w = 33, h = 20, text = "St. James Place" },
+        { x = 5, y = 78, w = 33, h = 20, text = "Tennessee Avenue" },
+        { x = 5, y = 57, w = 33, h = 20, text = "New York Avenue" },
+
+        { x = 39, y = 36, w = 21, h = 32, text = "Kentucky Avenue" },
+        { x = 82, y = 36, w = 20, h = 32, text = "Indiana Avenue" },
+        { x = 103, y = 36, w = 20, h = 32, text = "Illinois Avenue" },
+
+        { x = 145, y = 36, w = 20, h = 32, text = "Atlantic Avenue" },
+        { x = 166, y = 36, w = 20, h = 32, text = "Ventnor Avenue" },
+        { x = 208, y = 36, w = 20, h = 32, text = "Marvin Avenue" },
+
+        { x = 229, y = 57, w = 32, h = 20, text = "Pacific Avenue" },
+        { x = 229, y = 78, w = 32, h = 20, text = "North Carolina Avenue" },
+        { x = 229, y = 120, w = 32, h = 20, text = "Pennsylvania Gardens" },
+
+        { x = 229, y = 183, w = 32, h = 20, text = "Park Place" },
+        { x = 229, y = 226, w = 32, h = 20, text = "Boardwalk" },
+    }
+})
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", { canStack = 40 })
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", { canStack = 40 })
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", { canStack = 40 })
