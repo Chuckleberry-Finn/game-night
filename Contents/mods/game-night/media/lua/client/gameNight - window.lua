@@ -525,11 +525,14 @@ function gameNightWindow:labelWithName(element)
             local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
             local tooltips = specialCase and specialCase.tooltips
             if tooltips then
-                for _,tt in pairs(tooltips) do if mX >= tt.x and mX <= tt.x+tt.w and mY >= tt.y and mY <= tt.y+tt.h then
-                    nameTag = nameTag.." ("..tt.text..") "
-                end end
+                local tX, tY = mX-element.x, mY-element.y
+                for _,tt in pairs(tooltips) do
+                    if tX >= tt.x and tX <= tt.x+tt.w and tY >= tt.y and tY <= tt.y+tt.h then
+                        nameTag = nameTag.." ("..tt.text..") "
+                    end
+                end
             end
-            
+
             local worldItem = element.item:getWorldItem()
             local coolDown = worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimestampMs()
             local inUse = worldItem and worldItem:getModData().gameNightInUse
