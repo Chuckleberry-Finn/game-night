@@ -48,10 +48,12 @@ gamePieceAndBoardHandler.specials = {
 
     ["Base.GamePieceRed"]={
         actions = { flipPiece=true },
+        altState="GamePieceRedFlipped",
         shiftAction = "flipPiece",
     },
     ["Base.GamePieceBlack"]={
         actions = { flipPiece=true },
+        altState="GamePieceBlackFlipped",
         shiftAction = "flipPiece",
     },
 
@@ -392,9 +394,13 @@ end
 
 
 function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
-    local current = gamePiece:getModData()["gameNight_altState"]
-    local result = "Flipped"
-    if current then result = nil end
+
+    local fullType = gamePiece:getFullType()
+    local specialCase = gamePieceAndBoardHandler.specials[fullType]
+    local altState = specialCase and specialCase.altState
+
+    local result = gamePiece:getModData()["gameNight_altState"] and nil or altState
+
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
 end
 
