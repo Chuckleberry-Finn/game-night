@@ -120,10 +120,12 @@ gameNightDistro.proceduralDistGameNight.listsToInsert = {
 
     ["Gifts"] = {
         generalChance = 8,
+        sealed = true
     } ,
 
     ["GigamartToys"] = {
         generalChance = 8,
+        sealed = true
     },
 
     ["Hobbies"] = {
@@ -132,6 +134,7 @@ gameNightDistro.proceduralDistGameNight.listsToInsert = {
 
     ["HolidayStuff"] = {
         generalChance = 8,
+        sealed = true
     } ,
 
     ["WardrobeChild"] = {
@@ -149,9 +152,11 @@ function gameNightDistro.fillProceduralDist()
     for distID,data in pairs(gameNightDistro.proceduralDistGameNight.listsToInsert) do
         for _,item in pairs(gameNightDistro.proceduralDistGameNight.itemsToAdd) do
 
+            local sealed = gameNightDistro.proceduralDistGameNight.listsToInsert.sealed and "_sealed" or ""
+
             local chance = data.chanceOverride and data.chanceOverride[item] or data.generalChance
             if chance > 0 then
-                table.insert(ProceduralDistributions.list[distID].items, item)
+                table.insert(ProceduralDistributions.list[distID].items, item..sealed)
                 table.insert(ProceduralDistributions.list[distID].items, chance)
             end
         end

@@ -1,0 +1,9 @@
+module Base
+{
+
+    recipe Unseal Box { CheckersBox_sealed, Result:CheckersBox, CanBeDoneFromFloor:true, OnCreate:Recipe.GameNight.Unbox, Time:50.0, }
+    recipe Unseal Box { ChessBox_sealed, Result:ChessBox, CanBeDoneFromFloor:true, OnCreate:Recipe.GameNight.Unbox, Time:50.0, }
+    recipe Unseal Box { BackgammonBox_sealed, Result:BackgammonBox, CanBeDoneFromFloor:true, OnCreate:Recipe.GameNight.Unbox, Time:50.0, }
+    recipe Unseal Box { PokerBox_sealed, Result:PokerBox, CanBeDoneFromFloor:true, OnCreate:Recipe.GameNight.Unbox, Time:50.0, }
+
+}

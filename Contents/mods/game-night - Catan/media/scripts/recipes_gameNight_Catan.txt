@@ -1,0 +1,4 @@
+module Base
+{
+    recipe Unseal Box { CatanBox_sealed, Result:CatanBox, CanBeDoneFromFloor:true, OnCreate:Recipe.GameNight.Unbox, Time:50.0, }
+}

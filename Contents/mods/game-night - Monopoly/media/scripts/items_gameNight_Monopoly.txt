@@ -12,6 +12,12 @@ module Base
        DisplayName = Monopoly Box, Icon = Boxes/monopolyBox, WorldStaticModel = MonopolyBox,
     }
 
+    item MonopolyBox_sealed
+    {
+       DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Normal, Capacity = 2,
+       DisplayName = Monopoly Box (Sealed), Icon = Boxes/monopolyBox, WorldStaticModel = MonopolyBox,
+    }
+
     item MonopolyMoney1
     {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly Money,
