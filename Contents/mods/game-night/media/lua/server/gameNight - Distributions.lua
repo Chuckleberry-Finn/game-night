@@ -121,7 +121,7 @@ gameNightDistro.proceduralDistGameNight.listsToInsert = {
     ["Gifts"] = {
         generalChance = 8,
         sealed = true
-    } ,
+    },
 
     ["GigamartToys"] = {
         generalChance = 8,
@@ -135,7 +135,7 @@ gameNightDistro.proceduralDistGameNight.listsToInsert = {
     ["HolidayStuff"] = {
         generalChance = 8,
         sealed = true
-    } ,
+    },
 
     ["WardrobeChild"] = {
         generalChance = 2,
