@@ -389,12 +389,14 @@ function gameNightWindow:generateElement(item, object, priority)
     local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
     local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
 
+    local rot = 0
+
     x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-w)
     y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-h)
 
     self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, priority=priority}
-    
-    self:drawTextureScaledAspect(texture, x, y, w, h, 1, 1, 1, 1)
+    self:DrawTextureAngle(texture, x+(w/2), y+(h/2), rot)
+    --self:drawTextureScaledAspect(texture, x, y, w, h, 1, 1, 1, 1)
 end
 
 
