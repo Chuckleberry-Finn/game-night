@@ -12,6 +12,8 @@ IGUI_EN = {
     IGUI_take = "Take",
     IGUI_takeMore = "Take %1",
 
+    IGUI_SpecialActionAll = " All"
+
     IGUI_Play_Game = "Play Game",
 
     IGUI_lockElement = "Lock In Place"
