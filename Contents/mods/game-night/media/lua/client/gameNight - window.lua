@@ -389,7 +389,7 @@ function gameNightWindow:generateElement(item, object, priority)
     local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
     local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
 
-    local rot = 0
+    local rot = item:getModData()["gameNight_rotation"] or 0
 
     x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-w)
     y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-h)
