@@ -53,28 +53,28 @@ gamePieceAndBoardHandler.registerTypes({
 gamePieceAndBoardHandler.registerSpecial("Base.CatanBoard", { category = "GameBoard", textureSize = {384,384} })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadWhite", {
-    actions = { rotatePiece=true },
+    actions = { rotateRoad=true },
     shiftAction = "rotatePiece",
 })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadRed", {
-    actions = { rotatePiece=true },
+    actions = { rotateRoad=true },
     shiftAction = "rotatePiece",
 })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadBlue", {
-    actions = { rotatePiece=true },
+    actions = { rotateRoad=true },
     shiftAction = "rotatePiece",
 })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", {
-    actions = { rotatePiece=true },
+    actions = { rotateRoad=true },
     shiftAction = "rotatePiece",
 })
 
 
 ---Define new function under `gamePieceAndBoardHandler`
-function gamePieceAndBoardHandler.rotatePiece(gamePiece, player)
+function gamePieceAndBoardHandler.rotateRoad(gamePiece, player)
     local current = gamePiece:getModData()["gameNight_altState"]
 
     if current == nil then
@@ -85,6 +85,8 @@ function gamePieceAndBoardHandler.rotatePiece(gamePiece, player)
         current = nil
     end
 
+    local state = gamePiece:getType()..(current or "")
+
     gamePieceAndBoardHandler.playSound(gamePiece, player)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", current})
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", state})
 end
