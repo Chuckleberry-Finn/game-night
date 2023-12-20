@@ -344,7 +344,8 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         worldItemSq:getChunk():recalcHashCodeObjects()
 
         item:setWorldItem(placedItem)
-        item:setWorldZRotation(0)
+        local rotation = item:getModData()["gameNight_rotation"] or 0
+        item:setWorldZRotation(rotation)
 
         placedItem:addToWorld()
         placedItem:setIgnoreRemoveSandbox(true)
