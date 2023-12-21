@@ -48,16 +48,18 @@ gamePieceAndBoardHandler.specials = {
 
     ["Base.GamePieceRed"]={
         actions = { flipPiece=true },
+        altState="GamePieceRedFlipped",
         shiftAction = "flipPiece",
     },
     ["Base.GamePieceBlack"]={
         actions = { flipPiece=true },
+        altState="GamePieceBlackFlipped",
         shiftAction = "flipPiece",
     },
 
-    ["Base.BackgammonBoard"]={ category = "GameBoard" },
-    ["Base.CheckerBoard"]={ category = "GameBoard" },
-    ["Base.ChessBoard"]={ category = "GameBoard" },
+    ["Base.BackgammonBoard"]={ category = "GameBoard", textureSize = {266,270} },
+    ["Base.CheckerBoard"]={ category = "GameBoard", textureSize = {266,270} },
+    ["Base.ChessBoard"]={ category = "GameBoard", textureSize = {266,270} },
 
     ["Base.PokerChips"]={ weight = 0.003, canStack=50 },
     ["Base.PokerChipsBlue"]={ weight = 0.003, canStack=50 },
@@ -69,13 +71,44 @@ gamePieceAndBoardHandler.specials = {
     ["Base.PokerChipsGreen"]={ weight = 0.003, canStack=50 },
 }
 
+function gamePieceAndBoardHandler.parseTopOfStack(stack)
+    if instanceof(stack, "InventoryItem") then return stack, false end
+    return stack.items[1], stack
+end
 
-function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, gamePiece)
+function gamePieceAndBoardHandler.bypassForStacks(stack, player, func, args)
+    if instanceof(stack, "InventoryItem") then return end
+
+    for i=2, #stack.items do
+        local item = stack.items[i]
+        gamePieceAndBoardHandler[func](item, player, args)
+    end
+end
+
+
+function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, item)
+
+    local gamePiece, pieceStack = gamePieceAndBoardHandler.parseTopOfStack(item)
+
+    --[[
+    local text = ""
+    if pieceStack and pieceStack.items then
+        for k,v in pairs(pieceStack.items) do text = text..k.."="..tostring(v)..", " end
+    end
+    print("piece: ",tostring(gamePiece), "  stack:",tostring(pieceStack), " ",text)
+    --]]
+
     local fullType = gamePiece:getFullType()
     local specialCase = gamePieceAndBoardHandler.specials[fullType]
     if specialCase and specialCase.actions then
         for func,args in pairs(specialCase.actions) do
-            if gamePieceAndBoardHandler[func] then context:addOptionOnTop(getText("IGUI_"..func), gamePiece, gamePieceAndBoardHandler[func], player, args) end
+            if gamePieceAndBoardHandler[func] then
+                if not pieceStack then
+                    context:addOptionOnTop(getText("IGUI_"..func), gamePiece, gamePieceAndBoardHandler[func], player, args)
+                else
+                    context:addOptionOnTop(getText("IGUI_"..func)..getText("IGUI_SpecialActionAll"), pieceStack, gamePieceAndBoardHandler.bypassForStacks, player, func, args)
+                end
+            end
         end
     end
 end
@@ -173,11 +206,9 @@ function gamePieceAndBoardHandler.generateContextMenuForStacking(context, player
     local subDrawMenu = ISContextMenu:getNew(context)
     context:addSubMenu(unStack, subDrawMenu)
 
-    for i=1, 25, 5 do
-        if stack >= i then
-            local option = subDrawMenu:addOption(getText("IGUI_takeMore", i), gamePiece, gamePieceAndBoardHandler.unstack, i)
-        end
-    end
+    for i=1, 25, 5 do if stack >= i then
+        local option = subDrawMenu:addOption(getText("IGUI_takeMore", i), gamePiece, gamePieceAndBoardHandler.unstack, i)
+    end end
 end
 
 
@@ -228,13 +259,13 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece, stackInit)
     gamePiece:setName(gamePiece:getScriptItem():getDisplayName()..name_suffix)
     gamePiece:setActualWeight(gamePiece:getScriptItem():getActualWeight()*(stack or 1))
 
-    local altState = gamePiece:getModData()["gameNight_altState"] or ""
+    local iconState = gamePiece:getModData()["gameNight_altState"] or gamePiece:getType()
 
-    local texturePath = "Item_InPlayTextures/"..gamePiece:getType()..altState..".png"
+    local texturePath = "Item_InPlayTextures/"..iconState..".png"
     local texture = Texture.trygetTexture(texturePath)
     if texture then gamePiece:getModData()["gameNight_textureInPlay"] = texture end
 
-    local iconPath = "Item_OutOfPlayTextures/"..gamePiece:getType()..altState..".png"
+    local iconPath = "Item_OutOfPlayTextures/"..iconState..".png"
     local icon = Texture.trygetTexture(iconPath)
     if icon then gamePiece:setTexture(icon) end
 
@@ -313,7 +344,8 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         worldItemSq:getChunk():recalcHashCodeObjects()
 
         item:setWorldItem(placedItem)
-        item:setWorldZRotation(0)
+        local rotation = item:getModData()["gameNight_rotation"] or 0
+        item:setWorldZRotation(rotation)
 
         placedItem:addToWorld()
         placedItem:setIgnoreRemoveSandbox(true)
@@ -385,16 +417,20 @@ function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
     sides = sides or (specialCase and specialCase.actions and specialCase.actions.rollDie)
 
     local result = ZombRand(sides)+1
-    result = result>1 and result or ""
+    result = result>1 and gamePiece:getType()..result or ""
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
     gamePieceAndBoardHandler.playSound(gamePiece, player, "dieRoll")
 end
 
 
 function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
-    local current = gamePiece:getModData()["gameNight_altState"]
-    local result = "Flipped"
-    if current then result = nil end
+
+    local fullType = gamePiece:getFullType()
+    local specialCase = gamePieceAndBoardHandler.specials[fullType]
+    local result = specialCase and specialCase.altState
+
+    if gamePiece:getModData()["gameNight_altState"] then result = nil end
+
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
 end
 

@@ -19,16 +19,21 @@ gamePieceContext.gameNightContextMenuIcon = {
 ---@param context ISContextMenu
 function gamePieceContext.addInventoryItemContext(playerID, context, items)
     local playerObj = getSpecificPlayer(playerID)
+
     for _, v in ipairs(items) do
 
         ---@type InventoryItem
         local item = v
-        if not instanceof(v, "InventoryItem") then item = v.items[1] end
+        local stack
+        if not instanceof(v, "InventoryItem") then
+            stack = v
+            item = v.items[1]
+        end
 
         local isGamePiece = gamePieceAndBoardHandler.isGamePiece(item)
         if isGamePiece then
             gamePieceAndBoardHandler.generateContextMenuForStacking(context, playerObj, item)
-            gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, playerObj, item)
+            gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, playerObj, (stack or item))
         end
 
         local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
@@ -71,7 +76,7 @@ Events.OnPreFillInventoryObjectContextMenu.Add(gamePieceContext.addInventoryItem
 
 require "gameNight - window"
 function gamePieceContext.addWorldContext(playerID, context, worldObjects, test)
-    if test then return true end
+    --if test then return true end
     ---@type IsoObject|IsoGameCharacter|IsoPlayer
     local playerObj = getSpecificPlayer(playerID)
     local square

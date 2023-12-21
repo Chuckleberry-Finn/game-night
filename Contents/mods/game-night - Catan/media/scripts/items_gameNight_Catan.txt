@@ -13,6 +13,12 @@ module Base
         DisplayName = Catan Box, Icon = Boxes/catanBox, WorldStaticModel = CatanBox,
     }
 
+     item CatanBox_sealed
+    {
+        DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Normal, Capacity = 2,
+        DisplayName = Catan Box (Sealed), Icon = Boxes/catanBox, WorldStaticModel = CatanBox,
+    }
+
     item CatanResourceDeck
     {
         DisplayCategory = Deck, Weight = 0.01, Type = Normal,

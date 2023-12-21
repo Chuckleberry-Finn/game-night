@@ -5,6 +5,21 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 ---@class gameNightWindow : ISPanelJoypad
 gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 
+gameNightWindow.scaleSize = 1
+function gameNightWindow:toggleScale()
+    gameNightWindow.scaleSize = gameNightWindow.scaleSize==1 and 1.5 or gameNightWindow.scaleSize==1.5 and 2 or 1
+    self:setHeight(self.defaultSize.width * gameNightWindow.scaleSize)
+    self:setWidth(self.defaultSize.height * gameNightWindow.scaleSize)
+
+    self.bounds = {x1=self.padding, y1=self.padding, x2=self.width-self.padding, y2=self.height-self.padding}
+
+    self.waitCursor.xOffset = (self.waitCursor.texture:getWidth()/2) * gameNightWindow.scaleSize
+    self.waitCursor.yOffset = (self.waitCursor.texture:getHeight()/2) * gameNightWindow.scaleSize
+
+    self.close:setY(self:getHeight()-self.btnOffsetFromBottom)
+    self.resize:setY(self:getHeight()-self.btnOffsetFromBottom)
+end
+
 
 function gameNightWindow:update()
     if (not self.player) or (not self.square) or ( self.square:DistToProper(self.player) > 1.5 ) then
@@ -29,12 +44,21 @@ function gameNightWindow:initialise()
     local btnHgt = 25
     local padBottom = 10
 
-    self.close = ISButton:new(self.padding, self:getHeight() - padBottom - btnHgt, btnWid, btnHgt, getText("UI_Close"), self, gameNightWindow.onClick)
+    self.btnOffsetFromBottom = padBottom+btnHgt
+
+    self.close = ISButton:new(self.padding, self:getHeight()-self.btnOffsetFromBottom, btnWid, btnHgt, getText("UI_Close"), self, gameNightWindow.onClick)
+    self.close.offsetFromBottom = padBottom+btnHgt
     self.close.internal = "CLOSE"
     self.close.borderColor = {r=1, g=1, b=1, a=0.4}
     self.close:initialise()
     self.close:instantiate()
     self:addChild(self.close)
+
+    self.resize = ISButton:new(self.close.x+self.close.width+padBottom, self:getHeight()-self.btnOffsetFromBottom, btnHgt, btnHgt, "+", self, gameNightWindow.toggleScale)
+    self.resize.borderColor = {r=1, g=1, b=1, a=0.4}
+    self.resize:initialise()
+    self.resize:instantiate()
+    self:addChild(self.resize)
 
     local playerNum = self.player:getPlayerNum()
 
@@ -138,7 +162,15 @@ function gameNightWindow:processMouseUp(old, x, y)
             local deckSearch = gameNightDeckSearch.instance
             if deckSearch and deckSearch:isMouseOver() then
                 local selection, inBetween = deckSearch:getCardAtXY(deckSearch.cardDisplay:getMouseX(), deckSearch.cardDisplay:getMouseY())
+
+                local deckSearchWorldItem = deckSearch.deck and deckSearch.deck:getWorldItem()
+                local deckSearchCoolDown = deckSearchWorldItem:getModData().gameNightCoolDown and (deckSearchWorldItem:getModData().gameNightCoolDown>getTimestampMs())
+                local deckSearchInUse = deckSearchWorldItem:getModData().gameNightInUse
+                local userUsing = deckSearchInUse and getPlayerFromUsername(deckSearchInUse)
+                if deckSearchCoolDown or userUsing then self:clearMovingPiece() return end
+
                 deckActionHandler.mergeDecks(piece, deckSearch.deck, self.player, selection+(inBetween and 0 or 1))
+
                 self:clearMovingPiece(x, y)
                 return
             end
@@ -157,6 +189,13 @@ function gameNightWindow:processMouseUp(old, x, y)
                     end
                 end
                 if selection then
+
+                    local mouseOverWorldItem = selection.item and selection.item:getWorldItem()
+                    local deckSearchCoolDown = mouseOverWorldItem:getModData().gameNightCoolDown and (mouseOverWorldItem:getModData().gameNightCoolDown>getTimestampMs())
+                    local deckSearchInUse = mouseOverWorldItem:getModData().gameNightInUse
+                    local userUsing = deckSearchInUse and getPlayerFromUsername(deckSearchInUse)
+                    if deckSearchCoolDown or userUsing then self:clearMovingPiece() return end
+
                     deckActionHandler.mergeDecks(piece, selection.item, self.player)
                     self:clearMovingPiece(x, y)
                     return
@@ -336,16 +375,28 @@ function gameNightWindow:generateElement(item, object, priority)
 
     ---@type Texture
     local texture = item:getModData()["gameNight_textureInPlay"] or item:getTexture()
-    local w, h = texture:getWidth(), texture:getHeight()
+
+    local fullType = item:getFullType()
+    local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
+    local specialTextureSize = specialCase and specialCase.textureSize
+
+    local w = specialTextureSize and specialTextureSize[1] or texture:getWidth()
+    local h = specialTextureSize and specialTextureSize[2] or texture:getHeight()
+
+    w = w * gameNightWindow.scaleSize
+    h = h * gameNightWindow.scaleSize
+
     local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
     local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
+
+    local rot = item:getModData()["gameNight_rotation"] or 0
 
     x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-w)
     y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-h)
 
     self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, priority=priority}
-    
-    self:drawTextureScaledAspect(texture, x, y, w, h, 1, 1, 1, 1)
+    self:DrawTextureAngle(texture, x+(w/2), y+(h/2), rot)
+    --self:drawTextureScaledAspect(texture, x, y, w, h, 1, 1, 1, 1)
 end
 
 
@@ -385,7 +436,7 @@ end
 
 function gameNightWindow:render()
     ISPanelJoypad.render(self)
-    local movingElement = self.movingPiece
+    local movingPiece = self.movingPiece
 
     ---@type IsoGridSquare
     local square = self.square
@@ -418,23 +469,25 @@ function gameNightWindow:render()
     if gameNightWindow.cursor then
         for username,data in pairs(self.cursorDraws) do
             data.ticks = data.ticks - 1
-            self:drawTexture(gameNightWindow.cursor, data.x, data.y, 1, data.r, data.g, data.b)
+            self:drawTextureScaledUniform(gameNightWindow.cursor, data.x, data.y, gameNightWindow.scaleSize, 1, data.r, data.g, data.b)
             self:drawText(username, data.x+(gameNightWindow.cursorW or 0), data.y, data.r, data.g, data.b, 1, UIFont.NewSmall)
             if data.ticks <= 0 then self.cursorDraws[username] = nil end
         end
     end
     --self.cursorDraws = {}
 
-    if movingElement then
+    if movingPiece then
         if not isMouseButtonDown(0) then return end
-        local texture = movingElement:getModData()["gameNight_textureInPlay"] or movingElement:getTexture()
+        local texture = movingPiece:getModData()["gameNight_textureInPlay"] or movingPiece:getTexture()
         local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
         local x, y = self:getMouseX()-(offsetX), self:getMouseY()-(offsetY)
-        self:drawTexture(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), 0.55, 1, 1, 1)
+        local movingElement = self.elements[movingPiece:getID()]
+        local w, h = movingElement.w, movingElement.h
+        self:drawTextureScaled(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), w, h, 0.55, 1, 1, 1)
 
         local selection
         for _,element in pairs(self.elements) do
-            if (element.item~=movingElement) and deckActionHandler.isDeckItem(element.item) then
+            if (element.item~=movingPiece) and deckActionHandler.isDeckItem(element.item) then
                 local inBounds = (math.abs(element.x-x) <= 5) and (math.abs(element.y-y) <= 5)
                 if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
             end
@@ -442,10 +495,10 @@ function gameNightWindow:render()
         if selection then
             gameNightWindow.cachedActionIcons.mergeCards = gameNightWindow.cachedActionIcons.mergeCards or getTexture("media/textures/actionIcons/mergeCards.png")
             local mergeCards = gameNightWindow.cachedActionIcons.mergeCards
-            self:drawTexture(mergeCards, x, y, 0.65, 1, 1, 1)
+            self:drawTextureScaledUniform(mergeCards, x, y, gameNightWindow.scaleSize, 0.65, 1, 1, 1)
         else
-            local _, shiftActionTexture = gameNightWindow.fetchShiftAction(movingElement)
-            if shiftActionTexture and shiftActionTexture~=true then self:drawTexture(shiftActionTexture, x, y, 0.65, 1, 1, 1) end
+            local _, shiftActionTexture = gameNightWindow.fetchShiftAction(movingPiece)
+            if shiftActionTexture and shiftActionTexture~=true then self:drawTextureScaledUniform(shiftActionTexture, x, y, gameNightWindow.scaleSize, 0.65, 1, 1, 1) end
         end
 
     else
@@ -454,7 +507,7 @@ function gameNightWindow:render()
             self:labelWithName(mouseOver)
 
             local _, texture = gameNightWindow.fetchShiftAction(mouseOver.item)
-            if texture and texture~=true then self:drawTexture(texture, mouseOver.x, mouseOver.y, 0.75, 1, 1, 1) end
+            if texture and texture~=true then self:drawTextureScaledUniform(texture, mouseOver.x, mouseOver.y, gameNightWindow.scaleSize, 0.75, 1, 1, 1) end
         end
     end
 end
@@ -466,6 +519,21 @@ function gameNightWindow:labelWithName(element)
 
         local nameTag = (element.item and element.item:getName())
         if nameTag then
+
+            local mX, mY = self:getMouseX(), self:getMouseY()
+
+            ---special tooltips
+            local fullType = element.item:getFullType()
+            local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
+            local tooltips = specialCase and specialCase.tooltips
+            if tooltips then
+                local tX, tY = mX-element.x, mY-element.y
+                for _,tt in pairs(tooltips) do
+                    if tX >= tt.x and tX <= tt.x+tt.w and tY >= tt.y and tY <= tt.y+tt.h then
+                        nameTag = nameTag.." ("..tt.text..") "
+                    end
+                end
+            end
 
             local worldItem = element.item:getWorldItem()
             local coolDown = worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimestampMs()
@@ -482,15 +550,16 @@ function gameNightWindow:labelWithName(element)
 
             if coolDown then
                 local waitX, waitY = element.x+(element.w/2)-self.waitCursor.xOffset, element.y+(element.h/2)-self.waitCursor.yOffset
-                self:drawTexture(self.waitCursor.texture, waitX, waitY,1, 1, 1, 1)
+                self:drawTextureScaledUniform(self.waitCursor.texture, waitX, waitY, gameNightWindow.scaleSize,1, 1, 1, 1)
             end
 
             local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
             local nameTagHeight = getTextManager():getFontHeight(UIFont.NewSmall)
 
-            local x, y = self:getMouseX()+((self.cursorW*0.66) or 0), self:getMouseY()-((self.cursorH*0.66) or 0)
+            local x, y = mX+((self.cursorW*0.66) or 0), mY-((self.cursorH*0.66) or 0)
             self:drawRect(x, y, nameTagWidth, nameTagHeight, 0.7, 0, 0, 0)
             self:drawTextCentre(nameTag, x+(nameTagWidth/2), y, 1, 1, 1, 0.7, UIFont.NewSmall)
+
         end
     end
 end
@@ -533,15 +602,16 @@ function gameNightWindow:new(x, y, width, height, player, square)
     o.borderColor = {r=0.4, g=0.4, b=0.4, a=1}
     o.backgroundColor = {r=0, g=0, b=0, a=0.3}
 
-    o.width = width
-    o.height = height
+    o.defaultSize = {width=width, height=height}
+    o.width = width * gameNightWindow.scaleSize
+    o.height = height * gameNightWindow.scaleSize
     o.player = player
     o.square = square
 
     o.waitCursor = {}
     o.waitCursor.texture = getTexture("media/textures/actionIcons/gamenight_wait.png")
-    o.waitCursor.xOffset = o.waitCursor.texture:getWidth()/2
-    o.waitCursor.yOffset = o.waitCursor.texture:getHeight()/2
+    o.waitCursor.xOffset = (o.waitCursor.texture:getWidth()/2) * gameNightWindow.scaleSize
+    o.waitCursor.yOffset = (o.waitCursor.texture:getHeight()/2) * gameNightWindow.scaleSize
 
     o.elements = {}
 

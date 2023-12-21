@@ -152,14 +152,12 @@ end
 
 
 
-function deckActionHandler._mergeDecks(deckItemA, deckItemB, index)
+function deckActionHandler._mergeDecks(deckItemA, deckItemB, index, player)
     local deckB, flippedB = deckActionHandler.getDeckStates(deckItemB)
     if not deckB then return end
 
     local deckA, flippedA = deckActionHandler.getDeckStates(deckItemA)
     if not deckA then return end
-
-    local iB4 = index
 
     index = index and math.max(index,1) or 1
 
@@ -174,7 +172,7 @@ end
 ---@param deckItemB InventoryItem
 function deckActionHandler.mergeDecks(deckItemA, deckItemB, player, index)
     gamePieceAndBoardHandler.pickupGamePiece(player, deckItemA, true)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB, index}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB, index, player}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItemB, player)
 end
 

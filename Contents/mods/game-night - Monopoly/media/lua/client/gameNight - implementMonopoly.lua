@@ -81,10 +81,52 @@ applyItemDetails.addDeck("MonopolyCommunityChest", MonopolyCommunityChestDeck.ca
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 gamePieceAndBoardHandler.registerTypes({
     "Base.MonopolyBoard", "Base.MonopolyBoat", "Base.MonopolyBoot", "Base.MonopolyCar", "Base.MonopolyDog",
-    "Base.MonopolyHat", "Base.MonopolyIron", "Base.MonopolyThimble", "Base.MonopolyWheelbarrow"
+    "Base.MonopolyHat", "Base.MonopolyIron", "Base.MonopolyThimble", "Base.MonopolyWheelbarrow",
+    "Base.MonopolyHouse","Base.MonopolyHotel"
 })
 
 
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoard", {
+    category = "GameBoard", textureSize = {266,266},
+    tooltips = {--used coords in photoshop which treats top-left as 0x0
+        { x = 208, y = 228, w = 20, h = 33, text = "Mediterranean Avenue" },
+        { x = 166, y = 228, w = 20, h = 33, text = "Baltic Avenue" },
+        { x = 145, y = 228, w = 20, h = 33, text = "Income Tax" },
+        { x = 124, y = 228, w = 20, h = 33, text = "Reading Railroad" },
+
+        { x = 103, y = 228, w = 20, h = 33, text = "Oriental Avenue" },
+        { x = 61, y = 228, w = 20, h = 33, text = "Vermont Avenue" },
+        { x = 39, y = 228, w = 20, h = 33, text = "Connecticut Avenue" },
+
+        { x = 5, y = 206, w = 33, h = 21, text = "St. Charles Place" },
+        { x = 5, y = 185, w = 33, h = 21, text = "Electric Company" },
+        { x = 5, y = 164, w = 33, h = 20, text = "States Avenue" },
+        { x = 5, y = 143, w = 33, h = 20, text = "Virginia Avenue" },
+        { x = 5, y = 122, w = 33, h = 20, text = "Pennsylvania Railroad" },
+
+        { x = 5, y = 101, w = 33, h = 20, text = "St. James Place" },
+        { x = 5, y = 59, w = 33, h = 20, text = "Tennessee Avenue" },
+        { x = 5, y = 38, w = 33, h = 20, text = "New York Avenue" },
+
+        { x = 39, y = 5, w = 21, h = 32, text = "Kentucky Avenue" },
+        { x = 82, y = 5, w = 20, h = 32, text = "Indiana Avenue" },
+        { x = 103, y = 5, w = 20, h = 32, text = "Illinois Avenue" },
+        { x = 124, y = 5, w = 20, h = 32, text = "B & O Railroad" },
+
+        { x = 145, y = 5, w = 20, h = 32, text = "Atlantic Avenue" },
+        { x = 166, y = 5, w = 20, h = 32, text = "Ventnor Avenue" },
+        { x = 208, y = 5, w = 20, h = 32, text = "Marvin Avenue" },
+
+        { x = 229, y = 39, w = 32, h = 20, text = "Pacific Avenue" },
+        { x = 229, y = 59, w = 32, h = 20, text = "North Carolina Avenue" },
+        { x = 229, y = 101, w = 32, h = 20, text = "Pennsylvania Gardens" },
+
+        { x = 229, y = 122, w = 32, h = 20, text = "Short Line" },
+        { x = 229, y = 164, w = 32, h = 20, text = "Park Place" },
+        { x = 229, y = 185, w = 32, h = 20, text = "Luxury Tax" },
+        { x = 229, y = 206, w = 32, h = 20, text = "Boardwalk" },
+    }
+})
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", { canStack = 40 })
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", { canStack = 40 })
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", { canStack = 40 })
