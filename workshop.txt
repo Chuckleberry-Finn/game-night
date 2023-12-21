@@ -5,6 +5,7 @@ description=[h2]This mod adds a UI window in order to play card/board games.[/h2
 description=[h3]Interactions with the UI reflect those changes to the items in world.[/h3]
 description=[h3]Simply place a Game Night supported item in the world, and right click 'Play'.[/h3]
 description=[h2]Features a card deck system with search UI, flip, shuffle, draw.[/h2]
+description=[b]Play dice games, poker, craps, solitaire, chess, checkers, or any game you can think of.[/b]
 description=
 description=[url=https://ko-fi.com/chuckleberryfinn][img]https://raw.githubusercontent.com/ChuckTheSheep/chuckImages/main/kofi.png[/img][/url]
 description=
