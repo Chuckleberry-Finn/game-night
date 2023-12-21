@@ -75,13 +75,13 @@ gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", {
 
 ---Define new function under `gamePieceAndBoardHandler`
 function gamePieceAndBoardHandler.rotateRoad(gamePiece, player)
-    local current = gamePiece:getModData()["gameNight_altState"]
-
+    local current = gamePiece:getModData()["gameNight_altState"] or ""
+    
     if current == nil then
         current = 2
-    elseif current == 2 then
+    elseif current == gamePiece:getType()..2 then
         current = 3
-    elseif current == 3 then
+    elseif current == gamePiece:getType()..3 then
         current = nil
     end
 
