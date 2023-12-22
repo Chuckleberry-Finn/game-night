@@ -54,22 +54,22 @@ gamePieceAndBoardHandler.registerSpecial("Base.CatanBoard", { category = "GameBo
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadWhite", {
     actions = { rotateRoad=true },
-    shiftAction = "rotatePiece",
+    shiftAction = "rotateRoad",
 })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadRed", {
     actions = { rotateRoad=true },
-    shiftAction = "rotatePiece",
+    shiftAction = "rotateRoad",
 })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadBlue", {
     actions = { rotateRoad=true },
-    shiftAction = "rotatePiece",
+    shiftAction = "rotateRoad",
 })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", {
     actions = { rotateRoad=true },
-    shiftAction = "rotatePiece",
+    shiftAction = "rotateRoad",
 })
 
 
