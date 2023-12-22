@@ -395,7 +395,12 @@ function gameNightWindow:generateElement(item, object, priority)
     y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-h)
 
     self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, priority=priority}
-    self:DrawTextureAngle(texture, x+(w/2), y+(h/2), rot)
+
+    local tmpTexture = Texture.new(texture)
+    tmpTexture:setHeight(h)
+    tmpTexture:setWidth(w)
+
+    self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot)
     --self:drawTextureScaledAspect(texture, x, y, w, h, 1, 1, 1, 1)
 end
 
@@ -478,12 +483,19 @@ function gameNightWindow:render()
 
     if movingPiece then
         if not isMouseButtonDown(0) then return end
+        ---@type Texture
         local texture = movingPiece:getModData()["gameNight_textureInPlay"] or movingPiece:getTexture()
         local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
         local x, y = self:getMouseX()-(offsetX), self:getMouseY()-(offsetY)
         local movingElement = self.elements[movingPiece:getID()]
         local w, h = movingElement.w, movingElement.h
-        self:drawTextureScaled(texture, self:getMouseX()-(offsetX), self:getMouseY()-(offsetY), w, h, 0.55, 1, 1, 1)
+        local rot = movingPiece:getModData()["gameNight_rotation"] or 0
+
+        local tmpTexture = Texture.new(texture)
+        tmpTexture:setHeight(h)
+        tmpTexture:setWidth(w)
+        
+        self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot, 0.55, 1, 1, 1)
 
         local selection
         for _,element in pairs(self.elements) do
