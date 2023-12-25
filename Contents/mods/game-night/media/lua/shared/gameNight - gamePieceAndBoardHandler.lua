@@ -246,6 +246,10 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece, stackInit)
     if not gamePieceAndBoardHandler._itemTypes then gamePieceAndBoardHandler.generate_itemTypes() end
     if not gamePieceAndBoardHandler._itemTypes[fullType] then return end
 
+    local special = gamePieceAndBoardHandler.specials[fullType]
+    local newCategory = special and special.category or "GamePiece"
+    if newCategory then gamePiece:setDisplayCategory(newCategory) end
+    
     gamePiece:getModData()["gameNight_sound"] = "pieceMove"
 
     local canStack = gamePieceAndBoardHandler.canStackPiece(gamePiece)
