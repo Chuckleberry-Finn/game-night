@@ -226,7 +226,7 @@ function gameNightDeckSearch:render()
                 yOffset = yOffset+self.cardHeight+halfPad
             end
 
-            self.cardDisplay:drawTexture(texture, xOffset, yOffset-(self.scrollY or 0), 1, 1, 1, 1)
+            self.cardDisplay:drawTextureScaledUniform(texture, xOffset, yOffset-(self.scrollY or 0), 0.5, 1, 1, 1, 1)
             if self.dragging or self.draggingOver then
 
                 if self.dragging and self.dragging == n then
