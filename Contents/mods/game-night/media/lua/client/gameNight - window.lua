@@ -163,11 +163,12 @@ function gameNightWindow:processMouseUp(old, x, y)
             if deckSearch and deckSearch:isMouseOver() then
                 local selection, inBetween = deckSearch:getCardAtXY(deckSearch.cardDisplay:getMouseX(), deckSearch.cardDisplay:getMouseY())
 
+                local notCompatible = piece:getType() ~= deckSearch.deck:getType()
                 local deckSearchWorldItem = deckSearch.deck and deckSearch.deck:getWorldItem()
                 local deckSearchCoolDown = deckSearchWorldItem:getModData().gameNightCoolDown and (deckSearchWorldItem:getModData().gameNightCoolDown>getTimestampMs())
                 local deckSearchInUse = deckSearchWorldItem:getModData().gameNightInUse
                 local userUsing = deckSearchInUse and getPlayerFromUsername(deckSearchInUse)
-                if deckSearchCoolDown or userUsing then self:clearMovingPiece() return end
+                if deckSearchCoolDown or userUsing or notCompatible then self:clearMovingPiece() return end
 
                 deckActionHandler.mergeDecks(piece, deckSearch.deck, self.player, selection+(inBetween and 0 or 1))
 
@@ -189,12 +190,12 @@ function gameNightWindow:processMouseUp(old, x, y)
                     end
                 end
                 if selection then
-
+                    local notCompatible = piece:getType() ~= selection.item:getType()
                     local mouseOverWorldItem = selection.item and selection.item:getWorldItem()
                     local deckSearchCoolDown = mouseOverWorldItem:getModData().gameNightCoolDown and (mouseOverWorldItem:getModData().gameNightCoolDown>getTimestampMs())
                     local deckSearchInUse = mouseOverWorldItem:getModData().gameNightInUse
                     local userUsing = deckSearchInUse and getPlayerFromUsername(deckSearchInUse)
-                    if deckSearchCoolDown or userUsing then self:clearMovingPiece() return end
+                    if deckSearchCoolDown or userUsing or notCompatible then self:clearMovingPiece() return end
 
                     deckActionHandler.mergeDecks(piece, selection.item, self.player)
                     self:clearMovingPiece(x, y)
@@ -498,10 +499,12 @@ function gameNightWindow:render()
         self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot, 0.55, 1, 1, 1)
 
         local selection
-        for _,element in pairs(self.elements) do
-            if (element.item~=movingPiece) and deckActionHandler.isDeckItem(element.item) then
-                local inBounds = (math.abs(element.x-x) <= 5) and (math.abs(element.y-y) <= 5)
-                if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
+        if deckActionHandler.isDeckItem(movingPiece) then
+            for _,element in pairs(self.elements) do
+                if (element.item~=movingPiece) and (movingPiece:getType() == element.item:getType()) and deckActionHandler.isDeckItem(element.item) then
+                    local inBounds = (math.abs(element.x-x) <= 5) and (math.abs(element.y-y) <= 5)
+                    if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
+                end
             end
         end
         if selection then
