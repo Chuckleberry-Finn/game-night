@@ -45,12 +45,14 @@ function applyItemDetails.applyGameNightToItem(item, stackInit)
                 end
 
                 local flippedStates = item:getModData()["gameNight_cardFlipped"]
-            if not flippedStates then
-            item:getModData()["gameNight_cardFlipped"] = {}
-                for i=1, #deck do item:getModData()["gameNight_cardFlipped"][i] = true end
+                if not flippedStates then
+                    item:getModData()["gameNight_cardFlipped"] = {}
+                    for i=1, #deck do
+                        item:getModData()["gameNight_cardFlipped"][i] = true
+                    end
                 end
-                deckActionHandler.handleDetails(item)
-                end
+                    deckActionHandler.handleDetails(item)
+            end
         end
     end
 end
