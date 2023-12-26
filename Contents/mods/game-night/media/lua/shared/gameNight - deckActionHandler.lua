@@ -153,6 +153,8 @@ end
 
 
 function deckActionHandler._mergeDecks(deckItemA, deckItemB, index, player)
+    if  deckItemA:getType() ~= deckItemB:getType() then return end
+
     local deckB, flippedB = deckActionHandler.getDeckStates(deckItemB)
     if not deckB then return end
 
@@ -171,6 +173,7 @@ end
 ---@param deckItemA InventoryItem
 ---@param deckItemB InventoryItem
 function deckActionHandler.mergeDecks(deckItemA, deckItemB, player, index)
+    if  deckItemA:getType() ~= deckItemB:getType() then return end
     gamePieceAndBoardHandler.pickupGamePiece(player, deckItemA, true)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB, index, player}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItemB, player)
