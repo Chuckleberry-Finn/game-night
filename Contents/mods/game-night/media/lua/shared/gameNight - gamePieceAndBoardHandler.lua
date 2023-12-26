@@ -4,8 +4,8 @@ gamePieceAndBoardHandler.itemTypes = {
     "Base.Dice", "Base.GamePieceWhite", "Base.GamePieceRed",
     "Base.GamePieceBlack", "Base.BackgammonBoard", "Base.CheckerBoard",
     "Base.ChessWhite","Base.ChessBlack","Base.PokerChips",
-    --added
 
+    --added
     "Base.DiceWhite",
 
     "Base.PokerChipsBlue","Base.PokerChipsYellow","Base.PokerChipsWhite","Base.PokerChipsBlack",
@@ -57,9 +57,9 @@ gamePieceAndBoardHandler.specials = {
         shiftAction = "flipPiece",
     },
 
-    ["Base.BackgammonBoard"]={ category = "GameBoard", textureSize = {266,270} },
-    ["Base.CheckerBoard"]={ category = "GameBoard", textureSize = {266,270} },
-    ["Base.ChessBoard"]={ category = "GameBoard", textureSize = {266,270} },
+    ["Base.BackgammonBoard"]={ category = "GameBoard", textureSize = {532,540} },
+    ["Base.CheckerBoard"]={ category = "GameBoard", textureSize = {532,540} },
+    ["Base.ChessBoard"]={ category = "GameBoard", textureSize = {532,540} },
 
     ["Base.PokerChips"]={ weight = 0.003, canStack=50 },
     ["Base.PokerChipsBlue"]={ weight = 0.003, canStack=50 },

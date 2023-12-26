@@ -5,9 +5,9 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 ---@class gameNightWindow : ISPanelJoypad
 gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 
-gameNightWindow.scaleSize = 1
+gameNightWindow.scaleSize = 0.5
 function gameNightWindow:toggleScale()
-    gameNightWindow.scaleSize = gameNightWindow.scaleSize==1 and 1.5 or gameNightWindow.scaleSize==1.5 and 2 or 1
+    gameNightWindow.scaleSize = gameNightWindow.scaleSize==0.5 and 0.75 or gameNightWindow.scaleSize==0.75 and 1 or 0.5
     self:setHeight(self.defaultSize.width * gameNightWindow.scaleSize)
     self:setWidth(self.defaultSize.height * gameNightWindow.scaleSize)
 
@@ -591,7 +591,7 @@ function gameNightWindow.open(worldObjects, player, square)
 
     if gameNightWindow.instance then gameNightWindow.instance:closeAndRemove() end
 
-    local window = gameNightWindow:new(nil, nil, 500, 500, player, square)
+    local window = gameNightWindow:new(nil, nil, 1000, 1000, player, square)
     window:initialise()
     window:addToUIManager()
     window:setVisible(true)
