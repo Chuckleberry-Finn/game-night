@@ -543,8 +543,10 @@ function gameNightWindow:labelWithName(element)
             local tooltips = specialCase and specialCase.tooltips
             if tooltips then
                 local tX, tY = mX-element.x, mY-element.y
+                local tooltipScale = gameNightWindow.scaleSize * 2
                 for _,tt in pairs(tooltips) do
-                    if tX >= tt.x and tX <= tt.x+tt.w and tY >= tt.y and tY <= tt.y+tt.h then
+                    if tX >= tt.x*tooltipScale and tX <= (tt.x+tt.w)*tooltipScale and tY >= tt.y*tooltipScale and tY <= (tt.y+tt.h)*tooltipScale then
+                        --self:drawRect((tt.x*tooltipScale)+element.x, (tt.y*tooltipScale)+element.y, tt.w*tooltipScale, tt.h*tooltipScale, 0.7, 0.7, 0, 0)
                         nameTag = nameTag.." ("..tt.text..") "
                     end
                 end
