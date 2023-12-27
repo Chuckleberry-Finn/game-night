@@ -82,7 +82,10 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 gamePieceAndBoardHandler.registerTypes({
     "Base.MonopolyBoard", "Base.MonopolyBoat", "Base.MonopolyBoot", "Base.MonopolyCar", "Base.MonopolyDog",
     "Base.MonopolyHat", "Base.MonopolyIron", "Base.MonopolyThimble", "Base.MonopolyWheelbarrow",
-    "Base.MonopolyHouse","Base.MonopolyHotel"
+    "Base.MonopolyHouse","Base.MonopolyHotel",
+
+    "Base.MonopolyMoney1", "Base.MonopolyMoney5", "Base.MonopolyMoney10", "Base.MonopolyMoney20",
+    "Base.MonopolyMoney50", "Base.MonopolyMoney100", "Base.MonopolyMoney500"
 })
 
 
@@ -127,10 +130,10 @@ gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoard", {
         { x = 229, y = 206, w = 32, h = 20, text = "Boardwalk" },
     }
 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", { canStack = 40 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", { canStack = 40 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", { canStack = 40 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney20", { canStack = 50 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney50", { canStack = 30 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney100", { canStack = 20 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney500", { canStack = 20 })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", { canStack = 40, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", { canStack = 40, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", { canStack = 40, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney20", { canStack = 50, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney50", { canStack = 30, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney100", { canStack = 20, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney500", { canStack = 20, moveSound = "cardFlip" })
