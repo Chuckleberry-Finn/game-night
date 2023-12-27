@@ -113,6 +113,13 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
 
         deckActionHandler.handleDetails(deckItem)
         deckActionHandler.handleDetails(newCard)
+
+        local newCardWorldItem = newCard:getWorldItem()
+        if newCardWorldItem then
+            newCardWorldItem:getModData().gameNightCoolDown = getTimestampMs()+750
+            newCardWorldItem:transmitModData()
+        end
+        
         return newCard
     end
 end
