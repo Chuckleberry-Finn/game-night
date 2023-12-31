@@ -331,7 +331,7 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item)
     local pdata = getPlayerData(playerNum)
     if pdata ~= nil then ISInventoryPage.renderDirty = true end
 
-    return true, zPos, xOffset, yOffset
+    return true, xOffset, yOffset, zPos
 end
 
 
