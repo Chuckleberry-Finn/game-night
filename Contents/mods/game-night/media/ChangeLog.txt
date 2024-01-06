@@ -1,3 +1,3 @@
 [ 1/6/24 ]
 
-- Fixes issue with window size and texture scale. Credit: mrkmg.
+- Fixes issue with larger-scale sizes going outside the maximum window size. Credit: mrkmg.
