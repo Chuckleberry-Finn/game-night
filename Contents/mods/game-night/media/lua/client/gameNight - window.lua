@@ -8,8 +8,18 @@ gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 gameNightWindow.scaleSize = 0.5
 function gameNightWindow:toggleScale()
     gameNightWindow.scaleSize = gameNightWindow.scaleSize==0.5 and 0.75 or gameNightWindow.scaleSize==0.75 and 1 or 0.5
-    self:setHeight(self.defaultSize.width * gameNightWindow.scaleSize)
-    self:setWidth(self.defaultSize.height * gameNightWindow.scaleSize)
+    local newWidth = self.defaultSize.width * gameNightWindow.scaleSize
+    local newHeight = self.defaultSize.height * gameNightWindow.scaleSize
+    
+    -- if window is larger than screen and we are already not at the smallest scale, move to smallest scale
+    if (newWidth > getCore():getScreenWidth() or newHeight > getCore():getScreenHeight()) and gameNightWindow.scaleSize ~= 0.5 then
+        gameNightWindow.scaleSize = 0.5
+        newWidth = self.defaultSize.width * gameNightWindow.scaleSize
+        newHeight = self.defaultSize.height * gameNightWindow.scaleSize
+    end
+    
+    self:setHeight(newHeight)
+    self:setWidth(newWidth)
 
     self.bounds = {x1=self.padding, y1=self.padding, x2=self.width-self.padding, y2=self.height-self.padding}
 
