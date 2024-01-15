@@ -5,7 +5,7 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 ---@class gameNightWindow : ISPanelJoypad
 gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 
-gameNightWindow.scaleSize = 0.5
+gameNightWindow.scaleSize = 0.75
 function gameNightWindow:toggleScale()
     gameNightWindow.scaleSize = gameNightWindow.scaleSize==0.5 and 0.75 or gameNightWindow.scaleSize==0.75 and 1 or 0.5
     local newWidth = self.defaultSize.width * gameNightWindow.scaleSize
