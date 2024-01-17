@@ -75,7 +75,9 @@ function deckActionHandler.handleDetails(deckItem)
         local tooltip = getTextOrNull("Tooltip_"..itemType)
         if tooltip then deckItem:setTooltip(tooltip) end
 
-        deckItem:setName(getItemNameFromFullType(deckItem:getFullType())..name_suffix)
+        local itemName = #deckStates<=1 and getTextOrNull("IGUI_"..deckItem:getType()) or getItemNameFromFullType(deckItem:getFullType())
+        deckItem:setName(itemName..name_suffix)
+
         texture = getTexture("media/textures/Item_"..itemType.."/"..textureID..".png")
         deckItem:getModData()["gameNight_textureInPlay"] = getTexture("media/textures/Item_"..itemType.."/FlippedInPlay.png")
     end
