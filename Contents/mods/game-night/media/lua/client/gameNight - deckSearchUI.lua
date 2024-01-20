@@ -266,6 +266,8 @@ function gameNightDeckSearch:render()
 end
 
 
+local uiInfo = require "gameNight - uiInfo"
+
 function gameNightDeckSearch:initialise()
     ISPanel.initialise(self)
 
@@ -282,6 +284,8 @@ function gameNightDeckSearch:initialise()
     self.close:initialise()
     self.close:instantiate()
     self:addChild(self.close)
+
+    uiInfo.applyToUI(self, self.close.x-16-8, self.close.y, getText("UI_GameNightSearch"))
 
     self.cardDisplay = ISPanelJoypad:new(self.bounds.x1, self.bounds.y1, self.bounds.x2-self.padding, self.bounds.y2-self.close.height-(self.padding*2))
     self.cardDisplay:initialise()

@@ -47,6 +47,8 @@ function gameNightWindow:update()
     end
 end
 
+local uiInfo = require "gameNight - uiInfo"
+
 function gameNightWindow:initialise()
     ISPanelJoypad.initialise(self)
 
@@ -63,6 +65,8 @@ function gameNightWindow:initialise()
     self.close:initialise()
     self.close:instantiate()
     self:addChild(self.close)
+
+    uiInfo.applyToUI(self, 8, self:getHeight()-16-8, getText("UI_GameNightWindow"))
 
     self.resize = ISButton:new(self.close.x+self.close.width+padBottom, self:getHeight()-self.btnOffsetFromBottom, btnHgt, btnHgt, "+", self, gameNightWindow.toggleScale)
     self.resize.borderColor = {r=1, g=1, b=1, a=0.4}
