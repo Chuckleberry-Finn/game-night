@@ -28,6 +28,7 @@ function gameNightWindow:toggleScale()
 
     self.close:setY(self:getHeight()-self.btnOffsetFromBottom)
     self.resize:setY(self:getHeight()-self.btnOffsetFromBottom)
+    self.infoButton:setY(self:getHeight()-16-8)
 end
 
 
