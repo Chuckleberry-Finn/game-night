@@ -2,6 +2,8 @@
 - Fixes issue with larger-scale sizes going outside the maximum window size. Credit: mrkmg.
 [ ------ ]
 
-[ 1/19/24 ]
--
+[ 2/6/24 ]
+- Fixes for item names (single vs plural)
+- Added info buttons
+- Added sandbox options for player cursors
 [ ------ ]
