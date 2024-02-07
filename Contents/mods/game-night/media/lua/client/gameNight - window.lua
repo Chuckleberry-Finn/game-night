@@ -617,7 +617,7 @@ function gameNightWindow.open(worldObjects, player, square)
     window:setVisible(true)
     window:bringToTop()
 
-    if cursorHandler then Events.OnPlayerUpdate.Add(cursorHandler.sendUpdate) end
+    if cursorHandler and SandboxVars.GameNight.DisplayPlayerCursors==true then Events.OnPlayerUpdate.Add(cursorHandler.sendUpdate) end
 
     return window
 end
