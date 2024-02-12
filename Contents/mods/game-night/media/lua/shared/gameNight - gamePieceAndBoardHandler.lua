@@ -17,6 +17,29 @@ gamePieceAndBoardHandler.itemTypes = {
     "Base.ChessWhiteKnight", "Base.ChessBlackKnight",
 }
 
+
+if isServer() then
+    function gamePieceAndBoardHandler.onClientCommand(_module, _command, _player, _data)
+        if _module ~= "gamePieceAndBoardHandler" then return end
+        if _command == "pickupAndPlaceGamePiece" then
+            --print("PLACEMENT")
+            gamePieceAndBoardHandler.pickupAndPlaceGamePiece(_player, _data[1], _data[2], _data[3], _data[4], _data[5], _data[6], _data[7])
+        end
+    end
+    Events.OnClientCommand.Add(gamePieceAndBoardHandler.onClientCommand)--what the server gets from the client
+end
+
+if isClient() then
+    function gamePieceAndBoardHandler.onServerCommand(_module, _command, _data)
+        if _module ~= "gamePieceAndBoardHandler" then return end
+        if _command == "update" then
+
+        end
+    end
+    Events.OnServerCommand.Add(gamePieceAndBoardHandler.onServerCommand)--what clients gets from the server
+end
+
+
 function gamePieceAndBoardHandler.registerTypes(args)
     for _,t in pairs(args) do table.insert(gamePieceAndBoardHandler.itemTypes, t) end
     gamePieceAndBoardHandler.generate_itemTypes()
@@ -145,7 +168,7 @@ function gamePieceAndBoardHandler.canUnstackPiece(gamePiece)
 end
 
 
-function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, locations)
+function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, player, locations)
     --sq=sq, offsets={x=wiX,y=wiY,z=wiZ}, container=container
 
     local newPiece = InventoryItemFactory.CreateItem(gamePiece:getType())
@@ -158,8 +181,10 @@ function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, locations)
         ---@type IsoObject|IsoWorldInventoryObject
         local worldItem = locations and locations.worldItem or gamePiece:getWorldItem()
 
-        local wiX = (locations and locations.offsets and locations.offsets.x) or (worldItem and (worldItem:getWorldPosX()-worldItem:getX())) or 0
-        local wiY = (locations and locations.offsets and locations.offsets.y) or (worldItem and (worldItem:getWorldPosY()-worldItem:getY())) or 0
+        local x, y = gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece)
+
+        local wiX = (locations and locations.offsets and locations.offsets.x) or (x) or 0
+        local wiY = (locations and locations.offsets and locations.offsets.y) or (y) or 0
         local wiZ = (locations and locations.offsets and locations.offsets.z) or (worldItem and (worldItem:getWorldPosZ()-worldItem:getZ())) or 0
 
         ---@type IsoGridSquare
@@ -174,6 +199,8 @@ function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, locations)
 
         gamePieceAndBoardHandler.handleDetails(gamePiece)
         gamePieceAndBoardHandler.handleDetails(newPiece)
+        --gamePieceAndBoardHandler.refreshInventory(player)
+
         return gamePiece
     end
 end
@@ -189,7 +216,7 @@ end
 ---@param gamePieceB InventoryItem
 function gamePieceAndBoardHandler.tryStack(gamePieceA, gamePieceB, player)
     if gamePieceA:getFullType() ~= gamePieceB:getFullType() then return end
-    gamePieceAndBoardHandler.pickupGamePiece(player, gamePieceA, true)
+    --gamePieceAndBoardHandler.pickupGamePiece(player, gamePieceA, true)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePieceB, {gamePieceAndBoardHandler._tryStack, gamePieceA, gamePieceB})
     gamePieceAndBoardHandler.playSound(gamePieceB, player)
 end
@@ -201,13 +228,13 @@ function gamePieceAndBoardHandler.generateContextMenuForStacking(context, player
     local stack = gamePiece:getModData()["gameNight_stacked"] and gamePiece:getModData()["gameNight_stacked"]>1 and gamePiece:getModData()["gameNight_stacked"]
     if not stack then return end
 
-    local unStack = context:addOptionOnTop(getText("IGUI_take"), gamePiece, gamePieceAndBoardHandler.unstack, 1)
+    local unStack = context:addOptionOnTop(getText("IGUI_take"), gamePiece, gamePieceAndBoardHandler.unstack, 1, player)
 
     local subDrawMenu = ISContextMenu:getNew(context)
     context:addSubMenu(unStack, subDrawMenu)
 
     for i=1, 25, 5 do if stack >= i then
-        local option = subDrawMenu:addOption(getText("IGUI_takeMore", i), gamePiece, gamePieceAndBoardHandler.unstack, i)
+        local option = subDrawMenu:addOption(getText("IGUI_takeMore", i), gamePiece, gamePieceAndBoardHandler.unstack, i, player)
     end end
 end
 
@@ -217,11 +244,15 @@ function gamePieceAndBoardHandler.applyScriptChanges()
     local scriptManager = getScriptManager()
 
     for _,scriptType in pairs(gamePieceAndBoardHandler.itemTypes) do
+
         local special = gamePieceAndBoardHandler.specials[scriptType]
         local script = scriptManager:getItem(scriptType)
         if script then
+
             local newCategory = special and special.category or "GamePiece"
-            if newCategory then script:DoParam("DisplayCategory = "..newCategory) end
+            if newCategory then
+                script:DoParam("DisplayCategory = "..newCategory)
+            end
 
             local iconPath = "OutOfPlayTextures/"..script:getName()..".png"
             local icon = Texture.trygetTexture("Item_"..iconPath)
@@ -249,8 +280,8 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece, stackInit)
     local special = gamePieceAndBoardHandler.specials[fullType]
     local newCategory = special and special.category or "GamePiece"
     if newCategory then gamePiece:setDisplayCategory(newCategory) end
-    
-    gamePiece:getModData()["gameNight_sound"] = "pieceMove"
+
+    gamePiece:getModData()["gameNight_sound"] = special and special.moveSound or "pieceMove"
 
     local canStack = gamePieceAndBoardHandler.canStackPiece(gamePiece)
     if canStack and not gamePiece:getModData()["gameNight_stacked"] then
@@ -288,6 +319,7 @@ function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value)
     gamePiece:getModData()[key] = value
 end
 
+--[[
 function gamePieceAndBoardHandler.pickupGamePiece(player, item)
 
     ---@type IsoWorldInventoryObject|IsoObject
@@ -323,7 +355,58 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item)
     local pdata = getPlayerData(playerNum)
     if pdata ~= nil then ISInventoryPage.renderDirty = true end
 
-    return true, zPos, xOffset, yOffset
+    return true, xOffset, yOffset, zPos
+end
+--]]
+
+
+function gamePieceAndBoardHandler.removeOldGamePiece(item, worldItem, worldItemSq)
+    if worldItem and worldItemSq and worldItemSq:getWorldObjects():contains(worldItem) then
+        worldItemSq:transmitRemoveItemFromSquareOnServer(worldItem)
+        worldItem:removeFromWorld()
+        worldItem:removeFromSquare()
+        worldItem:setSquare(nil)
+        item:setWorldItem(nil)
+    end
+end
+
+
+
+function gamePieceAndBoardHandler.refreshInventory(player)
+    ISInventoryPage.renderDirty = true
+    local playerNum = player:getPlayerNum()
+    local inventory = getPlayerInventory(playerNum)
+    if inventory then inventory:refreshBackpacks() end
+    local loot = getPlayerLoot(playerNum)
+    if loot then loot:refreshBackpacks() end
+end
+
+
+function gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece, offset)
+    local worldItem = gamePiece:getWorldItem()
+    if not worldItem then return 0, 0 end
+    local xOffset = worldItem and worldItem:getWorldPosX()-worldItem:getX() or 0
+    local yOffset = worldItem and worldItem:getWorldPosY()-worldItem:getY() or 0
+
+    offset = offset or 0.02
+
+    xOffset = xOffset+ZombRandFloat(0-offset,offset)
+    yOffset = yOffset+ZombRandFloat(0-offset,offset)
+
+    return xOffset, yOffset
+end
+
+
+---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
+---@param item InventoryItem
+function gamePieceAndBoardHandler.removePieceClientSide(player, item)
+    local pInv = player:getInventory()
+    local itemCont = item:getContainer()
+    if itemCont and pInv and itemCont == pInv then
+        itemCont:setDrawDirty(true)
+        itemCont:Remove(item)
+        gamePieceAndBoardHandler.refreshInventory(player)
+    end
 end
 
 
@@ -332,13 +415,12 @@ end
 ---@param xOffset number
 ---@param yOffset number
 function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOffset, zPos)
+
+    --gamePieceAndBoardHandler.removeOldGamePiece(item)
+
     ---@type IsoWorldInventoryObject|IsoObject
     local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
     if placedItem then
-
-        local itemCont = player:getInventory()
-
-        itemCont:setDrawDirty(true)
 
         placedItem:setName(item:getName())
         placedItem:setKeyId(item:getKeyId())
@@ -353,40 +435,43 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
 
         placedItem:addToWorld()
         placedItem:setIgnoreRemoveSandbox(true)
-        placedItem:transmitCompleteItemToServer()
+        placedItem:transmitCompleteItemToClients()
         placedItem:getModData().gameNightCoolDown = getTimestampMs()+750
         placedItem:transmitModData()
 
-        itemCont:Remove(item)
-
-        ISInventoryPage.renderDirty = true
-
-        local playerNum = player:getPlayerNum()
-        local inventory = getPlayerInventory(playerNum)
-        if inventory then inventory:refreshBackpacks() end
-        local loot = getPlayerLoot(playerNum)
-        if loot then loot:refreshBackpacks() end
+        --gamePieceAndBoardHandler.refreshInventory(player)
     end
 end
 
 
 ---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
----@param item InventoryItem
+---@param item InventoryItem|ComboItem
 ---@param xOffset number
 ---@param yOffset number
-function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos, square)
+function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos, squareCoords)
+
+    --print("IS-SERVER CHECK: ", isServer())
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
 
     ---@type IsoGridSquare
-    local worldItemSq = square or worldItem and worldItem:getSquare()
+    local worldItemSq = (squareCoords and getSquare(squareCoords[1],squareCoords[2],squareCoords[3])) or (worldItem and worldItem:getSquare())
 
-    local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp)
+    gamePieceAndBoardHandler.removePieceClientSide(player, item)
+    gamePieceAndBoardHandler.removeOldGamePiece(item, worldItem, worldItemSq)
 
-    zPos = zPos or x or 0
-    xOffset = xOffset or y or 0
-    yOffset = yOffset or z or 0
+    if isClient() then
+        local squareBuffered = {worldItemSq:getX(),worldItemSq:getY(),worldItemSq:getZ()}
+        sendClientCommand("gamePieceAndBoardHandler", "pickupAndPlaceGamePiece", { item, onPickUp, detailsFunc, xOffset, yOffset, zPos, squareBuffered })
+        return
+    end
+
+    --local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp)
+
+    xOffset = xOffset or worldItem and worldItem:getWorldPosX()-worldItem:getX() or 0
+    yOffset = yOffset or worldItem and worldItem:getWorldPosY()-worldItem:getY() or 0
+    zPos = zPos or worldItem and worldItem:getWorldPosZ()-worldItem:getZ() or 0
 
     if onPickUp and type(onPickUp)=="table" then
         local onCompleteFuncArgs = onPickUp
@@ -396,6 +481,8 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     end
 
     if item then
+
+        --print("ITEM: ",item, "   wi:", worldItem, "   sq:", worldItemSq)
 
         detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
         detailsFunc(item)
@@ -422,7 +509,10 @@ function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
 
     local result = ZombRand(sides)+1
     result = result>1 and gamePiece:getType()..result or ""
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
+
+    local x, y = gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece)
+
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result}, nil, x, y)
     gamePieceAndBoardHandler.playSound(gamePiece, player, "dieRoll")
 end
 
