@@ -96,7 +96,7 @@ function gameNightWindow:calculateItemDrop(x, y, items)
             scaledX = scaledX+ZombRandFloat(-0.02,0.02)
             scaledY = scaledY+ZombRandFloat(-0.02,0.02)
         end
-        gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, nil, nil, scaledX, scaledY, surfaceZ, { self.square:getX(),self.square:getY(),self.square:getZ() })
+        gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, nil, nil, scaledX, scaledY, surfaceZ, self.square)
     end
 end
 
