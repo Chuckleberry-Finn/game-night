@@ -1,0 +1,39 @@
+module Base
+{
+
+    item Dice4 {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = D4, Icon = OutOfPlayTextures/dice/Dice4, WorldStaticModel = dice4,
+    }
+
+    item Dice6 {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = D6, Icon = OutOfPlayTextures/dice/Dice6, WorldStaticModel = dice6,
+    }
+
+    item Dice8 {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = D8, Icon = OutOfPlayTextures/dice/Dice8, WorldStaticModel = dice8,
+    }
+
+    item Dice10 {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = D10, Icon = OutOfPlayTextures/dice/Dice10, WorldStaticModel = dice10,
+    }
+
+    item Dice12 {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = D12, Icon = OutOfPlayTextures/dice/Dice12, WorldStaticModel = dice12,
+    }
+
+    item Dice20 {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = D20, Icon = OutOfPlayTextures/dice/Dice20, WorldStaticModel = dice20,
+    }
+
+    item StellaOcta {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Stella Octangula, Icon = OutOfPlayTextures/stellaOcta1, WorldStaticModel = stellaOcta,
+    }
+
+}

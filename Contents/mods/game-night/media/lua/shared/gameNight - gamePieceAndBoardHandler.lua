@@ -15,7 +15,10 @@ gamePieceAndBoardHandler.itemTypes = {
     "Base.ChessWhiteKing","Base.ChessBlackKing","Base.ChessWhiteBishop","Base.ChessBlackBishop",
     "Base.ChessWhiteQueen", "Base.ChessBlackQueen", "Base.ChessWhiteRook","Base.ChessBlackRook",
     "Base.ChessWhiteKnight", "Base.ChessBlackKnight",
+
+    "Base.StellaOcta","Base.Dice4", "Base.Dice6", "Base.Dice8", "Base.Dice10", "Base.Dice12", "Base.Dice20",
 }
+
 
 function gamePieceAndBoardHandler.registerTypes(args)
     for _,t in pairs(args) do table.insert(gamePieceAndBoardHandler.itemTypes, t) end
@@ -70,6 +73,16 @@ gamePieceAndBoardHandler.specials = {
     ["Base.PokerChipsPurple"]={ weight = 0.003, canStack=50 },
     ["Base.PokerChipsGreen"]={ weight = 0.003, canStack=50 },
 }
+
+---Because I hate copy pasted code - this iterates through the side values and registers their special actions.
+local sides = {4,6,8,10,12,20}
+for _,side in pairs(sides) do
+    gamePieceAndBoardHandler.registerSpecial("Base.Dice"..side, { addTextureDir = "dice/", actions = { rollDie=side }, shiftAction = "rollDie", })
+end
+
+gamePieceAndBoardHandler.registerSpecial("Base.StellaOcta", { actions = { rollDie=1 }, shiftAction = "rollDie", })
+
+
 
 function gamePieceAndBoardHandler.parseTopOfStack(stack)
     if instanceof(stack, "InventoryItem") then return stack, false end
@@ -273,11 +286,13 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece, stackInit)
 
     local iconState = gamePiece:getModData()["gameNight_altState"] or gamePiece:getType()
 
-    local texturePath = "Item_InPlayTextures/"..iconState..".png"
+    local additionalTextureDir = special and special.addTextureDir or ""
+
+    local texturePath = "Item_InPlayTextures/"..additionalTextureDir..iconState..".png"
     local texture = Texture.trygetTexture(texturePath)
     if texture then gamePiece:getModData()["gameNight_textureInPlay"] = texture end
 
-    local iconPath = "Item_OutOfPlayTextures/"..iconState..".png"
+    local iconPath = "Item_OutOfPlayTextures/"..additionalTextureDir..iconState..".png"
     local icon = Texture.trygetTexture(iconPath)
     if icon then gamePiece:setTexture(icon) end
 
