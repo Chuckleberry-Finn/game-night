@@ -221,6 +221,11 @@ function gameNightDeckSearch:render()
             local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..itemType.."/"..textureToUse..".png"
             local texture = getTexture(texturePath)
 
+            if not self.cardHeight or not self.cardWidth then
+                self.cardHeight = texture:getHeight()*0.5
+                self.cardWidth = texture:getWidth()*0.5
+            end
+
             if self.cardWidth+xOffset > self.cardDisplay.width+halfPad then
                 xOffset = resetXOffset
                 yOffset = yOffset+self.cardHeight+halfPad
@@ -328,8 +333,8 @@ function gameNightDeckSearch:new(x, y, width, height, player, deckItem)
 
     o.moveWithMouse = true
 
-    o.cardHeight = 48
-    o.cardWidth = 32
+    --o.cardHeight = 48
+    --o.cardWidth = 32
 
     o.width = width
     o.height = height
