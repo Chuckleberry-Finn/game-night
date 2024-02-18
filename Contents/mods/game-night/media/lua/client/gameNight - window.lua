@@ -6,8 +6,21 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
 
 gameNightWindow.scaleSize = 0.75
+gameNightWindow.scaleMatrix = {0.5, 0.75, 1, 1.25, 1.5, 1.75, 2}
+
 function gameNightWindow:toggleScale()
-    gameNightWindow.scaleSize = gameNightWindow.scaleSize==0.5 and 0.75 or gameNightWindow.scaleSize==0.75 and 1 or 0.5
+
+    if gameNightWindow.scaleSize == gameNightWindow.scaleMatrix[#gameNightWindow.scaleMatrix] then
+        gameNightWindow.scaleSize = gameNightWindow.scaleMatrix[1]
+    else
+        for i,_ in ipairs(gameNightWindow.scaleMatrix) do
+            if gameNightWindow.scaleSize == gameNightWindow.scaleMatrix[i] then
+                gameNightWindow.scaleSize = gameNightWindow.scaleMatrix[i+1]
+                break
+            end
+        end
+    end
+
     local newWidth = self.defaultSize.width * gameNightWindow.scaleSize
     local newHeight = self.defaultSize.height * gameNightWindow.scaleSize
     
