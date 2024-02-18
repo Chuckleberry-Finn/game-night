@@ -39,6 +39,8 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
         local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
         if deckStates then
 
+            deckActionHandler.generateContextMenuFromSpecialActions(context, playerObj, (stack or item))
+
             local flip = context:addOptionOnTop(getText("IGUI_flipCard"), item, deckActionHandler.flipCard, playerObj)
             flip.iconTexture = gamePieceContext.gameNightContextMenuIcon.flip
 

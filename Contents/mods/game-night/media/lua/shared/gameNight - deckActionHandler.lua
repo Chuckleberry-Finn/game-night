@@ -33,6 +33,11 @@ function deckActionHandler.fetchAltIcon(cardName, deckItem)
 end
 
 
+function deckActionHandler.generateContextMenuFromSpecialActions(context, player, item)
+    gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, item)
+end
+
+
 deckActionHandler.cardWeight = 0.003
 ---@param deckItem InventoryItem
 function deckActionHandler.handleDetails(deckItem)

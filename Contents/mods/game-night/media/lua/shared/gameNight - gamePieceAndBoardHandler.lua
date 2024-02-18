@@ -104,14 +104,6 @@ function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context,
 
     local gamePiece, pieceStack = gamePieceAndBoardHandler.parseTopOfStack(item)
 
-    --[[
-    local text = ""
-    if pieceStack and pieceStack.items then
-        for k,v in pairs(pieceStack.items) do text = text..k.."="..tostring(v)..", " end
-    end
-    print("piece: ",tostring(gamePiece), "  stack:",tostring(pieceStack), " ",text)
-    --]]
-
     local fullType = gamePiece:getFullType()
     local specialCase = gamePieceAndBoardHandler.specials[fullType]
     if specialCase and specialCase.actions then
