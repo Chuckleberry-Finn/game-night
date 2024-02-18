@@ -26,4 +26,7 @@ IGUI_EN = {
     IGUI_ItemCat_Die = "Die",
 
     IGUI_CardDeck = "Playing Card",
+    IGUI_PlayingCards1 = "Playing Card",
+    IGUI_PlayingCards2 = "Playing Card",
+    IGUI_PlayingCards3 = "Playing Card",
 }

@@ -1,6 +1,21 @@
 module Base
 {
 
+    item PlayingCards1 {
+        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
+        DisplayName = Playing Cards, Icon = PlayingCards1/deck, WorldStaticModel = PlayingCards1,
+    }
+
+	item PlayingCards2 {
+        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
+        DisplayName = Playing Cards, Icon = PlayingCards2/deck, WorldStaticModel = PlayingCards2,
+    }
+
+ 	item PlayingCards3 {
+ 	    DisplayCategory = Deck, Weight = 0.01, Type = Normal,
+        DisplayName = Playing Cards, Icon = PlayingCards3/deck, WorldStaticModel = PlayingCards3,
+    }
+
     item DiceWhite {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
         DisplayName = Dice, Icon = OutOfPlayTextures/DiceWhite, WorldStaticModel = DiceWhite,
