@@ -24,4 +24,5 @@
 - Added piece rotation support (drag and scroll).
 - Catan: Remade roads to work with rotation.
 - Remove piece cool-down in SP.
+- Added new `dealCards` function.
 [ ------ ]
