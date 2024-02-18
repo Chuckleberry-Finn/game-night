@@ -375,6 +375,7 @@ function gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece, offset)
     return xOffset, yOffset
 end
 
+gamePieceAndBoardHandler.coolDown = (isClient() or isServer()) and 750 or 5
 
 ---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
 ---@param item InventoryItem
@@ -403,7 +404,7 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         placedItem:addToWorld()
         placedItem:setIgnoreRemoveSandbox(true)
         placedItem:transmitCompleteItemToServer()
-        placedItem:getModData().gameNightCoolDown = getTimestampMs()+750
+        placedItem:getModData().gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
         placedItem:transmitModData()
 
         itemCont:Remove(item)
@@ -470,6 +471,13 @@ function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
 
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result}, nil, x, y)
     gamePieceAndBoardHandler.playSound(gamePiece, player, "dieRoll")
+end
+
+
+function gamePieceAndBoardHandler.rotatePiece(gamePiece, angleChange, player)
+    local current = gamePiece:getModData()["gameNight_rotation"] or 0
+    local state = current + angleChange
+    gamePieceAndBoardHandler.setModDataValue(gamePiece, "gameNight_rotation", state)
 end
 
 

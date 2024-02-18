@@ -171,6 +171,14 @@ function gameNightWindow:clearMovingPiece(x, y)
         end
     end
     self.movingPiece = nil
+    self.rotatingPieceDegree = 0
+end
+
+gameNightWindow.rotatingPieceDegree = 0
+
+function gameNightWindow:onMouseWheel(del)
+    self.rotatingPieceDegree = self.rotatingPieceDegree-(del*5)
+    return true
 end
 
 
@@ -285,6 +293,7 @@ end
 
 
 --isShiftKeyDown() --isAltKeyDown()
+
 function gameNightWindow:onMouseDown(x, y)
     if self:isVisible() then
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
@@ -300,7 +309,7 @@ function gameNightWindow:onMouseDown(x, y)
             if worldItem then
                 local worldItemModData = worldItem:getModData()
                 worldItemModData.gameNightInUse = self.player:getUsername()
-                worldItemModData.gameNightCoolDown = getTimestampMs()+750
+                worldItemModData.gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
                 worldItem:transmitModData()
 
                 self.movingPiece = clickedOn.item
@@ -347,7 +356,11 @@ function gameNightWindow:moveElement(gamePiece, x, y)
     local item = gamePiece
     if not item then return end
     local scaledX, scaledY, offsetZ = self:determineScaledWorldXY(x, y)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, nil, nil, scaledX, scaledY, offsetZ)
+
+    local angleChange = self.rotatingPieceDegree
+    local onPickup = angleChange and (angleChange ~= 0) and {gamePieceAndBoardHandler.rotatePiece, item, angleChange, self.player}
+
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, onPickup, nil, scaledX, scaledY, offsetZ, nil)
 end
 
 
@@ -518,13 +531,13 @@ function gameNightWindow:render()
         local x, y = self:getMouseX()-(offsetX), self:getMouseY()-(offsetY)
         local movingElement = self.elements[movingPiece:getID()]
         local w, h = movingElement.w, movingElement.h
-        local rot = movingPiece:getModData()["gameNight_rotation"] or 0
+        local rot = (movingPiece:getModData()["gameNight_rotation"] or 0) + self.rotatingPieceDegree
 
         local tmpTexture = Texture.new(texture)
         tmpTexture:setHeight(h)
         tmpTexture:setWidth(w)
-        
-        self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot, 0.55, 1, 1, 1)
+
+        self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot)
 
         local selection
         if deckActionHandler.isDeckItem(movingPiece) then

@@ -17,8 +17,11 @@
 - Added scaling up-to 200% - won't go past allowed screen size
 - Made playing cards 100px wide (from 64px)
 - Added support for playing card back variation
+- Fix monopoly piece weight
 [ ------ ]
 
-[ ]
-- Fix monopoly piece weight
+[ 2/18/24 #2 ]
+- Added piece rotation support (drag and scroll).
+- Catan: Remade roads to work with rotation.
+- Remove piece cool-down in SP.
 [ ------ ]
