@@ -84,7 +84,11 @@ end
 require "Items/ProceduralDistributions"
 
 gameNightDistro.proceduralDistOverWrite = {}
-gameNightDistro.proceduralDistOverWrite.lists = {"WardrobeChild", "CrateRandomJunk"}
+gameNightDistro.proceduralDistOverWrite.lists = {"WardrobeChild", "CrateRandomJunk",
+
+                                                 "CrateToys","BarCounterMisc","PoliceDesk","OfficeDeskHome",
+                                                 "OfficeDesk","HolidayStuff","Hobbies","GigamartToys","Gifts"}
+
 gameNightDistro.proceduralDistOverWrite.itemToReplacement = {
     ["BackgammonBoard"] = "BackgammonBox",
     ["GamePieceWhite"] = "BackgammonBox",
@@ -109,9 +113,19 @@ function gameNightDistro.overrideProceduralDist()
             local replacement = gameNightDistro.proceduralDistOverWrite.itemToReplacement[itemType]
             if replacement then
 
-                if instanceof(replacement, "table") then replacement = replacement[ZombRand(#replacement)+1] end
+                if type(replacement)=="table" then
+                    local chance = ProceduralDistributions.list[contID].items[i+1]
+                    chance = chance/#replacement
 
-                ProceduralDistributions.list[contID].items[i] = replacement
+                    ProceduralDistributions.list[contID].items[i] = replacement[1]
+                    ProceduralDistributions.list[contID].items[i+1] = chance
+                    for ii=2, #replacement do
+                        table.insert(ProceduralDistributions.list[contID].items, replacement[ii])
+                        table.insert(ProceduralDistributions.list[contID].items, chance)
+                    end
+                else
+                    ProceduralDistributions.list[contID].items[i] = replacement
+                end
             end
         end
     end
