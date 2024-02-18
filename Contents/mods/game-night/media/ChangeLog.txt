@@ -16,4 +16,5 @@
 - Search UI now handles different card sizes
 - Added scaling up-to 200% - won't go past allowed screen size
 - Made playing cards 100px wide (from 64px)
+- Added support for playing card back variation
 [ ------ ]
