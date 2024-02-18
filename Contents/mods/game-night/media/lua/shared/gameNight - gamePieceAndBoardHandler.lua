@@ -87,32 +87,32 @@ gamePieceAndBoardHandler.registerSpecial("Base.StellaOcta", { actions = { rollDi
 
 function gamePieceAndBoardHandler.parseTopOfStack(stack)
     if instanceof(stack, "InventoryItem") then return stack, false end
+    if #stack.items==2 then return stack.items[2], false end
     return stack.items[1], stack
 end
 
-function gamePieceAndBoardHandler.bypassForStacks(stack, player, func, args)
+function gamePieceAndBoardHandler.bypassForStacks(stack, player, func, args, source)
     if instanceof(stack, "InventoryItem") then return end
 
     for i=2, #stack.items do
         local item = stack.items[i]
-        gamePieceAndBoardHandler[func](item, player, args)
+        source[func](item, player, args)
     end
 end
 
 
-function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, item)
-
+function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, item, altSource)
+    altSource = altSource or gamePieceAndBoardHandler
     local gamePiece, pieceStack = gamePieceAndBoardHandler.parseTopOfStack(item)
-
     local fullType = gamePiece:getFullType()
     local specialCase = gamePieceAndBoardHandler.specials[fullType]
     if specialCase and specialCase.actions then
         for func,args in pairs(specialCase.actions) do
-            if gamePieceAndBoardHandler[func] then
+            if altSource[func] then
                 if not pieceStack then
-                    context:addOptionOnTop(getText("IGUI_"..func), gamePiece, gamePieceAndBoardHandler[func], player, args)
+                    context:addOptionOnTop(getText("IGUI_"..func), gamePiece, altSource[func], player, args)
                 else
-                    context:addOptionOnTop(getText("IGUI_"..func)..getText("IGUI_SpecialActionAll"), pieceStack, gamePieceAndBoardHandler.bypassForStacks, player, func, args)
+                    context:addOptionOnTop(getText("IGUI_"..func)..getText("IGUI_SpecialActionAll"), pieceStack, gamePieceAndBoardHandler.bypassForStacks, player, func, args, altSource)
                 end
             end
         end

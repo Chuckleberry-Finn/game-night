@@ -34,7 +34,7 @@ end
 
 
 function deckActionHandler.generateContextMenuFromSpecialActions(context, player, item)
-    gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, item)
+    gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, item, deckActionHandler)
 end
 
 
