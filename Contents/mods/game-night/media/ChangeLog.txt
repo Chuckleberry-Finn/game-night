@@ -18,3 +18,7 @@
 - Made playing cards 100px wide (from 64px)
 - Added support for playing card back variation
 [ ------ ]
+
+[ ]
+- Fix monopoly piece weight
+[ ------ ]

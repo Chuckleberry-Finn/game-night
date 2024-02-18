@@ -130,10 +130,10 @@ gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoard", {
         { x = 229, y = 206, w = 32, h = 20, text = "Boardwalk" },
     }
 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", { canStack = 40, moveSound = "cardFlip" })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", { canStack = 40, moveSound = "cardFlip" })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", { canStack = 40, moveSound = "cardFlip" })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney20", { canStack = 50, moveSound = "cardFlip" })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney50", { canStack = 30, moveSound = "cardFlip" })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney100", { canStack = 20, moveSound = "cardFlip" })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney500", { canStack = 20, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", { weight = 0.003, canStack = 40, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", { weight = 0.003, canStack = 40, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", { weight = 0.003, canStack = 40, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney20", { weight = 0.003, canStack = 50, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney50", { weight = 0.003, canStack = 30, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney100", { weight = 0.003, canStack = 20, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney500", { weight = 0.003, canStack = 20, moveSound = "cardFlip" })
