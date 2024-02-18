@@ -234,7 +234,7 @@ end
 function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(1, deckItem, player) end
 
 
-function deckActionHandler.dealCard(deckItem, player, x, y)
+function deckActionHandler.dealCards(deckItem, player, n, x, y)
 
     local worldItem, container = deckItem:getWorldItem(), deckItem:getContainer()
     x = x or worldItem and (worldItem:getWorldPosX()-worldItem:getX()) or 0
@@ -243,8 +243,12 @@ function deckActionHandler.dealCard(deckItem, player, x, y)
     ---@type IsoGridSquare
     local sq = (worldItem and worldItem:getSquare()) or (gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square)
 
-    deckActionHandler.drawCards(1, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z}, container=container })
+    deckActionHandler.drawCards(n, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z}, container=container })
 end
+
+
+function deckActionHandler.dealCard(deckItem, player, x, y) deckActionHandler.dealCards(deckItem, player, 1, x, y) end
+
 
 function deckActionHandler._drawCardIndex(deckItem, drawIndex)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
