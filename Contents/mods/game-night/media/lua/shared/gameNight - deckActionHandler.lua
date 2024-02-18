@@ -41,6 +41,7 @@ function deckActionHandler.handleDetails(deckItem)
 
     if #deckStates <= 0 then return end
     local itemType = deckItem:getType()
+    local fullType = deckItem:getFullType()
 
     deckItem:setActualWeight(deckActionHandler.cardWeight*#deckStates)
     deckItem:getTags():add("gameNight")
@@ -64,8 +65,11 @@ function deckActionHandler.handleDetails(deckItem)
         local nameOfCard = deckActionHandler.fetchAltName(cardName, deckItem)
         deckItem:setName(nameOfCard..name_suffix)
 
+        local special = gamePieceAndBoardHandler.specials[fullType]
+        local cardFaceType = special and special.cardFaceType or itemType
+
         local textureToUse = deckActionHandler.fetchAltIcon(cardName, deckItem)
-        texture = getTexture("media/textures/Item_"..itemType.."/"..textureToUse..".png")
+        texture = getTexture("media/textures/Item_"..cardFaceType.."/"..textureToUse..".png")
 
         deckItem:getModData()["gameNight_textureInPlay"] = texture
 

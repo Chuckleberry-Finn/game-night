@@ -97,14 +97,22 @@ gameNightDistro.proceduralDistOverWrite.itemToReplacement = {
     ["CheckerBoard"] = "CheckersBox",
 
     ["PokerChips"] = "PokerBox",
+
+    ["CardDeck"] = {"CardDeck","PlayingCards1","PlayingCards2","PlayingCards3"}
 }
+
 
 function gameNightDistro.overrideProceduralDist()
     for _,contID in pairs(gameNightDistro.proceduralDistOverWrite.lists) do
         for i=1, #ProceduralDistributions.list[contID].items, 2 do
             local itemType = ProceduralDistributions.list[contID].items[i]
             local replacement = gameNightDistro.proceduralDistOverWrite.itemToReplacement[itemType]
-            if replacement then ProceduralDistributions.list[contID].items[i] = replacement end
+            if replacement then
+
+                if instanceof(replacement, "table") then replacement = replacement[ZombRand(#replacement)+1] end
+
+                ProceduralDistributions.list[contID].items[i] = replacement
+            end
         end
     end
 end

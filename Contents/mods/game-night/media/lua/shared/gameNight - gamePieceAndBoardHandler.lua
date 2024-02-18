@@ -74,6 +74,7 @@ gamePieceAndBoardHandler.specials = {
     ["Base.PokerChipsGreen"]={ weight = 0.003, canStack=50 },
 }
 
+
 ---Because I hate copy pasted code - this iterates through the side values and registers their special actions.
 local sides = {4,6,8,10,12,20}
 for _,side in pairs(sides) do

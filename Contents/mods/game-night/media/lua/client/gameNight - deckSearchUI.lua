@@ -204,7 +204,11 @@ function gameNightDeckSearch:render()
     self.cardDisplay:setStencilRect(0, 0, self.cardDisplay.width, self.cardDisplay.height)
     ISPanel.render(self)
     local cardData, cardFlipStates = deckActionHandler.getDeckStates(self.deck)
+
     local itemType = self.deck:getType()
+    local fullType = self.deck:getFullType()
+    local special = gamePieceAndBoardHandler.specials[fullType]
+    local cardFaceType = special and special.cardFaceType or itemType
 
     local halfPad = math.floor((self.padding/2)+0.5)
     local xOffset, yOffset = halfPad, halfPad
@@ -218,7 +222,8 @@ function gameNightDeckSearch:render()
         if card then
 
             local textureToUse = deckActionHandler.fetchAltIcon(card, self.deck)
-            local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..itemType.."/"..textureToUse..".png"
+
+            local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..cardFaceType.."/"..textureToUse..".png"
             local texture = getTexture(texturePath)
 
             if not self.cardHeight or not self.cardWidth then

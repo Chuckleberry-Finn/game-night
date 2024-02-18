@@ -18,6 +18,12 @@ for _,s in pairs(playingCards.suits) do
     end
 end
 applyItemDetails.addDeck("CardDeck", playingCards.cards)
+
 applyItemDetails.addDeck("PlayingCards1", playingCards.cards)
 applyItemDetails.addDeck("PlayingCards2", playingCards.cards)
 applyItemDetails.addDeck("PlayingCards3", playingCards.cards)
+
+local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
+gamePieceAndBoardHandler.registerSpecial("Base.PlayingCards1", { cardFaceType = "CardDeck" })
+gamePieceAndBoardHandler.registerSpecial("Base.PlayingCards2", { cardFaceType = "CardDeck" })
+gamePieceAndBoardHandler.registerSpecial("Base.PlayingCards3", { cardFaceType = "CardDeck" })
