@@ -20,9 +20,10 @@
 - Fix monopoly piece weight
 [ ------ ]
 
-[ 2/18/24 #2 ]
+[ 2/19/24 ]
 - Added piece rotation support (drag and scroll).
 - Catan: Remade roads to work with rotation.
 - Remove piece cool-down in SP.
+- Added cool-down setter when picking pieces up.
 - Added new `dealCards` function.
 [ ------ ]
