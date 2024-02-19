@@ -209,10 +209,15 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
         table.insert(drawnFlippedStates, drawnFlip)
     end
 
+    local fullType = deckItem:getFullType()
+    local special = gamePieceAndBoardHandler.specials[fullType]
+    local onDraw = special and special.onDraw
+
     local newCards = {}
     for n,card in pairs(drawnCards) do
         gamePieceAndBoardHandler.playSound(deckItem, player)
         local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n], locations)
+        if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard) end
         table.insert(newCards, newCard)
     end
 
