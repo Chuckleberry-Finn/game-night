@@ -545,7 +545,7 @@ function gameNightWindow:render()
         tmpTexture:setHeight(h)
         tmpTexture:setWidth(w)
 
-        self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot, 1, 1, 1, 0.65)
+        self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot, 1, 1, 1, 0.7)
 
         local selection
         if deckActionHandler.isDeckItem(movingPiece) then
