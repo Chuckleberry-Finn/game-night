@@ -66,8 +66,6 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
                 local search = context:addOptionOnTop(getText("IGUI_searchDeck"), item, deckActionHandler.searchDeck, playerObj)
                 search.iconTexture = gamePieceContext.gameNightContextMenuIcon.search
             end
-
-            deckActionHandler.generateContextMenuFromSpecialActions(context, playerObj, (stack or item))
         end
         break
     end
