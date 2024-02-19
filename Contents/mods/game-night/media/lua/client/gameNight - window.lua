@@ -177,7 +177,7 @@ end
 gameNightWindow.rotatingPieceDegree = 0
 
 function gameNightWindow:onMouseWheel(del)
-    self.rotatingPieceDegree = self.rotatingPieceDegree-(del*5)
+    self.rotatingPieceDegree = self.rotatingPieceDegree+(del*5)
     return true
 end
 
