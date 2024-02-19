@@ -199,7 +199,7 @@ function gameNightDeckSearch:prerender()
     ISPanel.prerender(self)
 end
 
-
+---gameNightDeckSearch.sizedOnce
 function gameNightDeckSearch:render()
     self.cardDisplay:setStencilRect(0, 0, self.cardDisplay.width, self.cardDisplay.height)
     ISPanel.render(self)
@@ -213,6 +213,8 @@ function gameNightDeckSearch:render()
     local halfPad = math.floor((self.padding/2)+0.5)
     local xOffset, yOffset = halfPad, halfPad
     local resetXOffset = xOffset
+
+
 
     for n=#cardData, 1, -1 do
 
@@ -232,6 +234,15 @@ function gameNightDeckSearch:render()
             end
 
             if self.cardWidth+xOffset > self.cardDisplay.width+halfPad then
+
+                if not self.sizedOnce then
+                    self.sizedOnce = true
+                    self.cardDisplay:setWidth(self.cardWidth+xOffset+halfPad)
+                    self:setWidth(self.cardDisplay.width+(self.padding*2))
+                    self.close:setX(self:getWidth()-self.padding-self.close:getWidth())
+                    self.infoButton:setX(self.close.x-24)
+                end
+
                 xOffset = resetXOffset
                 yOffset = yOffset+self.cardHeight+halfPad
             end
@@ -295,7 +306,7 @@ function gameNightDeckSearch:initialise()
     self.close:instantiate()
     self:addChild(self.close)
 
-    uiInfo.applyToUI(self, self.close.x-16-8, self.close.y, getText("UI_GameNightSearch"))
+    uiInfo.applyToUI(self, self.close.x-24, self.close.y, getText("UI_GameNightSearch"))
 
     self.cardDisplay = ISPanelJoypad:new(self.bounds.x1, self.bounds.y1, self.bounds.x2-self.padding, self.bounds.y2-self.close.height-(self.padding*2))
     self.cardDisplay:initialise()
