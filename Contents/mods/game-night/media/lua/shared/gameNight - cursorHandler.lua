@@ -10,6 +10,8 @@ function cursorHandler.sendUpdate(player)
         return
     end
 
+    if player:isInvisible() then return end
+
     local x, y = window:getMouseX(), window:getMouseY()
     local outOfBounds = ((x < window.bounds.x1) or (y < window.bounds.y1) or (x > window.bounds.x2) or (y > window.bounds.y2))
     if outOfBounds then return end
