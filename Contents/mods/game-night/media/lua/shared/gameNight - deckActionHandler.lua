@@ -3,7 +3,7 @@ require "gameNight - window"
 
 local deckActionHandler = {}
 
-deckActionHandler.staticDeckActions = {dealCard=true}
+deckActionHandler.staticDeckActions = {dealCard=true, dealCards=true}
 
 function deckActionHandler.isDeckItem(deckItem)
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
@@ -230,11 +230,10 @@ function deckActionHandler.drawCards(num, deckItem, player, locations)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player, locations}, deckActionHandler.handleDetails)
 end
 
-
 function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(1, deckItem, player) end
 
 
-function deckActionHandler.dealCards(deckItem, player, n, x, y)
+function deckActionHandler._dealCards(deckItem, player, n, x, y)
 
     local worldItem, container = deckItem:getWorldItem(), deckItem:getContainer()
     x = x or worldItem and (worldItem:getWorldPosX()-worldItem:getX()) or 0
@@ -243,11 +242,15 @@ function deckActionHandler.dealCards(deckItem, player, n, x, y)
     ---@type IsoGridSquare
     local sq = (worldItem and worldItem:getSquare()) or (gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square)
 
-    deckActionHandler.drawCards(n, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z}, container=container })
+    deckActionHandler._drawCards(n, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z}, container=container })
 end
 
+function deckActionHandler.dealCards(deckItem, player, n, x, y)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._dealCards, deckItem, player, n, x, y}, deckActionHandler.handleDetails)
+end
 
 function deckActionHandler.dealCard(deckItem, player, x, y) deckActionHandler.dealCards(deckItem, player, 1, x, y) end
+
 
 
 function deckActionHandler._drawCardIndex(deckItem, drawIndex)

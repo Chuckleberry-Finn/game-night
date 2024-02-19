@@ -91,9 +91,9 @@ function gamePieceAndBoardHandler.parseTopOfStack(stack)
     return stack.items[1], stack
 end
 
+
 function gamePieceAndBoardHandler.bypassForStacks(stack, player, func, args, source)
     if instanceof(stack, "InventoryItem") then return end
-
     for i=2, #stack.items do
         local item = stack.items[i]
         source[func](item, player, args)
