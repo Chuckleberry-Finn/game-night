@@ -461,13 +461,14 @@ end
 gameNightWindow.cachedActionIcons = {}
 function gameNightWindow.fetchShiftAction(gamePiece)
     --isShiftKeyDown() --isAltKeyDown()
+
     if not isShiftKeyDown() then return end
 
     local specialCase = gamePieceAndBoardHandler.specials[gamePiece:getFullType()]
     local shiftActionID = specialCase and specialCase.shiftAction
 
     local deckStates, flippedStates = deckActionHandler.getDeckStates(gamePiece)
-    if (not specialCase) and deckStates then
+    if (not shiftActionID) and deckStates then
         shiftActionID = (#deckStates <= 1) and "flipCard" or "dealCard"
     end
 
