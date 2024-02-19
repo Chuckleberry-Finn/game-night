@@ -482,6 +482,13 @@ function gameNightWindow.fetchShiftAction(gamePiece)
 end
 
 
+function gameNightWindow:DrawTextureAngle(tex, centerX, centerY, angle, r, g, b, a)
+    if self.javaObject ~= nil then
+        self.javaObject:DrawTextureAngle(tex, centerX, centerY, angle, (r or 1), (g or 1), (b or 1), (a or 1))
+    end
+end
+
+
 function gameNightWindow:render()
     ISPanelJoypad.render(self)
     local movingPiece = self.movingPiece
@@ -538,7 +545,7 @@ function gameNightWindow:render()
         tmpTexture:setHeight(h)
         tmpTexture:setWidth(w)
 
-        self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot)
+        self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot, 1, 1, 1, 0.65)
 
         local selection
         if deckActionHandler.isDeckItem(movingPiece) then
@@ -552,7 +559,7 @@ function gameNightWindow:render()
         if selection then
             gameNightWindow.cachedActionIcons.mergeCards = gameNightWindow.cachedActionIcons.mergeCards or getTexture("media/textures/actionIcons/mergeCards.png")
             local mergeCards = gameNightWindow.cachedActionIcons.mergeCards
-            self:drawTextureScaledUniform(mergeCards, x, y, gameNightWindow.scaleSize, 0.65, 1, 1, 1)
+            self:drawTextureScaledUniform(mergeCards, x, y, gameNightWindow.scaleSize, 0.75, 1, 1, 1)
         else
             local _, shiftActionTexture = gameNightWindow.fetchShiftAction(movingPiece)
             if shiftActionTexture and shiftActionTexture~=true then self:drawTextureScaledUniform(shiftActionTexture, x, y, gameNightWindow.scaleSize, 0.65, 1, 1, 1) end
