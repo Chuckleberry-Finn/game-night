@@ -418,6 +418,11 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     ---@type IsoGridSquare
     local worldItemSq = square or worldItem and worldItem:getSquare()
 
+    if worldItem then
+        worldItem:getModData().gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
+        worldItem:transmitModData()
+    end
+
     local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp)
 
     xOffset = xOffset or x or 0
