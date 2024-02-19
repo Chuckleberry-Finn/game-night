@@ -8,7 +8,7 @@ IGUI_EN = {
     IGUI_searchDeck = "Search"
     IGUI_flipPiece = "Flip",
     IGUI_rollDie = "Roll",
-    IGUI_CardDeck = "Playing Card",
+
     IGUI_take = "Take",
     IGUI_takeMore = "Take %1",
 
@@ -24,4 +24,9 @@ IGUI_EN = {
     IGUI_ItemCat_GameBoard = "Game Board",
     IGUI_ItemCat_GameBox = "Game Box",
     IGUI_ItemCat_Die = "Die",
+
+    IGUI_CardDeck = "Playing Card",
+    IGUI_PlayingCards1 = "Playing Card",
+    IGUI_PlayingCards2 = "Playing Card",
+    IGUI_PlayingCards3 = "Playing Card",
 }

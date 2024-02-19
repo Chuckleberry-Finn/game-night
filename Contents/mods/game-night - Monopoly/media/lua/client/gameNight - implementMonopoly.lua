@@ -82,12 +82,15 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 gamePieceAndBoardHandler.registerTypes({
     "Base.MonopolyBoard", "Base.MonopolyBoat", "Base.MonopolyBoot", "Base.MonopolyCar", "Base.MonopolyDog",
     "Base.MonopolyHat", "Base.MonopolyIron", "Base.MonopolyThimble", "Base.MonopolyWheelbarrow",
-    "Base.MonopolyHouse","Base.MonopolyHotel"
+    "Base.MonopolyHouse","Base.MonopolyHotel",
+
+    "Base.MonopolyMoney1", "Base.MonopolyMoney5", "Base.MonopolyMoney10", "Base.MonopolyMoney20",
+    "Base.MonopolyMoney50", "Base.MonopolyMoney100", "Base.MonopolyMoney500"
 })
 
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoard", {
-    category = "GameBoard", textureSize = {266,266},
+    category = "GameBoard", textureSize = {532,532},
     tooltips = {--used coords in photoshop which treats top-left as 0x0
         { x = 208, y = 228, w = 20, h = 33, text = "Mediterranean Avenue" },
         { x = 166, y = 228, w = 20, h = 33, text = "Baltic Avenue" },
@@ -127,10 +130,10 @@ gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoard", {
         { x = 229, y = 206, w = 32, h = 20, text = "Boardwalk" },
     }
 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", { canStack = 40 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", { canStack = 40 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", { canStack = 40 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney20", { canStack = 50 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney50", { canStack = 30 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney100", { canStack = 20 })
-gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney500", { canStack = 20 })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", { weight = 0.003, canStack = 40, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", { weight = 0.003, canStack = 40, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", { weight = 0.003, canStack = 40, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney20", { weight = 0.003, canStack = 50, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney50", { weight = 0.003, canStack = 30, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney100", { weight = 0.003, canStack = 20, moveSound = "cardFlip" })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney500", { weight = 0.003, canStack = 20, moveSound = "cardFlip" })

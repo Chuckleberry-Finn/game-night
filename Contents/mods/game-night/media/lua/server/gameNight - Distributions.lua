@@ -84,7 +84,11 @@ end
 require "Items/ProceduralDistributions"
 
 gameNightDistro.proceduralDistOverWrite = {}
-gameNightDistro.proceduralDistOverWrite.lists = {"WardrobeChild", "CrateRandomJunk"}
+gameNightDistro.proceduralDistOverWrite.lists = {"WardrobeChild", "CrateRandomJunk",
+
+                                                 "CrateToys","BarCounterMisc","PoliceDesk","OfficeDeskHome",
+                                                 "OfficeDesk","HolidayStuff","Hobbies","GigamartToys","Gifts"}
+
 gameNightDistro.proceduralDistOverWrite.itemToReplacement = {
     ["BackgammonBoard"] = "BackgammonBox",
     ["GamePieceWhite"] = "BackgammonBox",
@@ -97,14 +101,32 @@ gameNightDistro.proceduralDistOverWrite.itemToReplacement = {
     ["CheckerBoard"] = "CheckersBox",
 
     ["PokerChips"] = "PokerBox",
+
+    ["CardDeck"] = {"CardDeck","PlayingCards1","PlayingCards2","PlayingCards3"}
 }
+
 
 function gameNightDistro.overrideProceduralDist()
     for _,contID in pairs(gameNightDistro.proceduralDistOverWrite.lists) do
         for i=1, #ProceduralDistributions.list[contID].items, 2 do
             local itemType = ProceduralDistributions.list[contID].items[i]
             local replacement = gameNightDistro.proceduralDistOverWrite.itemToReplacement[itemType]
-            if replacement then ProceduralDistributions.list[contID].items[i] = replacement end
+            if replacement then
+
+                if type(replacement)=="table" then
+                    local chance = ProceduralDistributions.list[contID].items[i+1]
+                    chance = chance/#replacement
+
+                    ProceduralDistributions.list[contID].items[i] = replacement[1]
+                    ProceduralDistributions.list[contID].items[i+1] = chance
+                    for ii=2, #replacement do
+                        table.insert(ProceduralDistributions.list[contID].items, replacement[ii])
+                        table.insert(ProceduralDistributions.list[contID].items, chance)
+                    end
+                else
+                    ProceduralDistributions.list[contID].items[i] = replacement
+                end
+            end
         end
     end
 end

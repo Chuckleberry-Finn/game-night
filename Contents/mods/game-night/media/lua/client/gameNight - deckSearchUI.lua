@@ -204,7 +204,11 @@ function gameNightDeckSearch:render()
     self.cardDisplay:setStencilRect(0, 0, self.cardDisplay.width, self.cardDisplay.height)
     ISPanel.render(self)
     local cardData, cardFlipStates = deckActionHandler.getDeckStates(self.deck)
+
     local itemType = self.deck:getType()
+    local fullType = self.deck:getFullType()
+    local special = gamePieceAndBoardHandler.specials[fullType]
+    local cardFaceType = special and special.cardFaceType or itemType
 
     local halfPad = math.floor((self.padding/2)+0.5)
     local xOffset, yOffset = halfPad, halfPad
@@ -218,15 +222,21 @@ function gameNightDeckSearch:render()
         if card then
 
             local textureToUse = deckActionHandler.fetchAltIcon(card, self.deck)
-            local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..itemType.."/"..textureToUse..".png"
+
+            local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..cardFaceType.."/"..textureToUse..".png"
             local texture = getTexture(texturePath)
+
+            if not self.cardHeight or not self.cardWidth then
+                self.cardHeight = texture:getHeight()*0.5
+                self.cardWidth = texture:getWidth()*0.5
+            end
 
             if self.cardWidth+xOffset > self.cardDisplay.width+halfPad then
                 xOffset = resetXOffset
                 yOffset = yOffset+self.cardHeight+halfPad
             end
 
-            self.cardDisplay:drawTexture(texture, xOffset, yOffset-(self.scrollY or 0), 1, 1, 1, 1)
+            self.cardDisplay:drawTextureScaledUniform(texture, xOffset, yOffset-(self.scrollY or 0), 0.5, 1, 1, 1, 1)
             if self.dragging or self.draggingOver then
 
                 if self.dragging and self.dragging == n then
@@ -266,6 +276,8 @@ function gameNightDeckSearch:render()
 end
 
 
+local uiInfo = require "gameNight - uiInfo"
+
 function gameNightDeckSearch:initialise()
     ISPanel.initialise(self)
 
@@ -282,6 +294,8 @@ function gameNightDeckSearch:initialise()
     self.close:initialise()
     self.close:instantiate()
     self:addChild(self.close)
+
+    uiInfo.applyToUI(self, self.close.x-16-8, self.close.y, getText("UI_GameNightSearch"))
 
     self.cardDisplay = ISPanelJoypad:new(self.bounds.x1, self.bounds.y1, self.bounds.x2-self.padding, self.bounds.y2-self.close.height-(self.padding*2))
     self.cardDisplay:initialise()
@@ -324,8 +338,8 @@ function gameNightDeckSearch:new(x, y, width, height, player, deckItem)
 
     o.moveWithMouse = true
 
-    o.cardHeight = 48
-    o.cardWidth = 32
+    --o.cardHeight = 48
+    --o.cardWidth = 32
 
     o.width = width
     o.height = height

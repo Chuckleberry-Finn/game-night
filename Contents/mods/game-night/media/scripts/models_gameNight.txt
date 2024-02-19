@@ -23,6 +23,18 @@ module Base
 	model CardDeck { mesh = WorldItems/cardpack, texture = Item_CardDeck/deckTexture, scale = 0.02, }
 	model CardDeckSingle { mesh = WorldItems/card, texture = Item_CardDeck/deckTexture, scale = 0.02, }
 
+    model PlayingCards1 { mesh = WorldItems/cardpack, texture = Item_PlayingCards1/deckTexture, scale = 0.024, }
+    model PlayingCards2 { mesh = WorldItems/cardpack, texture = Item_PlayingCards2/deckTexture, scale = 0.024, }
+    model PlayingCards3 { mesh = WorldItems/cardpack, texture = Item_PlayingCards3/deckTexture, scale = 0.024, }
+
+	model Dice4 { mesh = WorldItems/gameNightCube, texture = modelTextures/dice4, scale = 0.0015, }
+    model Dice6 { mesh = WorldItems/gameNightCube, texture = modelTextures/dice6, scale = 0.0015, }
+    model Dice8 { mesh = WorldItems/gameNightCube, texture = modelTextures/dice8, scale = 0.0015, }
+    model Dice10 { mesh = WorldItems/gameNightCube, texture = modelTextures/dice10, scale = 0.0015, }
+    model Dice12 { mesh = WorldItems/gameNightCube, texture = modelTextures/dice12, scale = 0.0015, }
+    model Dice20 { mesh = WorldItems/gameNightCube, texture = modelTextures/dice20, scale = 0.0015, }
+    model StellaOcta { mesh = WorldItems/gameNightCube, texture = modelTextures/stellaOcta, scale = 0.0015, }
+
 	model BackgammonBoard_Ground
     {
         mesh = WorldItems/BackgammonBoard,

@@ -15,7 +15,10 @@ gamePieceAndBoardHandler.itemTypes = {
     "Base.ChessWhiteKing","Base.ChessBlackKing","Base.ChessWhiteBishop","Base.ChessBlackBishop",
     "Base.ChessWhiteQueen", "Base.ChessBlackQueen", "Base.ChessWhiteRook","Base.ChessBlackRook",
     "Base.ChessWhiteKnight", "Base.ChessBlackKnight",
+
+    "Base.StellaOcta","Base.Dice4", "Base.Dice6", "Base.Dice8", "Base.Dice10", "Base.Dice12", "Base.Dice20",
 }
+
 
 function gamePieceAndBoardHandler.registerTypes(args)
     for _,t in pairs(args) do table.insert(gamePieceAndBoardHandler.itemTypes, t) end
@@ -71,42 +74,45 @@ gamePieceAndBoardHandler.specials = {
     ["Base.PokerChipsGreen"]={ weight = 0.003, canStack=50 },
 }
 
+
+---Because I hate copy pasted code - this iterates through the side values and registers their special actions.
+local sides = {4,6,8,10,12,20}
+for _,side in pairs(sides) do
+    gamePieceAndBoardHandler.registerSpecial("Base.Dice"..side, { addTextureDir = "dice/", actions = { rollDie=side }, shiftAction = "rollDie", })
+end
+
+gamePieceAndBoardHandler.registerSpecial("Base.StellaOcta", { actions = { rollDie=1 }, shiftAction = "rollDie", })
+
+
+
 function gamePieceAndBoardHandler.parseTopOfStack(stack)
     if instanceof(stack, "InventoryItem") then return stack, false end
+    if #stack.items==2 then return stack.items[2], false end
     return stack.items[1], stack
 end
 
-function gamePieceAndBoardHandler.bypassForStacks(stack, player, func, args)
-    if instanceof(stack, "InventoryItem") then return end
 
+function gamePieceAndBoardHandler.bypassForStacks(stack, player, func, args, source)
+    if instanceof(stack, "InventoryItem") then return end
     for i=2, #stack.items do
         local item = stack.items[i]
-        gamePieceAndBoardHandler[func](item, player, args)
+        source[func](item, player, args)
     end
 end
 
 
-function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, item)
-
+function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, item, altSource)
+    altSource = altSource or gamePieceAndBoardHandler
     local gamePiece, pieceStack = gamePieceAndBoardHandler.parseTopOfStack(item)
-
-    --[[
-    local text = ""
-    if pieceStack and pieceStack.items then
-        for k,v in pairs(pieceStack.items) do text = text..k.."="..tostring(v)..", " end
-    end
-    print("piece: ",tostring(gamePiece), "  stack:",tostring(pieceStack), " ",text)
-    --]]
-
     local fullType = gamePiece:getFullType()
     local specialCase = gamePieceAndBoardHandler.specials[fullType]
     if specialCase and specialCase.actions then
         for func,args in pairs(specialCase.actions) do
-            if gamePieceAndBoardHandler[func] then
+            if altSource[func] then
                 if not pieceStack then
-                    context:addOptionOnTop(getText("IGUI_"..func), gamePiece, gamePieceAndBoardHandler[func], player, args)
+                    context:addOptionOnTop(getText("IGUI_"..func), gamePiece, altSource[func], player, args)
                 else
-                    context:addOptionOnTop(getText("IGUI_"..func)..getText("IGUI_SpecialActionAll"), pieceStack, gamePieceAndBoardHandler.bypassForStacks, player, func, args)
+                    context:addOptionOnTop(getText("IGUI_"..func)..getText("IGUI_SpecialActionAll"), pieceStack, gamePieceAndBoardHandler.bypassForStacks, player, func, args, altSource)
                 end
             end
         end
@@ -145,7 +151,7 @@ function gamePieceAndBoardHandler.canUnstackPiece(gamePiece)
 end
 
 
-function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, locations)
+function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, player, locations)
     --sq=sq, offsets={x=wiX,y=wiY,z=wiZ}, container=container
 
     local newPiece = InventoryItemFactory.CreateItem(gamePiece:getType())
@@ -158,8 +164,10 @@ function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, locations)
         ---@type IsoObject|IsoWorldInventoryObject
         local worldItem = locations and locations.worldItem or gamePiece:getWorldItem()
 
-        local wiX = (locations and locations.offsets and locations.offsets.x) or (worldItem and (worldItem:getWorldPosX()-worldItem:getX())) or 0
-        local wiY = (locations and locations.offsets and locations.offsets.y) or (worldItem and (worldItem:getWorldPosY()-worldItem:getY())) or 0
+        local x, y = gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece)
+
+        local wiX = (locations and locations.offsets and locations.offsets.x) or (x) or 0
+        local wiY = (locations and locations.offsets and locations.offsets.y) or (y) or 0
         local wiZ = (locations and locations.offsets and locations.offsets.z) or (worldItem and (worldItem:getWorldPosZ()-worldItem:getZ())) or 0
 
         ---@type IsoGridSquare
@@ -174,6 +182,8 @@ function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, locations)
 
         gamePieceAndBoardHandler.handleDetails(gamePiece)
         gamePieceAndBoardHandler.handleDetails(newPiece)
+        gamePieceAndBoardHandler.refreshInventory(player)
+
         return gamePiece
     end
 end
@@ -201,13 +211,13 @@ function gamePieceAndBoardHandler.generateContextMenuForStacking(context, player
     local stack = gamePiece:getModData()["gameNight_stacked"] and gamePiece:getModData()["gameNight_stacked"]>1 and gamePiece:getModData()["gameNight_stacked"]
     if not stack then return end
 
-    local unStack = context:addOptionOnTop(getText("IGUI_take"), gamePiece, gamePieceAndBoardHandler.unstack, 1)
+    local unStack = context:addOptionOnTop(getText("IGUI_take"), gamePiece, gamePieceAndBoardHandler.unstack, 1, player)
 
     local subDrawMenu = ISContextMenu:getNew(context)
     context:addSubMenu(unStack, subDrawMenu)
 
     for i=1, 25, 5 do if stack >= i then
-        local option = subDrawMenu:addOption(getText("IGUI_takeMore", i), gamePiece, gamePieceAndBoardHandler.unstack, i)
+        local option = subDrawMenu:addOption(getText("IGUI_takeMore", i), gamePiece, gamePieceAndBoardHandler.unstack, i, player)
     end end
 end
 
@@ -217,11 +227,15 @@ function gamePieceAndBoardHandler.applyScriptChanges()
     local scriptManager = getScriptManager()
 
     for _,scriptType in pairs(gamePieceAndBoardHandler.itemTypes) do
+
         local special = gamePieceAndBoardHandler.specials[scriptType]
         local script = scriptManager:getItem(scriptType)
         if script then
+
             local newCategory = special and special.category or "GamePiece"
-            if newCategory then script:DoParam("DisplayCategory = "..newCategory) end
+            if newCategory then
+                script:DoParam("DisplayCategory = "..newCategory)
+            end
 
             local iconPath = "OutOfPlayTextures/"..script:getName()..".png"
             local icon = Texture.trygetTexture("Item_"..iconPath)
@@ -249,8 +263,8 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece, stackInit)
     local special = gamePieceAndBoardHandler.specials[fullType]
     local newCategory = special and special.category or "GamePiece"
     if newCategory then gamePiece:setDisplayCategory(newCategory) end
-    
-    gamePiece:getModData()["gameNight_sound"] = "pieceMove"
+
+    gamePiece:getModData()["gameNight_sound"] = special and special.moveSound or "pieceMove"
 
     local canStack = gamePieceAndBoardHandler.canStackPiece(gamePiece)
     if canStack and not gamePiece:getModData()["gameNight_stacked"] then
@@ -265,11 +279,13 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece, stackInit)
 
     local iconState = gamePiece:getModData()["gameNight_altState"] or gamePiece:getType()
 
-    local texturePath = "Item_InPlayTextures/"..iconState..".png"
+    local additionalTextureDir = special and special.addTextureDir or ""
+
+    local texturePath = "Item_InPlayTextures/"..additionalTextureDir..iconState..".png"
     local texture = Texture.trygetTexture(texturePath)
     if texture then gamePiece:getModData()["gameNight_textureInPlay"] = texture end
 
-    local iconPath = "Item_OutOfPlayTextures/"..iconState..".png"
+    local iconPath = "Item_OutOfPlayTextures/"..additionalTextureDir..iconState..".png"
     local icon = Texture.trygetTexture(iconPath)
     if icon then gamePiece:setTexture(icon) end
 
@@ -323,9 +339,35 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item)
     local pdata = getPlayerData(playerNum)
     if pdata ~= nil then ISInventoryPage.renderDirty = true end
 
-    return true, zPos, xOffset, yOffset
+    return true, xOffset, yOffset, zPos
 end
 
+
+function gamePieceAndBoardHandler.refreshInventory(player)
+    ISInventoryPage.renderDirty = true
+    local playerNum = player:getPlayerNum()
+    local inventory = getPlayerInventory(playerNum)
+    if inventory then inventory:refreshBackpacks() end
+    local loot = getPlayerLoot(playerNum)
+    if loot then loot:refreshBackpacks() end
+end
+
+
+function gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece, offset)
+    local worldItem = gamePiece:getWorldItem()
+    if not worldItem then return 0, 0 end
+    local xOffset = worldItem and worldItem:getWorldPosX()-worldItem:getX() or 0
+    local yOffset = worldItem and worldItem:getWorldPosY()-worldItem:getY() or 0
+
+    offset = offset or 0.02
+
+    xOffset = xOffset+ZombRandFloat(0-offset,offset)
+    yOffset = yOffset+ZombRandFloat(0-offset,offset)
+
+    return xOffset, yOffset
+end
+
+gamePieceAndBoardHandler.coolDown = (isClient() or isServer()) and 750 or 5
 
 ---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
 ---@param item InventoryItem
@@ -354,18 +396,12 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         placedItem:addToWorld()
         placedItem:setIgnoreRemoveSandbox(true)
         placedItem:transmitCompleteItemToServer()
-        placedItem:getModData().gameNightCoolDown = getTimestampMs()+750
+        placedItem:getModData().gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
         placedItem:transmitModData()
 
         itemCont:Remove(item)
 
-        ISInventoryPage.renderDirty = true
-
-        local playerNum = player:getPlayerNum()
-        local inventory = getPlayerInventory(playerNum)
-        if inventory then inventory:refreshBackpacks() end
-        local loot = getPlayerLoot(playerNum)
-        if loot then loot:refreshBackpacks() end
+        gamePieceAndBoardHandler.refreshInventory(player)
     end
 end
 
@@ -384,9 +420,9 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
     local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp)
 
-    zPos = zPos or x or 0
-    xOffset = xOffset or y or 0
-    yOffset = yOffset or z or 0
+    xOffset = xOffset or x or 0
+    yOffset = yOffset or y or 0
+    zPos = zPos or z or 0
 
     if onPickUp and type(onPickUp)=="table" then
         local onCompleteFuncArgs = onPickUp
@@ -422,8 +458,18 @@ function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
 
     local result = ZombRand(sides)+1
     result = result>1 and gamePiece:getType()..result or ""
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
+
+    local x, y = gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece)
+
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result}, nil, x, y)
     gamePieceAndBoardHandler.playSound(gamePiece, player, "dieRoll")
+end
+
+
+function gamePieceAndBoardHandler.rotatePiece(gamePiece, angleChange, player)
+    local current = gamePiece:getModData()["gameNight_rotation"] or 0
+    local state = current + angleChange
+    gamePieceAndBoardHandler.setModDataValue(gamePiece, "gameNight_rotation", state)
 end
 
 

@@ -50,7 +50,7 @@ gamePieceAndBoardHandler.registerTypes({
 ---Register special cases for modifying parts of the item
 --- For example, the board is registered to the game-system above - which turns it into a 'GamePiece'
 --- This `special` case changes the category from `GamePiece` to `GameBoard`.
-gamePieceAndBoardHandler.registerSpecial("Base.CatanBoard", { category = "GameBoard", textureSize = {384,384} })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanBoard", { category = "GameBoard", textureSize = {768,676} })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadWhite", {
     actions = { rotateRoad=true },
@@ -75,18 +75,21 @@ gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", {
 
 ---Define new function under `gamePieceAndBoardHandler`
 function gamePieceAndBoardHandler.rotateRoad(gamePiece, player)
-    local current = gamePiece:getModData()["gameNight_altState"] or gamePiece:getType()
+    local current = gamePiece:getModData()["gameNight_rotation"] or 0
 
-    if current == gamePiece:getType() then
-        current = 2
-    elseif current == gamePiece:getType()..2 then
-        current = 3
-    else
-        current = nil
+    local states = {[0]=45,[45]=90,[90]=135,[135]=180,[180]=225,[225]=270,[270]=315,[315]=0}
+    local state = states[current]
+
+    if not state then
+        local closest = false
+        for id,angle in pairs(states) do
+            if (not closest) or (closest and math.abs(angle-current) < states[closest]) then
+                closest = id
+            end
+        end
+        state = states[closest]
     end
 
-    local state = gamePiece:getType()..(current or "")
-
     gamePieceAndBoardHandler.playSound(gamePiece, player)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", state})
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_rotation", state})
 end

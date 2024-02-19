@@ -1,0 +1,39 @@
+ItemName_RU = {
+
+    ItemName_Base.GamePieceBlack = "Шашка (Чёрная)",
+    ItemName_Base.GamePieceRed = "Шашка (Красная)",
+    ItemName_Base.GamePieceWhite = "Фишка нард (Белая)",
+    ItemName_Base.GamePieceBlackBackgammon = "Фишка нард (Чёрная)",
+
+    ItemName_Base.CheckersBox = "Настольная игра (Шашки)",
+    ItemName_Base.BackgammonBox = "Настольная игра (Нарды)",
+
+    ItemName_Base.ChessWhite = "Шахматная фигура (Пешка, Белая)",
+    ItemName_Base.ChessBlack = "Шахматная фигура (Пешка, Чёрная)",
+    ItemName_Base.ChessWhiteKing = "Шахматная фигура (Король, Белый)",
+    ItemName_Base.ChessBlackKing = "Шахматная фигура (Король, Чёрный)",
+    ItemName_Base.ChessWhiteBishop = "Шахматная фигура (Слон, Белый)",
+    ItemName_Base.ChessBlackBishop = "Шахматная фигура (Слон, Чёрный)",
+    ItemName_Base.ChessWhiteQueen = "Шахматная фигура (Королева, Белая)",
+    ItemName_Base.ChessBlackQueen = "Шахматная фигура (Королева, Чёрная)",
+    ItemName_Base.ChessWhiteRook = "Шахматная фигура (Ладья, Белая)",
+    ItemName_Base.ChessBlackRook = "Шахматная фигура (Ладья, Чёрная)",
+    ItemName_Base.ChessWhiteKnight = "Шахматная фигура (Конь, Белый)",
+    ItemName_Base.ChessBlackKnight = "Шахматная фигура (Конь, Чёрный)",
+
+    ItemName_Base.ChessBox = "Настольная игра (шахматы)",
+
+    ItemName_Base.PokerChips = "Покерная фишка (Красная)",
+    ItemName_Base.PokerChipsBlue = "Покерная фишка (Синяя)",
+    ItemName_Base.PokerChipsGreen = "Покерная фишка (Зелёная)",
+    ItemName_Base.PokerChipsPurple = "Покерная фишка (Фиолетовая)",
+    ItemName_Base.PokerChipsYellow = "Покерная фишка (Жёлтая)",
+    ItemName_Base.PokerChipsOrange = "Покерная фишка (Оранжевая)",
+    ItemName_Base.PokerChipsWhite = "Покерная фишка (Белая)",
+    ItemName_Base.PokerChipsBlack = "Покерная фишка (Чёрная)",
+
+    ItemName_Base.PokerBox = "Настольная игра (Покер)",
+
+    ItemName_Base.Dice = "Кость",
+    ItemName_Base.DiceWhite = "Кость (Белая)",
+}

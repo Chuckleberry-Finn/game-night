@@ -5,6 +5,10 @@ ItemName_EN = {
     ItemName_Base.GamePieceWhite = "White Backgammon Piece",
     ItemName_Base.GamePieceBlackBackgammon = "Black Backgammon Piece",
 
+    ItemName_Base.PlayingCards1 = "Playing Cards",
+    ItemName_Base.PlayingCards2 = "Playing Cards",
+    ItemName_Base.PlayingCards3 = "Playing Cards",
+
     ItemName_Base.CheckersBox = "Checkers Box",
     ItemName_Base.BackgammonBox = "Backgammon Box",
 

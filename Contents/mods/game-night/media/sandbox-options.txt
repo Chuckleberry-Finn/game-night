@@ -2,3 +2,6 @@ VERSION = 1,
 
 option GameNight.DisplayItemNames
 {type = boolean, default = true, page = GameNight, translation = GameNight_DisplayItemNames,}
+
+option GameNight.DisplayPlayerCursors
+{type = boolean, default = true, page = GameNight, translation = GameNight_DisplayPlayerCursors,}

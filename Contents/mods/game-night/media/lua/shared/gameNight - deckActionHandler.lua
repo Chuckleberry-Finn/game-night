@@ -3,7 +3,7 @@ require "gameNight - window"
 
 local deckActionHandler = {}
 
-deckActionHandler.staticDeckActions = {dealCard=true}
+deckActionHandler.staticDeckActions = {dealCard=true, dealCards=true}
 
 function deckActionHandler.isDeckItem(deckItem)
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
@@ -41,6 +41,7 @@ function deckActionHandler.handleDetails(deckItem)
 
     if #deckStates <= 0 then return end
     local itemType = deckItem:getType()
+    local fullType = deckItem:getFullType()
 
     deckItem:setActualWeight(deckActionHandler.cardWeight*#deckStates)
     deckItem:getTags():add("gameNight")
@@ -64,8 +65,11 @@ function deckActionHandler.handleDetails(deckItem)
         local nameOfCard = deckActionHandler.fetchAltName(cardName, deckItem)
         deckItem:setName(nameOfCard..name_suffix)
 
+        local special = gamePieceAndBoardHandler.specials[fullType]
+        local cardFaceType = special and special.cardFaceType or itemType
+
         local textureToUse = deckActionHandler.fetchAltIcon(cardName, deckItem)
-        texture = getTexture("media/textures/Item_"..itemType.."/"..textureToUse..".png")
+        texture = getTexture("media/textures/Item_"..cardFaceType.."/"..textureToUse..".png")
 
         deckItem:getModData()["gameNight_textureInPlay"] = texture
 
@@ -75,7 +79,9 @@ function deckActionHandler.handleDetails(deckItem)
         local tooltip = getTextOrNull("Tooltip_"..itemType)
         if tooltip then deckItem:setTooltip(tooltip) end
 
-        deckItem:setName(getItemNameFromFullType(deckItem:getFullType())..name_suffix)
+        local itemName = #deckStates<=1 and getTextOrNull("IGUI_"..deckItem:getType()) or getItemNameFromFullType(deckItem:getFullType())
+        deckItem:setName(itemName..name_suffix)
+
         texture = getTexture("media/textures/Item_"..itemType.."/"..textureID..".png")
         deckItem:getModData()["gameNight_textureInPlay"] = getTexture("media/textures/Item_"..itemType.."/FlippedInPlay.png")
     end
@@ -113,6 +119,13 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
 
         deckActionHandler.handleDetails(deckItem)
         deckActionHandler.handleDetails(newCard)
+
+        local newCardWorldItem = newCard:getWorldItem()
+        if newCardWorldItem then
+            newCardWorldItem:getModData().gameNightCoolDown = getTimestampMs()+750
+            newCardWorldItem:transmitModData()
+        end
+        
         return newCard
     end
 end
@@ -153,6 +166,8 @@ end
 
 
 function deckActionHandler._mergeDecks(deckItemA, deckItemB, index, player)
+    if  deckItemA:getType() ~= deckItemB:getType() then return end
+
     local deckB, flippedB = deckActionHandler.getDeckStates(deckItemB)
     if not deckB then return end
 
@@ -171,6 +186,7 @@ end
 ---@param deckItemA InventoryItem
 ---@param deckItemB InventoryItem
 function deckActionHandler.mergeDecks(deckItemA, deckItemB, player, index)
+    if  deckItemA:getType() ~= deckItemB:getType() then return end
     gamePieceAndBoardHandler.pickupGamePiece(player, deckItemA, true)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB, index, player}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItemB, player)
@@ -193,10 +209,15 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
         table.insert(drawnFlippedStates, drawnFlip)
     end
 
+    local fullType = deckItem:getFullType()
+    local special = gamePieceAndBoardHandler.specials[fullType]
+    local onDraw = special and special.onDraw
+
     local newCards = {}
     for n,card in pairs(drawnCards) do
         gamePieceAndBoardHandler.playSound(deckItem, player)
         local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n], locations)
+        if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard) end
         table.insert(newCards, newCard)
     end
 
@@ -209,11 +230,10 @@ function deckActionHandler.drawCards(num, deckItem, player, locations)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player, locations}, deckActionHandler.handleDetails)
 end
 
-
 function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(1, deckItem, player) end
 
 
-function deckActionHandler.dealCard(deckItem, player, x, y)
+function deckActionHandler._dealCards(deckItem, player, n, x, y)
 
     local worldItem, container = deckItem:getWorldItem(), deckItem:getContainer()
     x = x or worldItem and (worldItem:getWorldPosX()-worldItem:getX()) or 0
@@ -222,8 +242,16 @@ function deckActionHandler.dealCard(deckItem, player, x, y)
     ---@type IsoGridSquare
     local sq = (worldItem and worldItem:getSquare()) or (gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square)
 
-    deckActionHandler.drawCards(1, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z}, container=container })
+    deckActionHandler._drawCards(n, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z}, container=container })
 end
+
+function deckActionHandler.dealCards(deckItem, player, n, x, y)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._dealCards, deckItem, player, n, x, y}, deckActionHandler.handleDetails)
+end
+
+function deckActionHandler.dealCard(deckItem, player, x, y) deckActionHandler.dealCards(deckItem, player, 1, x, y) end
+
+
 
 function deckActionHandler._drawCardIndex(deckItem, drawIndex)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)

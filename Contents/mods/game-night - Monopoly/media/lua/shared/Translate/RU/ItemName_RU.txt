@@ -1,0 +1,6 @@
+ItemName_RU = {
+
+    ItemName_Base.MonopolyChance = "Монополия (Шанс)"
+    ItemName_Base.MonopolyCommunityChest = "Монополия (Сундук сообщества)"
+    ItemName_Base.MonopolyDeed = "Монополия (Вклад)"
+}

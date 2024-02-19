@@ -1,0 +1,29 @@
+ItemName_RU = {
+
+    ItemName_Base.CatanBoard = "Комплект для Катан (Доска Катан)"
+    ItemName_Base.CatanBox = "Настольная игра (Катан)",
+    ItemName_Base.CatanResourceCard = "Комплект для Катан (Карта Ресурсов)"
+    ItemName_Base.CatanDevelopmentCard = "Комплект для Катан (Карта Развития)"
+
+    ItemName_Base.CatanRobber = "Комплект для Катан (Фишка Грабителя)"
+    ItemName_Base.CatanPlayerCosts = "Комплект для Катан (Затраты Игрока)"
+
+    ItemName_Base.CatanLongestRoad = "Комплект для Катан (Самая Длинная Дорога)"
+    ItemName_Base.CatanLargestArmy = "Комплект для Катан (Самая Большая Армия)"
+
+    ItemName_Base.CatanWood = "Комплект для Катан (Древесный Ресурс)"
+    ItemName_Base.CatanBrick = "Комплект для Катан (Кирпичный Ресурс)"
+    ItemName_Base.CatanWheat = "Комплект для Катан (Зерновой Ресурс)"
+    ItemName_Base.CatanSheep = "Комплект для Катан (Овечий Ресурс)"
+    ItemName_Base.CatanStone = "Комплект для Катан (Каменный Ресурс)"
+
+    ItemName_Base.CatanKnight = "Комплект для Катан (Рыцарь)"
+    ItemName_Base.CatanMonopoly = "Комплект для Катан (Монополия)"
+    ItemName_Base.CatanYearOfPlenty = "Комплект для Катан (Год Изобилия)"
+    ItemName_Base.CatanRoadBuilding = "Комплект для Катан (Строительство Дороги)"
+    ItemName_Base.CatanPalace = "Комплект для Катан (Дворец)"
+    ItemName_Base.CatanMarket = "Комплект для Катан (Рынок)"
+    ItemName_Base.CatanUniversity = "Комплект для Катан (Университет)"
+    ItemName_Base.CatanChapel = "Комплект для Катан (Часовня)"
+    ItemName_Base.CatanLibrary = "Комплект для Катан (Библиотека)"
+}
