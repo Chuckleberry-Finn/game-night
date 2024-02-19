@@ -27,3 +27,7 @@
 - Added cool-down setter when picking pieces up.
 - Added new `dealCards` function.
 [ ------ ]
+
+[ 2/20/24 ]
+- Invisible characters don't show cursors.
+[ ------ ]
