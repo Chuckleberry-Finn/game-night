@@ -304,6 +304,8 @@ function gameNightWindow:onMouseDown(x, y)
             local inUse = worldItem:getModData().gameNightInUse
             local userUsing = inUse and getPlayerFromUsername(inUse)
             local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
+
+            if inUse and not coolDown then inUse = false end
             if coolDown or userUsing then self:clearMovingPiece() return end
 
             if worldItem then
@@ -609,6 +611,7 @@ function gameNightWindow:labelWithName(element)
             if needsClear then
                 worldItem:getModData().gameNightInUse = nil
                 worldItem:transmitModData()
+                inUse = false
             end
             
             local wrongUser = (inUse and inUse~=self.player:getUsername())
