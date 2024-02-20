@@ -28,6 +28,7 @@
 - Added new `dealCards` function.
 [ ------ ]
 
-[ 2/20/24 ]
+[ 2/19/24 #2 ]
 - Invisible characters don't show cursors.
+- Flip inUse when invalid
 [ ------ ]
