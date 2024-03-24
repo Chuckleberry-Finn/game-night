@@ -37,4 +37,5 @@
 - Added specials overrides for category and name for cards. (for Pogs)
 - Improved internals to the action mechanics. (Better MP syncing)
 - Tweaked Monopoly naming conventions.
+- Allow cards to generateContextMenuFromSpecialActions.
 [ ------ ]
