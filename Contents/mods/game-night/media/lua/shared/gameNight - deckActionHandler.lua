@@ -25,7 +25,7 @@ end
 
 function deckActionHandler.fetchAltName(cardName, deckItem)
     local altName = deckItem:getModData()["gameNight_cardAltNames"] and deckItem:getModData()["gameNight_cardAltNames"][cardName]
-    return ((altName and getItemNameFromFullType(altName)) or cardName)
+    return ((altName and (getTextOrNull("IGUI_"..altName) or altName)) or cardName)
 end
 
 function deckActionHandler.fetchAltIcon(cardName, deckItem)
@@ -49,9 +49,11 @@ function deckActionHandler.handleDetails(deckItem)
     ---@type Texture
     local texture
 
-    local category = #deckStates>1 and "Deck" or "Card"
+    local special = gamePieceAndBoardHandler.specials[fullType]
+    local category = special and special.category or (#deckStates>1 and "Deck" or "Card")
     deckItem:setDisplayCategory(category)
-    deckItem:getModData()["gameNight_sound"] = "cardFlip"
+
+    deckItem:getModData()["gameNight_sound"] = special and special.moveSound or "cardFlip"
 
     local name_suffix = #deckStates>1 and " ["..#deckStates.."]" or ""
 
@@ -65,7 +67,6 @@ function deckActionHandler.handleDetails(deckItem)
         local nameOfCard = deckActionHandler.fetchAltName(cardName, deckItem)
         deckItem:setName(nameOfCard..name_suffix)
 
-        local special = gamePieceAndBoardHandler.specials[fullType]
         local cardFaceType = special and special.cardFaceType or itemType
 
         local textureToUse = deckActionHandler.fetchAltIcon(cardName, deckItem)

@@ -32,3 +32,9 @@
 - Invisible characters don't show cursors.
 - Flip inUse when invalid
 [ ------ ]
+
+[ 3/24/2024 ]
+- Added specials overrides for category and name for cards. (for Pogs)
+- Improved internals to the action mechanics. (Better MP syncing)
+- Tweaked Monopoly naming conventions.
+[ ------ ]

@@ -304,6 +304,7 @@ function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value)
     gamePiece:getModData()[key] = value
 end
 
+---@param item InventoryItem
 function gamePieceAndBoardHandler.pickupGamePiece(player, item)
 
     ---@type IsoWorldInventoryObject|IsoObject
@@ -332,14 +333,24 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item)
 
     ---@type ItemContainer
     local playerInv = player:getInventory()
-    playerInv:setDrawDirty(true)
-    playerInv:AddItem(item)
+    local itemContainer = item:getContainer()
+    local pickedUp = false
+    if not worldItem and itemContainer ~= playerInv then
 
-    local playerNum = player:getPlayerNum()
-    local pdata = getPlayerData(playerNum)
-    if pdata ~= nil then ISInventoryPage.renderDirty = true end
+        if isClient() and not itemContainer:isInCharacterInventory(player) and itemContainer:getType()~="floor" then itemContainer:removeItemOnServer(item) end
+        itemContainer:DoRemoveItem(item)
+        itemContainer:setDrawDirty(true)
 
-    return true, xOffset, yOffset, zPos
+        playerInv:setDrawDirty(true)
+        playerInv:AddItem(item)
+        pickedUp = true
+
+        local playerNum = player:getPlayerNum()
+        local pdata = getPlayerData(playerNum)
+        if pdata ~= nil then ISInventoryPage.renderDirty = true end
+    end
+
+    return pickedUp, xOffset, yOffset, zPos
 end
 
 
