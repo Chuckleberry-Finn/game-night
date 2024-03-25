@@ -25,7 +25,7 @@ end
 
 function deckActionHandler.fetchAltName(cardName, deckItem)
     local altName = deckItem:getModData()["gameNight_cardAltNames"] and deckItem:getModData()["gameNight_cardAltNames"][cardName]
-    return ((altName and getItemNameFromFullType(altName)) or cardName)
+    return ((altName and (getTextOrNull("IGUI_"..altName) or altName)) or cardName)
 end
 
 function deckActionHandler.fetchAltIcon(cardName, deckItem)
