@@ -226,11 +226,26 @@ function gameNightDeckSearch:render()
             local textureToUse = deckActionHandler.fetchAltIcon(card, self.deck)
 
             local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..cardFaceType.."/"..textureToUse..".png"
-            local texture = getTexture(texturePath)
+            local origTexture = getTexture(texturePath)
+
+            local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
+            local specialTextureSize = specialCase and specialCase.textureSize
+
+            local w = specialTextureSize and specialTextureSize[1] or origTexture:getWidth()
+            local h = specialTextureSize and specialTextureSize[2] or origTexture:getHeight()
+
+            local tmpTexture = w and h and Texture.new(origTexture)
+            if tmpTexture then
+                tmpTexture:setHeight(h)
+                tmpTexture:setWidth(w)
+            end
+            
+            local texture = tmpTexture or origTexture
 
             if not self.cardHeight or not self.cardWidth then
-                self.cardHeight = texture:getHeight()*0.5
-                self.cardWidth = texture:getWidth()*0.5
+
+                self.cardHeight = w*0.5
+                self.cardWidth = h*0.5
             end
 
             if self.cardWidth+xOffset > self.cardDisplay.width+halfPad then
