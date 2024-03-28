@@ -16,6 +16,24 @@ function applyItemDetails.addDeck(name, cards, altNames, altIcons)
     end
 end
 
+function applyItemDetails.applyCardsFromDeck(item, deck)
+
+    item:getModData()["gameNight_cardDeck"] = item:getModData()["gameNight_cardDeck"] or copyTable(deck)
+
+    if applyItemDetails.altDetails[itemType] then
+        item:getModData()["gameNight_cardAltNames"] = applyItemDetails.altDetails[itemType].altNames
+        item:getModData()["gameNight_cardAltIcons"] = applyItemDetails.altDetails[itemType].altIcons
+    end
+
+    local flippedStates = item:getModData()["gameNight_cardFlipped"]
+    if not flippedStates then
+        item:getModData()["gameNight_cardFlipped"] = {}
+        for i=1, #deck do
+            item:getModData()["gameNight_cardFlipped"][i] = true
+        end
+    end
+end
+
 
 applyItemDetails.parsedItems = {}
 function applyItemDetails.applyGameNightToItem(item, stackInit)
@@ -26,32 +44,26 @@ function applyItemDetails.applyGameNightToItem(item, stackInit)
     if (not applyItemDetails.parsedItems[item]) then
 
         applyItemDetails.parsedItems[item] = true
-        
+
         if not gamePieceAndBoardHandler._itemTypes then gamePieceAndBoardHandler.generate_itemTypes() end
 
         gamePiece = gamePieceAndBoardHandler.isGamePiece(item)
         if gamePiece then gamePieceAndBoardHandler.handleDetails(item, stackInit) end
 
         local itemType = item:getType()
+        local fullType = item:getFullType()
 
         deck = applyItemDetails.deckCatalogues[itemType]
         if deck then
             if deck then
-                item:getModData()["gameNight_cardDeck"] = item:getModData()["gameNight_cardDeck"] or copyTable(deck)
-
-                if applyItemDetails.altDetails[itemType] then
-                    item:getModData()["gameNight_cardAltNames"] = applyItemDetails.altDetails[itemType].altNames
-                    item:getModData()["gameNight_cardAltIcons"] = applyItemDetails.altDetails[itemType].altIcons
+                local specialCase = gamePieceAndBoardHandler.specials[fullType]
+                if specialCase and specialCase.applyCards then
+                    applyItemDetails[specialCase.applyCards](item, deck)
+                else
+                    applyItemDetails.applyCardsFromDeck(item, deck)
                 end
 
-                local flippedStates = item:getModData()["gameNight_cardFlipped"]
-                if not flippedStates then
-                    item:getModData()["gameNight_cardFlipped"] = {}
-                    for i=1, #deck do
-                        item:getModData()["gameNight_cardFlipped"][i] = true
-                    end
-                end
-                    deckActionHandler.handleDetails(item)
+                deckActionHandler.handleDetails(item)
             end
         end
     end
