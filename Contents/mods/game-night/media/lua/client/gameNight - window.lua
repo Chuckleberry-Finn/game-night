@@ -1,6 +1,11 @@
 require "ISUI/ISPanelJoypad"
-local deckActionHandler = require "gameNight - deckActionHandler"
-local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
+
+local applyItemDetails = require "gameNight - applyItemDetails"
+local deckActionHandler = applyItemDetails.deckActionHandler
+local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
+
+local uiInfo = require "gameNight - uiInfo"
+local cursorHandler = isClient() and require "gameNight - cursorHandler"
 
 ---@class gameNightWindow : ISPanelJoypad
 gameNightWindow = ISPanelJoypad:derive("gameNightWindow")
@@ -61,7 +66,7 @@ function gameNightWindow:update()
     end
 end
 
-local uiInfo = require "gameNight - uiInfo"
+
 
 function gameNightWindow:initialise()
     ISPanelJoypad.initialise(self)
@@ -410,7 +415,6 @@ function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
 end
 
 
-local applyItemDetails = require "gameNight - applyItemDetails"
 ---@param item IsoObject|InventoryItem
 ---@param object IsoObject|IsoWorldInventoryObject
 function gameNightWindow:generateElement(item, object, priority)
@@ -575,6 +579,9 @@ function gameNightWindow:render()
             local _, texture = gameNightWindow.fetchShiftAction(mouseOver.item)
             if texture and texture~=true then self:drawTextureScaledUniform(texture, mouseOver.x, mouseOver.y, gameNightWindow.scaleSize, 0.75, 1, 1, 1) end
         end
+
+        local gW = gameNightCardExamine and gameNightCardExamine.instance
+        if gW and (not gW.throughContext) and ((not mouseOver) or mouseOver.item ~= gW.deck) then gW:closeAndRemove() end
     end
 end
 
@@ -583,14 +590,18 @@ function gameNightWindow:labelWithName(element)
     local sandbox = SandboxVars.GameNight.DisplayItemNames
     if sandbox and (not self.movingPiece) then
 
+        ---special tooltips
+        local fullType = element.item:getFullType()
+        local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
+
+        if specialCase and specialCase.actions and specialCase.actions.examineCard and (gameNightCardExamine and (not gameNightCardExamine.instance)) then
+            if deckActionHandler.isDeckItem(element.item) then gameNightCardExamine.open(self.player, element.item, false, nil, gameNightWindow) end
+        end
+
         local nameTag = (element.item and element.item:getName())
         if nameTag then
 
             local mX, mY = self:getMouseX(), self:getMouseY()
-
-            ---special tooltips
-            local fullType = element.item:getFullType()
-            local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
             local tooltips = specialCase and specialCase.tooltips
             if tooltips then
                 local tX, tY = mX-element.x, mY-element.y
@@ -643,7 +654,7 @@ function gameNightWindow:closeAndRemove()
 end
 
 
-local cursorHandler = isClient() and require "gameNight - cursorHandler"
+
 function gameNightWindow.open(worldObjects, player, square)
 
     if gameNightWindow.instance then gameNightWindow.instance:closeAndRemove() end

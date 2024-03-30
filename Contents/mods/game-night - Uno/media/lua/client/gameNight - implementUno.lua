@@ -1,7 +1,7 @@
 --- For anyone looking to make a sub-mod:
 
 ---First require this file so that the deck-cataloger can be called on.
-local applyItemDetails = require "gameNight - applyItemDetails"
+local deckActionHandler = require "gameNight - deckActionHandler"
 
 --- DEFINING A `CARDS` TABLE/LIST
 -- Technically you just need a table of strings corresponding to textures/names for items.
@@ -50,4 +50,4 @@ end
     -- `deck` for inventory icon for deck.
     -- `deckTexture` for model(s) texture.
     -- Otherwise the texture name will reflect `name` for each card.
-applyItemDetails.addDeck("UnoCards", unoCards.cards)
+deckActionHandler.addDeck("UnoCards", unoCards.cards)

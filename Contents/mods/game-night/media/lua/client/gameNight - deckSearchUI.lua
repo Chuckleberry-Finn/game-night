@@ -1,14 +1,19 @@
 require "ISUI/ISPanel"
 require "ISUI/ISPanelJoypad"
 require "gameNight - window"
-local deckActionHandler = require "gameNight - deckActionHandler"
-local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
+
+local applyItemDetails = require "gameNight - applyItemDetails"
+local deckActionHandler = applyItemDetails.deckActionHandler
+local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
+
+local uiInfo = require "gameNight - uiInfo"
 
 ---@class gameNightDeckSearch : ISPanel
 gameNightDeckSearch = ISPanel:derive("gameNightDeckSearch")
 
 
 function gameNightDeckSearch:closeAndRemove()
+    gameNightDeckSearch.instance = nil
     self:setVisible(false)
     self:removeFromUIManager()
 end
@@ -282,6 +287,10 @@ function gameNightDeckSearch:render()
         local mouseX, mouseY = self.cardDisplay:getMouseX(), self.cardDisplay:getMouseY()
         local selected, _ = self:getCardAtXY(mouseX, mouseY)
         local sandbox = SandboxVars.GameNight.DisplayItemNames
+
+        local gW = gameNightCardExamine and gameNightCardExamine.instance
+        if gW and (not gW.throughContext) and ((not selected) or (not gW.index) or (gW.index ~= selected)) then gW:closeAndRemove() end
+
         if sandbox and selected and selected>0 then
             local card = cardData[selected]
             local flipped = cardFlipStates[selected]
@@ -293,13 +302,18 @@ function gameNightDeckSearch:render()
                 self.cardDisplay:drawRect(mouseX+(cardNameW/3), mouseY-cardNameH, cardNameW, cardNameH, 0.7, 0, 0, 0)
                 self.cardDisplay:drawTextCentre(cardName, mouseX+(cardNameW*0.833), mouseY-cardNameH, 1, 1, 1, 0.7, UIFont.NewSmall)
             end
+
+            if specialCase and specialCase.actions and specialCase.actions.examineCard and (gameNightCardExamine and (not gameNightCardExamine.instance)) then
+                if deckActionHandler.isDeckItem(self.deck) then gameNightCardExamine.open(self.player, self.deck, false, selected, gameNightDeckSearch) end
+            end
         end
+    else
+        local gW = gameNightCardExamine and gameNightCardExamine.instance
+        if gW and (not gW.throughContext) then gW:closeAndRemove() end
     end
 
 end
 
-
-local uiInfo = require "gameNight - uiInfo"
 
 function gameNightDeckSearch:initialise()
     ISPanel.initialise(self)

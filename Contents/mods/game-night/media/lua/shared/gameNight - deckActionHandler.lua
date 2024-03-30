@@ -1,9 +1,44 @@
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
-require "gameNight - window"
+--require "gameNight - deckSearchUI"
+--require "gameNight - window"
 
 local deckActionHandler = {}
-
 deckActionHandler.staticDeckActions = {dealCard=true, dealCards=true}
+
+
+deckActionHandler.deckCatalogues = {}
+deckActionHandler.altDetails = {} --altNames, altIcons
+
+function deckActionHandler.addDeck(itemType, cardIcons, altNames, altIcons)
+    deckActionHandler.deckCatalogues[itemType] = cardIcons
+
+    if altNames or altIcons then
+        deckActionHandler.altDetails[itemType] = {}
+        if altNames then deckActionHandler.altDetails[itemType].altNames = altNames end
+        if altIcons then deckActionHandler.altDetails[itemType].altIcons = altIcons end
+    end
+end
+
+
+function deckActionHandler.fetchAltName(card, deckItem)
+    local itemType = deckItem:getType()
+    if not deckActionHandler.altDetails[itemType] then return card end
+    local altNames = deckActionHandler.altDetails[itemType].altNames
+
+    local altName = altNames and altNames[card]
+    return ((altName and (getTextOrNull("IGUI_"..altName) or altName)) or card)
+end
+
+
+function deckActionHandler.fetchAltIcon(card, deckItem)
+    local itemType = deckItem:getType()
+    if not deckActionHandler.altDetails[itemType] then return card end
+    local altIcons = deckActionHandler.altDetails[itemType].altIcons
+
+    local altIcon = altIcons and altIcons[card] or card
+    return altIcon
+end
+
 
 function deckActionHandler.isDeckItem(deckItem)
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
@@ -20,16 +55,6 @@ function deckActionHandler.getDeckStates(deckItem)
     local cardFlipStates = deckItem:getModData()["gameNight_cardFlipped"]
 
     return deckData, cardFlipStates
-end
-
-
-function deckActionHandler.fetchAltName(cardName, deckItem)
-    local altName = deckItem:getModData()["gameNight_cardAltNames"] and deckItem:getModData()["gameNight_cardAltNames"][cardName]
-    return ((altName and (getTextOrNull("IGUI_"..altName) or altName)) or cardName)
-end
-
-function deckActionHandler.fetchAltIcon(cardName, deckItem)
-    return (deckItem:getModData()["gameNight_cardAltIcons"] and deckItem:getModData()["gameNight_cardAltIcons"][cardName] or cardName)
 end
 
 
@@ -311,15 +336,17 @@ function deckActionHandler.shuffleCards(deckItem, player)
 end
 
 
-require "gameNight - deckSearchUI"
 function deckActionHandler._searchDeck(deckItem, player)
-   -- local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
-   -- if not deckStates then return end
     if deckActionHandler.isDeckItem(deckItem) then gameNightDeckSearch.open(player, deckItem) end
 end
 function deckActionHandler.searchDeck(deckItem, player)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._searchDeck, deckItem, player}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
+end
+
+
+function deckActionHandler.examineCard(deckItem, player, index)
+    if deckActionHandler.isDeckItem(deckItem) then gameNightCardExamine.open(player, deckItem, true, index) end
 end
 
 

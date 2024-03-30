@@ -2,7 +2,7 @@
 --- ! SEE: `gameNight - implementUno` for a simpler example on adding decks.
 --- CATAN includes 'game pieces' rather than *just* cards - scroll to the bottom for more info on those.
 
-local applyItemDetails = require "gameNight - applyItemDetails"
+local deckActionHandler = require "gameNight - deckActionHandler"
 
 -- CARDS
 --- CATAN RESOURCES DECK
@@ -11,7 +11,7 @@ CatanResourceDeck.types = {"Brick","Stone","Wood","Wheat","Sheep"}
 CatanResourceDeck.cards = {}
 
 for _,s in pairs(CatanResourceDeck.types) do for i=1, 19 do table.insert(CatanResourceDeck.cards, s) end end
-applyItemDetails.addDeck("CatanResourceDeck", CatanResourceDeck.cards)
+deckActionHandler.addDeck("CatanResourceDeck", CatanResourceDeck.cards)
 
 --- CATAN DEVELOPMENTS DECK
 local CatanDevelopmentDeck = {}
@@ -29,7 +29,7 @@ for i,s in pairs(CatanDevelopmentDeck.types) do
         table.insert(CatanDevelopmentDeck.cards, s)
     end
 end
-applyItemDetails.addDeck("CatanDevelopmentDeck", CatanDevelopmentDeck.cards)
+deckActionHandler.addDeck("CatanDevelopmentDeck", CatanDevelopmentDeck.cards)
 
 
 -- GAME PIECES / GAME BOARD

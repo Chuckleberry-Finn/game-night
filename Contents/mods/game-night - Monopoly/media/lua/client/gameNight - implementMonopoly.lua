@@ -2,7 +2,7 @@
 --- ! SEE: `gameNight - implementUno` for a simpler example on adding decks.
 --- MONOPOLY includes 'alternative' names/icons for cards that will either have the same name or look the same but operate differently.
 
-local applyItemDetails = require "gameNight - applyItemDetails"
+local deckActionHandler = require "gameNight - deckActionHandler"
 
 --- MONOPOLY DEED DECK
 local MonopolyDeedDeck = {}
@@ -30,7 +30,7 @@ for set,cards in pairs(MonopolyDeedDeck.set) do
     end
 end
 
-applyItemDetails.addDeck("MonopolyDeed", MonopolyDeedDeck.cards, nil, MonopolyDeedDeck.altIcons)
+deckActionHandler.addDeck("MonopolyDeed", MonopolyDeedDeck.cards, nil, MonopolyDeedDeck.altIcons)
 
 
 ---Money
@@ -55,7 +55,7 @@ for n=1, 25 do
     end
 end
 
-applyItemDetails.addDeck("MonopolyChance", MonopolyChanceDeck.cards, MonopolyChanceDeck.altNames, MonopolyChanceDeck.altIcons)
+deckActionHandler.addDeck("MonopolyChance", MonopolyChanceDeck.cards, MonopolyChanceDeck.altNames, MonopolyChanceDeck.altIcons)
 
 
 ---Community Chest
@@ -74,7 +74,7 @@ for n=1, 25 do
     end
 end
 
-applyItemDetails.addDeck("MonopolyCommunityChest", MonopolyCommunityChestDeck.cards, MonopolyCommunityChestDeck.altNames, MonopolyCommunityChestDeck.altIcons)
+deckActionHandler.addDeck("MonopolyCommunityChest", MonopolyCommunityChestDeck.cards, MonopolyCommunityChestDeck.altNames, MonopolyCommunityChestDeck.altIcons)
 
 
 ---REGISTER GAME PIECES AND BOARD -- SEE CATAN IMPLEMENTATION FOR MORE INFO

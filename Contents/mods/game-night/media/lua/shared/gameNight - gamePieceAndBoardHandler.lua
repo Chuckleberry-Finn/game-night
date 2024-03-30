@@ -101,6 +101,7 @@ function gamePieceAndBoardHandler.bypassForStacks(stack, player, func, args, sou
 end
 
 
+gamePieceAndBoardHandler.specialContextIcons = {}
 function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, player, item, altSource)
     altSource = altSource or gamePieceAndBoardHandler
     local gamePiece, pieceStack = gamePieceAndBoardHandler.parseTopOfStack(item)
@@ -109,10 +110,20 @@ function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context,
     if specialCase and specialCase.actions then
         for func,args in pairs(specialCase.actions) do
             if altSource[func] then
+                local option
                 if not pieceStack then
-                    context:addOptionOnTop(getText("IGUI_"..func), gamePiece, altSource[func], player, args)
+                    option = context:addOptionOnTop(getText("IGUI_"..func), gamePiece, altSource[func], player, args)
+
                 else
-                    context:addOptionOnTop(getText("IGUI_"..func)..getText("IGUI_SpecialActionAll"), pieceStack, gamePieceAndBoardHandler.bypassForStacks, player, func, args, altSource)
+                    option = context:addOptionOnTop(getText("IGUI_"..func)..getText("IGUI_SpecialActionAll"), pieceStack, gamePieceAndBoardHandler.bypassForStacks, player, func, args, altSource)
+                end
+                if option then
+                    local ico = gamePieceAndBoardHandler.specialContextIcons[func]
+                    if not ico then
+                        ico = getTexture("media/textures/actionIcons/"..func..".png")
+                        gamePieceAndBoardHandler.specialContextIcons[func] = ico
+                    end
+                    if ico then option.iconTexture = ico end
                 end
             end
         end

@@ -1,8 +1,8 @@
 require "ISUI/ISInventoryPaneContextMenu"
 local applyItemDetails = require "gameNight - applyItemDetails"
-local deckActionHandler = require "gameNight - deckActionHandler"
-local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
-require "gameNight - window"
+local deckActionHandler = applyItemDetails.deckActionHandler
+local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
+--require "gameNight - window"
 
 local gamePieceContext = {}
 
@@ -14,7 +14,6 @@ gamePieceContext.gameNightContextMenuIcon = {
     search=getTexture("media/textures/actionIcons/searchCards.png"),
     flip=getTexture("media/textures/actionIcons/flipCard.png"),
 }
-
 
 ---@param context ISContextMenu
 function gamePieceContext.addInventoryItemContext(playerID, context, items)
@@ -39,7 +38,7 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
         local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
         if deckStates then
 
-            gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, playerObj, (stack or item))
+            gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context, playerObj, (stack or item), deckActionHandler)
 
             local flip = context:addOptionOnTop(getText("IGUI_flipCard"), item, deckActionHandler.flipCard, playerObj)
             flip.iconTexture = gamePieceContext.gameNightContextMenuIcon.flip

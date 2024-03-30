@@ -1,36 +1,24 @@
-local deckActionHandler = require "gameNight - deckActionHandler"
-local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
-
 local applyItemDetails = {}
 
-applyItemDetails.deckCatalogues = {}
-applyItemDetails.altDetails = {} --altNames, altIcons
+applyItemDetails.deckActionHandler = require "gameNight - deckActionHandler"
+applyItemDetails.gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 
-function applyItemDetails.addDeck(name, cards, altNames, altIcons)
-    applyItemDetails.deckCatalogues[name] = cards
-
-    if altNames or altIcons then
-        applyItemDetails.altDetails[name] = {}
-        if altNames then applyItemDetails.altDetails[name].altNames = altNames end
-        if altIcons then applyItemDetails.altDetails[name].altIcons = altIcons end
-    end
-end
 
 function applyItemDetails.applyCardsFromDeck(item, deck)
 
     item:getModData()["gameNight_cardDeck"] = item:getModData()["gameNight_cardDeck"] or copyTable(deck)
 
-    if applyItemDetails.altDetails[itemType] then
-        item:getModData()["gameNight_cardAltNames"] = applyItemDetails.altDetails[itemType].altNames
-        item:getModData()["gameNight_cardAltIcons"] = applyItemDetails.altDetails[itemType].altIcons
-    end
+    item:getModData()["gameNight_cardAltNames"] = nil
+    item:getModData()["gameNight_cardAltIcons"] = nil
+    --if applyItemDetails.altDetails[itemType] then
+    --    item:getModData()["gameNight_cardAltNames"] = applyItemDetails.altDetails[itemType].altNames
+    --    item:getModData()["gameNight_cardAltIcons"] = applyItemDetails.altDetails[itemType].altIcons
+    --end
 
     local flippedStates = item:getModData()["gameNight_cardFlipped"]
     if not flippedStates then
         item:getModData()["gameNight_cardFlipped"] = {}
-        for i=1, #deck do
-            item:getModData()["gameNight_cardFlipped"][i] = true
-        end
+        for i=1, #deck do item:getModData()["gameNight_cardFlipped"][i] = true end
     end
 end
 
@@ -45,26 +33,24 @@ function applyItemDetails.applyGameNightToItem(item, stackInit)
 
         applyItemDetails.parsedItems[item] = true
 
-        if not gamePieceAndBoardHandler._itemTypes then gamePieceAndBoardHandler.generate_itemTypes() end
+        if not applyItemDetails.gamePieceAndBoardHandler._itemTypes then applyItemDetails.gamePieceAndBoardHandler.generate_itemTypes() end
 
-        gamePiece = gamePieceAndBoardHandler.isGamePiece(item)
-        if gamePiece then gamePieceAndBoardHandler.handleDetails(item, stackInit) end
+        gamePiece = applyItemDetails.gamePieceAndBoardHandler.isGamePiece(item)
+        if gamePiece then applyItemDetails.gamePieceAndBoardHandler.handleDetails(item, stackInit) end
 
         local itemType = item:getType()
         local fullType = item:getFullType()
 
-        deck = applyItemDetails.deckCatalogues[itemType]
-        if deck then
-            if deck then
-                local specialCase = gamePieceAndBoardHandler.specials[fullType]
-                if specialCase and specialCase.applyCards then
-                    applyItemDetails[specialCase.applyCards](item, deck)
-                else
-                    applyItemDetails.applyCardsFromDeck(item, deck)
-                end
-
-                deckActionHandler.handleDetails(item)
+        deck = applyItemDetails.deckActionHandler.deckCatalogues[itemType]
+        if deck and applyItemDetails.gamePieceAndBoardHandler.specials then
+            local specialCase = applyItemDetails.gamePieceAndBoardHandler.specials[fullType]
+            if specialCase and specialCase.applyCards then
+                applyItemDetails[specialCase.applyCards](item, deck)
+            else
+                applyItemDetails.applyCardsFromDeck(item, deck)
             end
+
+            applyItemDetails.deckActionHandler.handleDetails(item)
         end
     end
 end
