@@ -11,9 +11,14 @@ local uiInfo = require "gameNight - uiInfo"
 ---@class gameNightDeckSearch : ISPanel
 gameNightDeckSearch = ISPanel:derive("gameNightDeckSearch")
 
+gameNightDeckSearch.instances = {}
 
 function gameNightDeckSearch:closeAndRemove()
-    gameNightDeckSearch.instance = nil
+    gameNightDeckSearch.instances[self.deck] = nil
+
+    local cardExamine = self.cardExamine
+    if cardExamine then cardExamine:closeAndRemove() end
+
     self:setVisible(false)
     self:removeFromUIManager()
 end
@@ -288,8 +293,8 @@ function gameNightDeckSearch:render()
         local selected, _ = self:getCardAtXY(mouseX, mouseY)
         local sandbox = SandboxVars.GameNight.DisplayItemNames
 
-        local gW = gameNightCardExamine and gameNightCardExamine.instance
-        if gW and (not gW.throughContext) and ((not selected) or (not gW.index) or (gW.index ~= selected)) then gW:closeAndRemove() end
+        local cardExamine = self.cardExamine
+        if cardExamine and ((not selected) or (not cardExamine.index) or (cardExamine.index ~= selected)) then cardExamine:closeAndRemove() end
 
         if sandbox and selected and selected>0 then
             local card = cardData[selected]
@@ -303,13 +308,15 @@ function gameNightDeckSearch:render()
                 self.cardDisplay:drawTextCentre(cardName, mouseX+(cardNameW*0.833), mouseY-cardNameH, 1, 1, 1, 0.7, UIFont.NewSmall)
             end
 
-            if specialCase and specialCase.actions and specialCase.actions.examineCard and (gameNightCardExamine and (not gameNightCardExamine.instance)) then
-                if deckActionHandler.isDeckItem(self.deck) then gameNightCardExamine.open(self.player, self.deck, false, selected, gameNightDeckSearch) end
+            if specialCase and specialCase.actions and specialCase.actions.examineCard and (not self.cardExamine) then
+                if deckActionHandler.isDeckItem(self.deck) then
+                    self.cardExamine = gameNightCardExamine.open(self.player, self.deck, false, selected, self)
+                end
             end
         end
     else
-        local gW = gameNightCardExamine and gameNightCardExamine.instance
-        if gW and (not gW.throughContext) then gW:closeAndRemove() end
+        local cardExamine = self.cardExamine
+        if cardExamine then cardExamine:closeAndRemove() end
     end
 
 end
@@ -350,7 +357,8 @@ end
 
 function gameNightDeckSearch.open(player, deckItem)
 
-    if gameNightDeckSearch.instance then gameNightDeckSearch.instance:closeAndRemove() end
+    local instance = gameNightDeckSearch.instances[deckItem]
+    if instance then instance:closeAndRemove() end
 
     local window = gameNightDeckSearch:new(nil, nil, 470, 350, player, deckItem)
     window:initialise()
@@ -385,6 +393,6 @@ function gameNightDeckSearch:new(x, y, width, height, player, deckItem)
 
     o.padding = 10
 
-    gameNightDeckSearch.instance = o
+    gameNightDeckSearch.instances[deckItem] = o
     return o
 end

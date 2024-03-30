@@ -10,9 +10,11 @@ local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
 ---@class gameNightCardExamine : ISPanel
 gameNightCardExamine = ISPanel:derive("gameNightCardExamine")
 
+gameNightCardExamine.instances = {}
 
 function gameNightCardExamine:closeAndRemove()
-    gameNightCardExamine.instance = nil
+    gameNightCardExamine.instances[(self.attachedUI or self.deck)] = nil
+    if self.attachedUI then self.attachedUI.cardExamine = nil end
     self:setVisible(false)
     self:removeFromUIManager()
 end
@@ -20,7 +22,7 @@ end
 function gameNightCardExamine:update()
     if (not self.player) or (not self.deck) then self:closeAndRemove() return end
 
-    if self.attachedUI and (not self.attachedUI.instance) then self:closeAndRemove() return end
+    --if (not self.attachedUI.instance) then self:closeAndRemove() return end
 
     ---@type InventoryItem
     local item = self.deck
@@ -61,8 +63,8 @@ function gameNightCardExamine:onClick(button) if button.internal == "CLOSE" then
 
 function gameNightCardExamine:prerender()
     ISPanel.prerender(self)
-    if self.attachedUI and self.attachedUI.instance then
-        local aUI = self.attachedUI.instance
+    if self.attachedUI then
+        local aUI = self.attachedUI
         self:setX(aUI:getX()+aUI:getWidth()+self.padding)
         self:setY(aUI:getY())
     end
@@ -81,7 +83,7 @@ function gameNightCardExamine:initialise()
     local btnHgt = self.btnHgt
     local pd = self.padding
 
-    local attachedUI = self.attachedUI and self.attachedUI.instance
+    local attachedUI = self.attachedUI
     local bottomPad = (not attachedUI) and (pd+btnHgt) or 0
 
     local textureToUse = deckActionHandler.fetchAltIcon(self.card, self.deck)
@@ -118,7 +120,8 @@ end
 
 function gameNightCardExamine.open(player, deckItem, throughContext, index, attachedUI)
 
-    if gameNightCardExamine.instance then gameNightCardExamine.instance:closeAndRemove() end
+    local cardExamine = gameNightCardExamine.instances[(attachedUI or deckItem)]
+    if cardExamine then cardExamine:closeAndRemove() end
 
     local window = gameNightCardExamine:new(deckItem, nil, nil, player, throughContext, index, attachedUI)
     window:initialise()
@@ -168,6 +171,6 @@ function gameNightCardExamine:new(deckItem, x, y, player, throughContext, index,
     o.player = player
     o.deck = deckItem
 
-    gameNightCardExamine.instance = o
+    gameNightCardExamine.instances[(attachedUI or deckItem)] = o
     return o
 end

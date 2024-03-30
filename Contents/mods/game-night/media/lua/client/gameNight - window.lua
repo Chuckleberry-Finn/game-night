@@ -580,8 +580,11 @@ function gameNightWindow:render()
             if texture and texture~=true then self:drawTextureScaledUniform(texture, mouseOver.x, mouseOver.y, gameNightWindow.scaleSize, 0.75, 1, 1, 1) end
         end
 
-        local gW = gameNightCardExamine and gameNightCardExamine.instance
-        if gW and (not gW.throughContext) and ((not mouseOver) or mouseOver.item ~= gW.deck) then gW:closeAndRemove() end
+        local cardExamine = self.cardExamine
+        if cardExamine and ((not mouseOver) or mouseOver.item ~= cardExamine.deck) then
+            print("close - gameWindow")
+            cardExamine:closeAndRemove()
+        end
     end
 end
 
@@ -594,8 +597,10 @@ function gameNightWindow:labelWithName(element)
         local fullType = element.item:getFullType()
         local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
 
-        if specialCase and specialCase.actions and specialCase.actions.examineCard and (gameNightCardExamine and (not gameNightCardExamine.instance)) then
-            if deckActionHandler.isDeckItem(element.item) then gameNightCardExamine.open(self.player, element.item, false, nil, gameNightWindow) end
+        if specialCase and specialCase.actions and specialCase.actions.examineCard and (not self.cardExamine) then
+            if deckActionHandler.isDeckItem(element.item) then
+                self.cardExamine = gameNightCardExamine.open(self.player, element.item, false, nil, self)
+            end
         end
 
         local nameTag = (element.item and element.item:getName())
@@ -647,6 +652,8 @@ end
 
 function gameNightWindow:closeAndRemove()
     self:setVisible(false)
+    local cardExamine = self.cardExamine
+    if cardExamine then cardExamine:closeAndRemove() end
     self.elements = {}
     self:clearMovingPiece()
     self:removeFromUIManager()
