@@ -400,9 +400,21 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
     local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
     if placedItem then
 
-        local itemCont = player:getInventory()
+        local itemCont = item:getContainer()
+        local playerInventory = player:getInventory()
+        local isInPlayer = itemCont and playerInventory and itemCont==playerInventory
 
-        itemCont:setDrawDirty(true)
+        if isInPlayer then
+            playerInventory:setDrawDirty(true)
+            item:setJobDelta(0.0)
+            player:removeAttachedItem(item)
+            if player:isEquipped(item) then
+                player:removeFromHands(item)
+                player:removeWornItem(item, false)
+            end
+            playerInventory:Remove(item)
+            triggerEvent("OnClothingUpdated", player)
+        end
 
         placedItem:setName(item:getName())
         placedItem:setKeyId(item:getKeyId())
@@ -420,8 +432,6 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         placedItem:transmitCompleteItemToServer()
         placedItem:getModData().gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
         placedItem:transmitModData()
-
-        itemCont:Remove(item)
 
         gamePieceAndBoardHandler.refreshInventory(player)
     end

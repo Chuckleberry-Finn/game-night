@@ -42,7 +42,7 @@ end
 
 function deckActionHandler.isDeckItem(deckItem)
     local deckData = deckItem:getModData()["gameNight_cardDeck"]
-    if deckData then return true end
+    if deckData and #deckData>0 then return true end
     return false
 end
 

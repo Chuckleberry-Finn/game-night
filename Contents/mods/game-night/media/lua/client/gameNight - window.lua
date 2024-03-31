@@ -64,8 +64,14 @@ function gameNightWindow:update()
         self:clearMovingPiece()
         return
     end
-end
 
+    local item = self.player:getPrimaryHandItem()
+    if item and deckActionHandler.isDeckItem(item) then
+        if gameNightHand and (not gameNightHand.instance) then gameNightHand.open(self.player, item) end
+    else
+        if gameNightHand and gameNightHand.instance then gameNightHand.instance:closeAndRemove() end
+    end
+end
 
 
 function gameNightWindow:initialise()
@@ -573,15 +579,16 @@ function gameNightWindow:render()
 
     else
         local mouseOver = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
+
+        local cardExamine = self.cardExamine
+        if cardExamine and ((not mouseOver) or mouseOver.item ~= cardExamine.deck) then cardExamine:closeAndRemove() end
+
         if mouseOver then
             self:labelWithName(mouseOver)
 
             local _, texture = gameNightWindow.fetchShiftAction(mouseOver.item)
             if texture and texture~=true then self:drawTextureScaledUniform(texture, mouseOver.x, mouseOver.y, gameNightWindow.scaleSize, 0.75, 1, 1, 1) end
         end
-
-        local cardExamine = self.cardExamine
-        if cardExamine and ((not mouseOver) or mouseOver.item ~= cardExamine.deck) then cardExamine:closeAndRemove() end
     end
 end
 
@@ -651,6 +658,7 @@ function gameNightWindow:closeAndRemove()
     self:setVisible(false)
     local cardExamine = self.cardExamine
     if cardExamine then cardExamine:closeAndRemove() end
+    if gameNightHand and gameNightHand.instance then gameNightHand.instance:closeAndRemove() end
     self.elements = {}
     self:clearMovingPiece()
     self:removeFromUIManager()

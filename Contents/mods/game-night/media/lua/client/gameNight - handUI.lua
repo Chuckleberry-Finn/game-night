@@ -6,35 +6,32 @@ local applyItemDetails = require "gameNight - applyItemDetails"
 local deckActionHandler = applyItemDetails.deckActionHandler
 local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
 
-local uiInfo = require "gameNight - uiInfo"
+---@class gameNightHand : ISPanel
+gameNightHand = ISPanel:derive("gameNightHand")
+gameNightHand.instance = false
 
----@class gameNightDeckSearch : ISPanel
-gameNightDeckSearch = ISPanel:derive("gameNightDeckSearch")
-
-gameNightDeckSearch.instances = {}
-
-function gameNightDeckSearch:closeAndRemove()
-    gameNightDeckSearch.instances[self.deck] = nil
-
+function gameNightHand:closeAndRemove()
     local cardExamine = self.cardExamine
     if cardExamine then cardExamine:closeAndRemove() end
 
     self:setVisible(false)
     self:removeFromUIManager()
+    gameNightHand.instance = nil
 end
 
 
-function gameNightDeckSearch:update()
+function gameNightHand:update()
     if (not self.player) or (not self.deck) then self:closeAndRemove() return end
 
     ---@type InventoryItem
     local item = self.deck
+    ---@type IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
+    local player = self.player
 
     local values,flipped = deckActionHandler.getDeckStates(item)
-    if not values or #values <= 1 then
-        self:closeAndRemove()
-        return
-    end
+    if not values or #values < 1 then self:closeAndRemove() return end
+
+    if item ~= player:getPrimaryHandItem() then self:closeAndRemove() return end
 
     local playerInv = self.player:getInventory()
     if playerInv:contains(item) then return end
@@ -57,16 +54,13 @@ function gameNightDeckSearch:update()
 end
 
 
-function gameNightDeckSearch:onClick(button) if button.internal == "CLOSE" then self:closeAndRemove() end end
-
-
-function gameNightDeckSearch:onMouseWheel(del)
+function gameNightHand:onMouseWheel(del)
     if self.hiddenHeight > 0 then self.scrollY = math.max(0,math.min(self.hiddenHeight, (self.scrollY or 0)+(del*24))) end
     return true
 end
 
 
-function gameNightDeckSearch:getCardAtXY(x, y)
+function gameNightHand:getCardAtXY(x, y)
     local halfPad = math.floor((self.padding/2)+0.5)
 
     if x < halfPad or x > self.cardDisplay.width-halfPad then return end
@@ -93,14 +87,14 @@ function gameNightDeckSearch:getCardAtXY(x, y)
 end
 
 
-function gameNightDeckSearch:clearDragging()
+function gameNightHand:clearDragging()
     self.dragging = nil
     self.draggingOver = nil
     self.dragInBetween = nil
 end
 
 
-function gameNightDeckSearch:cardOnRightMouseUp(x, y)
+function gameNightHand:cardOnRightMouseUp(x, y)
     local searchWindow = self.parent
     local selected, _ = searchWindow:getCardAtXY(x, y)
     if selected then
@@ -112,7 +106,7 @@ function gameNightDeckSearch:cardOnRightMouseUp(x, y)
 end
 
 
-function gameNightDeckSearch:onMouseMove(dx, dy)
+function gameNightHand:onMouseMove(dx, dy)
     if not self:isMouseOver() then return end
 
     ---@type gameNightWindow
@@ -131,7 +125,7 @@ function gameNightDeckSearch:onMouseMove(dx, dy)
 end
 
 
-function gameNightDeckSearch:cardOnMouseUpOutside(x, y)
+function gameNightHand:cardOnMouseUpOutside(x, y)
     local searchWindow = self.parent
 
     ---@type gameNightWindow
@@ -148,7 +142,7 @@ function gameNightDeckSearch:cardOnMouseUpOutside(x, y)
 end
 
 
-function gameNightDeckSearch:cardOnMouseUp(x, y)
+function gameNightHand:cardOnMouseUp(x, y)
     local searchWindow = self.parent
 
     local selection, _ = searchWindow:getCardAtXY(x, y)
@@ -189,28 +183,23 @@ function gameNightDeckSearch:cardOnMouseUp(x, y)
 end
 
 
-function gameNightDeckSearch:cardOnMouseDownOutside(x, y)
+function gameNightHand:cardOnMouseDownOutside(x, y)
     local searchWindow = self.parent
     searchWindow:clearDragging()
 end
 
 
-function gameNightDeckSearch:cardOnMouseDown(x, y)
+function gameNightHand:cardOnMouseDown(x, y)
     local searchWindow = self.parent
     local selected, _ = searchWindow:getCardAtXY(x, y)
     searchWindow.dragging = selected
-    --local card = cardData[selected]
-    --print("CLICK:   x/y:",x,",",y,"    r:",row,"    col:",col)
-    --print("xPos: ",xPos,   "     selected: ", selected, "   CARD: ", card)
 end
 
 
-function gameNightDeckSearch:prerender()
-    ISPanel.prerender(self)
-end
+function gameNightHand:prerender() ISPanel.prerender(self) end
 
----gameNightDeckSearch.sizedOnce
-function gameNightDeckSearch:render()
+---gameNightHand.sizedOnce
+function gameNightHand:render()
     self.cardDisplay:setStencilRect(0, 0, self.cardDisplay.width, self.cardDisplay.height)
     ISPanel.render(self)
     local cardData, cardFlipStates = deckActionHandler.getDeckStates(self.deck)
@@ -226,6 +215,8 @@ function gameNightDeckSearch:render()
 
     local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
     local specialTextureSize = specialCase and specialCase.textureSize
+
+    if #cardData < 1 then return end
 
     for n=#cardData, 1, -1 do
 
@@ -262,8 +253,6 @@ function gameNightDeckSearch:render()
                         self.sizedOnce = true
                         self.cardDisplay:setWidth(self.cardWidth+xOffset+halfPad)
                         self:setWidth(self.cardDisplay.width+(self.padding*2))
-                        self.close:setX(self:getWidth()-self.padding-self.close:getWidth())
-                        self.infoButton:setX(self.close.x-24)
                     end
 
                     xOffset = resetXOffset
@@ -302,12 +291,6 @@ function gameNightDeckSearch:render()
             local card = cardData[selected]
             local flipped = cardFlipStates[selected]
 
-            if specialCase and specialCase.actions and specialCase.actions.examineCard and (not self.cardExamine) then
-                if deckActionHandler.isDeckItem(self.deck) then
-                    self.cardExamine = gameNightCardExamine.open(self.player, self.deck, false, selected, self)
-                end
-            end
-
             local cardName = flipped and (getTextOrNull("IGUI_"..self.deck:getType()) or getItemNameFromFullType("Base."..self.deck:getType())) or deckActionHandler.fetchAltName(card, self.deck, special)
             if cardName then
                 local cardNameW = getTextManager():MeasureStringX(UIFont.NewSmall, " "..cardName.." ")
@@ -316,6 +299,11 @@ function gameNightDeckSearch:render()
                 self.cardDisplay:drawTextCentre(cardName, mouseX+(cardNameW*0.833), mouseY-cardNameH, 1, 1, 1, 0.7, UIFont.NewSmall)
             end
 
+            if specialCase and specialCase.actions and specialCase.actions.examineCard and (not self.cardExamine) then
+                if deckActionHandler.isDeckItem(self.deck) then
+                    self.cardExamine = gameNightCardExamine.open(self.player, self.deck, false, selected, self)
+                end
+            end
         end
     else
         local cardExamine = self.cardExamine
@@ -325,26 +313,13 @@ function gameNightDeckSearch:render()
 end
 
 
-function gameNightDeckSearch:initialise()
+function gameNightHand:initialise()
     ISPanel.initialise(self)
 
-    local closeText = getText("UI_Close")
-    local btnWid = getTextManager():MeasureStringX(UIFont.Small, closeText)+10
-    local btnHgt = 25
     local pd = self.padding
+    self.bounds = {x1=pd, y1=(pd*2), x2=self.width-pd, y2=self.height-pd}
 
-    self.bounds = {x1=pd, y1=btnHgt+(pd*2), x2=self.width-pd, y2=self.height-pd}
-
-    self.close = ISButton:new(self.width-pd-btnWid, pd, btnWid, btnHgt, closeText, self, gameNightDeckSearch.onClick)
-    self.close.internal = "CLOSE"
-    self.close.borderColor = {r=1, g=1, b=1, a=0.4}
-    self.close:initialise()
-    self.close:instantiate()
-    self:addChild(self.close)
-
-    uiInfo.applyToUI(self, self.close.x-24, self.close.y, getText("UI_GameNightSearch"))
-
-    self.cardDisplay = ISPanelJoypad:new(self.bounds.x1, self.bounds.y1, self.bounds.x2-self.padding, self.bounds.y2-self.close.height-(self.padding*2))
+    self.cardDisplay = ISPanelJoypad:new(self.bounds.x1, self.bounds.y1, self.bounds.x2-self.padding, self.bounds.y2-(self.padding*2))
     self.cardDisplay:initialise()
     self.cardDisplay:instantiate()
     self.cardDisplay.onMouseDown = self.cardOnMouseDown
@@ -358,13 +333,22 @@ end
 
 
 
-function gameNightDeckSearch.open(player, deckItem)
+function gameNightHand.open(player, deckItem)
 
-    local instance = gameNightDeckSearch.instances[deckItem]
+    local instance = gameNightHand.instance
     if instance then instance:closeAndRemove() end
 
-    local window = gameNightDeckSearch:new(nil, nil, 470, 350, player, deckItem)
+    local gameWindow = gameNightWindow and gameNightWindow.instance
+    local x, y, w, h
+    if gameWindow then
+        x = (gameWindow:getX())
+        y = (gameWindow:getY()+gameWindow:getHeight())
+        w = gameWindow:getWidth()
+    end
+
+    local window = gameNightHand:new(x, y, w, 160, player, deckItem)
     window:initialise()
+    window:setAlwaysOnTop(true)
     window:addToUIManager()
     window:setVisible(true)
 
@@ -373,7 +357,7 @@ end
 
 
 
-function gameNightDeckSearch:new(x, y, width, height, player, deckItem)
+function gameNightHand:new(x, y, width, height, player, deckItem)
     local o = {}
     x = x or getCore():getScreenWidth()/2 - (width/2)
     y = y or getCore():getScreenHeight()/2 - (height/2)
@@ -386,16 +370,14 @@ function gameNightDeckSearch:new(x, y, width, height, player, deckItem)
 
     o.moveWithMouse = true
 
-    --o.cardHeight = 48
-    --o.cardWidth = 32
-
     o.width = width
     o.height = height
+
     o.player = player
     o.deck = deckItem
 
     o.padding = 10
 
-    gameNightDeckSearch.instances[deckItem] = o
+    gameNightHand.instance = o
     return o
 end
