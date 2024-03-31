@@ -134,8 +134,10 @@ function gameNightHand:cardOnMouseUpOutside(x, y)
         local deckItem = searchWindow.deck
         local cardBeingDragged = searchWindow.dragging
 
-        local cardDrawn = deckActionHandler._drawCardIndex(deckItem, cardBeingDragged)
-        if cardDrawn then gameNightWin:calculateItemDrop(gameNightWin:getMouseX(), gameNightWin:getMouseY(), {cardDrawn}) end
+        if cardBeingDragged then
+            local cardDrawn = deckActionHandler._drawCardIndex(deckItem, cardBeingDragged)
+            if cardDrawn then gameNightWin:calculateItemDrop(gameNightWin:getMouseX(), gameNightWin:getMouseY(), {cardDrawn}) end
+        end
     end
 
     searchWindow:clearDragging()
@@ -335,6 +337,9 @@ end
 
 function gameNightHand.open(player, deckItem)
 
+    local searchInstance = gameNightDeckSearch.instances[deckItem]
+    if searchInstance then searchInstance:closeAndRemove() end
+    
     local instance = gameNightHand.instance
     if instance then instance:closeAndRemove() end
 
