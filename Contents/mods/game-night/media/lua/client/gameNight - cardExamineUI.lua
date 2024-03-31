@@ -65,8 +65,12 @@ function gameNightCardExamine:prerender()
     ISPanel.prerender(self)
     if self.attachedUI then
         local aUI = self.attachedUI
-        self:setX(aUI:getX()+aUI:getWidth()+self.padding)
-        self:setY(aUI:getY())
+
+        local aUIX = aUI:getX()+aUI:getWidth()+self.padding
+        local aUIY = aUI:getY()
+        
+        self:setX(aUIX)
+        self:setY(aUIY)
     end
     self:drawTextureScaledUniform(self.texture, self.padding, self.padding, self.examineScale, 1, 1, 1, 1)
 end
@@ -136,6 +140,7 @@ end
 
 function gameNightCardExamine:new(deckItem, x, y, player, throughContext, index, attachedUI)
     local o = {}
+
     o = ISPanel:new(-10, -10, 10, 10)
     setmetatable(o, self)
     self.__index = self
