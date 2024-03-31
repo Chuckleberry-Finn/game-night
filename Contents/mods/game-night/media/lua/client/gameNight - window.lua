@@ -581,10 +581,7 @@ function gameNightWindow:render()
         end
 
         local cardExamine = self.cardExamine
-        if cardExamine and ((not mouseOver) or mouseOver.item ~= cardExamine.deck) then
-            print("close - gameWindow")
-            cardExamine:closeAndRemove()
-        end
+        if cardExamine and ((not mouseOver) or mouseOver.item ~= cardExamine.deck) then cardExamine:closeAndRemove() end
     end
 end
 
