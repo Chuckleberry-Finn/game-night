@@ -467,6 +467,7 @@ end
 function gameNightWindow:prerender()
     ISPanelJoypad.prerender(self)
     self:drawRectBorder(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), 0.8, 0.8, 0.8, 0.8)
+    self:backMost()
 end
 
 
