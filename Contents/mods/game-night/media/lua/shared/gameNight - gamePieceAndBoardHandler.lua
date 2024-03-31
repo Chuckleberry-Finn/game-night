@@ -346,7 +346,12 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item)
     local playerInv = player:getInventory()
     local itemContainer = item:getContainer()
     local pickedUp = false
-    if not worldItem and itemContainer ~= playerInv then
+
+    print("PICKUP: itemCont: ", itemContainer)
+    print("PICKUP: playerInventory: ", playerInv)
+    print("PICKUP: isInPlayer:? ", item:isInPlayerInventory())
+
+    if (not worldItem) and itemContainer ~= playerInv then
 
         if isClient() and not itemContainer:isInCharacterInventory(player) and itemContainer:getType()~="floor" then itemContainer:removeItemOnServer(item) end
         itemContainer:DoRemoveItem(item)
@@ -404,7 +409,12 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         local playerInventory = player:getInventory()
         local isInPlayer = itemCont and playerInventory and itemCont==playerInventory
 
+        print("PLACE: itemCont: ", itemCont)
+        print("PLACE: playerInventory: ", playerInventory)
+        print("PLACE: isInPlayer:? ", item:isInPlayerInventory())
+
         if isInPlayer then
+            print("is in player!")
             playerInventory:setDrawDirty(true)
             item:setJobDelta(0.0)
             player:removeAttachedItem(item)
