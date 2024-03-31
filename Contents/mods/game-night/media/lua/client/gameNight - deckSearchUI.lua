@@ -238,48 +238,50 @@ function gameNightDeckSearch:render()
 
             local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..cardFaceType.."/"..textureToUse..".png"
             local origTexture = getTexture(texturePath)
+            if origTexture then
 
-            local w = specialTextureSize and specialTextureSize[1] or origTexture:getWidth()
-            local h = specialTextureSize and specialTextureSize[2] or origTexture:getHeight()
+                local w = specialTextureSize and specialTextureSize[1] or origTexture:getWidth()
+                local h = specialTextureSize and specialTextureSize[2] or origTexture:getHeight()
 
-            local tmpTexture = w and h and Texture.new(origTexture)
-            if tmpTexture then
-                tmpTexture:setHeight(h)
-                tmpTexture:setWidth(w)
-            end
-
-            local texture = tmpTexture or origTexture
-
-            if not self.cardHeight or not self.cardWidth then
-                self.cardHeight = h*0.5
-                self.cardWidth = w*0.5
-            end
-
-            if self.cardWidth+xOffset > self.cardDisplay.width+halfPad then
-
-                if not self.sizedOnce then
-                    self.sizedOnce = true
-                    self.cardDisplay:setWidth(self.cardWidth+xOffset+halfPad)
-                    self:setWidth(self.cardDisplay.width+(self.padding*2))
-                    self.close:setX(self:getWidth()-self.padding-self.close:getWidth())
-                    self.infoButton:setX(self.close.x-24)
+                local tmpTexture = w and h and Texture.new(origTexture)
+                if tmpTexture then
+                    tmpTexture:setHeight(h)
+                    tmpTexture:setWidth(w)
                 end
 
-                xOffset = resetXOffset
-                yOffset = yOffset+self.cardHeight+halfPad
-            end
+                local texture = tmpTexture or origTexture
 
-            self.cardDisplay:drawTextureScaledUniform(texture, xOffset, yOffset-(self.scrollY or 0), 0.5, 1, 1, 1, 1)
-            if self.dragging or self.draggingOver then
+                if not self.cardHeight or not self.cardWidth then
+                    self.cardHeight = h*0.5
+                    self.cardWidth = w*0.5
+                end
 
-                if self.dragging and self.dragging == n then
-                    self.cardDisplay:drawRectBorder(xOffset, yOffset-(self.scrollY or 0), self.cardWidth, self.cardHeight, 1, 0.4, 0.6, 0.9)
-                elseif self.draggingOver and self.draggingOver == n then
+                if self.cardWidth+xOffset > self.cardDisplay.width+halfPad then
 
-                    local x = self.dragInBetween and xOffset+self.cardWidth or xOffset
-                    local w = self.dragInBetween and 4 or self.cardWidth
-                    local a = self.dragInBetween and 0.9 or 0.3
-                    self.cardDisplay:drawRect(x, yOffset-(self.scrollY or 0), w, self.cardHeight, a, 0.4, 0.6, 0.9)
+                    if not self.sizedOnce then
+                        self.sizedOnce = true
+                        self.cardDisplay:setWidth(self.cardWidth+xOffset+halfPad)
+                        self:setWidth(self.cardDisplay.width+(self.padding*2))
+                        self.close:setX(self:getWidth()-self.padding-self.close:getWidth())
+                        self.infoButton:setX(self.close.x-24)
+                    end
+
+                    xOffset = resetXOffset
+                    yOffset = yOffset+self.cardHeight+halfPad
+                end
+
+                self.cardDisplay:drawTextureScaledUniform(texture, xOffset, yOffset-(self.scrollY or 0), 0.5, 1, 1, 1, 1)
+                if self.dragging or self.draggingOver then
+
+                    if self.dragging and self.dragging == n then
+                        self.cardDisplay:drawRectBorder(xOffset, yOffset-(self.scrollY or 0), self.cardWidth, self.cardHeight, 1, 0.4, 0.6, 0.9)
+                    elseif self.draggingOver and self.draggingOver == n then
+
+                        local x = self.dragInBetween and xOffset+self.cardWidth or xOffset
+                        local w = self.dragInBetween and 4 or self.cardWidth
+                        local a = self.dragInBetween and 0.9 or 0.3
+                        self.cardDisplay:drawRect(x, yOffset-(self.scrollY or 0), w, self.cardHeight, a, 0.4, 0.6, 0.9)
+                    end
                 end
             end
             xOffset = xOffset+self.cardWidth+halfPad

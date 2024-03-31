@@ -90,6 +90,8 @@ function gameNightCardExamine:initialise()
     local texturePath = (self.flipped and "media/textures/Item_"..self.deck:getType().."/FlippedInPlay.png") or "media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
     self.texture = getTexture(texturePath)
 
+    if not self.texture then self:closeAndRemove() return end
+
     if self.card then
         self.width = self.texture:getWidth()*self.examineScale
         self.height = self.texture:getHeight()*self.examineScale
