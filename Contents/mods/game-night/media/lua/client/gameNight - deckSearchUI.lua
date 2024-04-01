@@ -14,13 +14,11 @@ gameNightDeckSearch = ISPanel:derive("gameNightDeckSearch")
 gameNightDeckSearch.instances = {}
 
 function gameNightDeckSearch:closeAndRemove()
-    gameNightDeckSearch.instances[self.deck] = nil
-
     local cardExamine = self.cardExamine
     if cardExamine then cardExamine:closeAndRemove() end
-
     self:setVisible(false)
     self:removeFromUIManager()
+    gameNightDeckSearch.instances[self.deck] = nil
 end
 
 
