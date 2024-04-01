@@ -347,10 +347,6 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item)
     local itemContainer = item:getContainer()
     local pickedUp = false
 
-    print("PICKUP: itemCont: ", itemContainer)
-    print("PICKUP: playerInventory: ", playerInv)
-    print("PICKUP: isInPlayer:? ", item:isInPlayerInventory())
-
     if (not worldItem) and itemContainer ~= playerInv then
 
         if isClient() and not itemContainer:isInCharacterInventory(player) and itemContainer:getType()~="floor" then itemContainer:removeItemOnServer(item) end
@@ -401,28 +397,25 @@ gamePieceAndBoardHandler.coolDown = (isClient() or isServer()) and 750 or 5
 ---@param xOffset number
 ---@param yOffset number
 function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOffset, zPos)
+
+    local itemCont = item:getContainer()
+    local playerInventory = player:getInventory()
+
     ---@type IsoWorldInventoryObject|IsoObject
     local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
     if placedItem then
 
-        local itemCont = item:getContainer()
-        local playerInventory = player:getInventory()
         local isInPlayer = itemCont and playerInventory and itemCont==playerInventory
 
-        print("PLACE: itemCont: ", itemCont)
-        print("PLACE: playerInventory: ", playerInventory)
-        print("PLACE: isInPlayer:? ", item:isInPlayerInventory())
-
         if isInPlayer then
-            print("is in player!")
-            playerInventory:setDrawDirty(true)
+            itemCont:setDrawDirty(true)
             item:setJobDelta(0.0)
             player:removeAttachedItem(item)
             if player:isEquipped(item) then
                 player:removeFromHands(item)
                 player:removeWornItem(item, false)
             end
-            playerInventory:Remove(item)
+            itemCont:Remove(item)
             triggerEvent("OnClothingUpdated", player)
         end
 

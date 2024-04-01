@@ -140,6 +140,7 @@ function gameNightWindow:calculateItemDrop(x, y, items)
 end
 
 function gameNightWindow:dropItemsOn(x, y)
+    print("DROP ITEMS")
     if not self:getIsVisible() then return end
     local dragging = ISMouseDrag.dragging
     if (dragging ~= nil) then
@@ -183,6 +184,8 @@ function gameNightWindow:clearMovingPiece(x, y)
     end
     self.movingPiece = nil
     self.rotatingPieceDegree = 0
+
+    print("CLEAR")
 end
 
 gameNightWindow.rotatingPieceDegree = 0
@@ -194,6 +197,7 @@ end
 
 
 function gameNightWindow:processMouseUp(old, x, y)
+    print("processMouseUp ")
     if not self.moveWithMouse then
         ---@type InventoryItem
         local piece = self.movingPiece
@@ -204,24 +208,6 @@ function gameNightWindow:processMouseUp(old, x, y)
             local inUse = worldItem and worldItem:getModData().gameNightInUse
             local wrongUser = inUse and (inUse~=self.player:getUsername())
             if wrongUser then self:clearMovingPiece(x, y) return end
-
-            ---@type gameNightWindow
-            local deckSearch = gameNightDeckSearch.instance
-            if deckSearch and deckSearch:isMouseOver() then
-                local selection, inBetween = deckSearch:getCardAtXY(deckSearch.cardDisplay:getMouseX(), deckSearch.cardDisplay:getMouseY())
-
-                local notCompatible = piece:getType() ~= deckSearch.deck:getType()
-                local deckSearchWorldItem = deckSearch.deck and deckSearch.deck:getWorldItem()
-                local deckSearchCoolDown = deckSearchWorldItem:getModData().gameNightCoolDown and (deckSearchWorldItem:getModData().gameNightCoolDown>getTimestampMs())
-                local deckSearchInUse = deckSearchWorldItem:getModData().gameNightInUse
-                local userUsing = deckSearchInUse and getPlayerFromUsername(deckSearchInUse)
-                if deckSearchCoolDown or userUsing or notCompatible then self:clearMovingPiece() return end
-
-                deckActionHandler.mergeDecks(piece, deckSearch.deck, self.player, selection+(inBetween and 0 or 1))
-
-                self:clearMovingPiece(x, y)
-                return
-            end
 
             local posX, posY = self:getMouseX(), self:getMouseY()
             local isDeck = false
@@ -274,6 +260,7 @@ end
 
 
 function gameNightWindow:onMouseUpOutside(x, y)
+    print("MOUSE UP OUTSIDE")
     if self:isVisible() and self.movingPiece then
         self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y)
         return
@@ -283,6 +270,7 @@ end
 
 
 function gameNightWindow:onMouseUp(x, y)
+    print("MOUSE UP")
     if self:isVisible() then
         if ISMouseDrag.dragging then self:dropItemsOn(x, y) end
         self:processMouseUp(ISPanelJoypad.onMouseUp, x, y)
@@ -294,6 +282,7 @@ end
 
 function gameNightWindow:onRightMouseDown(x, y)
     if self:isVisible() then
+        self:clearMovingPiece(x, y)
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn then
             self:onContextSelection(clickedOn, x, y)
@@ -307,6 +296,7 @@ end
 
 function gameNightWindow:onMouseDown(x, y)
     if self:isVisible() then
+        self:clearMovingPiece(x, y)
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn then
 
@@ -546,19 +536,26 @@ function gameNightWindow:render()
 
     if movingPiece then
         if not isMouseButtonDown(0) then return end
+
+        local cardExamine = self.cardExamine
+        if cardExamine then cardExamine:closeAndRemove() end
+
         ---@type Texture
         local texture = movingPiece:getModData()["gameNight_textureInPlay"] or movingPiece:getTexture()
         local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
         local x, y = self:getMouseX()-(offsetX), self:getMouseY()-(offsetY)
         local movingElement = self.elements[movingPiece:getID()]
-        local w, h = movingElement.w, movingElement.h
-        local rot = (movingPiece:getModData()["gameNight_rotation"] or 0) + self.rotatingPieceDegree
+        if movingElement then
+            local w, h = movingElement.w, movingElement.h
 
-        local tmpTexture = Texture.new(texture)
-        tmpTexture:setHeight(h)
-        tmpTexture:setWidth(w)
+            local rot = (movingPiece:getModData()["gameNight_rotation"] or 0) + self.rotatingPieceDegree
 
-        self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot, 1, 1, 1, 0.7)
+            local tmpTexture = Texture.new(texture)
+            tmpTexture:setHeight(h)
+            tmpTexture:setWidth(w)
+
+            self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot, 1, 1, 1, 0.7)
+        end
 
         local selection
         if deckActionHandler.isDeckItem(movingPiece) then

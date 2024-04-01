@@ -281,9 +281,11 @@ function deckActionHandler.dealCard(deckItem, player, x, y) deckActionHandler.de
 
 function deckActionHandler._drawCardIndex(deckItem, drawIndex)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
-    if not deckStates then return end
+    if not deckStates then return deckItem end
 
     local deckCount = #deckStates
+    if deckCount <= 1 then return deckItem end
+
     drawIndex = drawIndex or ZombRand(deckCount)+1
     local drawnCard, drawnFlipped
 

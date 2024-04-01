@@ -103,6 +103,7 @@ function gameNightHand:cardOnRightMouseUp(x, y)
         context:addOption(getText("IGUI_flipCard"), searchWindow.deck, deckActionHandler.flipSpecificCard, searchWindow.player, selected)
     end
     searchWindow:clearDragging()
+    ISPanelJoypad.onRightMouseUp(self, x, y)
 end
 
 
@@ -141,13 +142,14 @@ function gameNightHand:cardOnMouseUpOutside(x, y)
     end
 
     searchWindow:clearDragging()
+    ISPanelJoypad.onMouseUpOutside(self, x, y)
 end
 
 
 function gameNightHand:cardOnMouseUp(x, y)
     local searchWindow = self.parent
 
-    local selection, _ = searchWindow:getCardAtXY(x, y)
+    local selection, inBetween = searchWindow:getCardAtXY(x, y)
     local deckItem = searchWindow.deck
     local cardData, flippedStates = deckActionHandler.getDeckStates(deckItem)
 
@@ -181,20 +183,40 @@ function gameNightHand:cardOnMouseUp(x, y)
         deckActionHandler.handleDetails(deckItem)
     end
 
+    local gameWindow = gameNightWindow and gameNightWindow.instance
+    local card = gameWindow and gameWindow.movingPiece
+    if card and selection and selection >= 1 then
+        local worldItem = card:getWorldItem()
+        local inUse = worldItem and worldItem:getModData().gameNightInUse
+        local wrongUser = inUse and (inUse~=searchWindow.player:getUsername())
+        if wrongUser then gameWindow:clearMovingPiece(x, y) return end
+
+        local notCompatible = card:getType() ~= deckItem:getType()
+        if notCompatible then gameWindow:clearMovingPiece() return end
+
+        deckActionHandler.mergeDecks(card, deckItem, searchWindow.player, selection+(inBetween and 0 or 1))
+
+        gameWindow:clearMovingPiece(x, y)
+    end
+
     searchWindow:clearDragging()
+    ISPanelJoypad.onMouseUp(self, x, y)
 end
 
 
 function gameNightHand:cardOnMouseDownOutside(x, y)
     local searchWindow = self.parent
     searchWindow:clearDragging()
+    ISPanelJoypad.onMouseUpOutside(self, x, y)
 end
 
 
 function gameNightHand:cardOnMouseDown(x, y)
     local searchWindow = self.parent
+    searchWindow:clearDragging()
     local selected, _ = searchWindow:getCardAtXY(x, y)
     searchWindow.dragging = selected
+    ISPanelJoypad.onMouseDown(self, x, y)
 end
 
 
@@ -220,6 +242,9 @@ function gameNightHand:render()
 
     if #cardData < 1 then return end
 
+    local gameWindow = gameNightWindow and gameNightWindow.instance
+    local cardFromOtherWindow = gameWindow and gameWindow.movingPiece
+
     for n=#cardData, 1, -1 do
 
         local card = cardData[n]
@@ -233,20 +258,20 @@ function gameNightHand:render()
             local origTexture = getTexture(texturePath)
             if origTexture then
 
-                local w = specialTextureSize and specialTextureSize[1] or origTexture:getWidth()
-                local h = specialTextureSize and specialTextureSize[2] or origTexture:getHeight()
+                local textureW = specialTextureSize and specialTextureSize[1] or origTexture:getWidth()
+                local textureH = specialTextureSize and specialTextureSize[2] or origTexture:getHeight()
 
-                local tmpTexture = w and h and Texture.new(origTexture)
+                local tmpTexture = textureW and textureH and Texture.new(origTexture)
                 if tmpTexture then
-                    tmpTexture:setHeight(h)
-                    tmpTexture:setWidth(w)
+                    tmpTexture:setHeight(textureH)
+                    tmpTexture:setWidth(textureW)
                 end
 
                 local texture = tmpTexture or origTexture
 
                 if not self.cardHeight or not self.cardWidth then
-                    self.cardHeight = h*0.5
-                    self.cardWidth = w*0.5
+                    self.cardHeight = textureH*0.5
+                    self.cardWidth = textureW*0.5
                 end
 
                 if self.cardWidth+xOffset > self.cardDisplay.width+halfPad then
@@ -264,13 +289,13 @@ function gameNightHand:render()
                 self.cardDisplay:drawTextureScaledUniform(texture, xOffset, yOffset-(self.scrollY or 0), 0.5, 1, 1, 1, 1)
                 if self.dragging or self.draggingOver then
 
-                    if self.dragging and self.dragging == n then
+                    if self.dragging and self.dragging == n and (not cardFromOtherWindow) then
                         self.cardDisplay:drawRectBorder(xOffset, yOffset-(self.scrollY or 0), self.cardWidth, self.cardHeight, 1, 0.4, 0.6, 0.9)
                     elseif self.draggingOver and self.draggingOver == n then
 
-                        local x = self.dragInBetween and xOffset+self.cardWidth or xOffset
-                        local w = self.dragInBetween and 4 or self.cardWidth
-                        local a = self.dragInBetween and 0.9 or 0.3
+                        local x = self.dragInBetween and xOffset+self.cardWidth or xOffset-(cardFromOtherWindow and 4 or 0)
+                        local w = (self.dragInBetween or cardFromOtherWindow) and 4 or self.cardWidth
+                        local a = (self.dragInBetween or cardFromOtherWindow) and 0.9 or 0.3
                         self.cardDisplay:drawRect(x, yOffset-(self.scrollY or 0), w, self.cardHeight, a, 0.4, 0.6, 0.9)
                     end
                 end
@@ -301,7 +326,7 @@ function gameNightHand:render()
                 self.cardDisplay:drawTextCentre(cardName, mouseX+(cardNameW*0.833), mouseY-cardNameH, 1, 1, 1, 0.7, UIFont.NewSmall)
             end
 
-            if specialCase and specialCase.actions and specialCase.actions.examineCard and (not self.cardExamine) then
+            if (not self.dragging) and (not cardFromOtherWindow) and specialCase and specialCase.actions and specialCase.actions.examineCard and (not self.cardExamine) then
                 if deckActionHandler.isDeckItem(self.deck) then
                     self.cardExamine = gameNightCardExamine.open(self.player, self.deck, false, selected, self)
                 end
@@ -346,12 +371,13 @@ function gameNightHand.open(player, deckItem)
     local gameWindow = gameNightWindow and gameNightWindow.instance
     local x, y, w, h
     if gameWindow then
-        x = (gameWindow:getX())
-        y = (gameWindow:getY()+gameWindow:getHeight())
-        w = gameWindow:getWidth()
+        h = 160
+        x = (gameWindow:getX()+gameWindow:getWidth()+10)
+        y = (gameWindow:getY()+gameWindow:getHeight()-h)
+        w = gameWindow:getWidth()/2
     end
 
-    local window = gameNightHand:new(x, y, w, 160, player, deckItem)
+    local window = gameNightHand:new(x, y, w, h, player, deckItem)
     window:initialise()
     window:setAlwaysOnTop(true)
     window:addToUIManager()
