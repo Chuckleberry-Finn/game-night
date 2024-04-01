@@ -379,7 +379,6 @@ function gameNightHand.open(player, deckItem)
 
     local window = gameNightHand:new(x, y, w, h, player, deckItem)
     window:initialise()
-    window:setAlwaysOnTop(true)
     window:addToUIManager()
     window:setVisible(true)
 
