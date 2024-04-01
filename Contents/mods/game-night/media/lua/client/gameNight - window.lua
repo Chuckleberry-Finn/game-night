@@ -140,7 +140,6 @@ function gameNightWindow:calculateItemDrop(x, y, items)
 end
 
 function gameNightWindow:dropItemsOn(x, y)
-    print("DROP ITEMS")
     if not self:getIsVisible() then return end
     local dragging = ISMouseDrag.dragging
     if (dragging ~= nil) then
@@ -184,8 +183,6 @@ function gameNightWindow:clearMovingPiece(x, y)
     end
     self.movingPiece = nil
     self.rotatingPieceDegree = 0
-
-    print("CLEAR")
 end
 
 gameNightWindow.rotatingPieceDegree = 0
@@ -197,7 +194,6 @@ end
 
 
 function gameNightWindow:processMouseUp(old, x, y)
-    print("processMouseUp ")
     if not self.moveWithMouse then
         ---@type InventoryItem
         local piece = self.movingPiece
@@ -260,7 +256,6 @@ end
 
 
 function gameNightWindow:onMouseUpOutside(x, y)
-    print("MOUSE UP OUTSIDE")
     if self:isVisible() and self.movingPiece then
         self:processMouseUp(ISPanelJoypad.onMouseUpOutside, x, y)
         return
@@ -270,7 +265,6 @@ end
 
 
 function gameNightWindow:onMouseUp(x, y)
-    print("MOUSE UP")
     if self:isVisible() then
         if ISMouseDrag.dragging then self:dropItemsOn(x, y) end
         self:processMouseUp(ISPanelJoypad.onMouseUp, x, y)
