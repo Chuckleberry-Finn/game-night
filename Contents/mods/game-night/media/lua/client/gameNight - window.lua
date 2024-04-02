@@ -66,10 +66,9 @@ function gameNightWindow:update()
     end
 
     local item = self.player:getPrimaryHandItem()
-    if item and deckActionHandler.isDeckItem(item) then
-        if gameNightHand and (not gameNightHand.instance) then gameNightHand.open(self.player, item) end
-    else
-        if gameNightHand and gameNightHand.instance then gameNightHand.instance:closeAndRemove() end
+    if item and gameNightDeckSearch and deckActionHandler.isDeckItem(item) then
+        local handUI = gameNightDeckSearch.instances[item]
+        if ((not handUI) or (not handUI.held)) then gameNightHand.open(self.player, item) end
     end
 end
 
@@ -137,6 +136,7 @@ function gameNightWindow:calculateItemDrop(x, y, items)
         end
         gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, nil, nil, scaledX, scaledY, surfaceZ, self.square)
     end
+    self:clearMovingPiece(x, y)
 end
 
 function gameNightWindow:dropItemsOn(x, y)
@@ -650,7 +650,13 @@ function gameNightWindow:closeAndRemove()
     self:setVisible(false)
     local cardExamine = self.cardExamine
     if cardExamine then cardExamine:closeAndRemove() end
-    if gameNightHand and gameNightHand.instance then gameNightHand.instance:closeAndRemove() end
+
+    local item = self.player:getPrimaryHandItem()
+    if item and gameNightDeckSearch and deckActionHandler.isDeckItem(item) then
+        local handUI = gameNightDeckSearch.instances[item]
+        if handUI and handUI.held then handUI:closeAndRemove() end
+    end
+
     self.elements = {}
     self:clearMovingPiece()
     self:removeFromUIManager()

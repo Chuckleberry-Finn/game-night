@@ -2,9 +2,9 @@ require "ISUI/ISPanel"
 require "ISUI/ISPanelJoypad"
 require "gameNight - window"
 
-local applyItemDetails = require "gameNight - applyItemDetails"
-local deckActionHandler = applyItemDetails.deckActionHandler
-local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
+--local applyItemDetails = require "gameNight - applyItemDetails"
+--local deckActionHandler = applyItemDetails.deckActionHandler
+--local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
 
 ---@class gameNightHand : ISPanel
 gameNightHand = gameNightDeckSearch:derive("gameNightHand")
@@ -28,7 +28,7 @@ function gameNightHand.open(player, deckItem)
 
     local searchInstance = gameNightDeckSearch.instances[deckItem]
     if searchInstance then searchInstance:closeAndRemove() end
-    
+
     local instance = gameNightHand.instance
     if instance then instance:closeAndRemove() end
 
@@ -50,29 +50,7 @@ function gameNightHand.open(player, deckItem)
 end
 
 
-
 function gameNightHand:new(x, y, width, height, player, deckItem)
-    local o = {}
-    x = x or getCore():getScreenWidth()/2 - (width/2)
-    y = y or getCore():getScreenHeight()/2 - (height/2)
-    o = ISPanel:new(x, y, width, height)
-    setmetatable(o, self)
-    self.__index = self
-
-    o.borderColor = {r=0.4, g=0.4, b=0.4, a=1}
-    o.backgroundColor = {r=0, g=0, b=0, a=0.3}
-
-    o.moveWithMouse = true
-
-    o.width = width
-    o.height = height
-
-    o.held = true
-    o.player = player
-    o.deck = deckItem
-
-    o.padding = 10
-
-    gameNightHand.instance = o
+    local o = gameNightDeckSearch:new(x, y, width, height, player, deckItem, true)
     return o
 end

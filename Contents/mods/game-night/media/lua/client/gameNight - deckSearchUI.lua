@@ -12,6 +12,7 @@ local uiInfo = require "gameNight - uiInfo"
 gameNightDeckSearch = ISPanel:derive("gameNightDeckSearch")
 gameNightDeckSearch.instances = {}
 
+
 function gameNightDeckSearch:closeAndRemove()
     local cardExamine = self.cardExamine
     if cardExamine then cardExamine:closeAndRemove() end
@@ -23,6 +24,9 @@ end
 
 function gameNightDeckSearch:update()
     if (not self.player) or (not self.deck) then self:closeAndRemove() return end
+
+    local gameNightWin = gameNightWindow.instance
+    if self.held and (not gameNightWin) then self:closeAndRemove() return end
 
     ---@type InventoryItem
     local item = self.deck
@@ -88,7 +92,14 @@ function gameNightDeckSearch:getCardAtXY(x, y)
     local cardData, _ = deckActionHandler.getDeckStates(self.deck)
     local selected = #cardData - math.floor(col + (row*colFactor))
 
-    return selected, (colMod > self.cardWidth)
+    local inBetween = (colMod > self.cardWidth)
+
+    if selected < 0 then
+        selected = 0
+        inBetween = true
+    end
+
+    return selected, inBetween
 end
 
 
@@ -102,7 +113,7 @@ end
 function gameNightDeckSearch:cardOnRightMouseUp(x, y)
     local searchWindow = self.parent
     local selected, _ = searchWindow:getCardAtXY(x, y)
-    if selected then
+    if selected and selected>0 then
         local context = ISContextMenu.get(searchWindow.player:getPlayerNum(), getMouseX(), getMouseY())
         context:addOption(getText("IGUI_draw"), searchWindow.deck, deckActionHandler.drawSpecificCard, searchWindow.player, selected)
         context:addOption(getText("IGUI_flipCard"), searchWindow.deck, deckActionHandler.flipSpecificCard, searchWindow.player, selected)
@@ -123,9 +134,10 @@ function gameNightDeckSearch:onMouseMove(dx, dy)
         local x = self.cardDisplay:getMouseX()
         local y = self.cardDisplay:getMouseY()
         local selected, inBetween = self:getCardAtXY(x, y)
-
-        self.draggingOver = selected
-        self.dragInBetween = inBetween
+        if selected and selected>=0 then
+            self.draggingOver = math.max(1,selected)
+            self.dragInBetween = inBetween
+        end
     end
     ISPanel.onMouseMove(self, dx, dy)
 end
@@ -190,17 +202,18 @@ function gameNightDeckSearch:cardOnMouseUp(x, y)
 
     local gameWindow = gameNightWindow and gameNightWindow.instance
     local card = gameWindow and gameWindow.movingPiece
-    if card and selection and selection >= 1 then
-        local worldItem = card:getWorldItem()
-        local inUse = worldItem and worldItem:getModData().gameNightInUse
-        local wrongUser = inUse and (inUse~=searchWindow.player:getUsername())
-        if wrongUser then gameWindow:clearMovingPiece(x, y) return end
+    if card then
+        if selection and selection >= 0 then
+            local worldItem = card:getWorldItem()
+            local inUse = worldItem and worldItem:getModData().gameNightInUse
+            local wrongUser = inUse and (inUse~=searchWindow.player:getUsername())
+            if wrongUser then gameWindow:clearMovingPiece(x, y) return end
 
-        local notCompatible = card:getType() ~= deckItem:getType()
-        if notCompatible then gameWindow:clearMovingPiece() return end
+            local notCompatible = card:getType() ~= deckItem:getType()
+            if notCompatible then gameWindow:clearMovingPiece() return end
 
-        deckActionHandler.mergeDecks(card, deckItem, searchWindow.player, selection+(inBetween and 0 or 1))
-
+            deckActionHandler.mergeDecks(card, deckItem, searchWindow.player, selection+(inBetween and 0 or 1))
+        end
         gameWindow:clearMovingPiece(x, y)
     end
 
@@ -220,7 +233,7 @@ function gameNightDeckSearch:cardOnMouseDown(x, y)
     local searchWindow = self.parent
     searchWindow:clearDragging()
     local selected, _ = searchWindow:getCardAtXY(x, y)
-    searchWindow.dragging = selected
+    if selected  and selected>0 then searchWindow.dragging = selected end
     ISPanelJoypad.onMouseDown(self, x, y)
 end
 
@@ -353,21 +366,23 @@ function gameNightDeckSearch:initialise()
 
     local closeText = getText("UI_Close")
     local btnWid = getTextManager():MeasureStringX(UIFont.Small, closeText)+10
-    local btnHgt = 25
+    local btnHgt = self.held and 0 or 25
     local pd = self.padding
 
     self.bounds = {x1=pd, y1=btnHgt+(pd*2), x2=self.width-pd, y2=self.height-pd}
 
-    self.close = ISButton:new(self.width-pd-btnWid, pd, btnWid, btnHgt, closeText, self, gameNightDeckSearch.onClick)
-    self.close.internal = "CLOSE"
-    self.close.borderColor = {r=1, g=1, b=1, a=0.4}
-    self.close:initialise()
-    self.close:instantiate()
-    self:addChild(self.close)
+    if not self.held then
+        self.close = ISButton:new(self.width-pd-btnWid, pd, btnWid, btnHgt, closeText, self, gameNightDeckSearch.onClick)
+        self.close.internal = "CLOSE"
+        self.close.borderColor = {r=1, g=1, b=1, a=0.4}
+        self.close:initialise()
+        self.close:instantiate()
+        self:addChild(self.close)
 
-    uiInfo.applyToUI(self, self.close.x-24, self.close.y, getText("UI_GameNightSearch"))
+        uiInfo.applyToUI(self, self.close.x-24, self.close.y, getText("UI_GameNightSearch"))
+    end
 
-    self.cardDisplay = ISPanelJoypad:new(self.bounds.x1, self.bounds.y1, self.bounds.x2-self.padding, self.bounds.y2-self.close.height-(self.padding*2))
+    self.cardDisplay = ISPanelJoypad:new(self.bounds.x1, self.bounds.y1, self.bounds.x2-self.padding, self.bounds.y2-(self.held and 0 or self.close.height)-(self.padding*2))
     self.cardDisplay:initialise()
     self.cardDisplay:instantiate()
     self.cardDisplay.onMouseDown = self.cardOnMouseDown
@@ -396,7 +411,7 @@ end
 
 
 
-function gameNightDeckSearch:new(x, y, width, height, player, deckItem)
+function gameNightDeckSearch:new(x, y, width, height, player, deckItem, held)
     local o = {}
     x = x or getCore():getScreenWidth()/2 - (width/2)
     y = y or getCore():getScreenHeight()/2 - (height/2)
@@ -409,13 +424,12 @@ function gameNightDeckSearch:new(x, y, width, height, player, deckItem)
 
     o.moveWithMouse = true
 
-    --o.cardHeight = 48
-    --o.cardWidth = 32
-
     o.width = width
     o.height = height
     o.player = player
     o.deck = deckItem
+
+    o.held = held
 
     o.padding = 10
 

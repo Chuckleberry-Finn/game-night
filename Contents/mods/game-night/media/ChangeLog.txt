@@ -40,4 +40,5 @@
 - Allow cards to generateContextMenuFromSpecialActions.
 - Added card examine feature (for TCGs, not enabled by default).
 - Allow multiple instances of Deck-Search (per item)
+- Added new 'hand' feature, equipped cards will show a modified search window.
 [ ------ ]
