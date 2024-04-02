@@ -36,6 +36,7 @@
 [ 3/30/2024 ]
 - Added specials overrides for category and name for cards. (for Pogs)
 - Improved internals to the action mechanics. (Better MP syncing)
+- Tweak: Drag over to merge decks now less sensitive. (5px -> 8px)
 - Tweaked Monopoly naming conventions.
 - Allow cards to generateContextMenuFromSpecialActions.
 - Added card examine feature (for TCGs, not enabled by default).
