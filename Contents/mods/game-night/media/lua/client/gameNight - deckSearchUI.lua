@@ -10,7 +10,6 @@ local uiInfo = require "gameNight - uiInfo"
 
 ---@class gameNightDeckSearch : ISPanel
 gameNightDeckSearch = ISPanel:derive("gameNightDeckSearch")
-
 gameNightDeckSearch.instances = {}
 
 function gameNightDeckSearch:closeAndRemove()
@@ -27,9 +26,13 @@ function gameNightDeckSearch:update()
 
     ---@type InventoryItem
     local item = self.deck
+    ---@type IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
+    local player = self.player
+
+    if self.held and item ~= player:getPrimaryHandItem() then self:closeAndRemove() return end
 
     local values,flipped = deckActionHandler.getDeckStates(item)
-    if not values or #values <= 1 then
+    if not values or ((self.held and #values<1) and #values<=1) then
         self:closeAndRemove()
         return
     end
@@ -40,7 +43,7 @@ function gameNightDeckSearch:update()
     local outerMostCont = item:getOutermostContainer()
     local contParent = outerMostCont and outerMostCont:getParent()
     local contParentSq = contParent and contParent:getSquare()
-    if contParentSq and ( contParentSq:DistToProper(self.player) > 2 ) then
+    if contParentSq and ( contParentSq:DistToProper(player) > 2 ) then
         self:closeAndRemove()
         return
     end
@@ -48,7 +51,7 @@ function gameNightDeckSearch:update()
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
     local worldItemSq = worldItem and worldItem:getSquare()
-    if worldItemSq and ( worldItemSq:DistToProper(self.player) > 2 ) then
+    if worldItemSq and ( worldItemSq:DistToProper(player) > 2 ) then
         self:closeAndRemove()
         return
     end
