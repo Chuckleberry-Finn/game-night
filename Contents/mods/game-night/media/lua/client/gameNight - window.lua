@@ -434,7 +434,8 @@ end
 
 function gameNightWindow:DrawTextureSide1(texture, centerX, centerY, rotation, height, topFaceCoordinates, r, g, b, a)
     if self.javaObject == nil or not self:isVisible() then return end
-    local halfTextureWidth = texture:getWidth() / 2
+    local textureWidth = texture:getWidth()
+    local halfTextureWidth = textureWidth / 2
     local rotatedAngle = math.rad(rotation) -- Rotate by 270 degrees
     local cosRotatedAngle = math.cos(rotatedAngle)
     local sinRotatedAngle = math.sin(rotatedAngle)
@@ -445,19 +446,20 @@ function gameNightWindow:DrawTextureSide1(texture, centerX, centerY, rotation, h
     local javaObjCenterX = topFaceCoordinates[1]
     local javaObjCenterY = topFaceCoordinates[2]
     local x1 = (-xOffset1 - yOffset2) + javaObjCenterX
-    local y1 = (xOffset2 - yOffset1) + javaObjCenterY - (height / 2) -- Adjusted y-coordinate
+    local y1 = (xOffset2 - yOffset1) + javaObjCenterY + textureWidth
     local x2 = (-xOffset1 - yOffset2) + javaObjCenterX
-    local y2 = (-xOffset2 - yOffset1) + javaObjCenterY - (height / 2) -- Adjusted y-coordinate
+    local y2 = (-xOffset2 - yOffset1) + javaObjCenterY + textureWidth
     local x3 = (xOffset1 - yOffset2) + javaObjCenterX
-    local y3 = (-xOffset2 + yOffset1) + javaObjCenterY - (height / 2) -- Adjusted y-coordinate
+    local y3 = (-xOffset2 + yOffset1) + javaObjCenterY + textureWidth
     local x4 = (xOffset1 - yOffset2) + javaObjCenterX
-    local y4 = (xOffset2 + yOffset1) + javaObjCenterY - (height / 2) -- Adjusted y-coordinate
+    local y4 = (xOffset2 + yOffset1) + javaObjCenterY + textureWidth
     getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, r, g, b, a, r, g, b, a, r, g, b, a, nil)
 end
 
 function gameNightWindow:DrawTextureSide2(texture, centerX, centerY, rotation, height, topFaceCoordinates, r, g, b, a)
     if self.javaObject == nil or not self:isVisible() then return end
-    local halfTextureHeight = texture:getHeight() / 2
+    local textureHeight = texture:getHeight()
+    local halfTextureHeight = textureHeight / 2
     local rotatedAngle = math.rad(90.0 + rotation) -- Rotate by 90 degrees
     local cosRotatedAngle = math.cos(rotatedAngle)
     local sinRotatedAngle = math.sin(rotatedAngle)
@@ -467,16 +469,17 @@ function gameNightWindow:DrawTextureSide2(texture, centerX, centerY, rotation, h
     local yOffset2 = sinRotatedAngle * height -- Adjust for height
     local javaObjCenterX = topFaceCoordinates[1]
     local javaObjCenterY = topFaceCoordinates[2]
-    local x1 = (xOffset1 + yOffset2) + javaObjCenterX + (height / 2) -- Adjusted x-coordinate
-    local y1 = (-xOffset2 + yOffset1) + javaObjCenterY -- Adjusted y-coordinate
-    local x2 = (xOffset1 + yOffset2) + javaObjCenterX + (height / 2) -- Adjusted x-coordinate
-    local y2 = (xOffset2 + yOffset1) + javaObjCenterY -- Adjusted y-coordinate
-    local x3 = (-xOffset1 + yOffset2) + javaObjCenterX + (height / 2) -- Adjusted x-coordinate
-    local y3 = (xOffset2 - yOffset1) + javaObjCenterY -- Adjusted y-coordinate
-    local x4 = (-xOffset1 + yOffset2) + javaObjCenterX + (height / 2) -- Adjusted x-coordinate
-    local y4 = (-xOffset2 - yOffset1) + javaObjCenterY -- Adjusted y-coordinate
+    local x1 = (xOffset1 + yOffset2) + javaObjCenterX
+    local y1 = (-xOffset2 + yOffset1) + javaObjCenterY
+    local x2 = (xOffset1 + yOffset2) + javaObjCenterX
+    local y2 = (xOffset2 + yOffset1) + javaObjCenterY
+    local x3 = (-xOffset1 + yOffset2) + javaObjCenterX
+    local y3 = (xOffset2 - yOffset1) + javaObjCenterY
+    local x4 = (-xOffset1 + yOffset2) + javaObjCenterX
+    local y4 = (-xOffset2 - yOffset1) + javaObjCenterY
     getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, r, g, b, a, r, g, b, a, r, g, b, a, nil)
 end
+
 
 
 
@@ -514,8 +517,8 @@ function gameNightWindow:generateElement(item, object, priority)
     tmpTexture:setWidth(w)
 
     local topFaceCoordinates = self:DrawTextureTopFace(tmpTexture, x+(w/2), y+(h/2), rot, 1, 1, 1, 1)
-    self:DrawTextureSide1(tmpTexture, x+(w/2), y+(h/2), rot, 30, topFaceCoordinates, 1, 0, 0, 0.8)
-    self:DrawTextureSide2(tmpTexture, x+(w/2), y+(h/2), rot, 30, topFaceCoordinates, 0, 0, 1, 0.8)
+    self:DrawTextureSide1(tmpTexture, x+(w/2), y+(h/2), rot, 30, topFaceCoordinates, 1, 0.5, 0.5, 1)
+    self:DrawTextureSide2(tmpTexture, x+(w/2), y+(h/2), rot, 30, topFaceCoordinates, 0.5, 0.5, 1, 1)
     --self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot)
     --self:drawTextureScaledAspect(texture, x, y, w, h, 1, 1, 1, 1)
 end
