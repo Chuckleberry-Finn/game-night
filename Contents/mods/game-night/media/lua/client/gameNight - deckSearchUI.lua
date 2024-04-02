@@ -105,6 +105,7 @@ end
 
 function gameNightDeckSearch:clearDragging()
     self.dragging = nil
+    self.draggingTexture = nil
     self.draggingOver = nil
     self.dragInBetween = nil
 end
@@ -131,8 +132,27 @@ function gameNightDeckSearch:onMouseMove(dx, dy)
     local piece = gameNightWin and gameNightWin.movingPiece
 
     if self.dragging or piece then
+
         local x = self.cardDisplay:getMouseX()
         local y = self.cardDisplay:getMouseY()
+
+        if self.dragging then
+            ---@type Texture
+            local texture = self.draggingTexture
+            --local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
+            --local x, y = self:getMouseX()-(offsetX), self:getMouseY()-(offsetY)
+            local movingElement = self.elements[movingPiece:getID()]
+            if movingElement then
+                local w, h = movingElement.w, movingElement.h
+
+                local tmpTexture = Texture.new(texture)
+                tmpTexture:setHeight(h)
+                tmpTexture:setWidth(w)
+
+                self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), 0, 1, 1, 1, 0.7)
+            end
+        end
+
         local selected, inBetween = self:getCardAtXY(x, y)
         if selected and selected>=0 then
             self.draggingOver = math.max(1,selected)
@@ -233,7 +253,28 @@ function gameNightDeckSearch:cardOnMouseDown(x, y)
     local searchWindow = self.parent
     searchWindow:clearDragging()
     local selected, _ = searchWindow:getCardAtXY(x, y)
-    if selected  and selected>0 then searchWindow.dragging = selected end
+    if selected  and selected>0 then
+        searchWindow.dragging = selected
+
+        local cardData, flippedStates = deckActionHandler.getDeckStates(searchWindow.deck)
+        if cardData and cardData[selected] then
+            local itemType = searchWindow.deck:getType()
+            local texture
+
+            if flippedStates[selected] ~= true then
+                local fullType = searchWindow.deck:getFullType()
+                local cardName = cardData[#cardData]
+                local special = gamePieceAndBoardHandler.specials[fullType]
+                local cardFaceType = special and special.cardFaceType or itemType
+                local textureToUse = deckActionHandler.fetchAltIcon(cardName, searchWindow.deck)
+                texture = getTexture("media/textures/Item_"..cardFaceType.."/"..textureToUse..".png")
+            else
+                texture = getTexture("media/textures/Item_"..itemType.."/FlippedInPlay.png")
+            end
+
+            searchWindow.draggingTexture = texture
+        end
+    end
     ISPanelJoypad.onMouseDown(self, x, y)
 end
 
