@@ -236,7 +236,7 @@ function gameNightDeckSearch:cardOnMouseDown(x, y)
     local selected, _ = searchWindow:getCardAtXY(x, y)
     if selected  and selected>0 then
         searchWindow.dragging = selected
-        
+
         local cardData, flippedStates = deckActionHandler.getDeckStates(searchWindow.deck)
         if cardData and cardData[selected] then
             local itemType = searchWindow.deck:getType()
@@ -396,17 +396,13 @@ function gameNightDeckSearch:render()
                 tmpTexture:setWidth(textureW * gameNightWindow.scaleSize)
             end
 
-            self:DrawTextureAngle(tmpTexture, dragX+(textureW/2), dragY+(textureH/2), 0, 1, 1, 1, 0.7)
+            gameNightWindow.DrawTextureAngle(self, tmpTexture, dragX+(textureW/2), dragY+(textureH/2), 0, 1, 1, 1, 0.7)
         end
     end
 end
 
 
-function gameNightDeckSearch:DrawTextureAngle(tex, centerX, centerY, angle, r, g, b, a)
-    if self.javaObject ~= nil then
-        self.javaObject:DrawTextureAngle(tex, centerX, centerY, angle, (r or 1), (g or 1), (b or 1), (a or 1))
-    end
-end
+
 
 
 function gameNightDeckSearch:initialise()
