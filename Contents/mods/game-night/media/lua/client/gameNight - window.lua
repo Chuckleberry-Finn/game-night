@@ -214,7 +214,7 @@ function gameNightWindow:processMouseUp(old, x, y)
                 local selection
                 for _,element in pairs(self.elements) do
                     if (element.item~=piece) and deckActionHandler.isDeckItem(element.item) then
-                        local inBounds = (math.abs(element.x-placeX) <= 5) and (math.abs(element.y-placeY) <= 5)
+                        local inBounds = (math.abs(element.x-placeX) <= 8) and (math.abs(element.y-placeY) <= 8)
                         if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
                     end
                 end
@@ -555,7 +555,7 @@ function gameNightWindow:render()
         if deckActionHandler.isDeckItem(movingPiece) then
             for _,element in pairs(self.elements) do
                 if (element.item~=movingPiece) and (movingPiece:getType() == element.item:getType()) and deckActionHandler.isDeckItem(element.item) then
-                    local inBounds = (math.abs(element.x-x) <= 5) and (math.abs(element.y-y) <= 5)
+                    local inBounds = (math.abs(element.x-x) <= 8) and (math.abs(element.y-y) <= 8)
                     if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
                 end
             end
