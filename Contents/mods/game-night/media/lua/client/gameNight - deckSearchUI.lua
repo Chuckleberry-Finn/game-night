@@ -125,34 +125,15 @@ end
 
 
 function gameNightDeckSearch:onMouseMove(dx, dy)
-    if not self:isMouseOver() then return end
+    --if not self:isMouseOver() then return end
 
     ---@type gameNightWindow
     local gameNightWin = gameNightWindow.instance
     local piece = gameNightWin and gameNightWin.movingPiece
 
     if self.dragging or piece then
-
         local x = self.cardDisplay:getMouseX()
         local y = self.cardDisplay:getMouseY()
-
-        if self.dragging then
-            ---@type Texture
-            local texture = self.draggingTexture
-            --local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
-            --local x, y = self:getMouseX()-(offsetX), self:getMouseY()-(offsetY)
-            local movingElement = self.elements[movingPiece:getID()]
-            if movingElement then
-                local w, h = movingElement.w, movingElement.h
-
-                local tmpTexture = Texture.new(texture)
-                tmpTexture:setHeight(h)
-                tmpTexture:setWidth(w)
-
-                self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), 0, 1, 1, 1, 0.7)
-            end
-        end
-
         local selected, inBetween = self:getCardAtXY(x, y)
         if selected and selected>=0 then
             self.draggingOver = math.max(1,selected)
@@ -255,16 +236,16 @@ function gameNightDeckSearch:cardOnMouseDown(x, y)
     local selected, _ = searchWindow:getCardAtXY(x, y)
     if selected  and selected>0 then
         searchWindow.dragging = selected
-
+        
         local cardData, flippedStates = deckActionHandler.getDeckStates(searchWindow.deck)
         if cardData and cardData[selected] then
             local itemType = searchWindow.deck:getType()
+            local fullType = searchWindow.deck:getFullType()
+            local special = gamePieceAndBoardHandler.specials[fullType]
             local texture
 
             if flippedStates[selected] ~= true then
-                local fullType = searchWindow.deck:getFullType()
-                local cardName = cardData[#cardData]
-                local special = gamePieceAndBoardHandler.specials[fullType]
+                local cardName = cardData[selected]
                 local cardFaceType = special and special.cardFaceType or itemType
                 local textureToUse = deckActionHandler.fetchAltIcon(cardName, searchWindow.deck)
                 texture = getTexture("media/textures/Item_"..cardFaceType.."/"..textureToUse..".png")
@@ -272,6 +253,8 @@ function gameNightDeckSearch:cardOnMouseDown(x, y)
                 texture = getTexture("media/textures/Item_"..itemType.."/FlippedInPlay.png")
             end
 
+            local specialTextureSize = special and special.textureSize
+            searchWindow.draggingTextureSize = specialTextureSize
             searchWindow.draggingTexture = texture
         end
     end
@@ -399,6 +382,30 @@ function gameNightDeckSearch:render()
         if cardExamine then cardExamine:closeAndRemove() end
     end
 
+    if self.dragging then
+        local dragX, dragY = self:getMouseX(), self:getMouseY()
+        ---@type Texture
+        local texture = self.draggingTexture
+        if texture then
+            local textureW = self.draggingTextureSize and self.draggingTextureSize[1] or texture:getWidth()
+            local textureH = self.draggingTextureSize and self.draggingTextureSize[2] or texture:getHeight()
+
+            local tmpTexture = textureW and textureH and Texture.new(texture)
+            if tmpTexture then
+                tmpTexture:setHeight(textureH * gameNightWindow.scaleSize)
+                tmpTexture:setWidth(textureW * gameNightWindow.scaleSize)
+            end
+
+            self:DrawTextureAngle(tmpTexture, dragX+(textureW/2), dragY+(textureH/2), 0, 1, 1, 1, 0.7)
+        end
+    end
+end
+
+
+function gameNightDeckSearch:DrawTextureAngle(tex, centerX, centerY, angle, r, g, b, a)
+    if self.javaObject ~= nil then
+        self.javaObject:DrawTextureAngle(tex, centerX, centerY, angle, (r or 1), (g or 1), (b or 1), (a or 1))
+    end
 end
 
 
@@ -454,8 +461,8 @@ end
 
 function gameNightDeckSearch:new(x, y, width, height, player, deckItem, held)
     local o = {}
-    x = x or getCore():getScreenWidth()/2 - (width/2)
-    y = y or getCore():getScreenHeight()/2 - (height/2)
+    x = x or getCore():getScreenWidth()/2 - (width and (width/2) or 0)
+    y = y or getCore():getScreenHeight()/2 - (height and (height/2) or 0)
     o = ISPanel:new(x, y, width, height)
     setmetatable(o, self)
     self.__index = self
