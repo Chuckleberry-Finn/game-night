@@ -404,8 +404,8 @@ function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
     return selection
 end
 
-
-function gameNightWindow:DrawTextureCardFace(texture, centerX, centerY, rotation, r, g, b, a)
+gameNightWindow.cardStackTexture = getTexture("media/textures/modelTextures/cardStack.png")
+function gameNightWindow:DrawTextureCardFace(texture, centerX, centerY, rotation, height, r, g, b, a)
     if self.javaObject == nil or not self:isVisible() then return end
     local halfTextureWidth = texture:getWidth() / 2
     local halfTextureHeight = texture:getHeight() / 2
@@ -426,101 +426,57 @@ function gameNightWindow:DrawTextureCardFace(texture, centerX, centerY, rotation
     local y3 = (-xOffset2 - yOffset1) + javaObjCenterY
     local x4 = (xOffset1 + yOffset2) + javaObjCenterX
     local y4 = (-xOffset2 + yOffset1) + javaObjCenterY
-    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, r, g, b, a, r, g, b, a, r, g, b, a, nil)
+
+    local facePoints = {x1, y1, x2, y2, x3, y3, x4, y4}
+
+    local cardStackTexture = gameNightWindow.cardStackTexture
+
+    if rotation >= 270 then
+        self:DrawTextureLeftEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
+        if rotation ~= 270 then self:DrawTextureBottomEdgeSide(cardStackTexture, -height, facePoints, 1, 1, 1, 1) end
+
+    elseif rotation >= 180 then
+        if rotation ~= 180 then self:DrawTextureLeftEdgeSide(cardStackTexture, -height, facePoints, 1, 1, 1, 1) end
+        self:DrawTextureTopEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
+
+    elseif rotation >= 90 then
+        self:DrawTextureRightEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
+        if rotation ~= 90 then self:DrawTextureTopEdgeSide(cardStackTexture, height, facePoints, 1, 1, 1, 1) end
+
+    elseif rotation >= 0 then
+        if rotation ~= 0 then self:DrawTextureRightEdgeSide(cardStackTexture, -height, facePoints, 1, 1, 1, 1) end
+        self:DrawTextureBottomEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
+    end
+
+    getRenderer():render(texture, x1, y1-height, x2, y2-height, x3, y3-height, x4, y4-height, r, g, b, a, nil)
 end
 
-function gameNightWindow:DrawTextureBottomEdgeSide(texture, centerX, centerY, rotation, height, r, g, b, a)
+function gameNightWindow:DrawTextureTopEdgeSide(texture, height, facePoints, r, g, b, a)
     if self.javaObject == nil or not self:isVisible() then return end
-    local halfTextureWidth = texture:getWidth() / 2
-    local halfTextureHeight = texture:getHeight() / 2
-    local rotatedAngle = math.rad(180.0 + rotation)
-    local cosRotatedAngle = math.cos(rotatedAngle)
-    local sinRotatedAngle = math.sin(rotatedAngle)
-    local xOffset1 = cosRotatedAngle * halfTextureWidth
-    local yOffset1 = sinRotatedAngle * halfTextureWidth
-    local xOffset2 = cosRotatedAngle * height
-    local yOffset2 = sinRotatedAngle * height
-    local javaObjCenterX = self.javaObject:getAbsoluteX() + centerX
-    local javaObjCenterY = self.javaObject:getAbsoluteY() + centerY
-    local x1 = (xOffset1 - yOffset2) + javaObjCenterX
-    local y1 = (xOffset2 + yOffset1) + javaObjCenterY
-    local x2 = (-xOffset1 - yOffset2) + javaObjCenterX
-    local y2 = (xOffset2 - yOffset1) + javaObjCenterY
-    local x3 = (-xOffset1 - yOffset2) + javaObjCenterX
-    local y3 = (-xOffset2 - yOffset1) + javaObjCenterY
-    local x4 = (xOffset1 - yOffset2) + javaObjCenterX
-    local y4 = (-xOffset2 + yOffset1) + javaObjCenterY
-    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, r, g, b, a, r, g, b, a, r, g, b, a, nil)
+    local fX1, fY1, fX2, fY2, fX3, fY3, fX4, fY4 = unpack(facePoints)
+    local x1, y1, x2, y2, x3, y3, x4, y4 = fX1, fY1, fX2, fY2, fX2, fY2 + height, fX1, fY1 + height
+    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, nil)
 end
 
-
-function gameNightWindow:DrawTextureTopEdgeSide(texture, centerX, centerY, rotation, height, r, g, b, a)
+function gameNightWindow:DrawTextureBottomEdgeSide(texture, height, facePoints, r, g, b, a)
     if self.javaObject == nil or not self:isVisible() then return end
-    local halfTextureWidth = texture:getWidth() / 2
-    local rotatedAngle = math.rad(rotation)
-    local cosRotatedAngle = math.cos(rotatedAngle)
-    local sinRotatedAngle = math.sin(rotatedAngle)
-    local xOffset1 = cosRotatedAngle * halfTextureWidth
-    local yOffset1 = sinRotatedAngle * halfTextureWidth
-    local xOffset2 = cosRotatedAngle * height
-    local yOffset2 = sinRotatedAngle * height
-    local javaObjCenterX = self.javaObject:getAbsoluteX() + centerX
-    local javaObjCenterY = self.javaObject:getAbsoluteY() + centerY
-    local x1 = (xOffset1 - yOffset2) + javaObjCenterX
-    local y1 = (xOffset2 + yOffset1) + javaObjCenterY
-    local x2 = (-xOffset1 - yOffset2) + javaObjCenterX
-    local y2 = (xOffset2 - yOffset1) + javaObjCenterY
-    local x3 = (-xOffset1 - yOffset2) + javaObjCenterX
-    local y3 = (-xOffset2 - yOffset1) + javaObjCenterY
-    local x4 = (xOffset1 - yOffset2) + javaObjCenterX
-    local y4 = (-xOffset2 + yOffset1) + javaObjCenterY
-    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, r, g, b, a, r, g, b, a, r, g, b, a, nil)
+    local fX1, fY1, fX2, fY2, fX3, fY3, fX4, fY4 = unpack(facePoints)
+    local x1, y1, x2, y2, x3, y3, x4, y4 = fX4, fY4, fX3, fY3, fX3, fY3 + height, fX4, fY4 + height
+    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, nil)
 end
 
-function gameNightWindow:DrawTextureLeftEdgeSide(texture, centerX, centerY, rotation, height, r, g, b, a)
+function gameNightWindow:DrawTextureLeftEdgeSide(texture, height, facePoints, r, g, b, a)
     if self.javaObject == nil or not self:isVisible() then return end
-    local halfTextureHeight = texture:getHeight() / 2
-    local rotatedAngle = math.rad(90.0 + rotation)
-    local cosRotatedAngle = math.cos(rotatedAngle)
-    local sinRotatedAngle = math.sin(rotatedAngle)
-    local xOffset1 = cosRotatedAngle * halfTextureHeight
-    local yOffset1 = sinRotatedAngle * halfTextureHeight
-    local xOffset2 = cosRotatedAngle * height
-    local yOffset2 = sinRotatedAngle * height
-    local javaObjCenterX = self.javaObject:getAbsoluteX() + centerX
-    local javaObjCenterY = self.javaObject:getAbsoluteY() + centerY
-    local x1 = (xOffset1 - yOffset2) + javaObjCenterX
-    local y1 = (xOffset2 + yOffset1) + javaObjCenterY
-    local x2 = (-xOffset1 - yOffset2) + javaObjCenterX
-    local y2 = (xOffset2 - yOffset1) + javaObjCenterY
-    local x3 = (-xOffset1 - yOffset2) + javaObjCenterX
-    local y3 = (-xOffset2 - yOffset1) + javaObjCenterY
-    local x4 = (xOffset1 - yOffset2) + javaObjCenterX
-    local y4 = (-xOffset2 + yOffset1) + javaObjCenterY
-    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, r, g, b, a, r, g, b, a, r, g, b, a, nil)
+    local fX1, fY1, fX2, fY2, fX3, fY3, fX4, fY4 = unpack(facePoints)
+    local x1, y1, x2, y2, x3, y3, x4, y4 = fX1, fY1, fX4, fY4, fX4, fY4 + height, fX1, fY1 + height
+    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, nil)
 end
 
-function gameNightWindow:DrawTextureRightEdgeSide(texture, centerX, centerY, rotation, height, r, g, b, a)
+function gameNightWindow:DrawTextureRightEdgeSide(texture, height, facePoints, r, g, b, a)
     if self.javaObject == nil or not self:isVisible() then return end
-    local halfTextureHeight = texture:getHeight() / 2
-    local rotatedAngle = math.rad(-90.0 + rotation)
-    local cosRotatedAngle = math.cos(rotatedAngle)
-    local sinRotatedAngle = math.sin(rotatedAngle)
-    local xOffset1 = cosRotatedAngle * halfTextureHeight
-    local yOffset1 = sinRotatedAngle * halfTextureHeight
-    local xOffset2 = cosRotatedAngle * height
-    local yOffset2 = sinRotatedAngle * height
-    local javaObjCenterX = self.javaObject:getAbsoluteX() + centerX
-    local javaObjCenterY = self.javaObject:getAbsoluteY() + centerY
-    local x1 = (xOffset1 - yOffset2) + javaObjCenterX
-    local y1 = (xOffset2 + yOffset1) + javaObjCenterY
-    local x2 = (-xOffset1 - yOffset2) + javaObjCenterX
-    local y2 = (xOffset2 - yOffset1) + javaObjCenterY
-    local x3 = (-xOffset1 - yOffset2) + javaObjCenterX
-    local y3 = (-xOffset2 - yOffset1) + javaObjCenterY
-    local x4 = (xOffset1 - yOffset2) + javaObjCenterX
-    local y4 = (-xOffset2 + yOffset1) + javaObjCenterY
-    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, r, g, b, a, r, g, b, a, r, g, b, a, nil)
+    local fX1, fY1, fX2, fY2, fX3, fY3, fX4, fY4 = unpack(facePoints)
+    local x1, y1, x2, y2, x3, y3, x4, y4 = fX3, fY3, fX2, fY2, fX2, fY2 + height, fX3, fY3 + height
+    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, nil)
 end
 
 
@@ -557,13 +513,12 @@ function gameNightWindow:generateElement(item, object, priority)
     tmpTexture:setHeight(h)
     tmpTexture:setWidth(w)
 
-    self:DrawTextureCardFace(tmpTexture, x+(w/2), y+(h/2), rot, 1, 1, 1, 1)
-    self:DrawTextureBottomEdgeSide(tmpTexture, x+(w/2), y+(h/2), rot, 30, 1, 0.5, 0.5, 1)
-    self:DrawTextureTopEdgeSide(tmpTexture, x+(w/2), y+(h/2), rot, 30, 0.5, 1, 0.5, 1)
-    self:DrawTextureLeftEdgeSide(tmpTexture, x+(w/2), y+(h/2), rot, 30, 0.5, 0.5, 1, 1)
-    self:DrawTextureRightEdgeSide(tmpTexture, x+(w/2), y+(h/2), rot, 30, 1, 0.5, 1, 1)
-    --self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot)
-    --self:drawTextureScaledAspect(texture, x, y, w, h, 1, 1, 1, 1)
+    local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
+    if deckStates then
+        self:DrawTextureCardFace(tmpTexture, x+(w/2), y+(h/2), rot, (#deckStates/2), 1, 1, 1, 1)
+    else
+        self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot, 1, 1, 1, 1)
+    end
 end
 
 
