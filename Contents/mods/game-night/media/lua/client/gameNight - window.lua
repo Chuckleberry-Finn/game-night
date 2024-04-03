@@ -479,24 +479,30 @@ function gameNightWindow:DrawTextureRoundFace(texture, centerX, centerY, rotatio
     local segmentAngle = 360 / segments
 
     local function adjustFacePoints(segment, h)
-        local angle = math.rad(segment * segmentAngle - 90)
-        local radius = halfTextureWidth
-
+        local angle = math.rad(segment * segmentAngle)  -- Adjusted angle for perspective
+        local radius = halfTextureWidth  -- Assuming the radius is the same for both width and height
         local adjustedPoints = {}
-        for i = 1, 8, 2 do
-            local x = javaObjCenterX + radius * math.cos(angle)
-            local y = javaObjCenterY + radius * math.sin(angle)
+        -- Adjust points for top face
+        adjustedPoints[1] = javaObjCenterX + radius * math.cos(angle - math.rad(90))  -- x1
+        adjustedPoints[2] = javaObjCenterY - radius * math.sin(angle - math.rad(90))  -- y1
+        angle = angle + math.rad(segmentAngle)  -- Move to the next corner
+        adjustedPoints[3] = javaObjCenterX + radius * math.cos(angle - math.rad(90))  -- x2
+        adjustedPoints[4] = javaObjCenterY - radius * math.sin(angle - math.rad(90))  -- y2
 
-            adjustedPoints[i] = x
-            adjustedPoints[i + 1] = y + h * (halfTextureHeight / radius)
-            angle = angle + math.rad(segmentAngle)
-        end
+        -- Adjust points for bottom face
+        local bottomRadius = radius * math.cos(math.rad(segmentAngle / 2))  -- Adjusted radius for bottom face
+        adjustedPoints[5] = javaObjCenterX + bottomRadius * math.cos(angle - math.rad(90))  -- x3
+        adjustedPoints[6] = javaObjCenterY - bottomRadius * math.sin(angle - math.rad(90)) + h  -- y3
+        angle = angle - math.rad(segmentAngle)  -- Back to the previous corner
+        adjustedPoints[7] = javaObjCenterX + bottomRadius * math.cos(angle - math.rad(90))  -- x4
+        adjustedPoints[8] = javaObjCenterY - bottomRadius * math.sin(angle - math.rad(90)) + h  -- y4
+
         return adjustedPoints
     end
-
-    for i = 1, segments/2 do
+    
+    for i = 1, segments do
         local adjustedFacePoints = adjustFacePoints(i, height)
-        self:DrawTextureSide(cardStackTexture, -height*2, adjustedFacePoints, 0.6, 0.6, 0.6, 1)
+        self:DrawTextureSide(cardStackTexture, -height, adjustedFacePoints, 0.7, 0.7, 0.7, 0.55)
     end
 
     getRenderer():render(texture, x1, y1-height, x2, y2-height, x3, y3-height, x4, y4-height, r, g, b, a, nil)
