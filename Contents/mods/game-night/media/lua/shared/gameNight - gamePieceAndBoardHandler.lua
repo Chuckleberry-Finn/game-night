@@ -509,6 +509,13 @@ end
 function gamePieceAndBoardHandler.rotatePiece(gamePiece, angleChange, player)
     local current = gamePiece:getModData()["gameNight_rotation"] or 0
     local state = current + angleChange
+
+    if state < 0 then
+        state = 360 + state
+    elseif state >= 360 then
+        state = state - 360
+    end
+
     gamePieceAndBoardHandler.setModDataValue(gamePiece, "gameNight_rotation", state)
 end
 
