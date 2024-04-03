@@ -64,14 +64,14 @@ gamePieceAndBoardHandler.specials = {
     ["Base.CheckerBoard"]={ category = "GameBoard", textureSize = {532,540} },
     ["Base.ChessBoard"]={ category = "GameBoard", textureSize = {532,540} },
 
-    ["Base.PokerChips"]={ weight = 0.003, canStack=50 },
-    ["Base.PokerChipsBlue"]={ weight = 0.003, canStack=50 },
-    ["Base.PokerChipsYellow"]={ weight = 0.003, canStack=50 },
-    ["Base.PokerChipsWhite"]={ weight = 0.003, canStack=50 },
-    ["Base.PokerChipsBlack"]={ weight = 0.003, canStack=50 },
-    ["Base.PokerChipsOrange"]={ weight = 0.003, canStack=50 },
-    ["Base.PokerChipsPurple"]={ weight = 0.003, canStack=50 },
-    ["Base.PokerChipsGreen"]={ weight = 0.003, canStack=50 },
+    ["Base.PokerChips"]={ weight = 0.003, canStack=50, alternateStackRendering = {rgb = {0.37, 0.38, 0.39}}},
+    ["Base.PokerChipsBlue"]={ weight = 0.003, canStack=50, alternateStackRendering = {rgb = {0.37, 0.38, 0.39}}},
+    ["Base.PokerChipsYellow"]={ weight = 0.003, canStack=50, alternateStackRendering = {rgb = {0.37, 0.38, 0.39}}},
+    ["Base.PokerChipsWhite"]={ weight = 0.003, canStack=50, alternateStackRendering = {rgb = {0.37, 0.38, 0.39}}},
+    ["Base.PokerChipsBlack"]={ weight = 0.003, canStack=50, alternateStackRendering = {rgb = {0.37, 0.38, 0.39}}},
+    ["Base.PokerChipsOrange"]={ weight = 0.003, canStack=50, alternateStackRendering = {rgb = {0.37, 0.38, 0.39}}},
+    ["Base.PokerChipsPurple"]={ weight = 0.003, canStack=50, alternateStackRendering = {rgb = {0.37, 0.38, 0.39}}},
+    ["Base.PokerChipsGreen"]={ weight = 0.003, canStack=50, alternateStackRendering = {rgb = {0.37, 0.38, 0.39}}},
 }
 
 
