@@ -433,21 +433,20 @@ function gameNightWindow:DrawTextureRoundFace(texture, centerX, centerY, rotatio
 
     local function adjustFacePoints(segment, h)
 
-        local angle = math.rad(segment * segmentAngle)  -- Adjusted angle for perspective
-        local radius = halfTextureWidth  -- Assuming the radius is the same for both width and height
         local adjustedPoints = {}
-        -- Adjust points for top face
+
+        local angle = math.rad((segment) * segmentAngle)
+        local radius = halfTextureWidth
         adjustedPoints[1] = javaObjCenterX + radius * math.cos(angle - math.rad(90))  -- x1
         adjustedPoints[2] = javaObjCenterY - radius * math.sin(angle - math.rad(90))  -- y1
-        angle = angle + math.rad(segmentAngle)  -- Move to the next corner
+        angle = angle + math.rad(segmentAngle)
         adjustedPoints[3] = javaObjCenterX + radius * math.cos(angle - math.rad(90))  -- x2
         adjustedPoints[4] = javaObjCenterY - radius * math.sin(angle - math.rad(90))  -- y2
 
-        -- Adjust points for bottom face
-        local bottomRadius = radius * math.cos(math.rad(segmentAngle / 2))  -- Adjusted radius for bottom face
+        local bottomRadius = radius * math.cos(math.rad(segmentAngle / 2))
         adjustedPoints[5] = javaObjCenterX + bottomRadius * math.cos(angle - math.rad(90))  -- x3
         adjustedPoints[6] = javaObjCenterY - bottomRadius * math.sin(angle - math.rad(90)) + h  -- y3
-        angle = angle - math.rad(segmentAngle)  -- Back to the previous corner
+        angle = angle - math.rad(segmentAngle)
         adjustedPoints[7] = javaObjCenterX + bottomRadius * math.cos(angle - math.rad(90))  -- x4
         adjustedPoints[8] = javaObjCenterY - bottomRadius * math.sin(angle - math.rad(90)) + h  -- y4
 
