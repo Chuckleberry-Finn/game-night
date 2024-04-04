@@ -274,10 +274,7 @@ function deckActionHandler.dealCards(deckItem, player, n, x, y)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._dealCards, deckItem, player, n, x, y}, deckActionHandler.handleDetails)
 end
 
-function deckActionHandler.dealCard(deckItem, player, gnWin)
-    local x, y, z = gnWin and gnWin:determineScaledWorldXY(gnWin:getMouseX(), gnWin and gnWin:getMouseY())
-    deckActionHandler.dealCards(deckItem, player, 1, x, y)
-end
+function deckActionHandler.dealCard(deckItem, player, x, y) deckActionHandler.dealCards(deckItem, player, 1, x, y) end
 
 
 
