@@ -38,48 +38,30 @@ function gamePieceAndBoardHandler.generate_itemTypes()
 end
 
 gamePieceAndBoardHandler.specials = {
-    ["Base.Dice"]={
-        category = "Die",
-        actions = { rollDie=6 },
-        shiftAction = "rollDie",
-    },
-    ["Base.DiceWhite"]={
-        category = "Die",
-        actions = { rollDie=6 },
-        shiftAction = "rollDie",
-    },
+    ["Base.Dice"]={ category = "Die", actions = { rollDie=6 }, shiftAction = "rollDie", noRotate=true, },
+    ["Base.DiceWhite"]={ category = "Die", actions = { rollDie=6 }, shiftAction = "rollDie", noRotate=true, },
 
-    ["Base.GamePieceRed"]={
-        actions = { flipPiece=true },
-        altState="GamePieceRedFlipped",
-        shiftAction = "flipPiece",
-    },
-    ["Base.GamePieceBlack"]={
-        actions = { flipPiece=true },
-        altState="GamePieceBlackFlipped",
-        shiftAction = "flipPiece",
-    },
+    ["Base.GamePieceRed"]={ actions = { flipPiece=true }, altState="GamePieceRedFlipped", shiftAction = "flipPiece", noRotate=true, },
+    ["Base.GamePieceBlack"]={ actions = { flipPiece=true }, altState="GamePieceBlackFlipped", shiftAction = "flipPiece", noRotate=true, },
 
     ["Base.BackgammonBoard"]={ category = "GameBoard", textureSize = {532,540} },
     ["Base.CheckerBoard"]={ category = "GameBoard", textureSize = {532,540} },
     ["Base.ChessBoard"]={ category = "GameBoard", textureSize = {532,540} },
 
-    ["Base.PokerChips"] = { weight = 0.003, canStack = 50, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.8, 0.42, 0.41}, sides=7} },
-    ["Base.PokerChipsBlue"] = { weight = 0.003, canStack = 50, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.41, 0.52, 0.82}, sides=7 } },
-    ["Base.PokerChipsYellow"] = { weight = 0.003, canStack = 50, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.79, 0.75, 0.38}, sides=7 } },
-    ["Base.PokerChipsWhite"] = { weight = 0.003, canStack = 50, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.94, 0.92, 0.88}, sides=7 } },
-    ["Base.PokerChipsBlack"] = { weight = 0.003, canStack = 50, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.45, 0.43, 0.4}, sides=7 } },
-    ["Base.PokerChipsOrange"] = { weight = 0.003, canStack = 50, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.82, 0.65, 0.36}, sides=7 } },
-    ["Base.PokerChipsPurple"] = { weight = 0.003, canStack = 50, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.71, 0.4, 0.73}, sides=7 } },
-    ["Base.PokerChipsGreen"] = { weight = 0.003, canStack = 50, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.44, 0.62, 0.37}, sides=7 } },
+    ["Base.PokerChips"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.8, 0.42, 0.41}, sides=7} },
+    ["Base.PokerChipsBlue"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.41, 0.52, 0.82}, sides=7 } },
+    ["Base.PokerChipsYellow"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.79, 0.75, 0.38}, sides=7 } },
+    ["Base.PokerChipsWhite"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.94, 0.92, 0.88}, sides=7 } },
+    ["Base.PokerChipsBlack"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.45, 0.43, 0.4}, sides=7 } },
+    ["Base.PokerChipsOrange"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.82, 0.65, 0.36}, sides=7 } },
+    ["Base.PokerChipsPurple"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.71, 0.4, 0.73}, sides=7 } },
+    ["Base.PokerChipsGreen"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {func="DrawTexturePokerChip", rgb = {0.44, 0.62, 0.37}, sides=7 } },
 }
 
 
 ---Because I hate copy pasted code - this iterates through the side values and registers their special actions.
 local sides = {4,6,8,10,12,20}
-for _,side in pairs(sides) do
-    gamePieceAndBoardHandler.registerSpecial("Base.Dice"..side, { addTextureDir = "dice/", actions = { rollDie=side }, shiftAction = "rollDie", })
-end
+for _,side in pairs(sides) do gamePieceAndBoardHandler.registerSpecial("Base.Dice"..side, { addTextureDir = "dice/", noRotate=true, actions = { rollDie=side }, shiftAction = "rollDie", }) end
 
 gamePieceAndBoardHandler.registerSpecial("Base.StellaOcta", { actions = { rollDie=1 }, shiftAction = "rollDie", })
 
@@ -508,7 +490,11 @@ end
 
 function gamePieceAndBoardHandler.rotatePiece(gamePiece, angleChange, player)
     local current = gamePiece:getModData()["gameNight_rotation"] or 0
-    local state = current + angleChange
+    local fullType = gamePiece:getFullType()
+    local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
+    local noRotate = specialCase and specialCase.noRotate
+
+    local state = noRotate and 0 or (current + angleChange)
 
     if state < 0 then
         state = 360 + state
