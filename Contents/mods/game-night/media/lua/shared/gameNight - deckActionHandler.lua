@@ -239,15 +239,19 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
     local special = gamePieceAndBoardHandler.specials[fullType]
     local onDraw = special and special.onDraw
 
-    local newCards = {}
+    --local item = self.player:getPrimaryHandItem()
+    --if item and gameNightDeckSearch and deckActionHandler.isDeckItem(item) then
+
     for n,card in pairs(drawnCards) do
         gamePieceAndBoardHandler.playSound(deckItem, player)
         local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n], locations)
         if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard) end
-        table.insert(newCards, newCard)
-    end
 
-    return newCards
+            --local handUI = gameNightDeckSearch.instances[item]
+            --if handUI and handUI.held then handUI:closeAndRemove() end
+            --deckActionHandler.mergeDecks(deckItemA, deckItemB, player, index)
+        end
+    end
 end
 
 
