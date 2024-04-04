@@ -252,7 +252,8 @@ end
 
 
 ---@param deckItem InventoryItem
-function deckActionHandler.drawCards(num, deckItem, player, locations)
+function deckActionHandler.drawCards(num, deckItem, player)
+    local locations = {container=player:getInventory()}
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player, locations}, deckActionHandler.handleDetails)
 end
 
@@ -260,14 +261,12 @@ function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCard
 
 
 function deckActionHandler._dealCards(deckItem, player, n, x, y)
-
     local worldItem, container = deckItem:getWorldItem(), deckItem:getContainer()
     x = x or worldItem and (worldItem:getWorldPosX()-worldItem:getX()) or 0
     y = y or worldItem and (worldItem:getWorldPosY()-worldItem:getY()) or 0
     local z = worldItem and (worldItem:getWorldPosZ()-worldItem:getZ()) or 0
     ---@type IsoGridSquare
     local sq = (worldItem and worldItem:getSquare()) or (gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square)
-
     deckActionHandler._drawCards(n, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z}, container=container })
 end
 
