@@ -145,20 +145,20 @@ function volumetricRender.DrawTextureCardFace(UI, texture, centerX, centerY, rot
         local facePoints = {x1, y1, x2, y2, x3, y3, x4, y4}
         local cardStackTexture = volumetricRender.cardStackTexture
         if rotation >= 270 then
-            volumetricRender.DrawTextureLeftEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
-            if rotation ~= 270 then volumetricRender.DrawTextureBottomEdgeSide(cardStackTexture, -height, facePoints, 1, 1, 1, 1) end
+            volumetricRender.DrawTextureLeftEdgeSide(cardStackTexture, -height, facePoints, r*0.6, g*0.6, b*0.6, 1)
+            if rotation ~= 270 then volumetricRender.DrawTextureBottomEdgeSide(cardStackTexture, -height, facePoints, r, g, b, 1) end
 
         elseif rotation >= 180 then
-            if rotation ~= 180 then volumetricRender.DrawTextureLeftEdgeSide(cardStackTexture, -height, facePoints, 1, 1, 1, 1) end
-            volumetricRender.DrawTextureTopEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
+            if rotation ~= 180 then volumetricRender.DrawTextureLeftEdgeSide(cardStackTexture, -height, facePoints, r, g, b, 1) end
+            volumetricRender.DrawTextureTopEdgeSide(cardStackTexture, -height, facePoints, r*0.6, g*0.6, b*0.6, 1)
 
         elseif rotation >= 90 then
-            volumetricRender.DrawTextureRightEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
-            if rotation ~= 90 then volumetricRender.DrawTextureTopEdgeSide(cardStackTexture, height, facePoints, 1, 1, 1, 1) end
+            volumetricRender.DrawTextureRightEdgeSide(cardStackTexture, -height, facePoints, r*0.6, g*0.6, b*0.6, 1)
+            if rotation ~= 90 then volumetricRender.DrawTextureTopEdgeSide(cardStackTexture, -height, facePoints, r, g, b, 1) end
 
         elseif rotation >= 0 then
-            if rotation ~= 0 then volumetricRender.DrawTextureRightEdgeSide(cardStackTexture, -height, facePoints, 1, 1, 1, 1) end
-            volumetricRender.DrawTextureBottomEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
+            if rotation ~= 0 then volumetricRender.DrawTextureRightEdgeSide(cardStackTexture, -height, facePoints, r, g, b, 1) end
+            volumetricRender.DrawTextureBottomEdgeSide(cardStackTexture, -height, facePoints, r*0.6, g*0.6, b*0.6, 1)
         end
     end
     getRenderer():render(texture, x1, y1-height, x2, y2-height, x3, y3-height, x4, y4-height, 1, 1, 1, 1, nil)
@@ -166,14 +166,14 @@ end
 
 function volumetricRender.DrawTextureTopEdgeSide(texture, height, facePoints, r, g, b, a)
     local fX1, fY1, fX2, fY2, fX3, fY3, fX4, fY4 = unpack(facePoints)
-    local x1, y1, x2, y2, x3, y3, x4, y4 = fX1, fY1, fX2, fY2, fX2, fY2 + height, fX1, fY1 + height
-    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, nil)
+    local x1, y1, x2, y2, x3, y3, x4, y4 = fX1, fY1+height, fX2, fY2+height, fX2, fY2, fX1, fY1
+    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, b, g, a, nil)
 end
 
 function volumetricRender.DrawTextureBottomEdgeSide(texture, height, facePoints, r, g, b, a)
     local fX1, fY1, fX2, fY2, fX3, fY3, fX4, fY4 = unpack(facePoints)
     local x1, y1, x2, y2, x3, y3, x4, y4 = fX4, fY4, fX3, fY3, fX3, fY3 + height, fX4, fY4 + height
-    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, g, b, a, nil)
+    getRenderer():render(texture, x1, y1, x2, y2, x3, y3, x4, y4, r, b, g, a, nil)
 end
 
 function volumetricRender.DrawTextureLeftEdgeSide(texture, height, facePoints, r, g, b, a)

@@ -453,23 +453,23 @@ function gameNightWindow:generateElement(item, object, priority)
     tmpTexture:setHeight(h)
     tmpTexture:setWidth(w)
 
+    local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
+    local stack = item:getModData()["gameNight_stacked"]
+
     --TODO: merge cards and game pieces into one concrete system to avoid crap like this
-    local alternateStackRendering = specialCase and specialCase.alternateStackRendering
-    if alternateStackRendering then
-        local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
-        local stack = item:getModData()["gameNight_stacked"]
-        local count = (deckStates and #deckStates) or stack or alternateStackRendering.depth
+    local altRend = specialCase and specialCase.alternateStackRendering
+    if altRend or deckStates or stack then
+        local count = (deckStates and #deckStates) or stack or altRend.depth
         if count then
-            local func = alternateStackRendering.func or (deckStates and "DrawTextureCardFace") or "DrawTextureRoundFace"
+            local func = altRend and altRend.func or (deckStates and "DrawTextureCardFace") or "DrawTextureRoundFace"
             local r, g, b = 1, 1, 1
-            if alternateStackRendering.rgb then r, g, b = unpack(alternateStackRendering.rgb) end
-            local sides = alternateStackRendering.sides or 12
+            if altRend and altRend.rgb then r, g, b = unpack(altRend.rgb) end
+            local sides = altRend and altRend.sides or 12 or 0
             volumetricRender[func](self, tmpTexture, x+(w/2), y+(h/2), rot, (count/2), sides, r, g, b, 1)
             return
         end
-    else
-        self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot)
     end
+    self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot)
 end
 
 
