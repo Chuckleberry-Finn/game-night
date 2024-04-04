@@ -459,7 +459,7 @@ function gameNightWindow:generateElement(item, object, priority)
     --TODO: merge cards and game pieces into one concrete system to avoid crap like this
     local altRend = specialCase and specialCase.alternateStackRendering
     if altRend or deckStates or stack then
-        local depthFactor = altRend and altRend.depth or 0.25
+        local depthFactor = altRend and altRend.depth or (deckStates and 0.33) or 1
         local depth = (deckStates and #deckStates * depthFactor) or stack or depthFactor
         if depth then
             local func = altRend and altRend.func or (deckStates and "DrawTextureCardFace") or "DrawTextureRoundFace"
