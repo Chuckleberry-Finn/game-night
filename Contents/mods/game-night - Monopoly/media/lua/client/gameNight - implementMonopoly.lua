@@ -88,6 +88,16 @@ gamePieceAndBoardHandler.registerTypes({
     "Base.MonopolyMoney50", "Base.MonopolyMoney100", "Base.MonopolyMoney500"
 })
 
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoat", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoot", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyCar", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyDog", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyHat", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyIron", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyThimble", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyWheelbarrow", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyHouse", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.MonopolyHotel", { noRotate=true, })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoard", {
     category = "GameBoard", textureSize = {532,532},
