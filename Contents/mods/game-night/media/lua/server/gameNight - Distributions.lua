@@ -136,38 +136,20 @@ end
 gameNightDistro.proceduralDistGameNight = {}
 gameNightDistro.proceduralDistGameNight.itemsToAdd = { "BackgammonBox", "ChessBox", "CheckersBox", "PokerBox", }
 gameNightDistro.proceduralDistGameNight.listsToInsert = {
-    ["BarCounterMisc"] = {
-        generalChance = 6,
-    },
+    
+    ["ClassroomDesk"] = { generalChance = 3, },
+    ["BedroomDresser"] = { generalChance = 6, },
+    ["ClassroomMisc"] = { generalChance = 3, },
+    ["SchoolLockers"] = { generalChance = 5, },
+    ["OfficeDeskHome"] = { generalChance = 0.25, },
 
-    ["Gifts"] = {
-        generalChance = 8,
-        sealed = true
-    },
-
-    ["GigamartToys"] = {
-        generalChance = 8,
-        sealed = true
-    },
-
-    ["Hobbies"] = {
-        generalChance = 8,
-    },
-
-    ["HolidayStuff"] = {
-        generalChance = 8,
-        sealed = true
-    },
-
-    ["WardrobeChild"] = {
-        generalChance = 2,
-        chanceOverride = {["BackgammonBox"] = 0, ["ChessBox"] = 0, ["CheckersBox"] = 0, ["PokerBox"] = 0,}
-    },
-
-    ["CrateRandomJunk"] = {
-        generalChance = 1,
-        chanceOverride = {["BackgammonBox"] = 0, ["ChessBox"] = 0, ["CheckersBox"] = 0, ["PokerBox"] = 0,}
-    },
+    ["BarCounterMisc"] = { generalChance = 6, },
+    ["Gifts"] = { generalChance = 8, sealed = true },
+    ["GigamartToys"] = { generalChance = 8, sealed = true },
+    ["Hobbies"] = { generalChance = 8, },
+    ["HolidayStuff"] = { generalChance = 8, sealed = true },
+    ["WardrobeChild"] = { generalChance = 2, chanceOverride = {["BackgammonBox"] = 0, ["ChessBox"] = 0, ["CheckersBox"] = 0, ["PokerBox"] = 0,} },
+    ["CrateRandomJunk"] = { generalChance = 1, chanceOverride = {["BackgammonBox"] = 0, ["ChessBox"] = 0, ["CheckersBox"] = 0, ["PokerBox"] = 0,} },
 }
 
 function gameNightDistro.fillProceduralDist()
