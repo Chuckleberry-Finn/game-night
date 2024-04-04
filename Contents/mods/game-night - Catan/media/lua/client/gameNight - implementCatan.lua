@@ -24,11 +24,7 @@ CatanDevelopmentDeck.cards = {"Chapel", "Library", "Market", "Palace", "Universi
 CatanDevelopmentDeck.types = {"Knight","Monopoly","Road Building","Year of Plenty"}
 CatanDevelopmentDeck.count = {14,2,2,2}
 
-for i,s in pairs(CatanDevelopmentDeck.types) do
-    for ii=1, CatanDevelopmentDeck.count[i] do
-        table.insert(CatanDevelopmentDeck.cards, s)
-    end
-end
+for i,s in pairs(CatanDevelopmentDeck.types) do for ii=1, CatanDevelopmentDeck.count[i] do table.insert(CatanDevelopmentDeck.cards, s) end end
 deckActionHandler.addDeck("CatanDevelopmentDeck", CatanDevelopmentDeck.cards)
 
 
@@ -52,26 +48,22 @@ gamePieceAndBoardHandler.registerTypes({
 --- This `special` case changes the category from `GamePiece` to `GameBoard`.
 gamePieceAndBoardHandler.registerSpecial("Base.CatanBoard", { category = "GameBoard", textureSize = {768,676} })
 
-gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadWhite", {
-    actions = { rotateRoad=true },
-    shiftAction = "rotateRoad",
-})
+gamePieceAndBoardHandler.registerSpecial("Base.CatanCityWhite", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanCityRed", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanCityBlue", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanCityOrange", { noRotate=true, })
 
-gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadRed", {
-    actions = { rotateRoad=true },
-    shiftAction = "rotateRoad",
-})
+gamePieceAndBoardHandler.registerSpecial("Base.CatanSettlementWhite", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanSettlementRed", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanSettlementBlue", { noRotate=true, })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanSettlementOrange", { noRotate=true, })
 
-gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadBlue", {
-    actions = { rotateRoad=true },
-    shiftAction = "rotateRoad",
-})
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRobber", { noRotate=true, })
 
-gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", {
-    actions = { rotateRoad=true },
-    shiftAction = "rotateRoad",
-})
-
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadWhite", { actions = { rotateRoad=true }, shiftAction = "rotateRoad", })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadRed", { actions = { rotateRoad=true }, shiftAction = "rotateRoad", })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadBlue", { actions = { rotateRoad=true }, shiftAction = "rotateRoad", })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", { actions = { rotateRoad=true }, shiftAction = "rotateRoad", })
 
 ---Define new function under `gamePieceAndBoardHandler`
 function gamePieceAndBoardHandler.rotateRoad(gamePiece, player)
