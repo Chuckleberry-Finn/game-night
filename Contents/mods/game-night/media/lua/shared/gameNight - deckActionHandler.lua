@@ -250,7 +250,6 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
             --local handUI = gameNightDeckSearch.instances[item]
             --if handUI and handUI.held then handUI:closeAndRemove() end
             --deckActionHandler.mergeDecks(deckItemA, deckItemB, player, index)
-        end
     end
 end
 
