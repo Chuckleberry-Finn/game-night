@@ -33,14 +33,16 @@
 - Flip inUse when invalid
 [ ------ ]
 
-[ 3/30/2024 ]
+[ 4/4/2024 - TCG+Volumetric Update ]
 - Added specials overrides for category and name for cards. (for Pogs)
 - Improved internals to the action mechanics. (Better MP syncing)
 - Tweak: Drag over to merge decks now less sensitive. (5px -> 8px)
-- Fixed: Rotating items stay in the constraints of 0 - 359 degrees.
+- Fixed: Rotating items will stay in the constraints of 0 - 359 degrees.
+- Added: Disable piece rotation by type. (Disabled a few different types of pieces)
 - Tweaked Monopoly naming conventions.
 - Allow cards to generateContextMenuFromSpecialActions.
 - Added card examine feature (for TCGs, not enabled by default).
 - Allow multiple instances of Deck-Search (per item)
 - Added new 'hand' feature, equipped cards will show a modified search window.
+- Added volumetric-rendering (3D) to a few pieces, including add-ons: All cards, Pokerchips, Catan roads, Dominos, Pogs.
 [ ------ ]
