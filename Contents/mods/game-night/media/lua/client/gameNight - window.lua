@@ -190,7 +190,20 @@ end
 gameNightWindow.rotatingPieceDegree = 0
 
 function gameNightWindow:onMouseWheel(del)
+
+    local piece = self.movingPiece
+    if not piece then return end
+
+    local fullType = piece:getFullType()
+    local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
+    local noRotate = specialCase and specialCase.noRotate
+    if noRotate then
+        self.rotatingPieceDegree = 0
+        return true
+    end
+
     self.rotatingPieceDegree = self.rotatingPieceDegree+(del*5)
+
     return true
 end
 
