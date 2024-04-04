@@ -8,13 +8,10 @@ function applyItemDetails.applyCardsFromDeck(item, deck)
 
     item:getModData()["gameNight_cardDeck"] = item:getModData()["gameNight_cardDeck"] or copyTable(deck)
 
+    --oops, clear this
     item:getModData()["gameNight_cardAltNames"] = nil
     item:getModData()["gameNight_cardAltIcons"] = nil
-    --if applyItemDetails.altDetails[itemType] then
-    --    item:getModData()["gameNight_cardAltNames"] = applyItemDetails.altDetails[itemType].altNames
-    --    item:getModData()["gameNight_cardAltIcons"] = applyItemDetails.altDetails[itemType].altIcons
-    --end
-
+    
     local flippedStates = item:getModData()["gameNight_cardFlipped"]
     if not flippedStates then
         item:getModData()["gameNight_cardFlipped"] = {}
