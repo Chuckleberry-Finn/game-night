@@ -52,9 +52,12 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
                 context:addSubMenu(drawOption, subDrawMenu)
 
                 local worldItem = item:getWorldItem()
-                local playSq = gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square
+                local gameNightWindow = gameNightWindow and gameNightWindow.instance
+
+                local playSq = gameNightWindow and gameNightWindow.instance.square
                 if worldItem or playSq then
-                    local deal = subDrawMenu:addOptionOnTop(getText("IGUI_deal"), item, deckActionHandler.dealCard, playerObj)
+                    local x, y, z = gameNightWindow:determineScaledWorldXY(gameNightWindow:getMouseX(), gameNightWindow:getMouseY())
+                    local deal = subDrawMenu:addOptionOnTop(getText("IGUI_deal"), item, deckActionHandler.dealCard, playerObj, x, y)
                     deal.iconTexture = gamePieceContext.gameNightContextMenuIcon.deal
                 end
 
