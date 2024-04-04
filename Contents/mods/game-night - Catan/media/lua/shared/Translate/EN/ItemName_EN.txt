@@ -2,6 +2,7 @@ ItemName_EN = {
 
     ItemName_Base.CatanBoard = "Catan Board"
     ItemName_Base.CatanBox = "Catan Box",
+    ItemName_Base.CatanBox_sealed = "Catan Box (Sealed)",
     ItemName_Base.CatanResourceCard = "Resource Deck"
     ItemName_Base.CatanDevelopmentCard = "Development Deck"
 

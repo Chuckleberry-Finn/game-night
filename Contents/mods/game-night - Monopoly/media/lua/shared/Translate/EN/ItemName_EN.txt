@@ -4,4 +4,7 @@ ItemName_EN = {
     ItemName_Base.MonopolyCommunityChest = "Community Chests"
     ItemName_Base.MonopolyDeed = "Deeds"
 
+    ItemName_Base.MonopolyBox = "Monopoly Box",
+    ItemName_Base.MonopolyBox_sealed = "Monopoly Box (Sealed)",
+
 }

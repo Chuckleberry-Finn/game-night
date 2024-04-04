@@ -10,7 +10,10 @@ ItemName_EN = {
     ItemName_Base.PlayingCards3 = "Playing Cards",
 
     ItemName_Base.CheckersBox = "Checkers Box",
+    ItemName_Base.CheckersBox_sealed = "Checkers Box (Sealed)",
+
     ItemName_Base.BackgammonBox = "Backgammon Box",
+    ItemName_Base.BackgammonBox_sealed = "Backgammon Box (Sealed)",
 
     ItemName_Base.ChessWhite = "White Pawn Chess Piece",
     ItemName_Base.ChessBlack = "Black Pawn Chess Piece",
@@ -26,6 +29,7 @@ ItemName_EN = {
     ItemName_Base.ChessBlackKnight = "Black Knight Chess Piece",
 
     ItemName_Base.ChessBox = "Chess Box",
+    ItemName_Base.ChessBox_sealed = "Chess Box (Sealed)",
 
     ItemName_Base.PokerChips = "Red Poker Chip",
     ItemName_Base.PokerChipsBlue = "Blue Poker Chip",
@@ -37,6 +41,7 @@ ItemName_EN = {
     ItemName_Base.PokerChipsBlack = "Black Poker Chip",
 
     ItemName_Base.PokerBox = "Poker Box",
+    ItemName_Base.PokerBox_sealed = "Poker Box (Sealed)",
 
     ItemName_Base.Dice = "Die",
     ItemName_Base.DiceWhite = "Die",
