@@ -60,10 +60,14 @@ gamePieceAndBoardHandler.registerSpecial("Base.CatanSettlementOrange", { noRotat
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRobber", { noRotate=true, })
 
-gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadWhite", { actions = { rotateRoad=true }, shiftAction = "rotateRoad", })
-gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadRed", { actions = { rotateRoad=true }, shiftAction = "rotateRoad", })
-gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadBlue", { actions = { rotateRoad=true }, shiftAction = "rotateRoad", })
-gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", { actions = { rotateRoad=true }, shiftAction = "rotateRoad", })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadWhite", {
+    actions = { rotateRoad=true }, shiftAction = "rotateRoad", alternateStackRendering = { depth=8, rgb = {0.541, 0.525, 0.510}, sides=7 } })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadRed", {
+    actions = { rotateRoad=true }, shiftAction = "rotateRoad", alternateStackRendering = { depth=8, rgb = {0.451, 0.153, 0.173}, sides=7 } })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadBlue", {
+    actions = { rotateRoad=true }, shiftAction = "rotateRoad", alternateStackRendering = { depth=8, rgb = {0.176, 0.239, 0.329}, sides=7 } })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", {
+    actions = { rotateRoad=true }, shiftAction = "rotateRoad", alternateStackRendering = { depth=8, rgb = {0.545, 0.388, 0.208}, sides=7 } })
 
 ---Define new function under `gamePieceAndBoardHandler`
 function gamePieceAndBoardHandler.rotateRoad(gamePiece, player)

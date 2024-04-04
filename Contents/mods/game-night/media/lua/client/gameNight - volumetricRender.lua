@@ -128,7 +128,7 @@ end
 
 --- CARD STACKS
 volumetricRender.cardStackTexture = getTexture("media/textures/modelTextures/cardStack.png")
-function volumetricRender.DrawTextureCardFace(UI, texture, centerX, centerY, rotation, height, r, g, b, a)
+function volumetricRender.DrawTextureCardFace(UI, texture, centerX, centerY, rotation, height, ignore, r, g, b, a)
     if UI.javaObject == nil or not UI:isVisible() then return end
     local halfTextureWidth, halfTextureHeight = texture:getWidth() / 2, texture:getHeight() / 2
     local rotatedAngle = math.rad(180.0 + rotation)
