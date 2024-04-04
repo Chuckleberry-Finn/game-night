@@ -492,25 +492,25 @@ function gameNightWindow:DrawTextureCardFace(texture, centerX, centerY, rotation
     local x4 = (xOffset1 + yOffset2) + javaObjCenterX
     local y4 = (-xOffset2 + yOffset1) + javaObjCenterY
 
-    local facePoints = {x1, y1, x2, y2, x3, y3, x4, y4}
+    if height > 0 then
+        local facePoints = {x1, y1, x2, y2, x3, y3, x4, y4}
+        local cardStackTexture = gameNightWindow.cardStackTexture
+        if rotation >= 270 then
+            self:DrawTextureLeftEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
+            if rotation ~= 270 then self:DrawTextureBottomEdgeSide(cardStackTexture, -height, facePoints, 1, 1, 1, 1) end
 
-    local cardStackTexture = gameNightWindow.cardStackTexture
+        elseif rotation >= 180 then
+            if rotation ~= 180 then self:DrawTextureLeftEdgeSide(cardStackTexture, -height, facePoints, 1, 1, 1, 1) end
+            self:DrawTextureTopEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
 
-    if rotation >= 270 then
-        self:DrawTextureLeftEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
-        if rotation ~= 270 then self:DrawTextureBottomEdgeSide(cardStackTexture, -height, facePoints, 1, 1, 1, 1) end
+        elseif rotation >= 90 then
+            self:DrawTextureRightEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
+            if rotation ~= 90 then self:DrawTextureTopEdgeSide(cardStackTexture, height, facePoints, 1, 1, 1, 1) end
 
-    elseif rotation >= 180 then
-        if rotation ~= 180 then self:DrawTextureLeftEdgeSide(cardStackTexture, -height, facePoints, 1, 1, 1, 1) end
-        self:DrawTextureTopEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
-
-    elseif rotation >= 90 then
-        self:DrawTextureRightEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
-        if rotation ~= 90 then self:DrawTextureTopEdgeSide(cardStackTexture, height, facePoints, 1, 1, 1, 1) end
-
-    elseif rotation >= 0 then
-        if rotation ~= 0 then self:DrawTextureRightEdgeSide(cardStackTexture, -height, facePoints, 1, 1, 1, 1) end
-        self:DrawTextureBottomEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
+        elseif rotation >= 0 then
+            if rotation ~= 0 then self:DrawTextureRightEdgeSide(cardStackTexture, -height, facePoints, 1, 1, 1, 1) end
+            self:DrawTextureBottomEdgeSide(cardStackTexture, -height, facePoints, 0.6, 0.6, 0.6, 1)
+        end
     end
 
     getRenderer():render(texture, x1, y1-height, x2, y2-height, x3, y3-height, x4, y4-height, 1, 1, 1, 1, nil)
