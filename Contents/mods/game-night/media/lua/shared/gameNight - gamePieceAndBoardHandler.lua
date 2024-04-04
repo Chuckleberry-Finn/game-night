@@ -64,14 +64,14 @@ gamePieceAndBoardHandler.specials = {
     ["Base.CheckerBoard"]={ category = "GameBoard", textureSize = {532,540} },
     ["Base.ChessBoard"]={ category = "GameBoard", textureSize = {532,540} },
 
-    ["Base.PokerChips"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.60, 0.22, 0.21} } },
-    ["Base.PokerChipsBlue"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.21, 0.32, 0.62} } },
-    ["Base.PokerChipsYellow"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.59, 0.55, 0.18} } },
-    ["Base.PokerChipsWhite"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.74, 0.72, 0.68} } },
-    ["Base.PokerChipsBlack"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.25, 0.23, 0.20} } },
-    ["Base.PokerChipsOrange"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.62, 0.45, 0.16} } },
-    ["Base.PokerChipsPurple"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.51, 0.20, 0.53} } },
-    ["Base.PokerChipsGreen"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.24, 0.42, 0.17} } },
+    ["Base.PokerChips"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.8, 0.42, 0.41} } },
+    ["Base.PokerChipsBlue"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.41, 0.52, 0.82} } },
+    ["Base.PokerChipsYellow"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.79, 0.75, 0.38} } },
+    ["Base.PokerChipsWhite"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.94, 0.92, 0.88} } },
+    ["Base.PokerChipsBlack"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.45, 0.43, 0.4} } },
+    ["Base.PokerChipsOrange"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.82, 0.65, 0.36} } },
+    ["Base.PokerChipsPurple"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.71, 0.4, 0.73} } },
+    ["Base.PokerChipsGreen"] = { weight = 0.003, canStack = 50, alternateStackRendering = {rgb = {0.44, 0.62, 0.37} } },
 }
 
 
