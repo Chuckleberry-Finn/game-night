@@ -498,7 +498,7 @@ end
 
 function gameNightWindow:prerender()
     ISPanelJoypad.prerender(self)
-    self:drawRect(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), 0.7, 0.43, 0.42, 0.39)
+    self:drawRect(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), 0.6, 0.43, 0.42, 0.39)
     self:backMost()
 end
 
