@@ -134,32 +134,39 @@ end
 
 
 gameNightDistro.proceduralDistGameNight = {}
-gameNightDistro.proceduralDistGameNight.itemsToAdd = { "BackgammonBox", "ChessBox", "CheckersBox", "PokerBox", }
+gameNightDistro.proceduralDistGameNight.itemsToAdd = {
+    ["BackgammonBox"] = {},
+    ["ChessBox"] = {},
+    ["CheckersBox"] = {},
+    ["PokerBox"] = {}, }
+
 gameNightDistro.proceduralDistGameNight.listsToInsert = {
     
-    ["ClassroomDesk"] = { generalChance = 3, },
-    ["BedroomDresser"] = { generalChance = 6, },
-    ["ClassroomMisc"] = { generalChance = 3, },
-    ["SchoolLockers"] = { generalChance = 5, },
-    ["OfficeDeskHome"] = { generalChance = 0.25, },
+    ["ClassroomDesk"] = { generalChance = 0.05, },
+    ["BedroomDresser"] = { generalChance = 0.2, },
+    ["ClassroomMisc"] = { generalChance = 0.1, },
+    ["SchoolLockers"] = { generalChance = 0.075, },
+    ["OfficeDeskHome"] = { generalChance = 0.025, },
 
     ["BarCounterMisc"] = { generalChance = 6, },
     ["Gifts"] = { generalChance = 8, sealed = true },
     ["GigamartToys"] = { generalChance = 8, sealed = true },
     ["Hobbies"] = { generalChance = 8, },
     ["HolidayStuff"] = { generalChance = 8, sealed = true },
+
+    ---these are already in the distro so no need to double them up
     ["WardrobeChild"] = { generalChance = 2, chanceOverride = {["BackgammonBox"] = 0, ["ChessBox"] = 0, ["CheckersBox"] = 0, ["PokerBox"] = 0,} },
     ["CrateRandomJunk"] = { generalChance = 1, chanceOverride = {["BackgammonBox"] = 0, ["ChessBox"] = 0, ["CheckersBox"] = 0, ["PokerBox"] = 0,} },
 }
 
+
 function gameNightDistro.fillProceduralDist()
     local gNDpDGN = gameNightDistro.proceduralDistGameNight
-    for distID,data in pairs(gNDpDGN.listsToInsert) do
-        for _,item in pairs(gNDpDGN.itemsToAdd) do
-
+    for distID,distData in pairs(gNDpDGN.listsToInsert) do
+        for item,itemData in pairs(gNDpDGN.itemsToAdd) do
             local sealed = gNDpDGN.listsToInsert[distID].sealed and "_sealed" or ""
-
-            local chance = data.chanceOverride and data.chanceOverride[item] or data.generalChance
+            local chanceFactor = itemData.chanceFactor or 1
+            local chance = distData.chanceOverride and distData.chanceOverride[item] or distData.generalChance * chanceFactor
             if chance > 0 then
                 table.insert(ProceduralDistributions.list[distID].items, item..sealed)
                 table.insert(ProceduralDistributions.list[distID].items, chance)

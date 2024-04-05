@@ -2,7 +2,7 @@ require "Items/SuburbsDistributions"
 
 local gameNightDistro = require "gameNight - Distributions"
 
-table.insert(gameNightDistro.proceduralDistGameNight.itemsToAdd,"UnoBox")
+gameNightDistro.proceduralDistGameNight.itemsToAdd["UnoBox"] = {}
 
 gameNightDistro.gameNightBoxes["UnoBox"] = {
     rolls = 1,
