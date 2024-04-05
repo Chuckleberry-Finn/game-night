@@ -165,8 +165,11 @@ function gameNightDistro.fillProceduralDist()
     for distID,distData in pairs(gNDpDGN.listsToInsert) do
         for item,itemData in pairs(gNDpDGN.itemsToAdd) do
             local sealed = gNDpDGN.listsToInsert[distID].sealed and "_sealed" or ""
-            local chanceFactor = itemData.chanceFactor or 1
-            local chance = distData.chanceOverride and distData.chanceOverride[item] or distData.generalChance * chanceFactor
+
+            local distChance = (distData.chanceOverride and distData.chanceOverride[item]) or distData.generalChance
+            local itemChance = (itemData.chanceFactor or 1) * (itemData.perDistFactor and itemData.perDistFactor[distID] or 1)
+
+            local chance = distChance * itemChance
             if chance > 0 then
                 table.insert(ProceduralDistributions.list[distID].items, item..sealed)
                 table.insert(ProceduralDistributions.list[distID].items, chance)
