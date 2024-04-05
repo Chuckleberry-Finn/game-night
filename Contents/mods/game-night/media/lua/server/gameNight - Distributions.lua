@@ -164,7 +164,7 @@ function gameNightDistro.fillProceduralDist()
     local gNDpDGN = gameNightDistro.proceduralDistGameNight
     for distID,distData in pairs(gNDpDGN.listsToInsert) do
         for item,itemData in pairs(gNDpDGN.itemsToAdd) do
-            local sealed = gNDpDGN.listsToInsert[distID].sealed and "_sealed" or ""
+            local sealed = gNDpDGN.listsToInsert[distID].sealed and getScriptManager():getItem("Base."..item.."_sealed") and "_sealed" or ""
 
             local distChance = (distData.chanceOverride and distData.chanceOverride[item]) or distData.generalChance
             local itemChance = (itemData.chanceFactor or 1) * (itemData.perDistFactor and itemData.perDistFactor[distID] or 1)
