@@ -128,9 +128,6 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
 
         ---@type IsoObject|IsoWorldInventoryObject
         local worldItem = locations and locations.worldItem or deckItem:getWorldItem()
-
-        print("locations.offsets.x:, ", locations and locations.offsets and locations.offsets.x)
-
         local wiX = (locations and locations.offsets and locations.offsets.x) or (worldItem and (worldItem:getWorldPosX()-worldItem:getX())) or 0
         local wiY = (locations and locations.offsets and locations.offsets.y) or (worldItem and (worldItem:getWorldPosY()-worldItem:getY())) or 0
         local wiZ = (locations and locations.offsets and locations.offsets.z) or (worldItem and (worldItem:getWorldPosZ()-worldItem:getZ())) or 0
