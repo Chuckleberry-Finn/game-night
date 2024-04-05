@@ -208,6 +208,15 @@ function gameNightWindow:onMouseWheel(del)
 end
 
 
+function gameNightWindow:itemIsBusy(item)
+    local mouseOverWorldItem = item and item:getWorldItem()
+    local coolDown = mouseOverWorldItem:getModData().gameNightCoolDown and (mouseOverWorldItem:getModData().gameNightCoolDown>getTimestampMs())
+    local inUseID = mouseOverWorldItem:getModData().gameNightInUse
+    local userUsing = inUseID and getPlayerFromUsername(inUseID)
+    return (coolDown or userUsing)
+end
+
+
 function gameNightWindow:processMouseUp(old, x, y)
     if not self.moveWithMouse then
         ---@type InventoryItem
@@ -221,27 +230,28 @@ function gameNightWindow:processMouseUp(old, x, y)
             if wrongUser then self:clearMovingPiece(x, y) return end
 
             local posX, posY = self:getMouseX(), self:getMouseY()
-            local isDeck = false
-            if deckActionHandler.isDeckItem(piece) then
-                isDeck = true
+
+            local isDeck = deckActionHandler.isDeckItem(piece)
+            local isStack = gamePieceAndBoardHandler.canStackPiece(piece)
+
+            if isDeck or isStack then
+
                 local offsetX, offsetY = self.movingPieceOffset and self.movingPieceOffset[1] or 0, self.movingPieceOffset and self.movingPieceOffset[2] or 0
                 local placeX, placeY = x-offsetX, y-offsetY
                 local selection
                 for _,element in pairs(self.elements) do
-                    if (element.item~=piece) and deckActionHandler.isDeckItem(element.item) then
+                    if (element.item~=piece) and piece:getType() == element.item:getType() then
                         local inBounds = (math.abs(element.x-placeX) <= 8) and (math.abs(element.y-placeY) <= 8)
                         if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
                     end
                 end
                 if selection then
-                    local notCompatible = piece:getType() ~= selection.item:getType()
-                    local mouseOverWorldItem = selection.item and selection.item:getWorldItem()
-                    local deckSearchCoolDown = mouseOverWorldItem:getModData().gameNightCoolDown and (mouseOverWorldItem:getModData().gameNightCoolDown>getTimestampMs())
-                    local deckSearchInUse = mouseOverWorldItem:getModData().gameNightInUse
-                    local userUsing = deckSearchInUse and getPlayerFromUsername(deckSearchInUse)
-                    if deckSearchCoolDown or userUsing or notCompatible then self:clearMovingPiece() return end
+                    local itemIsBusy = self:itemIsBusy(selection.item)
+                    if itemIsBusy then self:clearMovingPiece() return end
 
-                    deckActionHandler.mergeDecks(piece, selection.item, self.player)
+                    if isDeck then deckActionHandler.mergeDecks(piece, selection.item, self.player) end
+                    if isStack then gamePieceAndBoardHandler.tryStack(piece, selection.item, self.player) end
+
                     self:clearMovingPiece(x, y)
                     return
                 end
@@ -583,9 +593,9 @@ function gameNightWindow:render()
         end
 
         local selection
-        if deckActionHandler.isDeckItem(movingPiece) then
+        if deckActionHandler.isDeckItem(movingPiece) or gamePieceAndBoardHandler.canStackPiece(movingPiece) then
             for _,element in pairs(self.elements) do
-                if (element.item~=movingPiece) and (movingPiece:getType() == element.item:getType()) and deckActionHandler.isDeckItem(element.item) then
+                if (element.item~=movingPiece) and (movingPiece:getType() == element.item:getType()) then
                     local inBounds = (math.abs(element.x-x) <= 8) and (math.abs(element.y-y) <= 8)
                     if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
                 end
