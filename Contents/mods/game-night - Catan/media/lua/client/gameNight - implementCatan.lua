@@ -62,19 +62,19 @@ gamePieceAndBoardHandler.registerSpecial("Base.CatanRobber", { noRotate=true, })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadWhite", {
     actions = { rotateRoad=true }, shiftAction = "rotateRoad",
-    alternateStackRendering = { func="DrawTextureCardFace", depth=5, rgb = {0.541, 0.525, 0.510} } })
+    alternateStackRendering = { func="DrawTextureCardFace", depth=5, rgb = {0.741, 0.725, 0.710} } })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadRed", {
     actions = { rotateRoad=true }, shiftAction = "rotateRoad",
-    alternateStackRendering = { func="DrawTextureCardFace", depth=5, rgb = {0.451, 0.153, 0.173} } })
+    alternateStackRendering = { func="DrawTextureCardFace", depth=5, rgb = {0.651, 0.353, 0.373} } })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadBlue", {
     actions = { rotateRoad=true }, shiftAction = "rotateRoad",
-    alternateStackRendering = { func="DrawTextureCardFace", depth=5, rgb = {0.176, 0.239, 0.329} } })
+    alternateStackRendering = { func="DrawTextureCardFace", depth=5, rgb = {0.376, 0.439, 0.529} } })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", {
     actions = { rotateRoad=true }, shiftAction = "rotateRoad",
-    alternateStackRendering = { func="DrawTextureCardFace", depth=5, rgb = {0.545, 0.388, 0.208} } })
+    alternateStackRendering = { func="DrawTextureCardFace", depth=5, rgb = {0.745, 0.588, 0.408} } })
 
 ---Define new function under `gamePieceAndBoardHandler`
 function gamePieceAndBoardHandler.rotateRoad(gamePiece, player)
