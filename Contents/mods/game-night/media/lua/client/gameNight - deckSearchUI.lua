@@ -350,36 +350,30 @@ function gameNightDeckSearch:render()
     self.hiddenHeight = math.max(0, yOffset-(self.cardDisplay.height-halfPad-self.cardHeight))
     self.cardDisplay:clearStencilRect()
 
-    if self:isMouseOver() then
-        local mouseX, mouseY = self.cardDisplay:getMouseX(), self.cardDisplay:getMouseY()
-        local selected, _ = self:getCardAtXY(mouseX, mouseY)
-        local sandbox = SandboxVars.GameNight.DisplayItemNames
+    local mouseX, mouseY = self.cardDisplay:getMouseX(), self.cardDisplay:getMouseY()
+    local selected, _ = self:getCardAtXY(mouseX, mouseY)
+    local sandbox = SandboxVars.GameNight.DisplayItemNames
 
-        local cardExamine = self.cardExamine
-        if cardExamine and ((not selected) or (not cardExamine.index) or (cardExamine.index ~= selected)) then cardExamine:closeAndRemove() end
+    local cardExamine = self.cardExamine
+    if cardExamine and ((not selected) or (not cardExamine.index) or (cardExamine.index ~= selected)) then cardExamine:closeAndRemove() end
 
-        if sandbox and selected and selected>0 then
-            local card = cardData[selected]
-            local flipped = cardFlipStates[selected]
+    if sandbox and selected and selected>0 then
+        local card = cardData[selected]
+        local flipped = cardFlipStates[selected]
 
-            if (not self.dragging) and (not cardFromOtherWindow) and specialCase and specialCase.actions and specialCase.actions.examineCard and (not self.cardExamine) then
-                if deckActionHandler.isDeckItem(self.deck) then
-                    self.cardExamine = gameNightCardExamine.open(self.player, self.deck, false, selected, self)
-                end
+        if (not self.dragging) and (not cardFromOtherWindow) and specialCase and specialCase.actions and specialCase.actions.examineCard and (not self.cardExamine) then
+            if deckActionHandler.isDeckItem(self.deck) then
+                self.cardExamine = gameNightCardExamine.open(self.player, self.deck, false, selected, self)
             end
-
-            local cardName = flipped and (getTextOrNull("IGUI_"..self.deck:getType()) or getItemNameFromFullType("Base."..self.deck:getType())) or deckActionHandler.fetchAltName(card, self.deck, special)
-            if cardName then
-                local cardNameW = getTextManager():MeasureStringX(UIFont.NewSmall, " "..cardName.." ")
-                local cardNameH = getTextManager():getFontHeight(UIFont.NewSmall)
-                self.cardDisplay:drawRect(mouseX+(cardNameW/3), mouseY-cardNameH, cardNameW, cardNameH, 0.7, 0, 0, 0)
-                self.cardDisplay:drawTextCentre(cardName, mouseX+(cardNameW*0.833), mouseY-cardNameH, 1, 1, 1, 0.7, UIFont.NewSmall)
-            end
-
         end
-    else
-        local cardExamine = self.cardExamine
-        if cardExamine then cardExamine:closeAndRemove() end
+
+        local cardName = flipped and (getTextOrNull("IGUI_"..self.deck:getType()) or getItemNameFromFullType("Base."..self.deck:getType())) or deckActionHandler.fetchAltName(card, self.deck, special)
+        if cardName then
+            local cardNameW = getTextManager():MeasureStringX(UIFont.NewSmall, " "..cardName.." ")
+            local cardNameH = getTextManager():getFontHeight(UIFont.NewSmall)
+            self.cardDisplay:drawRect(mouseX+(cardNameW/3), mouseY-cardNameH, cardNameW, cardNameH, 0.7, 0, 0, 0)
+            self.cardDisplay:drawTextCentre(cardName, mouseX+(cardNameW*0.833), mouseY-cardNameH, 1, 1, 1, 0.7, UIFont.NewSmall)
+        end
     end
 
     if self.dragging then
