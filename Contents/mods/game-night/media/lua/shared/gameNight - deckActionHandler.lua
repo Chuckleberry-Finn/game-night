@@ -234,10 +234,11 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
     if num < draw then
         local drawnCards = {}
         local drawnFlippedStates = {}
-        for i=draw, num, -1 do
-            local drawnCard, drawnFlip = deckStates[draw], currentFlipStates[draw]
-            deckStates[draw] = nil
-            if currentFlipStates then currentFlipStates[draw] = nil end
+        for i=num, 1, -1 do
+            local topCard = #deckStates
+            local drawnCard, drawnFlip = deckStates[topCard], currentFlipStates[topCard]
+            deckStates[topCard] = nil
+            if currentFlipStates then currentFlipStates[topCard] = nil end
             table.insert(drawnCards, drawnCard)
             table.insert(drawnFlippedStates, drawnFlip)
         end
