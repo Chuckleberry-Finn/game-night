@@ -228,13 +228,13 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
     if not deckStates then return end
 
     local draw = #deckStates
-    num = math.max(num, draw)
+    num = math.min(num, draw)
 
     local newCard
     if num < draw then
         local drawnCards = {}
         local drawnFlippedStates = {}
-        for i=1, num do
+        for i=draw, num, -1 do
             local drawnCard, drawnFlip = deckStates[draw], currentFlipStates[draw]
             deckStates[draw] = nil
             if currentFlipStates then currentFlipStates[draw] = nil end
