@@ -92,20 +92,24 @@ function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context,
     if specialCase and specialCase.actions then
         for func,args in pairs(specialCase.actions) do
             if altSource[func] then
-                local option
-                if not pieceStack then
-                    option = context:addOptionOnTop(getText("IGUI_"..func), gamePiece, altSource[func], player, args)
+                local validTest = altSource[func.."_isValid"]
+                local valid = validTest and validTest(item, player, args) or true
+                if valid then
+                    local option
+                    if not pieceStack then
+                        option = context:addOptionOnTop(getText("IGUI_"..func), gamePiece, altSource[func], player, args)
 
-                else
-                    option = context:addOptionOnTop(getText("IGUI_"..func)..getText("IGUI_SpecialActionAll"), pieceStack, gamePieceAndBoardHandler.bypassForStacks, player, func, args, altSource)
-                end
-                if option then
-                    local ico = gamePieceAndBoardHandler.specialContextIcons[func]
-                    if not ico then
-                        ico = getTexture("media/textures/actionIcons/"..func..".png")
-                        gamePieceAndBoardHandler.specialContextIcons[func] = ico
+                    else
+                        option = context:addOptionOnTop(getText("IGUI_"..func)..getText("IGUI_SpecialActionAll"), pieceStack, gamePieceAndBoardHandler.bypassForStacks, player, func, args, altSource)
                     end
-                    if ico then option.iconTexture = ico end
+                    if option then
+                        local ico = gamePieceAndBoardHandler.specialContextIcons[func]
+                        if not ico then
+                            ico = getTexture("media/textures/actionIcons/"..func..".png")
+                            gamePieceAndBoardHandler.specialContextIcons[func] = ico
+                        end
+                        if ico then option.iconTexture = ico end
+                    end
                 end
             end
         end

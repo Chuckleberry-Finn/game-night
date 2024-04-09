@@ -254,6 +254,12 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
 end
 
 
+function deckActionHandler.drawCards_isValid(deckItem, player, num)
+    local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
+    if deckStates and #deckStates > num then return true end
+    return false
+end
+
 ---@param deckItem InventoryItem
 function deckActionHandler.drawCards(deckItem, player, num)
     local locations = {container=player:getInventory()}
