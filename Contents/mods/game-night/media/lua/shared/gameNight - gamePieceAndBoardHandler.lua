@@ -93,13 +93,11 @@ function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context,
         for func,args in pairs(specialCase.actions) do
             if altSource[func] then
                 local validTest = altSource[func.."_isValid"]
-                local itemForTest = (not instanceof(item, "InventoryItem")) and gamePieceAndBoardHandler.parseTopOfStack(item) or item
-                local valid = validTest and validTest(itemForTest, player, args) or true
+                local valid = validTest and validTest(gamePiece, player, args) or true
                 if valid then
                     local option
                     if not pieceStack then
                         option = context:addOptionOnTop(getText("IGUI_"..func), gamePiece, altSource[func], player, args)
-
                     else
                         option = context:addOptionOnTop(getText("IGUI_"..func)..getText("IGUI_SpecialActionAll"), pieceStack, gamePieceAndBoardHandler.bypassForStacks, player, func, args, altSource)
                     end
