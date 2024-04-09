@@ -154,7 +154,7 @@ function gameNightDeckSearch:cardOnMouseUpOutside(x, y)
         local cardBeingDragged = searchWindow.dragging
 
         if cardBeingDragged then
-            local cardDrawn = deckActionHandler._drawCardIndex(deckItem, cardBeingDragged)
+            local cardDrawn = deckActionHandler._drawCardIndex(deckItem, nil, cardBeingDragged)
             if cardDrawn then gameNightWin:calculateItemDrop(gameNightWin:getMouseX(), gameNightWin:getMouseY(), {cardDrawn}) end
         end
     end

@@ -239,25 +239,32 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
         table.insert(drawnFlippedStates, drawnFlip)
     end
 
+    gamePieceAndBoardHandler.playSound(deckItem, player)
+    local newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
+    deckActionHandler.processDrawnCard(deckItem, player, newCard)
+end
+
+
+function deckActionHandler.processDrawnCard(deckItem, player, newCard)
     local fullType = deckItem:getFullType()
     local special = gamePieceAndBoardHandler.specials[fullType]
     local onDraw = special and special.onDraw
 
-    local inHand = player:getPrimaryHandItem()
+    local inHand = player and player:getPrimaryHandItem()
     local heldCards = inHand and deckActionHandler.isDeckItem(inHand)
 
-    gamePieceAndBoardHandler.playSound(deckItem, player)
-    local newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
     if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard) end
 
-    if not inHand then player:setPrimaryHandItem(newCard) end
-    if heldCards and (newCard:getContainer() == player:getInventory()) then deckActionHandler.mergeDecks(newCard, inHand, player, 1) end
+    if player then
+        if not inHand then player:setPrimaryHandItem(newCard) end
+        if heldCards and (newCard:getContainer() == player:getInventory()) then deckActionHandler.mergeDecks(newCard, inHand, player, 1) end
+    end
 end
 
 
 function deckActionHandler.drawCards_isValid(deckItem, player, num)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
-    if deckStates and #deckStates > num then return true end
+    if deckStates and #deckStates >= num then return true end
     return false
 end
 
@@ -288,7 +295,7 @@ function deckActionHandler.dealCard(deckItem, player, x, y) deckActionHandler.de
 
 
 
-function deckActionHandler._drawCardIndex(deckItem, drawIndex, locations)
+function deckActionHandler._drawCardIndex(deckItem, player, drawIndex, locations)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return deckItem end
 
@@ -317,6 +324,7 @@ function deckActionHandler._drawCardIndex(deckItem, drawIndex, locations)
     end
 
     local newCard = deckActionHandler.generateCard(drawnCard, deckItem, drawnFlipped, locations)
+    deckActionHandler.processDrawnCard(deckItem, player, newCard)
     return newCard
 end
 
@@ -324,7 +332,7 @@ end
 ---@param deckItem InventoryItem
 function deckActionHandler.drawRandCard(deckItem, player)
     local locations = {container=player:getInventory()}
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCardIndex, deckItem, nil, locations}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCardIndex, deckItem, player, nil, locations}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
@@ -332,7 +340,7 @@ end
 ---@param deckItem InventoryItem
 function deckActionHandler.drawSpecificCard(deckItem, player, index)
     local locations = {container=player:getInventory()}
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCardIndex, deckItem, index, locations}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCardIndex, deckItem, player, index, locations}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
