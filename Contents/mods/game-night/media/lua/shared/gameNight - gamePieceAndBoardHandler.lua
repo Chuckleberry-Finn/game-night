@@ -93,7 +93,7 @@ function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context,
         for func,args in pairs(specialCase.actions) do
             if altSource[func] then
                 local validTest = altSource[func.."_isValid"]
-                local valid = validTest and validTest(gamePiece, player, args) or true
+                local valid = (validTest and validTest(gamePiece, player, args)) or (not validTest and true)
                 if valid then
                     local option
                     if not pieceStack then
