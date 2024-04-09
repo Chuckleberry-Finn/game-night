@@ -123,8 +123,12 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
     --sq=sq, offsets={x=wiX,y=wiY,z=wiZ}, container=container
     local newCard = InventoryItemFactory.CreateItem(deckItem:getType())
     if newCard then
-        newCard:getModData()["gameNight_cardDeck"] = {drawnCard}
-        newCard:getModData()["gameNight_cardFlipped"] = {flipped}
+
+        if type(drawnCard)~="table" then drawnCard = {drawnCard} end
+        if type(flipped)~="table" then flipped = {flipped} end
+
+        newCard:getModData()["gameNight_cardDeck"] = drawnCard
+        newCard:getModData()["gameNight_cardFlipped"] = flipped
 
         ---@type IsoObject|IsoWorldInventoryObject
         local worldItem = locations and locations.worldItem or deckItem:getWorldItem()
@@ -238,18 +242,13 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
     local special = gamePieceAndBoardHandler.specials[fullType]
     local onDraw = special and special.onDraw
 
-    --local item = self.player:getPrimaryHandItem()
-    --if item and gameNightDeckSearch and deckActionHandler.isDeckItem(item) then
+    local inHand = player:getPrimaryHandItem()
+    local heldCards = inHand and deckActionHandler.isDeckItem(inHand)
 
-    for n,card in pairs(drawnCards) do
-        gamePieceAndBoardHandler.playSound(deckItem, player)
-        local newCard = deckActionHandler.generateCard(card, deckItem, drawnFlippedStates[n], locations)
-        if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard) end
-
-            --local handUI = gameNightDeckSearch.instances[item]
-            --if handUI and handUI.held then handUI:closeAndRemove() end
-            --deckActionHandler.mergeDecks(deckItemA, deckItemB, player, index)
-    end
+    gamePieceAndBoardHandler.playSound(deckItem, player)
+    local newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
+    if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard) end
+    if heldCards then deckActionHandler.mergeDecks(newCard, inHand, player, 1) end
 end
 
 
