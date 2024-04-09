@@ -244,13 +244,14 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
     local onDraw = special and special.onDraw
 
     local inHand = player:getPrimaryHandItem()
-    local heldCards = inHand and deckItem==inHand and deckActionHandler.isDeckItem(inHand)
+    local heldCards = inHand and deckActionHandler.isDeckItem(inHand)
 
     gamePieceAndBoardHandler.playSound(deckItem, player)
     local newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
     if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard) end
+
     if not inHand then player:setPrimaryHandItem(newCard) end
-    if heldCards then deckActionHandler.mergeDecks(newCard, inHand, player, 1) end
+    if heldCards and (newCard:getContainer() == player:getInventory()) then deckActionHandler.mergeDecks(newCard, inHand, player, 1) end
 end
 
 
