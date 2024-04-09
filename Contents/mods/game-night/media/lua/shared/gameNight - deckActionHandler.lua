@@ -215,7 +215,7 @@ end
 ---@param deckItemA InventoryItem
 ---@param deckItemB InventoryItem
 function deckActionHandler.mergeDecks(deckItemA, deckItemB, player, index)
-    if  deckItemA:getType() ~= deckItemB:getType() then return end
+    if (deckItemA:getType() ~= deckItemB:getType()) or (deckItemA == deckItemB) then return end
     gamePieceAndBoardHandler.pickupGamePiece(player, deckItemA, true)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB, index, player}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItemB, player)
@@ -227,21 +227,29 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
 
-    local drawnCards = {}
-    local drawnFlippedStates = {}
     local draw = #deckStates
+    num = math.max(num, draw)
 
-    for i=1, num do
-        local drawnCard, drawnFlip = deckStates[draw], currentFlipStates[draw]
-        deckStates[draw] = nil
-        if currentFlipStates then currentFlipStates[draw] = nil end
-        table.insert(drawnCards, drawnCard)
-        table.insert(drawnFlippedStates, drawnFlip)
+    local newCard
+    if num < draw then
+        local drawnCards = {}
+        local drawnFlippedStates = {}
+        for i=1, num do
+            local drawnCard, drawnFlip = deckStates[draw], currentFlipStates[draw]
+            deckStates[draw] = nil
+            if currentFlipStates then currentFlipStates[draw] = nil end
+            table.insert(drawnCards, drawnCard)
+            table.insert(drawnFlippedStates, drawnFlip)
+        end
+        newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
+    else
+        newCard = deckItem
     end
 
-    gamePieceAndBoardHandler.playSound(deckItem, player)
-    local newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
-    deckActionHandler.processDrawnCard(deckItem, player, newCard)
+    if newCard then
+        gamePieceAndBoardHandler.playSound(deckItem, player)
+        deckActionHandler.processDrawnCard(deckItem, player, newCard)
+    end
 end
 
 
