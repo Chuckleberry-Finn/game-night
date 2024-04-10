@@ -26,7 +26,7 @@ local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
 ** **
 
 <details> <summary><b>Implementing Cards:</b></summary>
-Technically you just need a table of strings corresponding to textures/names for card items. You can use any means to obtain the list of cards, for example for playing cards, and *Uno*, the card names/IDs are assembled using string manipulation. This is entirely a preference to avoid having to type/copy-and-paste the entries.
+Technically you just need a table of strings corresponding to textures/names for card items. You can use any means to obtain the list of cards, for example for playing cards, and <I>Uno</I>, the card names/IDs are assembled using string manipulation. This is entirely a preference to avoid having to type/copy-and-paste the entries.
 
 <sup>Note: Table entries must match a corresponding Texture in the correct texture directory (more on this later).</sup>
 
@@ -66,7 +66,7 @@ end
 - arguments/parameters/variables:<br>
   - name (string), cards (table)
   
-- `Item` scripts have a `Module.Type`, add Deck assume the module will be `Base`. So the `name` argument should be the corresponding `type` for the item.
+- `Item` scripts have a `Module.Type`, `addDeck` assumeS the `Module` will be `Base`. So the `name` argument should be the corresponding `Type` for the item.
 
 - All the entries in the `cards` list needs to match a corresponding texture in a directory named after the `name` item.
 - Additionally, the name of the texture's image file will act as the item's name unless overridden.
