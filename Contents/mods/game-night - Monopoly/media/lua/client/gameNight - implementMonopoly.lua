@@ -2,7 +2,9 @@
 --- ! SEE: `gameNight - implementUno` for a simpler example on adding decks.
 --- MONOPOLY includes 'alternative' names/icons for cards that will either have the same name or look the same but operate differently.
 
-local deckActionHandler = require "gameNight - deckActionHandler"
+local applyItemDetails = require "gameNight - applyItemDetails"
+local deckActionHandler = applyItemDetails.deckActionHandler
+local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
 
 --- MONOPOLY DEED DECK
 local MonopolyDeedDeck = {}
@@ -78,7 +80,6 @@ deckActionHandler.addDeck("MonopolyCommunityChest", MonopolyCommunityChestDeck.c
 
 
 ---REGISTER GAME PIECES AND BOARD -- SEE CATAN IMPLEMENTATION FOR MORE INFO
-local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 gamePieceAndBoardHandler.registerTypes({
     "Base.MonopolyBoard", "Base.MonopolyBoat", "Base.MonopolyBoot", "Base.MonopolyCar", "Base.MonopolyDog",
     "Base.MonopolyHat", "Base.MonopolyIron", "Base.MonopolyThimble", "Base.MonopolyWheelbarrow",
