@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/Chuckleberry-Finn/game-night/main/images/TITLE.png">
+<div align="center"></div><img src="https://raw.githubusercontent.com/Chuckleberry-Finn/game-night/main/images/TITLE.png"></div>
 
 ## *Interested in making an Add-On?*
 
