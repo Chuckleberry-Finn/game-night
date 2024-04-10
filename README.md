@@ -154,7 +154,7 @@ gamePieceAndBoardHandler.registerSpecial("Base.UnoCards", { actions = { drawCard
 
 `cardFaceType`: Provide an alternative texture directory for cards. Useful for cards sets with different backs but identical faces.
 
-`textureSize`: = Table of width and height for texture size overrides. Useful for large textures to not get sized down when compressed. Useful for cards/pieces of examine enabled, so the examine texture is large, while the in-game piece is smaller.
+`textureSize`: Table of width and height for texture size overrides. Useful for large textures to not get sized down when compressed. Useful for cards/pieces of examine enabled, so the examine texture is large, while the in-game piece is smaller.
 
 `noRotate`: Boolean. Sets if rotation via mouse wheel is blocked, default is nil (false).
 
