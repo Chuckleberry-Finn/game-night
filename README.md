@@ -68,8 +68,8 @@ end
   
 - `Item` scripts have a `Module.Type`, `addDeck` assumes the `Module` will be `Base`. So the `name` argument should be the corresponding `Type` for the item.
 
-- All the entries in the `cards` list needs to match a corresponding texture in a directory named after the `name` item.
-- Additionally, the name of the texture's image file will act as the item's name unless overridden.
+- All the entries in the `cards` list needs to match a corresponding texture in a directory named after the `name` of the item.
+- Additionally, the filename of the texture(s) will act as the item's display-name (unless overridden.)
 <br>`Example:` `media/textures/Item_[name]/`
 <br>
 <br>
