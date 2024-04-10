@@ -2,7 +2,10 @@
 --- ! SEE: `gameNight - implementUno` for a simpler example on adding decks.
 --- CATAN includes 'game pieces' rather than *just* cards - scroll to the bottom for more info on those.
 
-local deckActionHandler = require "gameNight - deckActionHandler"
+local applyItemDetails = require "gameNight - applyItemDetails"
+local deckActionHandler = applyItemDetails.deckActionHandler
+local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
+
 
 -- CARDS
 --- CATAN RESOURCES DECK
@@ -29,8 +32,6 @@ deckActionHandler.addDeck("CatanDevelopmentDeck", CatanDevelopmentDeck.cards)
 
 
 -- GAME PIECES / GAME BOARD
----First require this file so that the gamePieceAndBoardHandler module can be called on.
-local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 
 ---Register game pieces by type -- enables the system to display the items using custom textures found in:
 --- `Item_InPlayTextures` and `Item_OutOfPlayTextures`
