@@ -66,7 +66,7 @@ end
 - arguments/parameters/variables:<br>
   - name (string), cards (table)
   
-- `Item` scripts have a `Module.Type`, `addDeck` assumeS the `Module` will be `Base`. So the `name` argument should be the corresponding `Type` for the item.
+- `Item` scripts have a `Module.Type`, `addDeck` assumes the `Module` will be `Base`. So the `name` argument should be the corresponding `Type` for the item.
 
 - All the entries in the `cards` list needs to match a corresponding texture in a directory named after the `name` item.
 - Additionally, the name of the texture's image file will act as the item's name unless overridden.
