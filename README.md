@@ -4,7 +4,7 @@
 
 The framework for Game Night is designed to handle any game you can imagine.  Arguably, the biggest hurdle is getting the art assets for your game. If you're a more hands-on learner, try reading through existing add-ons. Much of the information below is taken from them.
 ** **
-### Implementation:
+<details> <summary><b>Implementation Modules:</b></summary>
 **These are the relevant modules to call on when implementing your add-on.**
 ```lua
 local applyItemDetails = require "gameNight - applyItemDetails"
@@ -16,6 +16,8 @@ local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
 `gamePieceAndBoardHandler` houses action/mechanics related to game pieces.<br>
 
 <sup>Note: Many functions in *deckActionHandler* call on functions within *gamePieceAndBoardHandler*; there are also plans for the two to be merged.</sup>
+</details>
+
 ** **
 
 <details> <summary><b>Implementing Cards:</b></summary>
@@ -97,8 +99,9 @@ end
 
 deckActionHandler.addDeck("MonopolyChance", MonopolyChanceDeck.cards, MonopolyChanceDeck.altNames, MonopolyChanceDeck.altIcons)
 ```
+</details>
 
-</details><br>
+** **
 
 <details><summary><b>Implementing Game Pieces:</b></summary>
 
