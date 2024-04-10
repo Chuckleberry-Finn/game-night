@@ -36,7 +36,7 @@ function gameNightDeckSearch:update()
     if self.held and item ~= player:getPrimaryHandItem() then self:closeAndRemove() return end
 
     local values,flipped = deckActionHandler.getDeckStates(item)
-    if not values or ((self.held and #values<1) and #values<=1) then
+    if not values or ((self.held and #values<1) and ((not self.held) and #values<=1)) then
         self:closeAndRemove()
         return
     end
