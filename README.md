@@ -2,9 +2,12 @@
 
 ## *Interested in making an Add-On?*
 
-The framework for Game Night is designed to handle any game you can imagine.  Arguably, the biggest hurdle is getting the art assets for your game. If you're a more hands-on learner, try reading through existing add-ons. Much of the information below is taken from them.
+The framework for Game Night is designed to handle any game you can imagine.  Arguably, the biggest hurdle is <a href=https://github.com/Chuckleberry-Finn/game-night/blob/main/ART.md>acquiring the art assets</a> for your game. If you're a more hands-on learner, try reading through existing add-ons. Much of the information below is taken from them.
+** **
+> <a href=https://github.com/Chuckleberry-Finn/game-night/blob/main/ART.md><b>Acquiring art assets</b></a>
 ** **
 <details> <summary><b>Implementation Modules:</b></summary>
+
 **These are the relevant modules to call on when implementing your add-on.**
 ```lua
 local applyItemDetails = require "gameNight - applyItemDetails"
@@ -16,6 +19,8 @@ local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
 `gamePieceAndBoardHandler` houses action/mechanics related to game pieces.<br>
 
 <sup>Note: Many functions in *deckActionHandler* call on functions within *gamePieceAndBoardHandler*; there are also plans for the two to be merged.</sup>
+<br>
+<br>
 </details>
 
 ** **
@@ -99,6 +104,7 @@ end
 
 deckActionHandler.addDeck("MonopolyChance", MonopolyChanceDeck.cards, MonopolyChanceDeck.altNames, MonopolyChanceDeck.altIcons)
 ```
+<br>
 </details>
 
 ** **
@@ -163,5 +169,6 @@ gamePieceAndBoardHandler.registerSpecial("Base.UnoCards", { actions = { drawCard
 `moveSound`: Alternative sound whne moving the game piece/card.
 
 `tooltips`: Table of x, y, w, h, text to use as tooltips on the game piece. Coordinates are top-left as 0x0.
-
+<br>
+<br>
 </details>
