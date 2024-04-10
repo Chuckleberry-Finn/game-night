@@ -112,7 +112,7 @@ deckActionHandler.addDeck("MonopolyChance", MonopolyChanceDeck.cards, MonopolyCh
 <details><summary><b>Implementing Game Pieces:</b></summary>
 
 **Registering Types:**<br>
-Register game pieces by type, and enables the display of items using textures found in: `Item_InPlayTextures` and `Item_OutOfPlayTextures`.
+Registering is done by a table of types, and enables the display of items using textures found in: `Item_InPlayTextures` and `Item_OutOfPlayTextures`.
 <br><sup>Note: In-Play defaults to Out of play textures. Out of play textures replaces the item's texture/icon.</sup><br>
 ```lua
 gamePieceAndBoardHandler.registerTypes({
