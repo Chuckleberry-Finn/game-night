@@ -166,7 +166,7 @@ gamePieceAndBoardHandler.registerSpecial("Base.UnoCards", { actions = { drawCard
 
 `canStack`: If the game piece can be stacked. Value intended as default stack when item is found.
 
-`moveSound`: Alternative sound whne moving the game piece/card.
+`moveSound`: Alternative sound when moving the game piece/card.
 
 `tooltips`: Table of x, y, w, h, text to use as tooltips on the game piece. Coordinates are top-left as 0x0.
 <br>
