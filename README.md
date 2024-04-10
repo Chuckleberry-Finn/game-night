@@ -150,7 +150,7 @@ gamePieceAndBoardHandler.registerSpecial("Base.UnoCards", { actions = { drawCard
 { func="DrawTextureCardFace", depth=5, rgb = {0.741, 0.725, 0.710} }
 ``````
 
-`category`: Alternate category for the item, default would be "Game Piece.
+`category`: Alternate category for the item, default would be "Game Piece".
 
 `cardFaceType`: Provide an alternative texture directory for cards. Useful for cards sets with different backs but identical faces.
 
