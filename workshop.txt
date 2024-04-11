@@ -9,7 +9,7 @@ description=[b]Play dice games, poker, craps, solitaire, chess, checkers, or any
 description=
 description=[url=https://ko-fi.com/chuckleberryfinn][img]https://raw.githubusercontent.com/ChuckTheSheep/chuckImages/main/kofi.png[/img][/url][url=https://discord.gg/SReMnbV4V7][img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/main/PZmodCommBanner3.png[/img][/url]
 description=
-description=[url=https://github.com/Chuckleberry-Finn/game-night][img]https://raw.githubusercontent.com/Chuckleberry-Finn/game-night/main/images/TITLE.png[/img][/url]
+description=[url=https://github.com/Chuckleberry-Finn/game-night][img]https://raw.githubusercontent.com/Chuckleberry-Finn/game-night/main/images/addOnGuideBanner.png[/img][/url]
 description=
 description=[h2][b]Modifies the following vanilla items:[/b][/h2]
 description=Dice, GamePieceWhite/Red/Black, Backgammon/CheckerBoard, ChessWhite/Black, PokerChips
