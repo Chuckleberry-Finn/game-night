@@ -1,6 +1,6 @@
 <div align="center"></div><img src="https://raw.githubusercontent.com/Chuckleberry-Finn/game-night/main/images/TITLE.png"></div>
-
-## *Interested in making an Add-On?*
+<br>
+<br>
 
 The framework for Game Night is designed to handle any game you can imagine.  Arguably, the biggest hurdle is <a href=https://github.com/Chuckleberry-Finn/game-night/blob/main/ART.md>acquiring the art assets</a> for your game. If you're a more hands-on learner, try reading through existing add-ons. Much of the information below is taken from them.
 ** **
