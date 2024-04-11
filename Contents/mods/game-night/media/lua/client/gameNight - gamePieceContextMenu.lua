@@ -66,8 +66,8 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
                     deal.iconTexture = gamePieceContext.gameNightContextMenuIcon.deal
                 end
 
-                local drawRand = subDrawMenu:addOptionOnTop(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard, playerObj)
-                drawRand.iconTexture = gamePieceContext.gameNightContextMenuIcon.drawRand
+                --local drawRand = subDrawMenu:addOptionOnTop(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard, playerObj)
+                --drawRand.iconTexture = gamePieceContext.gameNightContextMenuIcon.drawRand
 
                 local draw = subDrawMenu:addOptionOnTop(getText("IGUI_drawCard"), item, deckActionHandler.drawCard, playerObj)
                 draw.iconTexture = gamePieceContext.gameNightContextMenuIcon.draw
@@ -77,7 +77,7 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
                 local cardCount = {1,3,5,7}
                 for _,n in pairs(cardCount) do
                     if #deckStates >= n then
-                        drawMultipleSubMenu:addOptionOnTop(getText("IGUI_drawCards", n), item, deckActionHandler.drawCard, playerObj, n)
+                        drawMultipleSubMenu:addOptionOnTop(getText("IGUI_drawCards", n), item, deckActionHandler.drawCards, playerObj, n)
                     end
                 end
 
