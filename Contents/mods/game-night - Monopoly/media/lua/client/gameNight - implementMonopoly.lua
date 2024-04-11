@@ -142,22 +142,22 @@ gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoard", {
     }
 })
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", {
-    alternateStackRendering = {func="cardStackTexture"}, weight = 0.003, canStack = 40, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 40, moveSound = "cardFlip" })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", {
-    alternateStackRendering = {func="cardStackTexture"}, weight = 0.003, canStack = 40, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 40, moveSound = "cardFlip" })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", {
-    alternateStackRendering = {func="cardStackTexture"}, weight = 0.003, canStack = 40, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 40, moveSound = "cardFlip" })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney20", {
-    alternateStackRendering = {func="cardStackTexture"}, weight = 0.003, canStack = 50, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 50, moveSound = "cardFlip" })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney50", {
-    alternateStackRendering = {func="cardStackTexture"}, weight = 0.003, canStack = 30, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 30, moveSound = "cardFlip" })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney100", {
-    alternateStackRendering = {func="cardStackTexture"}, weight = 0.003, canStack = 20, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 20, moveSound = "cardFlip" })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney500", {
-    alternateStackRendering = {func="cardStackTexture"}, weight = 0.003, canStack = 20, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 20, moveSound = "cardFlip" })
