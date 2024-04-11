@@ -396,10 +396,7 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
             itemCont:setDrawDirty(true)
             item:setJobDelta(0.0)
             player:removeAttachedItem(item)
-            if player:isEquipped(item) then
-                player:removeFromHands(item)
-                player:removeWornItem(item, false)
-            end
+            if player:getPrimaryHandItem() == item then player:setPrimaryHandItem(nil) end
             itemCont:Remove(item)
             triggerEvent("OnClothingUpdated", player)
         end

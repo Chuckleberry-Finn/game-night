@@ -325,7 +325,12 @@ function gameNightWindow:onMouseDown(x, y)
             local userUsing = inUse and getPlayerFromUsername(inUse)
             local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
 
-            if inUse and not coolDown then inUse = false end
+            if inUse and (not coolDown) then
+                worldItem:getModData().gameNightInUse = nil
+                worldItem:transmitModData()
+                inUse = false
+                userUsing = nil
+            end
             if coolDown or userUsing then self:clearMovingPiece() return end
 
             if worldItem then
@@ -393,6 +398,12 @@ function gameNightWindow:onContextSelection(element, x, y)
     local inUse = worldItem:getModData().gameNightInUse
     local userUsing = inUse and getPlayerFromUsername(inUse)
     local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
+    if inUse and (not coolDown) then
+        worldItem:getModData().gameNightInUse = nil
+        worldItem:transmitModData()
+        inUse = false
+        userUsing = nil
+    end
     if userUsing or coolDown then return end
 
     ---@type IsoPlayer|IsoGameCharacter
@@ -659,8 +670,8 @@ function gameNightWindow:labelWithName(element)
             local worldItem = element.item:getWorldItem()
             local coolDown = worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimestampMs()
             local inUse = worldItem and worldItem:getModData().gameNightInUse
-
-            local needsClear = inUse and inUse==self.player:getUsername() and (self.movingPiece~=element.item)
+            
+            local needsClear = inUse and ((not coolDown) or (inUse==self.player:getUsername() and (self.movingPiece~=element.item)))
             if needsClear then
                 worldItem:getModData().gameNightInUse = nil
                 worldItem:transmitModData()
