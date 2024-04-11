@@ -245,6 +245,19 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
         newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
     else
         newCard = deckItem
+        local worldItem = locations and locations.worldItem or deckItem:getWorldItem()
+        local sq = locations and locations.sq or (worldItem and worldItem:getSquare())
+        if sq then
+            local wiX = (locations and locations.offsets and locations.offsets.x) or (worldItem and (worldItem:getWorldPosX()-worldItem:getX())) or 0
+            local wiY = (locations and locations.offsets and locations.offsets.y) or (worldItem and (worldItem:getWorldPosY()-worldItem:getY())) or 0
+            local wiZ = (locations and locations.offsets and locations.offsets.z) or (worldItem and (worldItem:getWorldPosZ()-worldItem:getZ())) or 0
+            sq:AddWorldInventoryItem(deckItem, wiX, wiY, wiZ)
+            local container = deckItem:getContainer()
+            if container then
+                container:DoRemoveItem(deckItem)
+                container:setDrawDirty(true)
+            end
+        end
     end
 
     if newCard then
@@ -264,7 +277,7 @@ function deckActionHandler.processDrawnCard(deckItem, player, newCard)
     local inHand = player and player:getPrimaryHandItem()
     local heldCards = inHand and deckActionHandler.isDeckItem(inHand)
 
-    if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard) end
+    if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard, deckItem) end
 
     if player then
         if not inHand then player:setPrimaryHandItem(newCard) end
