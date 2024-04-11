@@ -251,6 +251,8 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
         gamePieceAndBoardHandler.playSound(deckItem, player)
         deckActionHandler.processDrawnCard(deckItem, player, newCard)
     end
+
+    return newCard
 end
 
 
