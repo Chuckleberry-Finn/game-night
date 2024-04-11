@@ -72,6 +72,15 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
                 local draw = subDrawMenu:addOptionOnTop(getText("IGUI_drawCard"), item, deckActionHandler.drawCard, playerObj)
                 draw.iconTexture = gamePieceContext.gameNightContextMenuIcon.draw
 
+                local drawMultipleSubMenu = ISContextMenu:getNew(context)
+                context:addSubMenu(draw, drawMultipleSubMenu)
+                local cardCount = {1,3,5,7}
+                for _,n in pairs(cardCount) do
+                    if #deckStates >= n then
+                        drawMultipleSubMenu:addOptionOnTop(getText("IGUI_drawCards", n), item, deckActionHandler.drawCard, playerObj, n)
+                    end
+                end
+
                 local search = context:addOptionOnTop(getText("IGUI_searchDeck"), item, deckActionHandler.searchDeck, playerObj)
                 search.iconTexture = gamePieceContext.gameNightContextMenuIcon.search
             end

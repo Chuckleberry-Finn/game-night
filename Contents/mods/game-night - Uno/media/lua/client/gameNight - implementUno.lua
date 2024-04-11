@@ -53,6 +53,3 @@ end
     -- `deckTexture` for model(s) texture.
     -- Otherwise the texture name will reflect `name` for each card.
 deckActionHandler.addDeck("UnoCards", unoCards.cards)
-
----Register Special Actions
-gamePieceAndBoardHandler.registerSpecial("Base.UnoCards", { actions = { drawCards=7}, })
