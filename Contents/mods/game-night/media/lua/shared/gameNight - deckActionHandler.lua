@@ -266,9 +266,9 @@ function deckActionHandler.processDrawnCard(deckItem, player, newCard)
 
     if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard, deckItem) end
 
-    if player then
+    if player and newCard:getContainer() == player:getInventory() then
         if not inHand then player:setPrimaryHandItem(newCard) end
-        if heldCards and (newCard:getContainer() == player:getInventory()) then deckActionHandler.mergeDecks(newCard, inHand, player, 1) end
+        if heldCards then deckActionHandler.mergeDecks(newCard, inHand, player, 1) end
     end
 end
 
@@ -289,13 +289,13 @@ function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCard
 
 
 function deckActionHandler._dealCards(deckItem, player, n, x, y)
-    local worldItem, container = deckItem:getWorldItem(), deckItem:getContainer()
+    local worldItem = deckItem:getWorldItem()
     x = x or worldItem and (worldItem:getWorldPosX()-worldItem:getX()) or ZombRandFloat(0.48,0.52)
     y = y or worldItem and (worldItem:getWorldPosY()-worldItem:getY()) or ZombRandFloat(0.48,0.52)
     local z = worldItem and (worldItem:getWorldPosZ()-worldItem:getZ()) or 0
     ---@type IsoGridSquare
     local sq = (worldItem and worldItem:getSquare()) or (gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square)
-    deckActionHandler._drawCards(n, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z}, container=container })
+    deckActionHandler._drawCards(n, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z} })
 end
 
 function deckActionHandler.dealCards(deckItem, player, n, x, y)
