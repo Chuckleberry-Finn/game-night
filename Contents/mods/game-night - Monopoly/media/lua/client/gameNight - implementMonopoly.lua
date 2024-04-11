@@ -142,22 +142,22 @@ gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoard", {
     }
 })
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney1", {
-    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 40, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace", rgb = {0.882, 0.882, 0.882} }, weight = 0.003, canStack = 40, moveSound = "cardFlip" })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney5", {
-    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 40, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace", rgb = {0.882, 0.741, 0.796} }, weight = 0.003, canStack = 40, moveSound = "cardFlip" })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney10", {
-    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 40, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace", rgb = {0.882, 0.882, 0.388} }, weight = 0.003, canStack = 40, moveSound = "cardFlip" })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney20", {
-    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 50, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace", rgb = {0.510, 0.769, 0.678} }, weight = 0.003, canStack = 50, moveSound = "cardFlip" })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney50", {
-    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 30, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace", rgb = {0.498, 0.749, 0.784} }, weight = 0.003, canStack = 30, moveSound = "cardFlip" })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney100", {
-    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 20, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace", rgb = {0.827, 0.714, 0.357} }, weight = 0.003, canStack = 20, moveSound = "cardFlip" })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyMoney500", {
-    alternateStackRendering = {func="DrawTextureCardFace"}, weight = 0.003, canStack = 20, moveSound = "cardFlip" })
+    alternateStackRendering = {func="DrawTextureCardFace", rgb = {0.847, 0.627, 0.098} }, weight = 0.003, canStack = 20, moveSound = "cardFlip" })
