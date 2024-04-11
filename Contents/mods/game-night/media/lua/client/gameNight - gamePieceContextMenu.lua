@@ -77,7 +77,7 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
                 local cardCount = {1,3,5,7}
                 for _,n in pairs(cardCount) do
                     if #deckStates >= n then
-                        drawMultipleSubMenu:addOptionOnTop(getText("IGUI_drawCards", n), item, deckActionHandler.drawCards, playerObj, n)
+                        drawMultipleSubMenu:addOption(getText("IGUI_drawCards", n), item, deckActionHandler.drawCards, playerObj, n)
                     end
                 end
 
