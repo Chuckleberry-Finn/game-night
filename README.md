@@ -142,7 +142,7 @@ gamePieceAndBoardHandler.registerSpecial("Base.UnoCards", { actions = { drawCard
 
 `examineScale`: The scaling of the examine texture, can be larger or smaller than 1.
 
-`shiftAction`: Used to control which of the actions can be executed quickly using shift + click. It will also display a texture from `actionIcons`.
+`shiftAction`: Used to control which of the actions can be executed quickly using shift + click. It will also display a texture from `actionIcons`. When setting this to cards you can set this as a table of 2 actions, the first entry will be used for interacting with single cards, the second with a deck/pile - both default to flip and deal respectively.
 
 
 `alternateStackRendering`: Table of optional arguments to feed into volumetric rendering. To emphasize, all arguments are optional. 
