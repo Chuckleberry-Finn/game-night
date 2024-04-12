@@ -131,7 +131,7 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
         newCard:getModData()["gameNight_cardFlipped"] = flipped
 
         ---@type IsoObject|IsoWorldInventoryObject
-        local worldItem = locations and locations.worldItem or deckItem:getWorldItem()
+        local worldItem = locations and locations.worldItem or (deckItem and deckItem:getWorldItem())
         local wiX = (locations and locations.offsets and locations.offsets.x) or (worldItem and (worldItem:getWorldPosX()-worldItem:getX())) or 0
         local wiY = (locations and locations.offsets and locations.offsets.y) or (worldItem and (worldItem:getWorldPosY()-worldItem:getY())) or 0
         local wiZ = (locations and locations.offsets and locations.offsets.z) or (worldItem and (worldItem:getWorldPosZ()-worldItem:getZ())) or 0
@@ -142,11 +142,11 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
             sq:AddWorldInventoryItem(newCard, wiX, wiY, wiZ)
         else
             ---@type ItemContainer
-            local container = (locations and locations.container) or deckItem:getContainer()
+            local container = (locations and locations.container) or (deckItem and deckItem:getContainer())
             if container then container:AddItem(newCard) end
         end
 
-        deckActionHandler.handleDetails(deckItem)
+        if deckItem then deckActionHandler.handleDetails(deckItem) end
         deckActionHandler.handleDetails(newCard)
 
         local newCardWorldItem = newCard:getWorldItem()
@@ -242,17 +242,24 @@ function deckActionHandler._drawCards(num, deckItem, player, locations, faceUp)
         if faceUp then flipState = false end
         table.insert(drawnFlippedStates, flipState)
     end
+
+    print("1")
+    if #deckStates <= 0 then
+        print("2")
+        gamePieceAndBoardHandler.safelyRemoveGamePiece(deckItem)
+    end
+
     local newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
     if newCard then
-        gamePieceAndBoardHandler.playSound(deckItem, player)
-        deckActionHandler.processDrawnCard(deckItem, player, newCard)
+        gamePieceAndBoardHandler.playSound(newCard, player)
+        deckActionHandler.processDrawnCard(newCard, player)
     end
 
     return newCard
 end
 
 
-function deckActionHandler.processDrawnCard(deckItem, player, newCard)
+function deckActionHandler.processDrawnCard(deckItem, player)
     if not player then return end
     local fullType = deckItem:getFullType()
     local special = gamePieceAndBoardHandler.specials[fullType]
@@ -261,11 +268,11 @@ function deckActionHandler.processDrawnCard(deckItem, player, newCard)
     local inHand = player and player:getPrimaryHandItem()
     local heldCards = inHand and deckActionHandler.isDeckItem(inHand)
 
-    if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard, deckItem) end
+    if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](deckItem) end
 
-    if player and (newCard:getContainer() == player:getInventory()) then
-        if not inHand then player:setPrimaryHandItem(newCard) end
-        if heldCards then deckActionHandler.mergeDecks(newCard, inHand, player, 1) end
+    if player and (deckItem:getContainer() == player:getInventory()) then
+        if not inHand then player:setPrimaryHandItem(deckItem) end
+        if heldCards then deckActionHandler.mergeDecks(deckItem, inHand, player, 1) end
     end
 end
 
