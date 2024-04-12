@@ -524,8 +524,9 @@ function gameNightWindow.fetchShiftAction(gamePiece)
     local shiftActionID = specialCase and specialCase.shiftAction
 
     local deckStates, flippedStates = deckActionHandler.getDeckStates(gamePiece)
-    if (not shiftActionID) and deckStates then
-        shiftActionID = (#deckStates <= 1) and "flipCard" or "dealCard"
+    if deckStates then
+        local tbl = type(shiftActionID)=="table"
+        shiftActionID = ((#deckStates <= 1) and ((tbl and shiftActionID[1]) or shiftActionID or "flipCard")) or ((tbl and shiftActionID[2]) or shiftActionID or "dealCard")
     end
 
     if shiftActionID then
