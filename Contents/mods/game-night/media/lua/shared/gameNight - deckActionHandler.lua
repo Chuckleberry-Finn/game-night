@@ -242,7 +242,7 @@ function deckActionHandler._drawCards(num, deckItem, player, locations, faceUp)
             table.insert(drawnCards, drawnCard)
             local flipState = drawnFlip
             if faceUp then flipState = false end
-            table.insert(drawnFlippedStates, (faceUp and false or flipState))
+            table.insert(drawnFlippedStates, flipState)
         end
         newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
     else
@@ -264,6 +264,7 @@ end
 
 
 function deckActionHandler.processDrawnCard(deckItem, player, newCard)
+    if not player then return end
     local fullType = deckItem:getFullType()
     local special = gamePieceAndBoardHandler.specials[fullType]
     local onDraw = special and special.onDraw
@@ -273,7 +274,7 @@ function deckActionHandler.processDrawnCard(deckItem, player, newCard)
 
     if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard, deckItem) end
 
-    if player and newCard:getContainer() == player:getInventory() then
+    if player and ((newCard == deckItem) or (newCard:getContainer() == player:getInventory())) then
         if not inHand then player:setPrimaryHandItem(newCard) end
         if heldCards then deckActionHandler.mergeDecks(newCard, inHand, player, 1) end
     end
