@@ -232,24 +232,30 @@ function deckActionHandler._drawCards(num, deckItem, player, locations, faceUp)
 
     local drawnCards = {}
     local drawnFlippedStates = {}
-    for i=num, 1, -1 do
-        local topCard = #deckStates
-        local drawnCard, drawnFlip = deckStates[topCard], currentFlipStates[topCard]
-        deckStates[topCard] = nil
-        if currentFlipStates then currentFlipStates[topCard] = nil end
-        table.insert(drawnCards, drawnCard)
-        local flipState = drawnFlip
-        if faceUp then flipState = false end
-        table.insert(drawnFlippedStates, flipState)
+
+    local newCard
+
+    if num < draw then
+        for i=num, 1, -1 do
+            local topCard = #deckStates
+            local drawnCard, drawnFlip = deckStates[topCard], currentFlipStates[topCard]
+            deckStates[topCard] = nil
+            if currentFlipStates then currentFlipStates[topCard] = nil end
+            table.insert(drawnCards, drawnCard)
+            local flipState = drawnFlip
+            if faceUp then flipState = false end
+            table.insert(drawnFlippedStates, flipState)
+        end
+        newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
+    else
+        newCard = deckItem
+        if faceUp then
+            local flipStates = {}
+            for i=1, #currentFlipStates do flipStates[i] = false end
+            deckItem:getModData()["gameNight_cardFlipped"] = flipStates
+        end
     end
 
-    print("1")
-    if #deckStates <= 0 then
-        print("2")
-        gamePieceAndBoardHandler.safelyRemoveGamePiece(deckItem)
-    end
-
-    local newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
     if newCard then
         gamePieceAndBoardHandler.playSound(newCard, player)
         deckActionHandler.processDrawnCard(newCard, player)
@@ -270,7 +276,7 @@ function deckActionHandler.processDrawnCard(deckItem, player)
 
     if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](deckItem) end
 
-    if player and (deckItem:getContainer() == player:getInventory()) then
+    if player and deckItem:getContainer() then
         if not inHand then player:setPrimaryHandItem(deckItem) end
         if heldCards then deckActionHandler.mergeDecks(deckItem, inHand, player, 1) end
     end
@@ -315,7 +321,10 @@ function deckActionHandler._drawCardIndex(deckItem, player, drawIndex, locations
     if not deckStates then return deckItem end
 
     local deckCount = #deckStates
-    if deckCount <= 1 then return deckItem end
+    if deckCount <= 1 then
+        deckActionHandler.processDrawnCard(deckItem, player)
+        return deckItem
+    end
 
     drawIndex = drawIndex or ZombRand(deckCount)+1
     local drawnCard, drawnFlipped
@@ -339,7 +348,7 @@ function deckActionHandler._drawCardIndex(deckItem, player, drawIndex, locations
     end
 
     local newCard = deckActionHandler.generateCard(drawnCard, deckItem, drawnFlipped, locations)
-    deckActionHandler.processDrawnCard(deckItem, player, newCard)
+    deckActionHandler.processDrawnCard(newCard, player)
     return newCard
 end
 

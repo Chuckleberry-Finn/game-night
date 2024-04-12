@@ -119,18 +119,28 @@ end
 ---@param inventoryItem InventoryItem
 function gamePieceAndBoardHandler.safelyRemoveGamePiece(inventoryItem)
     local worldItem = inventoryItem:getWorldItem()
+    print("worldItem: ", worldItem)
     if worldItem then
         ---@type IsoGridSquare
         local sq = worldItem:getSquare()
         if sq then
             sq:transmitRemoveItemFromSquare(worldItem)
-            sq:removeWorldObject(worldItem)
+            worldItem:removeFromWorld()
+            worldItem:removeFromSquare()
             inventoryItem:setWorldItem(nil)
         end
     end
+
     ---@type ItemContainer
     local container = inventoryItem:getContainer()
-    if container then container:DoRemoveItem(inventoryItem) end
+    print("container: ", container, "  ", container:getType())
+    if container then
+        container:setDrawDirty(true)
+        inventoryItem:setJobDelta(0.0)
+        getPlayer():removeWornItem(inventoryItem)
+        if isClient() and not instanceof(inventoryItem:getOutermostContainer():getParent(), "IsoPlayer") and container:getType()~="floor" then container:removeItemOnServer(inventoryItem) end
+        container:DoRemoveItem(inventoryItem)
+    end
 end
 
 
