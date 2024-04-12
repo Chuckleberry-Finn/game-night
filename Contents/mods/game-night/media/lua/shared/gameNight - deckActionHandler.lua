@@ -230,30 +230,19 @@ function deckActionHandler._drawCards(num, deckItem, player, locations, faceUp)
     local draw = #deckStates
     num = math.min(num, draw)
 
-    local newCard
-    if num < draw then
-        local drawnCards = {}
-        local drawnFlippedStates = {}
-        for i=num, 1, -1 do
-            local topCard = #deckStates
-            local drawnCard, drawnFlip = deckStates[topCard], currentFlipStates[topCard]
-            deckStates[topCard] = nil
-            if currentFlipStates then currentFlipStates[topCard] = nil end
-            table.insert(drawnCards, drawnCard)
-            local flipState = drawnFlip
-            if faceUp then flipState = false end
-            table.insert(drawnFlippedStates, flipState)
-        end
-        newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
-    else
-        newCard = deckItem
-        if faceUp then
-            local flipStates = {}
-            for i=1, #currentFlipStates do flipStates[i] = false end
-            deckItem:getModData()["gameNight_cardFlipped"] = flipStates
-        end
+    local drawnCards = {}
+    local drawnFlippedStates = {}
+    for i=num, 1, -1 do
+        local topCard = #deckStates
+        local drawnCard, drawnFlip = deckStates[topCard], currentFlipStates[topCard]
+        deckStates[topCard] = nil
+        if currentFlipStates then currentFlipStates[topCard] = nil end
+        table.insert(drawnCards, drawnCard)
+        local flipState = drawnFlip
+        if faceUp then flipState = false end
+        table.insert(drawnFlippedStates, flipState)
     end
-
+    local newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
     if newCard then
         gamePieceAndBoardHandler.playSound(deckItem, player)
         deckActionHandler.processDrawnCard(deckItem, player, newCard)
@@ -274,7 +263,7 @@ function deckActionHandler.processDrawnCard(deckItem, player, newCard)
 
     if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](newCard, deckItem) end
 
-    if player and ((newCard == deckItem) or (newCard:getContainer() == player:getInventory())) then
+    if player and (newCard:getContainer() == player:getInventory()) then
         if not inHand then player:setPrimaryHandItem(newCard) end
         if heldCards then deckActionHandler.mergeDecks(newCard, inHand, player, 1) end
     end
