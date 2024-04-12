@@ -223,7 +223,7 @@ end
 
 
 ---@param player IsoPlayer|IsoGameCharacter
-function deckActionHandler._drawCards(num, deckItem, player, locations)
+function deckActionHandler._drawCards(num, deckItem, player, locations, faceUp)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
 
@@ -240,11 +240,18 @@ function deckActionHandler._drawCards(num, deckItem, player, locations)
             deckStates[topCard] = nil
             if currentFlipStates then currentFlipStates[topCard] = nil end
             table.insert(drawnCards, drawnCard)
-            table.insert(drawnFlippedStates, drawnFlip)
+            local flipState = drawnFlip
+            if faceUp then flipState = false end
+            table.insert(drawnFlippedStates, (faceUp and false or flipState))
         end
         newCard = deckActionHandler.generateCard(drawnCards, deckItem, drawnFlippedStates, locations)
     else
         newCard = deckItem
+        if faceUp then
+            local flipStates = {}
+            for i=1, #currentFlipStates do flipStates[i] = false end
+            deckItem:getModData()["gameNight_cardFlipped"] = flipStates
+        end
     end
 
     if newCard then
@@ -282,7 +289,7 @@ end
 ---@param deckItem InventoryItem
 function deckActionHandler.drawCards(deckItem, player, num)
     local locations = {container=player:getInventory()}
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player, locations}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player, locations, true}, deckActionHandler.handleDetails)
 end
 
 function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(deckItem, player, 1) end
