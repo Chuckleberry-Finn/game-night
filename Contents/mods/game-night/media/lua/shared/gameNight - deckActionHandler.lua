@@ -194,7 +194,7 @@ end
 
 
 
-function deckActionHandler._mergeDecks(deckItemA, deckItemB, index, player)
+function deckActionHandler._mergeDecks(deckItemA, deckItemB, player, index)
     if  deckItemA:getType() ~= deckItemB:getType() then return end
 
     local deckB, flippedB = deckActionHandler.getDeckStates(deckItemB)
@@ -216,8 +216,8 @@ end
 ---@param deckItemB InventoryItem
 function deckActionHandler.mergeDecks(deckItemA, deckItemB, player, index)
     if (deckItemA:getType() ~= deckItemB:getType()) or (deckItemA == deckItemB) then return end
-    gamePieceAndBoardHandler.pickupGamePiece(player, deckItemA, true)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB, index, player}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupGamePiece(player, deckItemA)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB, player, index}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItemB, player)
 end
 
@@ -278,7 +278,7 @@ function deckActionHandler.processDrawnCard(deckItem, player)
 
     if player and deckItem:getContainer() then
         if not inHand then player:setPrimaryHandItem(deckItem) end
-        if heldCards then deckActionHandler.mergeDecks(deckItem, inHand, player, 1) end
+        if heldCards then deckActionHandler._mergeDecks(deckItem, inHand, player, 1) end
     end
 end
 

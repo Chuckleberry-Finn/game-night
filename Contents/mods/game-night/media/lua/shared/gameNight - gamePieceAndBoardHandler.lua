@@ -119,7 +119,6 @@ end
 ---@param inventoryItem InventoryItem
 function gamePieceAndBoardHandler.safelyRemoveGamePiece(inventoryItem)
     local worldItem = inventoryItem:getWorldItem()
-    print("worldItem: ", worldItem)
     if worldItem then
         ---@type IsoGridSquare
         local sq = worldItem:getSquare()
@@ -133,13 +132,12 @@ function gamePieceAndBoardHandler.safelyRemoveGamePiece(inventoryItem)
 
     ---@type ItemContainer
     local container = inventoryItem:getContainer()
-    print("container: ", container, "  ", container:getType())
     if container then
         container:setDrawDirty(true)
         inventoryItem:setJobDelta(0.0)
-        getPlayer():removeWornItem(inventoryItem)
         if isClient() and not instanceof(inventoryItem:getOutermostContainer():getParent(), "IsoPlayer") and container:getType()~="floor" then container:removeItemOnServer(inventoryItem) end
         container:DoRemoveItem(inventoryItem)
+        inventoryItem:setContainer(nil)
     end
 end
 
@@ -205,7 +203,7 @@ end
 ---@param gamePieceB InventoryItem
 function gamePieceAndBoardHandler.tryStack(gamePieceA, gamePieceB, player)
     if gamePieceA:getFullType() ~= gamePieceB:getFullType() then return end
-    gamePieceAndBoardHandler.pickupGamePiece(player, gamePieceA, true)
+    gamePieceAndBoardHandler.pickupGamePiece(player, gamePieceA)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePieceB, {gamePieceAndBoardHandler._tryStack, gamePieceA, gamePieceB})
     gamePieceAndBoardHandler.playSound(gamePieceB, player)
 end
@@ -343,11 +341,9 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item)
     local pickedUp = false
 
     if (not worldItem) and itemContainer ~= playerInv then
-
         if isClient() and not itemContainer:isInCharacterInventory(player) and itemContainer:getType()~="floor" then itemContainer:removeItemOnServer(item) end
         itemContainer:DoRemoveItem(item)
         itemContainer:setDrawDirty(true)
-
         playerInv:setDrawDirty(true)
         playerInv:AddItem(item)
         pickedUp = true
@@ -394,6 +390,7 @@ gamePieceAndBoardHandler.coolDown = (isClient() or isServer()) and 750 or 5
 function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOffset, zPos)
 
     local itemCont = item:getContainer()
+    if not itemCont then return end
     local playerInventory = player:getInventory()
 
     ---@type IsoWorldInventoryObject|IsoObject
@@ -450,7 +447,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
         worldItem:transmitModData()
     end
 
-    local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp)
+    local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item)
 
     xOffset = xOffset or x or 0
     yOffset = yOffset or y or 0
