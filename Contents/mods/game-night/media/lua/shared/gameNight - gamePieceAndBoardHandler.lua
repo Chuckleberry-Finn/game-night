@@ -135,7 +135,12 @@ function gamePieceAndBoardHandler.safelyRemoveGamePiece(inventoryItem)
     if container then
         container:setDrawDirty(true)
         inventoryItem:setJobDelta(0.0)
-        if isClient() and not instanceof(inventoryItem:getOutermostContainer():getParent(), "IsoPlayer") and container:getType()~="floor" then container:removeItemOnServer(inventoryItem) end
+        if isClient() then
+            local outerMost = inventoryItem:getOutermostContainer()
+            if outerMost and (not instanceof(outerMost:getParent(), "IsoPlayer")) and container:getType()~="floor" then
+                container:removeItemOnServer(inventoryItem)
+            end
+        end
         container:DoRemoveItem(inventoryItem)
         inventoryItem:setContainer(nil)
     end
