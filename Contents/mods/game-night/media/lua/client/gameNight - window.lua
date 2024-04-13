@@ -521,12 +521,18 @@ function gameNightWindow.fetchShiftAction(gamePiece)
     if not isShiftKeyDown() then return end
 
     local specialCase = gamePieceAndBoardHandler.specials[gamePiece:getFullType()]
-    local shiftActionID = specialCase and specialCase.shiftAction
+    local shiftAction = specialCase and specialCase.shiftAction
+
+    local shiftActionID
+    local tbl = shiftAction and type(shiftAction)=="table"
+    local tblAction1 = tbl and shiftAction[1]
+    local tblAction2 = tbl and shiftAction[2]
 
     local deckStates, flippedStates = deckActionHandler.getDeckStates(gamePiece)
     if deckStates then
-        local tbl = type(shiftActionID)=="table"
-        shiftActionID = ((#deckStates <= 1) and ((tbl and shiftActionID[1]) or shiftActionID or "flipCard")) or ((tbl and shiftActionID[2]) or shiftActionID or "dealCard")
+        shiftActionID = (#deckStates <= 1) and (tblAction1 or ((not tbl) and shiftAction) or "flipCard") or (tblAction2 or ((not tbl) and shiftAction) or "dealCard")
+    else
+        shiftActionID = tblAction1 or shiftAction
     end
 
     if shiftActionID then
