@@ -203,9 +203,9 @@ function deckActionHandler._mergeDecks(deckItemA, deckItemB, player, index)
     local deckA, flippedA = deckActionHandler.getDeckStates(deckItemA)
     if not deckA then return end
 
-    index = index and math.max(index,1) or 1
+    index = index and math.min(#deckB+1,math.max(index,1)) or #deckB+1
 
-    for i=1, #deckA do
+    for i=#deckA, 1, -1 do
         table.insert(deckB, index, deckA[i])
         table.insert(flippedB, index, flippedA[i])
     end
