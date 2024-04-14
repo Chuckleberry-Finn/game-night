@@ -48,6 +48,7 @@
 - Added new 'hand' feature, equipped cards will show a modified search window.
 - Added volumetric-rendering (3D) to a few pieces, including add-ons: All cards, Pokerchips, Catan roads, Dominos, Pogs.
 - Fixed: Merging card so that they go on-top and in the right order.
+- Tweaked: Different scale sizes having better piece positions.
 
 - Added: Guide for making Add-Ons on the github. :)
 [ ------ ]
