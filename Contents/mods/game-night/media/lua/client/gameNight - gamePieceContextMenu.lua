@@ -75,7 +75,9 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
 
                     if #deckStates > cardCount[#cardCount]*2 then
                         local n = math.floor(#deckStates/2)
-                        dealMultipleSubMenu:addOption(getText("IGUI_splitCards", n), item, deckActionHandler.dealCards, playerObj, n)
+                        if n > cardCount[#cardCount] then
+                            dealMultipleSubMenu:addOption(getText("IGUI_splitCards", n), item, deckActionHandler.dealCards, playerObj, n)
+                        end
                     end
 
                     subDrawMenu:addSubMenu(deal, dealMultipleSubMenu)
@@ -96,7 +98,9 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
                 end
                 if #deckStates > cardCount[#cardCount]*2 then
                     local n = math.floor(#deckStates/2)
-                    drawMultipleSubMenu:addOption(getText("IGUI_splitCards", n), item, deckActionHandler.drawCards, playerObj, n)
+                    if n > cardCount[#cardCount] then
+                        drawMultipleSubMenu:addOption(getText("IGUI_splitCards", n), item, deckActionHandler.drawCards, playerObj, n)
+                    end
                 end
                 subDrawMenu:addSubMenu(draw, drawMultipleSubMenu)
 
