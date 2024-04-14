@@ -241,7 +241,7 @@ function gameNightWindow:processMouseUp(old, x, y)
                 local selection
                 for _,element in pairs(self.elements) do
                     if (element.item~=piece) and piece:getType() == element.item:getType() then
-                        local inBounds = (math.abs(element.x-placeX) <= 8) and (math.abs(element.y-placeY) <= 8)
+                        local inBounds = (math.abs(element.x-placeX) <= 8) and (math.abs(element.y-(element.depth or 0)-placeY) <= 8)
                         if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
                     end
                 end
@@ -382,7 +382,11 @@ function gameNightWindow:moveElement(gamePiece, x, y)
     ---@type IsoObject|InventoryItem
     local item = gamePiece
     if not item then return end
-    local scaledX, scaledY, offsetZ = self:determineScaledWorldXY(x, y)
+
+    local element = self.elements[item:getID()]
+    local eW, eH = element.w/2, element.h/2
+
+    local scaledX, scaledY, offsetZ = self:determineScaledWorldXY(x-eW, y-eH)
 
     local angleChange = self.rotatingPieceDegree
     local onPickup = angleChange and (angleChange ~= 0) and {gamePieceAndBoardHandler.rotatePiece, item, angleChange, self.player}
@@ -431,7 +435,10 @@ function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
 
     local selection = clicked
     for item,element in pairs(self.elements) do
-        local inBounds = ((cursorX >= element.x) and (cursorY >= element.y) and (cursorX <= element.x+element.w) and (cursorY <= element.y+element.h))
+
+        local w, h = element.w/2, element.h/2 + (element.depth or 0)
+
+        local inBounds = ((cursorX >= element.x-w) and (cursorY >= element.y-h) and (cursorX <= element.x+w) and (cursorY <= element.y+h))
         if inBounds and ((not selection) or element.priority > selection.priority) then
             selection = element
         end
@@ -440,6 +447,11 @@ function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
     return selection
 end
 
+function gameNightWindow.round(number, digit_position)
+    local precision = math.pow(10, digit_position)
+    number = number + (precision / 2)
+    return math.floor(number / precision) * precision
+end
 
 ---@param item IsoObject|InventoryItem
 ---@param object IsoObject|IsoWorldInventoryObject
@@ -460,8 +472,8 @@ function gameNightWindow:generateElement(item, object, priority)
     w = w * gameNightWindow.scaleSize
     h = h * gameNightWindow.scaleSize
 
-    local x = (object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))
-    local y = (object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))
+    local x = self.round( ((object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))) + w/2, -5)
+    local y = self.round( ((object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))) + h/2, -5)
 
     local rot = item:getModData()["gameNight_rotation"] or 0
 
@@ -483,15 +495,16 @@ function gameNightWindow:generateElement(item, object, priority)
         local depthFactor = altRend and altRend.depth or (deckStates and 0.33) or 1
         local depth = (deckStates and #deckStates * depthFactor) or stack or depthFactor
         if depth then
+            self.elements[item:getID()].depth = depth
             local func = altRend and altRend.func or (deckStates and "DrawTextureCardFace") or "DrawTextureRoundFace"
             local r, g, b = 1, 1, 1
             if altRend and altRend.rgb then r, g, b = unpack(altRend.rgb) end
             local sides = altRend and altRend.sides or 12 or 0
-            volumetricRender[func](self, tmpTexture, x+(w/2), y+(h/2), rot, depth, sides, r, g, b, 1)
+            volumetricRender[func](self, tmpTexture, x, y, rot, depth, sides, r, g, b, 1)
             return
         end
     end
-    self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot)
+    self:DrawTextureAngle(tmpTexture, x, y, rot)
 end
 
 
@@ -607,14 +620,14 @@ function gameNightWindow:render()
             tmpTexture:setHeight(h)
             tmpTexture:setWidth(w)
 
-            self:DrawTextureAngle(tmpTexture, x+(w/2), y+(h/2), rot, 1, 1, 1, 0.7)
+            self:DrawTextureAngle(tmpTexture, x, y, rot, 1, 1, 1, 0.7)
         end
 
         local selection
         if deckActionHandler.isDeckItem(movingPiece) or gamePieceAndBoardHandler.canStackPiece(movingPiece) then
             for _,element in pairs(self.elements) do
                 if (element.item~=movingPiece) and (movingPiece:getType() == element.item:getType()) then
-                    local inBounds = (math.abs(element.x-x) <= 8) and (math.abs(element.y-y) <= 8)
+                    local inBounds = (math.abs(element.x-x) <= 8) and (math.abs(element.y-(element.depth or 0)-y) <= 8)
                     if inBounds and ((not selection) or element.priority > selection.priority) then selection = element end
                 end
             end
@@ -689,7 +702,7 @@ function gameNightWindow:labelWithName(element)
             if wrongUser then nameTag = nameTag.." [In Use]" end
 
             if coolDown then
-                local waitX, waitY = element.x+(element.w/2)-self.waitCursor.xOffset, element.y+(element.h/2)-self.waitCursor.yOffset
+                local waitX, waitY = element.x-self.waitCursor.xOffset, element.y-self.waitCursor.yOffset
                 self:drawTextureScaledUniform(self.waitCursor.texture, waitX, waitY, gameNightWindow.scaleSize,1, 1, 1, 1)
             end
 
