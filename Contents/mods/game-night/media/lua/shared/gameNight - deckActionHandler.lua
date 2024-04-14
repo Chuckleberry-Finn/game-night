@@ -318,13 +318,13 @@ function deckActionHandler.dealCard(deckItem, player, x, y) deckActionHandler.de
 
 
 
-function deckActionHandler._drawCardIndex(deckItem, player, drawIndex, locations)
+function deckActionHandler._drawCardIndex(deckItem, player, drawIndex, locations, ignoreProcess)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return deckItem end
 
     local deckCount = #deckStates
     if deckCount <= 1 then
-        deckActionHandler.processDrawnCard(deckItem, player)
+        if player and (not ignoreProcess) then deckActionHandler.processDrawnCard(deckItem, player) end
         return deckItem
     end
 
@@ -350,7 +350,7 @@ function deckActionHandler._drawCardIndex(deckItem, player, drawIndex, locations
     end
 
     local newCard = deckActionHandler.generateCard(drawnCard, deckItem, drawnFlipped, locations)
-    deckActionHandler.processDrawnCard(newCard, player)
+    if player and (not ignoreProcess) then deckActionHandler.processDrawnCard(newCard, player) end
     return newCard
 end
 
