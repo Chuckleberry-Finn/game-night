@@ -477,8 +477,8 @@ function gameNightWindow:generateElement(item, object, priority)
 
     local rot = item:getModData()["gameNight_rotation"] or 0
 
-    x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-w)
-    y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-h)
+    x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-w/2)
+    y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-h/2)
 
     self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, priority=priority}
 
