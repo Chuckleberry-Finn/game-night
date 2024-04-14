@@ -314,7 +314,7 @@ function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value)
 end
 
 ---@param item InventoryItem
-function gamePieceAndBoardHandler.pickupGamePiece(player, item)
+function gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detailsFunc)
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
@@ -358,6 +358,18 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item)
         if pdata ~= nil then ISInventoryPage.renderDirty = true end
     end
 
+    if item then
+        if onPickUp and type(onPickUp)=="table" then
+            local onCompleteFuncArgs = onPickUp
+            local func = onCompleteFuncArgs[1]
+            local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = onCompleteFuncArgs[2], onCompleteFuncArgs[3], onCompleteFuncArgs[4], onCompleteFuncArgs[5], onCompleteFuncArgs[6], onCompleteFuncArgs[7], onCompleteFuncArgs[8], onCompleteFuncArgs[9]
+            func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+        end
+
+        detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
+        detailsFunc(item)
+    end
+
     return pickedUp, xOffset, yOffset, zPos
 end
 
@@ -395,7 +407,6 @@ gamePieceAndBoardHandler.coolDown = (isClient() or isServer()) and 750 or 5
 function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOffset, zPos)
 
     local itemCont = item:getContainer()
-    if not itemCont then return end
     local playerInventory = player:getInventory()
 
     ---@type IsoWorldInventoryObject|IsoObject
@@ -452,34 +463,20 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
         worldItem:transmitModData()
     end
 
-    local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item)
+    local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detailsFunc)
 
     xOffset = xOffset or x or 0
     yOffset = yOffset or y or 0
     zPos = zPos or z or 0
 
-    if onPickUp and type(onPickUp)=="table" then
-        local onCompleteFuncArgs = onPickUp
-        local func = onCompleteFuncArgs[1]
-        local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = onCompleteFuncArgs[2], onCompleteFuncArgs[3], onCompleteFuncArgs[4], onCompleteFuncArgs[5], onCompleteFuncArgs[6], onCompleteFuncArgs[7], onCompleteFuncArgs[8], onCompleteFuncArgs[9]
-        func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-    end
+    if item and worldItemSq then
+        local pBD = player:getBodyDamage()
+        pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-1))
 
-    if item then
+        local sound = item:getModData()["gameNight_sound"]
+        if sound then player:getEmitter():playSound(sound) end
 
-        detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
-        detailsFunc(item)
-
-        if worldItemSq then
-
-            local pBD = player:getBodyDamage()
-            pBD:setBoredomLevel(math.max(0,pBD:getBoredomLevel()-1))
-
-            local sound = item:getModData()["gameNight_sound"]
-            if sound then player:getEmitter():playSound(sound) end
-
-            gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOffset, zPos)
-        end
+        gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOffset, zPos)
     end
 end
 

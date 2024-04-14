@@ -292,7 +292,9 @@ end
 ---@param deckItem InventoryItem
 function deckActionHandler.drawCards(deckItem, player, num)
     local locations = {container=player:getInventory()}
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCards, num, deckItem, player, locations, true}, deckActionHandler.handleDetails)
+    local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
+    local func = (num >= #deckStates) and "pickupGamePiece" or "pickupAndPlaceGamePiece"
+    gamePieceAndBoardHandler[func](player, deckItem, {deckActionHandler._drawCards, num, deckItem, player, locations, true}, deckActionHandler.handleDetails)
 end
 
 function deckActionHandler.drawCard(deckItem, player) deckActionHandler.drawCards(deckItem, player, 1) end
