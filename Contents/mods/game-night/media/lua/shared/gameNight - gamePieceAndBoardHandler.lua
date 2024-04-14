@@ -144,6 +144,9 @@ function gamePieceAndBoardHandler.safelyRemoveGamePiece(inventoryItem)
         container:DoRemoveItem(inventoryItem)
         inventoryItem:setContainer(nil)
     end
+
+    inventoryItem:setContainer(nil)
+    inventoryItem:setWorldItem(nil)
 end
 
 
