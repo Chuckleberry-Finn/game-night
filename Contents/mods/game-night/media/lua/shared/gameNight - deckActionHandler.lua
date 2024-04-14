@@ -258,23 +258,27 @@ function deckActionHandler._drawCards(num, deckItem, player, locations, faceUp, 
 
     if newCard then
         gamePieceAndBoardHandler.playSound(newCard, player)
-        if (not ignoreProcess) then deckActionHandler.processDrawnCard(newCard, player) end
+        deckActionHandler.processOnDraw(deckItem)
+        if (not ignoreProcess) then deckActionHandler.processCardToHand(newCard, player) end
     end
 
     return newCard
 end
 
 
-function deckActionHandler.processDrawnCard(deckItem, player)
-    if not player then return end
+function deckActionHandler.processOnDraw(deckItem)
     local fullType = deckItem:getFullType()
     local special = gamePieceAndBoardHandler.specials[fullType]
     local onDraw = special and special.onDraw
+    if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](deckItem) end
+end
+
+
+function deckActionHandler.processCardToHand(deckItem, player)
+    if not player then return end
 
     local inHand = player and player:getPrimaryHandItem()
     local heldCards = inHand and deckActionHandler.isDeckItem(inHand)
-
-    if onDraw and deckActionHandler[onDraw] then deckActionHandler[onDraw](deckItem) end
 
     if player and deckItem:getContainer() then
         if not inHand then player:setPrimaryHandItem(deckItem) end
@@ -324,7 +328,8 @@ function deckActionHandler._drawCardIndex(deckItem, player, drawIndex, locations
 
     local deckCount = #deckStates
     if deckCount <= 1 then
-        if player and (not ignoreProcess) then deckActionHandler.processDrawnCard(deckItem, player) end
+        deckActionHandler.processOnDraw(deckItem)
+        if player and (not ignoreProcess) then deckActionHandler.processCardToHand(deckItem, player) end
         return deckItem
     end
 
@@ -350,7 +355,8 @@ function deckActionHandler._drawCardIndex(deckItem, player, drawIndex, locations
     end
 
     local newCard = deckActionHandler.generateCard(drawnCard, deckItem, drawnFlipped, locations)
-    if player and (not ignoreProcess) then deckActionHandler.processDrawnCard(newCard, player) end
+    deckActionHandler.processOnDraw(newCard)
+    if player and (not ignoreProcess) then deckActionHandler.processCardToHand(newCard, player) end
     return newCard
 end
 
