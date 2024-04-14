@@ -136,7 +136,10 @@ function gameNightDeckSearch:onMouseMove(dx, dy)
     local gameNightWin = gameNightWindow.instance
     local piece = gameNightWin and gameNightWin.movingPiece
 
-    if self.dragging or piece then
+    local draggingCard
+    for sDeck,sWin in pairs(gameNightDeckSearch.instances) do if sWin.dragging then draggingCard = sWin.dragging break end end
+
+    if draggingCard or piece then
         local x = self.cardDisplay:getMouseX()
         local y = self.cardDisplay:getMouseY()
         local selected, inBetween = self:getCardAtXY(x, y)
@@ -159,8 +162,30 @@ function gameNightDeckSearch:cardOnMouseUpOutside(x, y)
         local cardBeingDragged = searchWindow.dragging
 
         if cardBeingDragged then
-            local cardDrawn = deckActionHandler._drawCardIndex(deckItem, nil, cardBeingDragged)
+            local cardDrawn = deckActionHandler._drawCardIndex(deckItem, nil, cardBeingDragged, nil, true)
             if cardDrawn then gameNightWin:calculateItemDrop(gameNightWin:getMouseX(), gameNightWin:getMouseY(), {cardDrawn}) end
+        end
+    end
+
+    local sisWindow
+    for sDeck,sWin in pairs(gameNightDeckSearch.instances) do
+        if (sWin ~= searchWindow) and sWin.cardDisplay and sWin.cardDisplay:isMouseOver() then
+            sisWindow = sWin break
+        end
+    end
+    if sisWindow then
+        local deckItem = searchWindow.deck
+        local cardBeingDragged = searchWindow.dragging
+        if cardBeingDragged then
+            local sisDeck = sisWindow.deck
+
+            local overX, overY = sisWindow.cardDisplay:getMouseX(), sisWindow.cardDisplay:getMouseY()
+            local selection, inBetween = sisWindow:getCardAtXY(overX, overY)
+
+            if selection then
+                local cardDrawn = deckActionHandler._drawCardIndex(deckItem, nil, cardBeingDragged, nil, true)
+                if cardDrawn then deckActionHandler._mergeDecks(cardDrawn, sisDeck, nil, selection+(inBetween and 0 or 1)) end
+            end
         end
     end
 
@@ -294,6 +319,9 @@ function gameNightDeckSearch:render()
     local gameWindow = gameNightWindow and gameNightWindow.instance
     local cardFromOtherWindow = gameWindow and gameWindow.movingPiece
 
+    local draggingCard
+    for sDeck,sWin in pairs(gameNightDeckSearch.instances) do if sWin.dragging then draggingCard = sWin.dragging break end end
+
     for n=#cardData, 1, -1 do
 
         local card = cardData[n]
@@ -329,8 +357,8 @@ function gameNightDeckSearch:render()
                         self.sizedOnce = true
                         self.cardDisplay:setWidth(self.cardWidth+xOffset+halfPad)
                         self:setWidth(self.cardDisplay.width+(self.padding*2))
-                        if self.close then self.close:setX(self.width-self.padding-self.close:getWidth()) end
-                        if self.infoButton then self.infoButton:setX(self.close:getX()-24) end
+                        if self.closeBtn then self.closeBtn:setX(self.width-self.padding-self.closeBtn:getWidth()) end
+                        if self.infoButton then self.infoButton:setX(self.closeBtn:getX()-24) end
                     end
 
                     xOffset = resetXOffset
@@ -338,7 +366,8 @@ function gameNightDeckSearch:render()
                 end
 
                 self.cardDisplay:drawTextureScaledUniform(texture, xOffset, yOffset-(self.scrollY or 0), 0.5, 1, 1, 1, 1)
-                if self.dragging or self.draggingOver then
+
+                if (draggingCard or self.draggingOver) and self:isMouseOver() then
 
                     if self.dragging and self.dragging == n and (not cardFromOtherWindow) then
                         self.cardDisplay:drawRectBorder(xOffset, yOffset-(self.scrollY or 0), self.cardWidth, self.cardHeight, 1, 0.4, 0.6, 0.9)
@@ -417,17 +446,17 @@ function gameNightDeckSearch:initialise()
     self.bounds = {x1=pd, y1=btnHgt+(pd*2), x2=self.width-pd, y2=self.height-pd}
 
     if not self.held then
-        self.close = ISButton:new(self.width-pd-btnWid, pd, btnWid, btnHgt, closeText, self, gameNightDeckSearch.onClick)
-        self.close.internal = "CLOSE"
-        self.close.borderColor = {r=1, g=1, b=1, a=0.4}
-        self.close:initialise()
-        self.close:instantiate()
-        self:addChild(self.close)
+        self.closeBtn = ISButton:new(self.width-pd-btnWid, pd, btnWid, btnHgt, closeText, self, gameNightDeckSearch.onClick)
+        self.closeBtn.internal = "CLOSE"
+        self.closeBtn.borderColor = {r=1, g=1, b=1, a=0.4}
+        self.closeBtn:initialise()
+        self.closeBtn:instantiate()
+        self:addChild(self.closeBtn)
 
-        uiInfo.applyToUI(self, self.close.x-24, self.close.y, getText("UI_GameNightSearch"))
+        uiInfo.applyToUI(self, self.closeBtn.x-24, self.closeBtn.y, getText("UI_GameNightSearch"))
     end
 
-    self.cardDisplay = ISPanelJoypad:new(self.bounds.x1, self.bounds.y1, self.bounds.x2-self.padding, self.bounds.y2-(self.held and 0 or self.close.height)-(self.padding*2))
+    self.cardDisplay = ISPanelJoypad:new(self.bounds.x1, self.bounds.y1, self.bounds.x2-self.padding, self.bounds.y2-(self.held and 0 or self.closeBtn.height)-(self.padding*2))
     self.cardDisplay:initialise()
     self.cardDisplay:instantiate()
     self.cardDisplay.onMouseDown = self.cardOnMouseDown
