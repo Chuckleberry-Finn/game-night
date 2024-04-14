@@ -64,6 +64,21 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
 
                     local deal = subDrawMenu:addOptionOnTop(getText("IGUI_deal"), item, deckActionHandler.dealCard, playerObj, x, y)
                     deal.iconTexture = gamePieceContext.gameNightContextMenuIcon.deal
+
+                    local dealMultipleSubMenu = subDrawMenu:getNew(subDrawMenu)
+                    local cardCount = {1,3,5,7}
+                    for _,n in pairs(cardCount) do
+                        if #deckStates > n then
+                            dealMultipleSubMenu:addOption(getText("IGUI_dealCards", n), item, deckActionHandler.dealCards, playerObj, n)
+                        end
+                    end
+
+                    if #deckStates > cardCount[#cardCount]*2 then
+                        local n = math.floor(#deckStates/2)
+                        dealMultipleSubMenu:addOption(getText("IGUI_splitCards", n), item, deckActionHandler.dealCards, playerObj, n)
+                    end
+
+                    subDrawMenu:addSubMenu(deal, dealMultipleSubMenu)
                 end
 
                 --local drawRand = subDrawMenu:addOptionOnTop(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard, playerObj)
@@ -78,6 +93,10 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
                     if #deckStates >= n then
                         drawMultipleSubMenu:addOption(getText("IGUI_drawCards", n), item, deckActionHandler.drawCards, playerObj, n)
                     end
+                end
+                if #deckStates > cardCount[#cardCount]*2 then
+                    local n = math.floor(#deckStates/2)
+                    drawMultipleSubMenu:addOption(getText("IGUI_splitCards", n), item, deckActionHandler.drawCards, playerObj, n)
                 end
                 subDrawMenu:addSubMenu(draw, drawMultipleSubMenu)
 

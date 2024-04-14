@@ -223,7 +223,7 @@ end
 
 
 ---@param player IsoPlayer|IsoGameCharacter
-function deckActionHandler._drawCards(num, deckItem, player, locations, faceUp)
+function deckActionHandler._drawCards(num, deckItem, player, locations, faceUp, ignoreProcess)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
 
@@ -258,7 +258,7 @@ function deckActionHandler._drawCards(num, deckItem, player, locations, faceUp)
 
     if newCard then
         gamePieceAndBoardHandler.playSound(newCard, player)
-        deckActionHandler.processDrawnCard(newCard, player)
+        if (not ignoreProcess) then deckActionHandler.processDrawnCard(newCard, player) end
     end
 
     return newCard
@@ -307,7 +307,7 @@ function deckActionHandler._dealCards(deckItem, player, n, x, y)
     local z = worldItem and (worldItem:getWorldPosZ()-worldItem:getZ()) or 0
     ---@type IsoGridSquare
     local sq = (worldItem and worldItem:getSquare()) or (gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square)
-    deckActionHandler._drawCards(n, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z} })
+    deckActionHandler._drawCards(n, deckItem, player, { sq=sq, offsets={x=x,y=y,z=z} }, nil, true)
 end
 
 function deckActionHandler.dealCards(deckItem, player, n, x, y)
