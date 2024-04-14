@@ -41,8 +41,13 @@
 - Added: Disable piece rotation by type. (Disabled a few different types of pieces)
 - Tweaked Monopoly naming conventions.
 - Allow cards to generateContextMenuFromSpecialActions.
+- Added ability to draw/deal multiple cards.
 - Added card examine feature (for TCGs, not enabled by default).
-- Allow multiple instances of Deck-Search (per item)
+- Allow multiple instances of Deck-Search (per item).
+- Allow the Game Window and Search windows to drag-drop with each other.
 - Added new 'hand' feature, equipped cards will show a modified search window.
 - Added volumetric-rendering (3D) to a few pieces, including add-ons: All cards, Pokerchips, Catan roads, Dominos, Pogs.
+- Fixed: Merging card so that they go on-top and in the right order.
+
+- Added: Guide for making Add-Ons on the github. :)
 [ ------ ]
