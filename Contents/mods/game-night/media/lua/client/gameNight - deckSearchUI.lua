@@ -329,6 +329,8 @@ function gameNightDeckSearch:render()
                         self.sizedOnce = true
                         self.cardDisplay:setWidth(self.cardWidth+xOffset+halfPad)
                         self:setWidth(self.cardDisplay.width+(self.padding*2))
+                        if self.close then self.close:setX(self.width-self.padding-self.close:getWidth()) end
+                        if self.infoButton then self.infoButton:setX(self.close:getX()-24) end
                     end
 
                     xOffset = resetXOffset
