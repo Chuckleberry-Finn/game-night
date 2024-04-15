@@ -52,7 +52,7 @@ function gameNightDeckSearch:update()
     local outerMostCont = item:getOutermostContainer()
     local contParent = outerMostCont and outerMostCont:getParent()
     local contParentSq = contParent and contParent:getSquare()
-    if contParentSq and ( contParentSq:DistToProper(player) > 1 ) then
+    if contParentSq and ( contParentSq:DistToProper(player) > 1.5 ) then
         self:closeAndRemove()
         return
     end
@@ -60,7 +60,7 @@ function gameNightDeckSearch:update()
     ---@type IsoWorldInventoryObject|IsoObject
 
     local worldItemSq = worldItem and worldItem:getSquare()
-    if worldItemSq and ( worldItemSq:DistToProper(player) > 1 ) then
+    if worldItemSq and ( worldItemSq:DistToProper(player) > 1.5 ) then
         self:closeAndRemove()
         return
     end
