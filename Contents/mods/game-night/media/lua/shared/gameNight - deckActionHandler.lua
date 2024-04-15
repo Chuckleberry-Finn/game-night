@@ -397,13 +397,18 @@ function deckActionHandler._searchDeck(deckItem, player)
     if deckActionHandler.isDeckItem(deckItem) then gameNightDeckSearch.open(player, deckItem) end
 end
 function deckActionHandler.searchDeck(deckItem, player)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._searchDeck, deckItem, player}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupGamePiece(player, deckItem, {deckActionHandler._searchDeck, deckItem, player}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
 
 function deckActionHandler.examineCard(deckItem, player, index)
-    if deckActionHandler.isDeckItem(deckItem) then gameNightCardExamine.open(player, deckItem, true, index) end
+    if deckActionHandler.isDeckItem(deckItem) then
+
+
+
+        gameNightCardExamine.open(player, deckItem, true, index)
+    end
 end
 
 

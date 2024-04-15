@@ -319,6 +319,8 @@ end
 ---@param item InventoryItem
 function gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detailsFunc)
 
+    if not item then return end
+
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
     ---@type IsoGridSquare
@@ -348,18 +350,16 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detail
     local itemContainer = item:getContainer()
     local pickedUp = false
 
-    if (not worldItem) and itemContainer ~= playerInv then
+    if itemContainer and itemContainer ~= playerInv then
         if isClient() and not itemContainer:isInCharacterInventory(player) and itemContainer:getType()~="floor" then itemContainer:removeItemOnServer(item) end
         itemContainer:DoRemoveItem(item)
         itemContainer:setDrawDirty(true)
         playerInv:setDrawDirty(true)
         playerInv:AddItem(item)
         pickedUp = true
-
-        local playerNum = player:getPlayerNum()
-        local pdata = getPlayerData(playerNum)
-        if pdata ~= nil then ISInventoryPage.renderDirty = true end
     end
+
+    gamePieceAndBoardHandler.refreshInventory(player)
 
     if item then
         if onPickUp and type(onPickUp)=="table" then
