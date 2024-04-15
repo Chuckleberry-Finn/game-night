@@ -47,6 +47,7 @@ function gameNightDeckSearch:update()
     local worldItem = item:getWorldItem()
     local cont = item:getContainer()
 
+    if (self.container~=cont) or (self.worldItem ~= worldItem) then self:closeAndRemove() return end
     if (not worldItem) and (not cont) then self:closeAndRemove() return end
 
     local outerMostCont = item:getOutermostContainer()
@@ -347,8 +348,8 @@ function gameNightDeckSearch:render()
                 local texture = tmpTexture or origTexture
 
                 if not self.cardHeight or not self.cardWidth then
-                    self.cardHeight = textureH*0.5
-                    self.cardWidth = textureW*0.5
+                    self.cardHeight = textureH*0.5*self.scaleSize
+                    self.cardWidth = textureW*0.5*self.scaleSize
                 end
 
                 if self.cardWidth+xOffset > self.cardDisplay.width+halfPad then
@@ -501,7 +502,11 @@ function gameNightDeckSearch:new(x, y, width, height, player, deckItem, held)
     o.width = width
     o.height = height
     o.player = player
+    o.container = deckItem:getContainer()
+    o.worldItem = deckItem:getWorldItem()
     o.deck = deckItem
+
+    o.scaleSize = 1
 
     o.held = held
 

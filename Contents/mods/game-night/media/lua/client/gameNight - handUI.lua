@@ -52,5 +52,6 @@ end
 
 function gameNightHand:new(x, y, width, height, player, deckItem)
     local o = gameNightDeckSearch:new(x, y, width, height, player, deckItem, true)
+    o.scaleSize = 1.33
     return o
 end
