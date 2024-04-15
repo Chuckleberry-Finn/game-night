@@ -38,7 +38,7 @@ function gameNightHand.open(player, deckItem)
         h = 160
         x = (gameWindow:getX()+gameWindow:getWidth()+10)
         y = (gameWindow:getY()+gameWindow:getHeight()-h)
-        w = gameWindow:getWidth()/2
+        w = gameWindow:getWidth()*0.66
     end
 
     local window = gameNightHand:new(x, y, w, h, player, deckItem)
@@ -52,6 +52,6 @@ end
 
 function gameNightHand:new(x, y, width, height, player, deckItem)
     local o = gameNightDeckSearch:new(x, y, width, height, player, deckItem, true)
-    o.scaleSize = 1.33
+    o.scaleSize = 1.25
     return o
 end

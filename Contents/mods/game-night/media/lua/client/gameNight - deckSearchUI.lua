@@ -366,7 +366,7 @@ function gameNightDeckSearch:render()
                     yOffset = yOffset+self.cardHeight+halfPad
                 end
 
-                self.cardDisplay:drawTextureScaledUniform(texture, xOffset, yOffset-(self.scrollY or 0), 0.5, 1, 1, 1, 1)
+                self.cardDisplay:drawTextureScaledUniform(texture, xOffset, yOffset-(self.scrollY or 0), 0.5*self.scaleSize, 1, 1, 1, 1)
 
                 if (draggingCard or self.draggingOver) and self:isMouseOver() then
 
@@ -490,7 +490,7 @@ function gameNightDeckSearch:new(x, y, width, height, player, deckItem, held)
     local o = {}
     x = x or getCore():getScreenWidth()/2 - (width and (width/2) or 0)
     y = y or getCore():getScreenHeight()/2 - (height and (height/2) or 0)
-    o = ISPanel:new(x, y, width, height)
+    o = ISPanel:new(x, y, (width or 0), (height or 0))
     setmetatable(o, self)
     self.__index = self
 
