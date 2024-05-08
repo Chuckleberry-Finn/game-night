@@ -83,26 +83,29 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
                     subDrawMenu:addSubMenu(deal, dealMultipleSubMenu)
                 end
 
-                --local drawRand = subDrawMenu:addOptionOnTop(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard, playerObj)
-                --drawRand.iconTexture = gamePieceContext.gameNightContextMenuIcon.drawRand
+                local pPrimaryItem = playerObj:getPrimaryHandItem()
+                if (not pPrimaryItem) or (pPrimaryItem and pPrimaryItem ~= item) then
+                    --local drawRand = subDrawMenu:addOptionOnTop(getText("IGUI_drawRandCard"), item, deckActionHandler.drawRandCard, playerObj)
+                    --drawRand.iconTexture = gamePieceContext.gameNightContextMenuIcon.drawRand
 
-                local draw = subDrawMenu:addOptionOnTop(getText("IGUI_drawCard"), item, deckActionHandler.drawCard, playerObj)
-                draw.iconTexture = gamePieceContext.gameNightContextMenuIcon.draw
+                    local draw = subDrawMenu:addOptionOnTop(getText("IGUI_drawCard"), item, deckActionHandler.drawCard, playerObj)
+                    draw.iconTexture = gamePieceContext.gameNightContextMenuIcon.draw
 
-                local drawMultipleSubMenu = subDrawMenu:getNew(subDrawMenu)
-                local cardCount = {1,3,5,7}
-                for _,n in pairs(cardCount) do
-                    if #deckStates >= n then
-                        drawMultipleSubMenu:addOption(getText("IGUI_drawCards", n), item, deckActionHandler.drawCards, playerObj, n)
+                    local drawMultipleSubMenu = subDrawMenu:getNew(subDrawMenu)
+                    local cardCount = {1,3,5,7}
+                    for _,n in pairs(cardCount) do
+                        if #deckStates >= n then
+                            drawMultipleSubMenu:addOption(getText("IGUI_drawCards", n), item, deckActionHandler.drawCards, playerObj, n)
+                        end
                     end
-                end
-                if #deckStates > cardCount[#cardCount]*2 then
-                    local n = math.floor(#deckStates/2)
-                    if n > cardCount[#cardCount] then
-                        drawMultipleSubMenu:addOption(getText("IGUI_splitCards", n), item, deckActionHandler.drawCards, playerObj, n)
+                    if #deckStates > cardCount[#cardCount]*2 then
+                        local n = math.floor(#deckStates/2)
+                        if n > cardCount[#cardCount] then
+                            drawMultipleSubMenu:addOption(getText("IGUI_splitCards", n), item, deckActionHandler.drawCards, playerObj, n)
+                        end
                     end
+                    subDrawMenu:addSubMenu(draw, drawMultipleSubMenu)
                 end
-                subDrawMenu:addSubMenu(draw, drawMultipleSubMenu)
 
                 local search = context:addOptionOnTop(getText("IGUI_searchDeck"), item, deckActionHandler.searchDeck, playerObj)
                 search.iconTexture = gamePieceContext.gameNightContextMenuIcon.search

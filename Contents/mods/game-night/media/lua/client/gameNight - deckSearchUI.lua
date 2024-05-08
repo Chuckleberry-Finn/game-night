@@ -122,7 +122,12 @@ function gameNightDeckSearch:cardOnRightMouseUp(x, y)
     local selected, _ = searchWindow:getCardAtXY(x, y)
     if selected and selected>0 then
         local context = ISContextMenu.get(searchWindow.player:getPlayerNum(), getMouseX(), getMouseY())
-        context:addOption(getText("IGUI_draw"), searchWindow.deck, deckActionHandler.drawSpecificCard, searchWindow.player, selected)
+
+        local pPrimaryItem = searchWindow.player:getPrimaryHandItem()
+        if (not pPrimaryItem) or (pPrimaryItem and pPrimaryItem ~= searchWindow.deck) then
+            context:addOption(getText("IGUI_draw"), searchWindow.deck, deckActionHandler.drawSpecificCard, searchWindow.player, selected)
+        end
+
         context:addOption(getText("IGUI_flipCard"), searchWindow.deck, deckActionHandler.flipSpecificCard, searchWindow.player, selected)
     end
     searchWindow:clearDragging()
