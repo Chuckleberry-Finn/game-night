@@ -52,3 +52,7 @@
 
 - Added: Guide for making Add-Ons on the github. :)
 [ ------ ]
+
+[ 5/7/24 ]
+- Prevent drawing cards from in-hand cards.
+[ ------ ]
