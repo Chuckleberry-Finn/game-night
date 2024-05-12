@@ -27,15 +27,19 @@ function gameNightExamine:update()
     ---@type InventoryItem
     local item = self.item
 
-    local values,flipped = deckActionHandler.getDeckStates(item)
-    if not values or #values < 1 then self:closeAndRemove() return end
+    if self.card then
+        local values,flipped = deckActionHandler.getDeckStates(item)
+        if not values or #values < 1 then self:closeAndRemove() return end
 
-    if values[self.index] ~= self.card then self:closeAndRemove() return end
-    local flippedValue = flipped[self.index]
+        if values[self.index] ~= self.card then self:closeAndRemove() return end
+        local flippedValue = flipped[self.index]
 
-    local textureToUse = deckActionHandler.fetchAltIcon(self.card, self.item)
-    local texturePath = (flippedValue and "media/textures/Item_"..self.item:getType().."/FlippedInPlay.png") or "media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
-    self.texture = getTexture(texturePath)
+        local textureToUse = deckActionHandler.fetchAltIcon(self.card, self.item)
+        local texturePath = (flippedValue and "media/textures/Item_"..self.item:getType().."/FlippedInPlay.png") or "media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
+        self.texture = getTexture(texturePath)
+    else
+        self.texture = self.item:getModData()["gameNight_textureInPlay"] or self.item:getTexture()
+    end
 
     local playerInv = self.player:getInventory()
     if playerInv:contains(item) then return end
@@ -90,9 +94,14 @@ function gameNightExamine:initialise()
     local attachedUI = self.attachedUI
     local bottomPad = (not attachedUI) and (pd+btnHgt) or 0
 
-    local textureToUse = deckActionHandler.fetchAltIcon(self.card, self.item)
-    local texturePath = (self.flipped and "media/textures/Item_"..self.item:getType().."/FlippedInPlay.png") or "media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
-    self.texture = getTexture(texturePath)
+    if self.card then
+        local textureToUse = deckActionHandler.fetchAltIcon(self.card, self.item)
+        local texturePath = (self.flipped and "media/textures/Item_"..self.item:getType().."/FlippedInPlay.png") or "media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
+        self.texture = getTexture(texturePath)
+    else
+        self.texture = self.item:getModData()["gameNight_textureInPlay"] or self.item:getTexture()
+    end
+
 
     if not self.texture then self:closeAndRemove() return end
 
@@ -160,13 +169,13 @@ function gameNightExamine:new(item, x, y, player, throughContext, index, attache
     local examineScale = special and special.examineScale or 1
     o.examineScale = examineScale
 
-    local cardInt = index and type(index)=="number" and index or #cardData
+    local cardInt = cardData and (index and type(index)=="number" and index or #cardData)
     o.index = cardInt
 
-    local card = cardData[cardInt]
+    local card = cardData and cardData[cardInt]
     o.card = card
 
-    local flipped = cardFlipStates[cardInt]
+    local flipped = cardFlipStates and cardFlipStates[cardInt]
     o.flipped = flipped
 
     o.borderColor = {r=0.4, g=0.4, b=0.4, a=1}
