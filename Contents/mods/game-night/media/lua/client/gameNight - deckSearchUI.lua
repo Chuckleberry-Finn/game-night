@@ -18,18 +18,18 @@ function gameNightDeckSearch:closeAndRemove()
     if examine then examine:closeAndRemove() end
     self:setVisible(false)
     self:removeFromUIManager()
-    gameNightDeckSearch.instances[self.item] = nil
+    gameNightDeckSearch.instances[self.deck] = nil
 end
 
 
 function gameNightDeckSearch:update()
-    if (not self.player) or (not self.item) then self:closeAndRemove() return end
+    if (not self.player) or (not self.deck) then self:closeAndRemove() return end
 
     local gameNightWin = gameNightWindow.instance
     if self.held and (not gameNightWin) then self:closeAndRemove() return end
 
     ---@type InventoryItem
-    local item = self.item
+    local item = self.deck
     ---@type IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
     local player = self.player
 
@@ -95,7 +95,7 @@ function gameNightDeckSearch:getCardAtXY(x, y)
     local col = math.floor( (x-halfPad) / (self.cardWidth+halfPad) )
     local row = math.floor( (y-halfPad) / (self.cardHeight+halfPad) )
 
-    local cardData, _ = deckActionHandler.getDeckStates(self.item)
+    local cardData, _ = deckActionHandler.getDeckStates(self.deck)
     local selected = #cardData - math.floor(col + (row*colFactor))
 
     local inBetween = (colMod > self.cardWidth)
@@ -306,10 +306,10 @@ end
 function gameNightDeckSearch:render()
     self.cardDisplay:setStencilRect(0, 0, self.cardDisplay.width, self.cardDisplay.height)
     ISPanel.render(self)
-    local cardData, cardFlipStates = deckActionHandler.getDeckStates(self.item)
+    local cardData, cardFlipStates = self.deck and deckActionHandler.getDeckStates(self.deck)
 
-    local itemType = self.item:getType()
-    local fullType = self.item:getFullType()
+    local itemType = self.deck:getType()
+    local fullType = self.deck:getFullType()
     local special = gamePieceAndBoardHandler.specials[fullType]
     local cardFaceType = special and special.cardFaceType or itemType
 
@@ -335,7 +335,7 @@ function gameNightDeckSearch:render()
 
         if card then
 
-            local textureToUse = deckActionHandler.fetchAltIcon(card, self.item)
+            local textureToUse = deckActionHandler.fetchAltIcon(card, self.deck)
 
             local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..cardFaceType.."/"..textureToUse..".png"
             local origTexture = getTexture(texturePath)
@@ -404,10 +404,10 @@ function gameNightDeckSearch:render()
         local flipped = cardFlipStates[selected]
 
         if (not self.dragging) and (not cardFromOtherWindow) and specialCase and specialCase.examineScale and (not self.examine) then
-            self.examine = gameNightExamine.open(self.player, self.item, false, selected, self)
+            self.examine = gameNightExamine.open(self.player, self.deck, false, selected, self)
         end
 
-        local cardName = flipped and (getTextOrNull("IGUI_"..self.item:getType()) or getItemNameFromFullType("Base."..self.item:getType())) or deckActionHandler.fetchAltName(card, self.item, special)
+        local cardName = flipped and (getTextOrNull("IGUI_"..self.deck:getType()) or getItemNameFromFullType("Base."..self.deck:getType())) or deckActionHandler.fetchAltName(card, self.deck, special)
         if cardName then
             local cardNameW = getTextManager():MeasureStringX(UIFont.NewSmall, " "..cardName.." ")
             local cardNameH = getTextManager():getFontHeight(UIFont.NewSmall)
