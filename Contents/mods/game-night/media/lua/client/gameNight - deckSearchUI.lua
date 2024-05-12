@@ -306,7 +306,7 @@ end
 function gameNightDeckSearch:render()
     self.cardDisplay:setStencilRect(0, 0, self.cardDisplay.width, self.cardDisplay.height)
     ISPanel.render(self)
-    local cardData, cardFlipStates = self.deck and deckActionHandler.getDeckStates(self.deck)
+    local cardData, cardFlipStates = deckActionHandler.getDeckStates(self.deck)
 
     local itemType = self.deck:getType()
     local fullType = self.deck:getFullType()
