@@ -56,3 +56,7 @@
 [ 5/7/24 ]
 - Prevent drawing cards from in-hand cards.
 [ ------ ]
+
+[ 5/12/24 ]
+- Added coin flip mechanics.
+[ ------ ]

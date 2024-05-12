@@ -402,14 +402,4 @@ function deckActionHandler.searchDeck(deckItem, player)
 end
 
 
-function deckActionHandler.examineCard(deckItem, player, index)
-    if deckActionHandler.isDeckItem(deckItem) then
-
-
-
-        gameNightCardExamine.open(player, deckItem, true, index)
-    end
-end
-
-
 return deckActionHandler

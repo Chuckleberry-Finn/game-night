@@ -14,22 +14,22 @@ gameNightDeckSearch.instances = {}
 
 
 function gameNightDeckSearch:closeAndRemove()
-    local cardExamine = self.cardExamine
-    if cardExamine then cardExamine:closeAndRemove() end
+    local examine = self.examine
+    if examine then examine:closeAndRemove() end
     self:setVisible(false)
     self:removeFromUIManager()
-    gameNightDeckSearch.instances[self.deck] = nil
+    gameNightDeckSearch.instances[self.item] = nil
 end
 
 
 function gameNightDeckSearch:update()
-    if (not self.player) or (not self.deck) then self:closeAndRemove() return end
+    if (not self.player) or (not self.item) then self:closeAndRemove() return end
 
     local gameNightWin = gameNightWindow.instance
     if self.held and (not gameNightWin) then self:closeAndRemove() return end
 
     ---@type InventoryItem
-    local item = self.deck
+    local item = self.item
     ---@type IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
     local player = self.player
 
@@ -95,7 +95,7 @@ function gameNightDeckSearch:getCardAtXY(x, y)
     local col = math.floor( (x-halfPad) / (self.cardWidth+halfPad) )
     local row = math.floor( (y-halfPad) / (self.cardHeight+halfPad) )
 
-    local cardData, _ = deckActionHandler.getDeckStates(self.deck)
+    local cardData, _ = deckActionHandler.getDeckStates(self.item)
     local selected = #cardData - math.floor(col + (row*colFactor))
 
     local inBetween = (colMod > self.cardWidth)
@@ -306,10 +306,10 @@ end
 function gameNightDeckSearch:render()
     self.cardDisplay:setStencilRect(0, 0, self.cardDisplay.width, self.cardDisplay.height)
     ISPanel.render(self)
-    local cardData, cardFlipStates = deckActionHandler.getDeckStates(self.deck)
+    local cardData, cardFlipStates = deckActionHandler.getDeckStates(self.item)
 
-    local itemType = self.deck:getType()
-    local fullType = self.deck:getFullType()
+    local itemType = self.item:getType()
+    local fullType = self.item:getFullType()
     local special = gamePieceAndBoardHandler.specials[fullType]
     local cardFaceType = special and special.cardFaceType or itemType
 
@@ -335,7 +335,7 @@ function gameNightDeckSearch:render()
 
         if card then
 
-            local textureToUse = deckActionHandler.fetchAltIcon(card, self.deck)
+            local textureToUse = deckActionHandler.fetchAltIcon(card, self.item)
 
             local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..cardFaceType.."/"..textureToUse..".png"
             local origTexture = getTexture(texturePath)
@@ -396,20 +396,18 @@ function gameNightDeckSearch:render()
     local selected, _ = self:getCardAtXY(mouseX, mouseY)
     local sandbox = SandboxVars.GameNight.DisplayItemNames
 
-    local cardExamine = self.cardExamine
-    if cardExamine and ((not selected) or (not cardExamine.index) or (cardExamine.index ~= selected)) then cardExamine:closeAndRemove() end
+    local examine = self.examine
+    if examine and ((not selected) or (not examine.index) or (examine.index ~= selected)) then examine:closeAndRemove() end
 
     if sandbox and selected and selected>0 then
         local card = cardData[selected]
         local flipped = cardFlipStates[selected]
 
-        if (not self.dragging) and (not cardFromOtherWindow) and specialCase and specialCase.actions and specialCase.actions.examineCard and (not self.cardExamine) then
-            if deckActionHandler.isDeckItem(self.deck) then
-                self.cardExamine = gameNightCardExamine.open(self.player, self.deck, false, selected, self)
-            end
+        if (not self.dragging) and (not cardFromOtherWindow) and specialCase and specialCase.examineScale and (not self.examine) then
+            self.examine = gameNightExamine.open(self.player, self.item, false, selected, self)
         end
 
-        local cardName = flipped and (getTextOrNull("IGUI_"..self.deck:getType()) or getItemNameFromFullType("Base."..self.deck:getType())) or deckActionHandler.fetchAltName(card, self.deck, special)
+        local cardName = flipped and (getTextOrNull("IGUI_"..self.item:getType()) or getItemNameFromFullType("Base."..self.item:getType())) or deckActionHandler.fetchAltName(card, self.item, special)
         if cardName then
             local cardNameW = getTextManager():MeasureStringX(UIFont.NewSmall, " "..cardName.." ")
             local cardNameH = getTextManager():getFontHeight(UIFont.NewSmall)

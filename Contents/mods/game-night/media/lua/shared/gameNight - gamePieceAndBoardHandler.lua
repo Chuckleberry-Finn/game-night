@@ -484,6 +484,14 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 end
 
 
+function gamePieceAndBoardHandler.examine(gamePiece, player, indexIfCard)
+    local fullType = gamePiece:getFullType()
+    local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
+    local examineScale = specialCase and specialCase.examineScale
+    if examineScale then gameNightExamine.open(player, gamePiece, true, indexIfCard) end
+end
+
+
 function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
 
     local fullType = gamePiece:getFullType()

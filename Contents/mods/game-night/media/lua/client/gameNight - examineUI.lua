@@ -7,25 +7,25 @@ local deckActionHandler = applyItemDetails.deckActionHandler
 local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
 --local uiInfo = require "gameNight - uiInfo"
 
----@class gameNightCardExamine : ISPanel
-gameNightCardExamine = ISPanel:derive("gameNightCardExamine")
+---@class gameNightExamine : ISPanel
+gameNightExamine = ISPanel:derive("gameNightExamine")
 
-gameNightCardExamine.instances = {}
+gameNightExamine.instances = {}
 
-function gameNightCardExamine:closeAndRemove()
-    gameNightCardExamine.instances[(self.attachedUI or self.deck)] = nil
-    if self.attachedUI then self.attachedUI.cardExamine = nil end
+function gameNightExamine:closeAndRemove()
+    gameNightExamine.instances[(self.attachedUI or self.item)] = nil
+    if self.attachedUI then self.attachedUI.examine = nil end
     self:setVisible(false)
     self:removeFromUIManager()
 end
 
-function gameNightCardExamine:update()
-    if (not self.player) or (not self.deck) then self:closeAndRemove() return end
+function gameNightExamine:update()
+    if (not self.player) or (not self.item) then self:closeAndRemove() return end
 
     --if (not self.attachedUI.instance) then self:closeAndRemove() return end
 
     ---@type InventoryItem
-    local item = self.deck
+    local item = self.item
 
     local values,flipped = deckActionHandler.getDeckStates(item)
     if not values or #values < 1 then self:closeAndRemove() return end
@@ -33,8 +33,8 @@ function gameNightCardExamine:update()
     if values[self.index] ~= self.card then self:closeAndRemove() return end
     local flippedValue = flipped[self.index]
 
-    local textureToUse = deckActionHandler.fetchAltIcon(self.card, self.deck)
-    local texturePath = (flippedValue and "media/textures/Item_"..self.deck:getType().."/FlippedInPlay.png") or "media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
+    local textureToUse = deckActionHandler.fetchAltIcon(self.card, self.item)
+    local texturePath = (flippedValue and "media/textures/Item_"..self.item:getType().."/FlippedInPlay.png") or "media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
     self.texture = getTexture(texturePath)
 
     local playerInv = self.player:getInventory()
@@ -58,10 +58,10 @@ function gameNightCardExamine:update()
 end
 
 
-function gameNightCardExamine:onClick(button) if button.internal == "CLOSE" then self:closeAndRemove() end end
+function gameNightExamine:onClick(button) if button.internal == "CLOSE" then self:closeAndRemove() end end
 
 
-function gameNightCardExamine:prerender()
+function gameNightExamine:prerender()
     ISPanel.prerender(self)
     if self.attachedUI then
         local aUI = self.attachedUI
@@ -76,10 +76,10 @@ function gameNightCardExamine:prerender()
 end
 
 
-function gameNightCardExamine:render() ISPanel.render(self) end
+function gameNightExamine:render() ISPanel.render(self) end
 
 
-function gameNightCardExamine:initialise()
+function gameNightExamine:initialise()
     ISPanel.initialise(self)
 
     local closeText = getText("UI_Close")
@@ -90,8 +90,8 @@ function gameNightCardExamine:initialise()
     local attachedUI = self.attachedUI
     local bottomPad = (not attachedUI) and (pd+btnHgt) or 0
 
-    local textureToUse = deckActionHandler.fetchAltIcon(self.card, self.deck)
-    local texturePath = (self.flipped and "media/textures/Item_"..self.deck:getType().."/FlippedInPlay.png") or "media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
+    local textureToUse = deckActionHandler.fetchAltIcon(self.card, self.item)
+    local texturePath = (self.flipped and "media/textures/Item_"..self.item:getType().."/FlippedInPlay.png") or "media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
     self.texture = getTexture(texturePath)
 
     if not self.texture then self:closeAndRemove() return end
@@ -107,7 +107,7 @@ function gameNightCardExamine:initialise()
         self:setX(getCore():getScreenWidth()/2 - (self.width/2))
         self:setY(getCore():getScreenHeight()/2 - (self.height/2))
 
-        self.close = ISButton:new((self.width-btnWid)/2, self.height-pd-btnHgt, btnWid, btnHgt, closeText, self, gameNightCardExamine.onClick)
+        self.close = ISButton:new((self.width-btnWid)/2, self.height-pd-btnHgt, btnWid, btnHgt, closeText, self, gameNightExamine.onClick)
         self.close.internal = "CLOSE"
         self.close.borderColor = {r=1, g=1, b=1, a=0.4}
         self.close:initialise()
@@ -124,12 +124,12 @@ function gameNightCardExamine:initialise()
 end
 
 
-function gameNightCardExamine.open(player, deckItem, throughContext, index, attachedUI)
+function gameNightExamine.open(player, deckItem, throughContext, index, attachedUI)
 
-    local cardExamine = gameNightCardExamine.instances[(attachedUI or deckItem)]
-    if cardExamine then cardExamine:closeAndRemove() end
+    local examine = gameNightExamine.instances[(attachedUI or deckItem)]
+    if examine then examine:closeAndRemove() end
 
-    local window = gameNightCardExamine:new(deckItem, nil, nil, player, throughContext, index, attachedUI)
+    local window = gameNightExamine:new(deckItem, nil, nil, player, throughContext, index, attachedUI)
     window:initialise()
     window:addToUIManager()
     window:setVisible(true)
@@ -138,7 +138,7 @@ function gameNightCardExamine.open(player, deckItem, throughContext, index, atta
 end
 
 
-function gameNightCardExamine:new(deckItem, x, y, player, throughContext, index, attachedUI)
+function gameNightExamine:new(item, x, y, player, throughContext, index, attachedUI)
     local o = {}
 
     o = ISPanel:new(-10, -10, 10, 10)
@@ -148,10 +148,10 @@ function gameNightCardExamine:new(deckItem, x, y, player, throughContext, index,
     o.throughContext = throughContext
     o.attachedUI = attachedUI
 
-    local cardData, cardFlipStates = deckActionHandler.getDeckStates(deckItem)
+    local cardData, cardFlipStates = deckActionHandler.getDeckStates(item)
 
-    local itemType = deckItem:getType()
-    local fullType = deckItem:getFullType()
+    local itemType = item:getType()
+    local fullType = item:getFullType()
 
     local special = gamePieceAndBoardHandler.specials[fullType]
     local cardFaceType = special and special.cardFaceType or itemType
@@ -176,8 +176,8 @@ function gameNightCardExamine:new(deckItem, x, y, player, throughContext, index,
     o.btnHgt = 25
 
     o.player = player
-    o.deck = deckItem
+    o.item = item
 
-    gameNightCardExamine.instances[(attachedUI or deckItem)] = o
+    gameNightExamine.instances[(attachedUI or item)] = o
     return o
 end

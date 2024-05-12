@@ -603,8 +603,8 @@ function gameNightWindow:render()
     if movingPiece then
         if not isMouseButtonDown(0) then return end
 
-        local cardExamine = self.cardExamine
-        if cardExamine then cardExamine:closeAndRemove() end
+        local examine = self.examine
+        if examine then examine:closeAndRemove() end
 
         ---@type Texture
         local texture = movingPiece:getModData()["gameNight_textureInPlay"] or movingPiece:getTexture()
@@ -644,8 +644,8 @@ function gameNightWindow:render()
     else
         local mouseOver = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
 
-        local cardExamine = self.cardExamine
-        if cardExamine and ((not mouseOver) or mouseOver.item ~= cardExamine.deck) then cardExamine:closeAndRemove() end
+        local examine = self.examine
+        if examine and ((not mouseOver) or mouseOver.item ~= examine.item) then examine:closeAndRemove() end
 
         if mouseOver then
             self:labelWithName(mouseOver)
@@ -665,10 +665,8 @@ function gameNightWindow:labelWithName(element)
         local fullType = element.item:getFullType()
         local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
 
-        if specialCase and specialCase.actions and specialCase.actions.examineCard and (not self.cardExamine) then
-            if deckActionHandler.isDeckItem(element.item) then
-                self.cardExamine = gameNightCardExamine.open(self.player, element.item, false, nil, self)
-            end
+        if specialCase and specialCase.examineScale and (not self.examine) then
+            self.examine = gameNightExamine.open(self.player, element.item, false, nil, self)
         end
 
         local nameTag = (element.item and element.item:getName())
@@ -720,8 +718,8 @@ end
 
 function gameNightWindow:closeAndRemove()
     self:setVisible(false)
-    local cardExamine = self.cardExamine
-    if cardExamine then cardExamine:closeAndRemove() end
+    local examine = self.examine
+    if examine then examine:closeAndRemove() end
 
     local item = self.player:getPrimaryHandItem()
     if item and gameNightDeckSearch and deckActionHandler.isDeckItem(item) then
