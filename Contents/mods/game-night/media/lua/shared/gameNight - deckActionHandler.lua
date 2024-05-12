@@ -401,5 +401,9 @@ function deckActionHandler.searchDeck(deckItem, player)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
+function deckActionHandler.examine(gamePiece, player, indexIfCard)
+    gamePieceAndBoardHandler.examine(gamePiece, player, indexIfCard)
+end
+
 
 return deckActionHandler
