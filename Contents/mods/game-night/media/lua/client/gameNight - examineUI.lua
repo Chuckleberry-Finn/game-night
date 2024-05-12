@@ -105,12 +105,10 @@ function gameNightExamine:initialise()
 
     if not self.texture then self:closeAndRemove() return end
 
-    if self.card then
-        self.width = self.texture:getWidth()*self.examineScale
-        self.height = self.texture:getHeight()*self.examineScale
-        self:setWidth(self.width+(pd*2))
-        self:setHeight(self.height+(pd*2)+bottomPad)
-    end
+    self.width = self.texture:getWidth()*self.examineScale
+    self.height = self.texture:getHeight()*self.examineScale
+    self:setWidth(self.width+(pd*2))
+    self:setHeight(self.height+(pd*2)+bottomPad)
 
     if self.throughContext then
         self:setX(getCore():getScreenWidth()/2 - (self.width/2))
