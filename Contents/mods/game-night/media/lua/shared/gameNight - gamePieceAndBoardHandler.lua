@@ -518,7 +518,7 @@ function gamePieceAndBoardHandler.rotatePiece(gamePiece, angleChange, player)
 end
 
 
-function gamePieceAndBoardHandler.flipCoin(gamePiece, player)
+function gamePieceAndBoardHandler.coinFlip(gamePiece, player)
     local heads = ZombRand(2) == 0
 
     local fullType = gamePiece:getFullType()
