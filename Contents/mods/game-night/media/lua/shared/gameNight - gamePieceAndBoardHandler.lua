@@ -518,6 +518,21 @@ function gamePieceAndBoardHandler.rotatePiece(gamePiece, angleChange, player)
 end
 
 
+function gamePieceAndBoardHandler.flipCoin(gamePiece, player)
+    local heads = ZombRand(2) == 0
+
+    local fullType = gamePiece:getFullType()
+    local specialCase = gamePieceAndBoardHandler.specials[fullType]
+    local altState = specialCase and specialCase.altState
+    if not altState then return end
+
+    if not heads then altState = nil end
+
+    gamePieceAndBoardHandler.playSound(gamePiece, player, "coinFlip")
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", altState})
+end
+
+
 function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
 
     local fullType = gamePiece:getFullType()
