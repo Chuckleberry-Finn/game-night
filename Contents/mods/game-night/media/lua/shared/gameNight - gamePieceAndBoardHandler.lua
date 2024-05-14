@@ -488,7 +488,7 @@ function gamePieceAndBoardHandler.examine(gamePiece, player, indexIfCard)
     local fullType = gamePiece:getFullType()
     local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
     local examineScale = specialCase and specialCase.examineScale
-    local examineAction = specialCase and specialCase.actions and specialCase.actions.examineCard
+    local examineAction = specialCase and specialCase.actions and specialCase.actions.examine
     if examineScale or examineAction then gameNightExamine.open(player, gamePiece, true, indexIfCard) end
 end
 
