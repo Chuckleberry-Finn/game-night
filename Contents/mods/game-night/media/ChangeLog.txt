@@ -59,4 +59,6 @@
 
 [ 5/12/24 ]
 - Added coin flip mechanics.
+- Tweaks and underlying updates in preparation for new Add-On.
 [ ------ ]
+
