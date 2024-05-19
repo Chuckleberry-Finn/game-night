@@ -192,32 +192,38 @@ function deckActionHandler.flipCard(deckItem, player)
 end
 
 
-
-
-function deckActionHandler._mergeDecks(deckItemA, deckItemB, player, index)
-    if  deckItemA:getType() ~= deckItemB:getType() then return end
+function deckActionHandler.canMergeDecks(deckItemA, deckItemB)
+    if (deckItemA:getType() ~= deckItemB:getType()) or (deckItemA == deckItemB) then return false end
 
     local deckB, flippedB = deckActionHandler.getDeckStates(deckItemB)
-    if not deckB then return end
+    if not deckB then return false end
 
     local deckA, flippedA = deckActionHandler.getDeckStates(deckItemA)
-    if not deckA then return end
+    if not deckA then return false end
 
+    if (#deckB <= 300) and (#deckB <= 300) and (#deckB + #deckB <= 300) then return deckA, deckB, flippedA, flippedB end
+
+    return false
+end
+
+function deckActionHandler._mergeDecks(deckItemA, deckA, deckB, flippedA, flippedB, index)
     index = index and math.min(#deckB+1,math.max(index,1)) or #deckB+1
-
     for i=#deckA, 1, -1 do
         table.insert(deckB, index, deckA[i])
         table.insert(flippedB, index, flippedA[i])
     end
-
     gamePieceAndBoardHandler.safelyRemoveGamePiece(deckItemA)
 end
+
 ---@param deckItemA InventoryItem
 ---@param deckItemB InventoryItem
 function deckActionHandler.mergeDecks(deckItemA, deckItemB, player, index)
-    if (deckItemA:getType() ~= deckItemB:getType()) or (deckItemA == deckItemB) then return end
+
+    local deckA, deckB, flippedA, flippedB = deckActionHandler.canMergeDecks(deckItemA, deckItemB)
+    if not deckA or not deckB then return end
+
     gamePieceAndBoardHandler.pickupGamePiece(player, deckItemA)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckItemB, player, index}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckA, deckB, flippedA, flippedB, index}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItemB, player)
 end
 

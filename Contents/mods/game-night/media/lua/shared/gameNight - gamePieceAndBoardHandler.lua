@@ -201,16 +201,24 @@ function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, player, locations
 end
 
 
+function gamePieceAndBoardHandler.testCanStack(gamePieceA, gamePieceB)
+    if not gamePieceAndBoardHandler.canStackPiece(gamePieceA) or not gamePieceAndBoardHandler.canStackPiece(gamePieceB) then return false end
+    local gpaStack, gpbStack = (gamePieceA:getModData()["gameNight_stacked"] or 1), (gamePieceB:getModData()["gameNight_stacked"] or 1)
+    if (gpaStack <= 200) and (gpbStack <= 200) and (gpaStack + gpbStack <= 200) then return true end
+    return false
+end
+
 function gamePieceAndBoardHandler._tryStack(gamePieceA, gamePieceB)
-    if not gamePieceAndBoardHandler.canStackPiece(gamePieceA) or not gamePieceAndBoardHandler.canStackPiece(gamePieceB) then return end
     local aStack = (gamePieceA:getModData()["gameNight_stacked"] or 1)
     gamePieceB:getModData()["gameNight_stacked"] = (gamePieceB:getModData()["gameNight_stacked"] or 1) + aStack
     gamePieceAndBoardHandler.safelyRemoveGamePiece(gamePieceA)
 end
+
 ---@param gamePieceA InventoryItem
 ---@param gamePieceB InventoryItem
 function gamePieceAndBoardHandler.tryStack(gamePieceA, gamePieceB, player)
     if gamePieceA:getFullType() ~= gamePieceB:getFullType() then return end
+    if not gamePieceAndBoardHandler.testCanStack(gamePieceA, gamePieceB) then return end
     gamePieceAndBoardHandler.pickupGamePiece(player, gamePieceA)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePieceB, {gamePieceAndBoardHandler._tryStack, gamePieceA, gamePieceB})
     gamePieceAndBoardHandler.playSound(gamePieceB, player)
