@@ -62,3 +62,6 @@
 - Tweaks and underlying updates in preparation for new Add-On.
 [ ------ ]
 
+[ 5/19/2 ]
+- added protection for stacking and merging pieces.
+[ ------ ]
