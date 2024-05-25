@@ -62,6 +62,12 @@
 - Tweaks and underlying updates in preparation for new Add-On.
 [ ------ ]
 
-[ 5/19/2 ]
+[ 5/19/24 ]
 - added protection for stacking and merging pieces.
+[ ------ ]
+
+[ 5/25/24 ]
+- Tweaks and underlying updates in preparation for new Add-On.
+- Added placing DND Dice on specific sides.
+- Added coin mechanics.
 [ ------ ]
