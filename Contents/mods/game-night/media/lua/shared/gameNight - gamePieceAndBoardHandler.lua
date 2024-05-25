@@ -534,7 +534,7 @@ function gamePieceAndBoardHandler._contextChildrenFor_placeDieOnSide(option, con
     local subMenu = ISContextMenu:getNew(context)
     context:addSubMenu(option, subMenu)
 
-    local multi = args or 1
+    local multi = (args and type(args)=="number" and args) or 1
 
     for n=1, sides do
         if n ~= currentValue then
