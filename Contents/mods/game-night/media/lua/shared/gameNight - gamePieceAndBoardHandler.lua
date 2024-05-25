@@ -534,9 +534,11 @@ function gamePieceAndBoardHandler._contextChildrenFor_placeDieOnSide(option, con
     local subMenu = ISContextMenu:getNew(context)
     context:addSubMenu(option, subMenu)
 
+    local multi = args or 1
+
     for n=1, sides do
         if n ~= currentValue then
-            subMenu:addOption(getText("IGUI_PlaceDieOnSide", n*10), gamePiece, gamePieceAndBoardHandler.placeDieOnSide, player, n)
+            subMenu:addOption(getText("IGUI_PlaceDieOnSide", n*multi), gamePiece, gamePieceAndBoardHandler.placeDieOnSide, player, n)
         end
     end
 end
