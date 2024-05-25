@@ -60,8 +60,8 @@ gamePieceAndBoardHandler.specials = {
 
 
 ---Because I hate copy pasted code - this iterates through the side values and registers their special actions.
-local sides = {4,6,8,10,12,20}
-for _,side in pairs(sides) do gamePieceAndBoardHandler.registerSpecial("Base.Dice"..side, { addTextureDir = "dice/", noRotate=true, actions = { rollDie=side }, shiftAction = "rollDie", }) end
+local dice_sides = {4,6,8,10,12,20}
+for _,side in pairs(dice_sides) do gamePieceAndBoardHandler.registerSpecial("Base.Dice"..side, { addTextureDir = "dice/", noRotate=true, actions = { rollDie=side, placeDieOnSide=true }, shiftAction = "rollDie", }) end
 
 gamePieceAndBoardHandler.registerSpecial("Base.StellaOcta", { actions = { rollDie=1 }, shiftAction = "rollDie", })
 
@@ -102,6 +102,9 @@ function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context,
                         option = context:addOptionOnTop(getText("IGUI_"..func)..getText("IGUI_SpecialActionAll"), pieceStack, gamePieceAndBoardHandler.bypassForStacks, player, func, args, altSource)
                     end
                     if option then
+                        local childOptionsFunc = altSource["_contextChildrenFor_"..func]
+                        if childOptionsFunc then childOptionsFunc(option, player, item, args) end
+
                         local ico = gamePieceAndBoardHandler.specialContextIcons[func]
                         if not ico then
                             ico = getTexture("media/textures/actionIcons/"..func..".png")
@@ -514,6 +517,37 @@ function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
 
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result}, nil, x, y)
     gamePieceAndBoardHandler.playSound(gamePiece, player, "dieRoll")
+end
+
+
+function gamePieceAndBoardHandler._contextChildrenFor_placeDieOnSide(option, player, gamePiece, args)
+    local fullType = gamePiece:getFullType()
+    local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
+
+    local sides = (specialCase and specialCase.actions and specialCase.actions.rollDie)
+    if not sides then return end
+
+    local currentAltState = gamePiece:getModData()["gameNight_altState"]
+    local currentValue = currentAltState and tonumber(currentAltState:gsub("%D", "")) or 1
+
+    for n=1, sides do
+        if n ~= currentValue then
+            option:addOption(getText("IGUI_PlaceDieOnSide", n), gamePiece, gamePieceAndBoardHandler.placeDieOnSide, player, n)
+        end
+    end
+end
+
+
+function gamePieceAndBoardHandler.placeDieOnSide(gamePiece, player, side)
+    local fullType = gamePiece:getFullType()
+    local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
+
+    local sides = (specialCase and specialCase.actions and specialCase.actions.rollDie)
+    if not sides then return end
+
+    local result = side
+    result = result>1 and gamePiece:getType()..result or ""
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
 end
 
 

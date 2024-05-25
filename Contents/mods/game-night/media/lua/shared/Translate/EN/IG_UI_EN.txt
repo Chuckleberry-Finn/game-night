@@ -11,6 +11,7 @@ IGUI_EN = {
     IGUI_searchDeck = "Search"
     IGUI_flipPiece = "Flip",
     IGUI_rollDie = "Roll",
+    IGUI_PlaceDieOnSide = "Place as %1",
     IGUI_examine = "Examine",
     IGUI_coinFlip = "Flip Coin",
 
