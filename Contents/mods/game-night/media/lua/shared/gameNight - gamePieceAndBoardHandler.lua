@@ -103,7 +103,7 @@ function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context,
                     end
                     if option then
                         local childOptionsFunc = altSource["_contextChildrenFor_"..func]
-                        if childOptionsFunc then childOptionsFunc(option, player, item, args) end
+                        if childOptionsFunc then childOptionsFunc(option, context, player, gamePiece, args) end
 
                         local ico = gamePieceAndBoardHandler.specialContextIcons[func]
                         if not ico then
@@ -520,7 +520,7 @@ function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
 end
 
 
-function gamePieceAndBoardHandler._contextChildrenFor_placeDieOnSide(option, player, gamePiece, args)
+function gamePieceAndBoardHandler._contextChildrenFor_placeDieOnSide(option, context, player, gamePiece, args)
     local fullType = gamePiece:getFullType()
     local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
 
@@ -528,11 +528,15 @@ function gamePieceAndBoardHandler._contextChildrenFor_placeDieOnSide(option, pla
     if not sides then return end
 
     local currentAltState = gamePiece:getModData()["gameNight_altState"]
-    local currentValue = currentAltState and tonumber(currentAltState:gsub("%D", "")) or 1
+    local casGsub = currentAltState:gsub("%D", "")
+    local currentValue = casGsub and tonumber(casGsub) or 1
+
+    local subMenu = ISContextMenu:getNew(context)
+    context:addSubMenu(option, subMenu)
 
     for n=1, sides do
         if n ~= currentValue then
-            option:addOption(getText("IGUI_PlaceDieOnSide", n), gamePiece, gamePieceAndBoardHandler.placeDieOnSide, player, n)
+            subMenu:addOption(getText("IGUI_PlaceDieOnSide", n*10), gamePiece, gamePieceAndBoardHandler.placeDieOnSide, player, n)
         end
     end
 end
