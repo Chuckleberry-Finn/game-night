@@ -21,6 +21,7 @@ end
 
 
 applyItemDetails.parsedItems = {}
+---@param item InventoryItem
 function applyItemDetails.applyGameNightToItem(item, stackInit)
     if not item then return end
 
@@ -37,6 +38,14 @@ function applyItemDetails.applyGameNightToItem(item, stackInit)
 
         local itemType = item:getType()
         local fullType = item:getFullType()
+
+        if item:getDisplayCategory() == "GameBox" then
+            local specialCase = applyItemDetails.gamePieceAndBoardHandler.specials[fullType]
+            if specialCase and specialCase.nonGamePieceOnApplyDetails then
+                local func = applyItemDetails[specialCase.nonGamePieceOnApplyDetails]
+                if func then func(item) end
+            end
+        end
 
         deck = applyItemDetails.deckActionHandler.deckCatalogues[itemType]
         if deck and applyItemDetails.gamePieceAndBoardHandler.specials then
