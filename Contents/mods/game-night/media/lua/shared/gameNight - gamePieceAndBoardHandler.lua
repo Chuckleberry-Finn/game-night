@@ -511,7 +511,7 @@ function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
     sides = sides or (specialCase and specialCase.actions and specialCase.actions.rollDie)
 
     local result = ZombRand(sides)+1
-    result = result>1 and gamePiece:getType()..result or ""
+    result = result>1 and gamePiece:getType()..result or nil
 
     local x, y = gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece)
 
@@ -528,7 +528,7 @@ function gamePieceAndBoardHandler._contextChildrenFor_placeDieOnSide(option, con
     if not sides then return end
 
     local currentAltState = gamePiece:getModData()["gameNight_altState"]
-    local casGsub = currentAltState:gsub("%D", "")
+    local casGsub = currentAltState and currentAltState:gsub("%D", "")
     local currentValue = casGsub and tonumber(casGsub) or 1
 
     local subMenu = ISContextMenu:getNew(context)
@@ -550,7 +550,7 @@ function gamePieceAndBoardHandler.placeDieOnSide(gamePiece, player, side)
     if not sides then return end
 
     local result = side
-    result = result>1 and gamePiece:getType()..result or ""
+    result = result>1 and gamePiece:getType()..result or nil
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
 end
 
