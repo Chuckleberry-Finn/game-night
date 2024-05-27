@@ -6,7 +6,7 @@ IGUI_FR = {
     IGUI_drawCards = "Tirer %1 cartes",
     IGUI_splitCards = "Diviser %1 cartes"
     IGUI_drawRandCard = "Tirer une carte au hasard",
-    IGUI_shuffleCards = "MÃ©langer",
+    IGUI_shuffleCards = "Mélanger",
     IGUI_flipCard = "Retourner",
     IGUI_searchDeck = "Rechercher"
     IGUI_flipPiece = "Retourner",
@@ -24,13 +24,13 @@ IGUI_FR = {
 
     IGUI_ItemCat_Card = "Carte",
     IGUI_ItemCat_Deck = "Paquet",
-    IGUI_ItemCat_GamePiece = "PiÃ¨ce de jeu",
+    IGUI_ItemCat_GamePiece = "Pièce de jeu",
     IGUI_ItemCat_GameBoard = "Plateau de jeu",
-    IGUI_ItemCat_GameBox = "BoÃ®te de jeu",
-    IGUI_ItemCat_Die = "DÃ©",
+    IGUI_ItemCat_GameBox = "Boîte de jeu",
+    IGUI_ItemCat_Die = "Dé",
 
-    IGUI_CardDeck = "Carte Ã  jouer",
-    IGUI_PlayingCards1 = "Carte Ã  jouer",
-    IGUI_PlayingCards2 = "Carte Ã  jouer",
-    IGUI_PlayingCards3 = "Carte Ã  jouer",
+    IGUI_CardDeck = "Carte à jouer",
+    IGUI_PlayingCards1 = "Carte à jouer",
+    IGUI_PlayingCards2 = "Carte à jouer",
+    IGUI_PlayingCards3 = "Carte à jouer",
 }
