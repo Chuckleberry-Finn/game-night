@@ -1,20 +1,20 @@
 ItemName_FR = {
 
     ItemName_Base.CatanBoard = "Plateau de Catan"
-    ItemName_Base.CatanBox = "BoÃ®te de Catan",
-    ItemName_Base.CatanBox_sealed = "BoÃ®te de Catan (ScellÃ©e)",
+    ItemName_Base.CatanBox = "Boîte de Catan",
+    ItemName_Base.CatanBox_sealed = "Boîte de Catan (Scellée)",
     ItemName_Base.CatanResourceCard = "Paquet de cartes de ressources"
-    ItemName_Base.CatanDevelopmentCard = "Paquet de cartes de dÃ©veloppement"
+    ItemName_Base.CatanDevelopmentCard = "Paquet de cartes de développement"
 
-    ItemName_Base.CatanRobber = "PiÃ¨ce du voleur"
-    ItemName_Base.CatanPlayerCosts = "CoÃ»ts pour les joueurs"
+    ItemName_Base.CatanRobber = "Pièce du voleur"
+    ItemName_Base.CatanPlayerCosts = "Coûts pour les joueurs"
 
     ItemName_Base.CatanLongestRoad = "Route commerciale la plus longue"
-    ItemName_Base.CatanLargestArmy = "ArmÃ©e la plus puissante"
+    ItemName_Base.CatanLargestArmy = "Armée la plus puissante"
 
     ItemName_Base.CatanWood = "Ressource de bois"
     ItemName_Base.CatanBrick = "Ressource de brique"
-    ItemName_Base.CatanWheat = "Ressource de blÃ©"
+    ItemName_Base.CatanWheat = "Ressource de blé"
     ItemName_Base.CatanSheep = "Ressource de mouton"
     ItemName_Base.CatanStone = "Ressource de pierre"
 
@@ -23,9 +23,9 @@ ItemName_FR = {
     ItemName_Base.CatanYearOfPlenty = "Invention"
     ItemName_Base.CatanRoadBuilding = "Construction de routes"
     ItemName_Base.CatanPalace = "Parlement"
-    ItemName_Base.CatanMarket = "Place du marchÃ©"
-    ItemName_Base.CatanUniversity = "UniversitÃ©"
-    ItemName_Base.CatanChapel = "Ã‰glise"
-    ItemName_Base.CatanLibrary = "BibliothÃ¨que"
+    ItemName_Base.CatanMarket = "Place du marché"
+    ItemName_Base.CatanUniversity = "Université"
+    ItemName_Base.CatanChapel = "Église"
+    ItemName_Base.CatanLibrary = "Bibliothèque"
 
 }
