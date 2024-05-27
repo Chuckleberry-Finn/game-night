@@ -1,10 +1,10 @@
 ItemName_FR = {
 
     ItemName_Base.MonopolyChance = "Chances"
-    ItemName_Base.MonopolyCommunityChest = "Caisses de communautÃ©"
-    ItemName_Base.MonopolyDeed = "PropriÃ©tÃ©s"
+    ItemName_Base.MonopolyCommunityChest = "Caisses de communauté"
+    ItemName_Base.MonopolyDeed = "Propriétés"
 
-    ItemName_Base.MonopolyBox = "BoÃ®te de Monopoly",
-    ItemName_Base.MonopolyBox_sealed = "BoÃ®te de Monopoly (ScellÃ©e)",
+    ItemName_Base.MonopolyBox = "Boîte de Monopoly",
+    ItemName_Base.MonopolyBox_sealed = "Boîte de Monopoly (Scellée)",
 
 }
