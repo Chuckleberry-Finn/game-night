@@ -1,5 +1,5 @@
 ItemName_FR = {
     ItemName_Base.UnoCards = "Cartes de Uno",
-    ItemName_Base.UnoBox = "BoÃ®te de Uno",
-    ItemName_Base.UnoBox_sealed = "BoÃ®te de Uno (ScellÃ©e)",
+    ItemName_Base.UnoBox = "Boîte de Uno",
+    ItemName_Base.UnoBox_sealed = "Boîte de Uno (Scellée)",
 }
