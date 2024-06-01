@@ -61,9 +61,13 @@ gamePieceAndBoardHandler.specials = {
 
 ---Because I hate copy pasted code - this iterates through the side values and registers their special actions.
 local dice_sides = {4,6,8,10,12,20}
-for _,side in pairs(dice_sides) do gamePieceAndBoardHandler.registerSpecial("Base.Dice"..side, { addTextureDir = "dice/", noRotate=true, actions = { rollDie=side, placeDieOnSide=true }, shiftAction = "rollDie", }) end
+for _,side in pairs(dice_sides) do
+    gamePieceAndBoardHandler.registerSpecial("Base.Dice"..side, {
+        addTextureDir = "dice/", noRotate=true, actions = { examine=true, rollDie=side, placeDieOnSide=true }, shiftAction = "rollDie",
+    })
+end
 
-gamePieceAndBoardHandler.registerSpecial("Base.StellaOcta", { actions = { rollDie=1 }, shiftAction = "rollDie", })
+gamePieceAndBoardHandler.registerSpecial("Base.StellaOcta", { actions = { rollDie=1, examine=true }, shiftAction = "rollDie", })
 
 
 
