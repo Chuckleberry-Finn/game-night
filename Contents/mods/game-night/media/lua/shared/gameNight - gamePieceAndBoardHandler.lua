@@ -38,8 +38,8 @@ function gamePieceAndBoardHandler.generate_itemTypes()
 end
 
 gamePieceAndBoardHandler.specials = {
-    ["Base.Dice"]={ category = "Die", actions = { rollDie=6 }, shiftAction = "rollDie", noRotate=true, },
-    ["Base.DiceWhite"]={ category = "Die", actions = { rollDie=6 }, shiftAction = "rollDie", noRotate=true, },
+    ["Base.Dice"]={ category = "Die", actions = { examine=true, rollDie=6 }, shiftAction = "rollDie", noRotate=true, },
+    ["Base.DiceWhite"]={ category = "Die", actions = { examine=true, rollDie=6 }, shiftAction = "rollDie", noRotate=true, },
 
     ["Base.GamePieceRed"]={ actions = { flipPiece=true }, altState="GamePieceRedFlipped", shiftAction = "flipPiece", noRotate=true, },
     ["Base.GamePieceBlack"]={ actions = { flipPiece=true }, altState="GamePieceBlackFlipped", shiftAction = "flipPiece", noRotate=true, },
