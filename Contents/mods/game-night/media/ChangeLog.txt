@@ -71,3 +71,7 @@
 - Added placing DND Dice on specific sides.
 - Added coin mechanics.
 [ ------ ]
+
+[ 6/2/2024 ]
+- Added the examine action to dice.
+[ ------ ]
