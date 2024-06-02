@@ -190,7 +190,7 @@ function gameNightDeckSearch:cardOnMouseUpOutside(x, y)
 
             if selection then
                 local cardDrawn = deckActionHandler._drawCardIndex(deckItem, nil, cardBeingDragged, nil, true)
-                if cardDrawn then deckActionHandler._mergeDecks(cardDrawn, sisDeck, nil, selection+(inBetween and 0 or 1)) end
+                if cardDrawn then deckActionHandler.mergeDecks(cardDrawn, sisDeck, searchWindow.player, selection+(inBetween and 0 or 1)) end
             end
         end
     end

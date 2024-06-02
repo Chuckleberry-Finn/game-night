@@ -206,13 +206,15 @@ function deckActionHandler.canMergeDecks(deckItemA, deckItemB)
     return false
 end
 
-function deckActionHandler._mergeDecks(deckItemA, deckA, deckB, flippedA, flippedB, index)
+function deckActionHandler._mergeDecks(player, deckItemA, deckA, deckItemB, deckB, flippedA, flippedB, index)
     index = index and math.min(#deckB+1,math.max(index,1)) or #deckB+1
     for i=#deckA, 1, -1 do
         table.insert(deckB, index, deckA[i])
         table.insert(flippedB, index, flippedA[i])
     end
+    deckActionHandler.handleDetails(deckItemB)
     gamePieceAndBoardHandler.safelyRemoveGamePiece(deckItemA)
+    gamePieceAndBoardHandler.refreshInventory(player)
 end
 
 ---@param deckItemA InventoryItem
@@ -223,7 +225,7 @@ function deckActionHandler.mergeDecks(deckItemA, deckItemB, player, index)
     if not deckA or not deckB then return end
 
     gamePieceAndBoardHandler.pickupGamePiece(player, deckItemA)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, deckItemA, deckA, deckB, flippedA, flippedB, index}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItemB, {deckActionHandler._mergeDecks, player, deckItemA, deckA, deckItemB, deckB, flippedA, flippedB, index}, deckActionHandler.handleDetails)
     gamePieceAndBoardHandler.playSound(deckItemB, player)
 end
 
@@ -288,7 +290,11 @@ function deckActionHandler.processCardToHand(deckItem, player)
 
     if player and deckItem:getContainer() then
         if not inHand then player:setPrimaryHandItem(deckItem) end
-        if heldCards then deckActionHandler._mergeDecks(deckItem, inHand, player, 1) end
+        if heldCards then
+            local deckA, deckB, flippedA, flippedB = deckActionHandler.canMergeDecks(deckItem, inHand)
+            if not deckA or not deckB then return end
+            deckActionHandler._mergeDecks(player, deckItem, deckA, inHand, deckB, flippedA, flippedB)
+        end
     end
 end
 
