@@ -46,6 +46,8 @@ function gameNightWindow:toggleScale()
     self.waitCursor.xOffset = (self.waitCursor.texture:getWidth()/2) * gameNightWindow.scaleSize
     self.waitCursor.yOffset = (self.waitCursor.texture:getHeight()/2) * gameNightWindow.scaleSize
 
+    self.lockedCursor.xOffset = (self.lockedCursor.texture:getWidth()*1.5) * gameNightWindow.scaleSize
+
     self.close:setY(self:getHeight()-self.btnOffsetFromBottom)
     self.resize:setY(self:getHeight()-self.btnOffsetFromBottom)
     self.infoButton:setY(self:getHeight()-16-8)
@@ -317,7 +319,7 @@ function gameNightWindow:onMouseDown(x, y)
     if self:isVisible() then
         self:clearMovingPiece(x, y)
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
-        if clickedOn then
+        if clickedOn and (not clickedOn.locked) then
 
             ---@type IsoWorldInventoryObject|IsoObject
             local worldItem = clickedOn.item and clickedOn.item:getWorldItem()
@@ -435,7 +437,6 @@ function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
 
     local selection = clicked
     for item,element in pairs(self.elements) do
-
         local w, h = element.w/2, element.h/2 + (element.depth or 0)
 
         local inBounds = ((cursorX >= element.x-w) and (cursorY >= element.y-h) and (cursorX <= element.x+w) and (cursorY <= element.y+h))
@@ -480,7 +481,9 @@ function gameNightWindow:generateElement(item, object, priority)
     x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-w/2)
     y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-h/2)
 
-    self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, priority=priority}
+    local locked = item:getModData()["gameNight_locked"]
+
+    self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, priority=priority, locked=locked}
 
     local tmpTexture = Texture.new(texture)
     tmpTexture:setHeight(h)
@@ -701,7 +704,7 @@ function gameNightWindow:labelWithName(element)
 
             if coolDown then
                 local waitX, waitY = element.x-self.waitCursor.xOffset, element.y-self.waitCursor.yOffset
-                self:drawTextureScaledUniform(self.waitCursor.texture, waitX, waitY, gameNightWindow.scaleSize,1, 1, 1, 1)
+                self:drawTextureScaledUniform(self.lockedCursor.texture, waitX, waitY, gameNightWindow.scaleSize,1, 1, 1, 1)
             end
 
             local nameTagWidth = getTextManager():MeasureStringX(UIFont.NewSmall, " "..nameTag.." ")
@@ -711,6 +714,9 @@ function gameNightWindow:labelWithName(element)
             self:drawRect(x, y, nameTagWidth, nameTagHeight, 0.7, 0, 0, 0)
             self:drawTextCentre(nameTag, x+(nameTagWidth/2), y, 1, 1, 1, 0.7, UIFont.NewSmall)
 
+            if element.item:getModData()["gameNight_locked"] then
+                self:drawTextureScaledUniform(self.lockedCursor.texture, x-self.lockedCursor.xOffset, y, gameNightWindow.scaleSize,1, 1, 1, 1)
+            end
         end
     end
 end
@@ -772,6 +778,10 @@ function gameNightWindow:new(x, y, width, height, player, square)
     o.waitCursor.texture = getTexture("media/textures/actionIcons/gamenight_wait.png")
     o.waitCursor.xOffset = (o.waitCursor.texture:getWidth()/2) * gameNightWindow.scaleSize
     o.waitCursor.yOffset = (o.waitCursor.texture:getHeight()/2) * gameNightWindow.scaleSize
+
+    o.lockedCursor = {}
+    o.lockedCursor.texture = getTexture("media/textures/actionIcons/lock.png")
+    o.lockedCursor.xOffset = (o.lockedCursor.texture:getWidth()*1.5) * gameNightWindow.scaleSize
 
     o.elements = {}
 

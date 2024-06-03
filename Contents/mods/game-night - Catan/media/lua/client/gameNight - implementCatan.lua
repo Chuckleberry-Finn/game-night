@@ -47,7 +47,7 @@ gamePieceAndBoardHandler.registerTypes({
 ---Register special cases for modifying parts of the item
 --- For example, the board is registered to the game-system above - which turns it into a 'GamePiece'
 --- This `special` case changes the category from `GamePiece` to `GameBoard`.
-gamePieceAndBoardHandler.registerSpecial("Base.CatanBoard", { category = "GameBoard", textureSize = {768,676} })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanBoard", { actions = { lock=true }, category = "GameBoard", textureSize = {768,676} })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanCityWhite", { noRotate=true, })
 gamePieceAndBoardHandler.registerSpecial("Base.CatanCityRed", { noRotate=true, })

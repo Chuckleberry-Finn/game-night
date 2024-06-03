@@ -101,7 +101,7 @@ gamePieceAndBoardHandler.registerSpecial("Base.MonopolyHouse", { noRotate=true, 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyHotel", { noRotate=true, })
 
 gamePieceAndBoardHandler.registerSpecial("Base.MonopolyBoard", {
-    category = "GameBoard", textureSize = {532,532},
+    category = "GameBoard", textureSize = {532,532}, actions = { lock=true },
     tooltips = {--used coords in photoshop which treats top-left as 0x0
         { x = 208, y = 228, w = 20, h = 33, text = "Mediterranean Avenue" },
         { x = 166, y = 228, w = 20, h = 33, text = "Baltic Avenue" },

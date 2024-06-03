@@ -44,9 +44,9 @@ gamePieceAndBoardHandler.specials = {
     ["Base.GamePieceRed"]={ actions = { flipPiece=true }, altState="GamePieceRedFlipped", shiftAction = "flipPiece", noRotate=true, },
     ["Base.GamePieceBlack"]={ actions = { flipPiece=true }, altState="GamePieceBlackFlipped", shiftAction = "flipPiece", noRotate=true, },
 
-    ["Base.BackgammonBoard"]={ category = "GameBoard", textureSize = {532,540} },
-    ["Base.CheckerBoard"]={ category = "GameBoard", textureSize = {532,540} },
-    ["Base.ChessBoard"]={ category = "GameBoard", textureSize = {532,540} },
+    ["Base.BackgammonBoard"]={ actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
+    ["Base.CheckerBoard"]={ actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
+    ["Base.ChessBoard"]={ actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
 
     ["Base.PokerChips"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.8, 0.42, 0.41}, sides=7} },
     ["Base.PokerChipsBlue"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.41, 0.52, 0.82}, sides=7 } },
@@ -604,5 +604,14 @@ function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
 
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
 end
+
+
+function gamePieceAndBoardHandler.lock(gamePiece, player)
+    local result = true
+    if gamePiece:getModData()["gameNight_locked"] then result = nil end
+
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_locked", result})
+end
+
 
 return gamePieceAndBoardHandler
