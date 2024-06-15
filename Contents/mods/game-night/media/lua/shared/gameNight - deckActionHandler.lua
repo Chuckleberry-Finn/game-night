@@ -213,7 +213,7 @@ function deckActionHandler._mergeDecks(player, deckItemA, deckA, deckItemB, deck
         table.insert(flippedB, index, flippedA[i])
     end
     deckActionHandler.handleDetails(deckItemB)
-    gamePieceAndBoardHandler.safelyRemoveGamePiece(deckItemA)
+    gamePieceAndBoardHandler.safelyRemoveGamePiece(deckItemA, player)
     gamePieceAndBoardHandler.refreshInventory(player)
 end
 

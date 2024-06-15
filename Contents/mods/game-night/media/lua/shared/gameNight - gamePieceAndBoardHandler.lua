@@ -124,7 +124,7 @@ end
 
 
 ---@param inventoryItem InventoryItem
-function gamePieceAndBoardHandler.safelyRemoveGamePiece(inventoryItem)
+function gamePieceAndBoardHandler.safelyRemoveGamePiece(inventoryItem, player)
     local worldItem = inventoryItem:getWorldItem()
     if worldItem then
         ---@type IsoGridSquare
@@ -142,6 +142,16 @@ function gamePieceAndBoardHandler.safelyRemoveGamePiece(inventoryItem)
     if container then
         container:setDrawDirty(true)
         inventoryItem:setJobDelta(0.0)
+        
+        local playerInventory = player:getInventory()
+        local isInPlayer = playerInventory and container==playerInventory
+        if isInPlayer then
+            player:removeAttachedItem(inventoryItem)
+            if player:getPrimaryHandItem() == inventoryItem then player:setPrimaryHandItem(nil) end
+            if player:getSecondaryHandItem() == inventoryItem then player:setSecondaryHandItem(nil) end
+            triggerEvent("OnClothingUpdated", player)
+        end
+
         if isClient() then
             local outerMost = inventoryItem:getOutermostContainer()
             if outerMost and (not instanceof(outerMost:getParent(), "IsoPlayer")) and container:getType()~="floor" then
@@ -215,10 +225,10 @@ function gamePieceAndBoardHandler.testCanStack(gamePieceA, gamePieceB)
     return false
 end
 
-function gamePieceAndBoardHandler._tryStack(gamePieceA, gamePieceB)
+function gamePieceAndBoardHandler._tryStack(gamePieceA, gamePieceB, player)
     local aStack = (gamePieceA:getModData()["gameNight_stacked"] or 1)
     gamePieceB:getModData()["gameNight_stacked"] = (gamePieceB:getModData()["gameNight_stacked"] or 1) + aStack
-    gamePieceAndBoardHandler.safelyRemoveGamePiece(gamePieceA)
+    gamePieceAndBoardHandler.safelyRemoveGamePiece(gamePieceA, player)
 end
 
 ---@param gamePieceA InventoryItem
@@ -227,7 +237,7 @@ function gamePieceAndBoardHandler.tryStack(gamePieceA, gamePieceB, player)
     if gamePieceA:getFullType() ~= gamePieceB:getFullType() then return end
     if not gamePieceAndBoardHandler.testCanStack(gamePieceA, gamePieceB) then return end
     gamePieceAndBoardHandler.pickupGamePiece(player, gamePieceA)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePieceB, {gamePieceAndBoardHandler._tryStack, gamePieceA, gamePieceB})
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePieceB, {gamePieceAndBoardHandler._tryStack, gamePieceA, gamePieceB, player})
     gamePieceAndBoardHandler.playSound(gamePieceB, player)
 end
 
