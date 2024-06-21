@@ -65,6 +65,43 @@ end
 function gameNightExamine:onClick(button) if button.internal == "CLOSE" then self:closeAndRemove() end end
 
 
+function gameNightExamine:onRightMouseDown(x, y)
+    if self:isVisible() and self.throughContext then
+        ---@type IsoWorldInventoryObject|IsoObject
+        local worldItem = self.item and self.item:getWorldItem()
+        if worldItem then
+            local inUse = worldItem:getModData().gameNightInUse
+            local userUsing = inUse and getPlayerFromUsername(inUse)
+            local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
+            if inUse and (not coolDown) then
+                worldItem:getModData().gameNightInUse = nil
+                worldItem:transmitModData()
+                inUse = false
+                userUsing = nil
+            end
+            if userUsing or coolDown then return end
+        end
+
+        ---@type IsoPlayer|IsoGameCharacter
+        local playerObj = self.player
+        local playerID = playerObj:getPlayerNum()
+
+        ---@type InventoryItem
+        local item = self.item
+        local itemContainer = item and item:getContainer() or false
+        local isInInv = itemContainer and itemContainer:isInCharacterInventory(playerObj) or false
+
+        local contextMenuItems = {item}
+
+        ---@type ISContextMenu
+        local menu = ISInventoryPaneContextMenu.createMenu(playerID, isInInv, contextMenuItems, getMouseX(), getMouseY())
+
+        return true
+    end
+    ISPanelJoypad.onRightMouseDown(x, y)
+end
+
+
 function gameNightExamine:prerender()
     ISPanel.prerender(self)
     if self.attachedUI then

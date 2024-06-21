@@ -302,6 +302,49 @@ function gameNightDeckSearch:prerender()
     ISPanel.prerender(self)
 end
 
+
+function gameNightDeckSearch:onRightMouseDown(x, y)
+
+    if self:isVisible() then
+        local nameLength = getTextManager():MeasureStringX(self.font, self.deck:getDisplayName())
+        if x >= self.padding and y >= 2 and x <= self.padding+48+nameLength then
+
+            ---@type IsoWorldInventoryObject|IsoObject
+            local worldItem = self.deck and self.deck:getWorldItem()
+            if worldItem then
+                local inUse = worldItem:getModData().gameNightInUse
+                local userUsing = inUse and getPlayerFromUsername(inUse)
+                local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
+                if inUse and (not coolDown) then
+                    worldItem:getModData().gameNightInUse = nil
+                    worldItem:transmitModData()
+                    inUse = false
+                    userUsing = nil
+                end
+                if userUsing or coolDown then return end
+            end
+
+            ---@type IsoPlayer|IsoGameCharacter
+            local playerObj = self.player
+            local playerID = playerObj:getPlayerNum()
+
+            ---@type InventoryItem
+            local item = self.deck
+            local itemContainer = item and item:getContainer() or false
+            local isInInv = itemContainer and itemContainer:isInCharacterInventory(playerObj) or false
+
+            local contextMenuItems = {item}
+
+            ---@type ISContextMenu
+            local menu = ISInventoryPaneContextMenu.createMenu(playerID, isInInv, contextMenuItems, getMouseX(), getMouseY())
+
+            return true
+        end
+    end
+    ISPanelJoypad.onRightMouseDown(x, y)
+end
+
+
 ---gameNightDeckSearch.sizedOnce
 function gameNightDeckSearch:render()
     self.cardDisplay:setStencilRect(0, 0, self.cardDisplay.width, self.cardDisplay.height)
@@ -391,6 +434,13 @@ function gameNightDeckSearch:render()
     end
     self.hiddenHeight = math.max(0, yOffset-(self.cardDisplay.height-halfPad-self.cardHeight))
     self.cardDisplay:clearStencilRect()
+
+    ---@type InventoryItem|IsoObject|IsoMovingObject
+    local deckTexture = self.deck:getTexture()
+    local deckDisplayName = self.deck:getDisplayName()
+
+    self:drawTextureScaledAspect(deckTexture, self.padding+4, halfPad, 32, 32,1, 1, 1, 1)
+    self:drawText(deckDisplayName, self.padding+48, halfPad+(self.fontHgt/3), 1, 1, 1, 0.9, self.font)
 
     local mouseX, mouseY = self.cardDisplay:getMouseX(), self.cardDisplay:getMouseY()
     local selected, _ = self:getCardAtXY(mouseX, mouseY)
@@ -509,10 +559,18 @@ function gameNightDeckSearch:new(x, y, width, height, player, deckItem, held)
     o.worldItem = deckItem:getWorldItem()
     o.deck = deckItem
 
+    local font = getCore():getOptionInventoryFont()
+    if font == "Large" then
+        o.font = UIFont.Large
+    elseif font == "Small" then
+        o.font = UIFont.Small
+    else
+        o.font = UIFont.Medium
+    end
+    o.fontHgt = getTextManager():getFontHeight(o.font)
+
     o.scaleSize = 1
-
     o.held = held
-
     o.padding = 10
 
     gameNightDeckSearch.instances[deckItem] = o
