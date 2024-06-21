@@ -304,8 +304,7 @@ end
 
 
 function gameNightDeckSearch:onRightMouseDown(x, y)
-
-    if self:isVisible() then
+    if self:isVisible() and not self.held then
         local nameLength = getTextManager():MeasureStringX(self.font, self.deck:getDisplayName())
         if x >= self.padding and y >= 2 and x <= self.padding+48+nameLength then
 
@@ -435,12 +434,14 @@ function gameNightDeckSearch:render()
     self.hiddenHeight = math.max(0, yOffset-(self.cardDisplay.height-halfPad-self.cardHeight))
     self.cardDisplay:clearStencilRect()
 
-    ---@type InventoryItem|IsoObject|IsoMovingObject
-    local deckTexture = self.deck:getTexture()
-    local deckDisplayName = self.deck:getDisplayName()
+    if not self.held then
+        ---@type InventoryItem|IsoObject|IsoMovingObject
+        local deckTexture = self.deck:getTexture()
+        local deckDisplayName = self.deck:getDisplayName()
 
-    self:drawTextureScaledAspect(deckTexture, self.padding+4, halfPad, 32, 32,1, 1, 1, 1)
-    self:drawText(deckDisplayName, self.padding+48, halfPad+(self.fontHgt/3), 1, 1, 1, 0.9, self.font)
+        self:drawTextureScaledAspect(deckTexture, self.padding+4, halfPad, 32, 32,1, 1, 1, 1)
+        self:drawText(deckDisplayName, self.padding+48, halfPad+(self.fontHgt/3), 1, 1, 1, 0.9, self.font)
+    end
 
     local mouseX, mouseY = self.cardDisplay:getMouseX(), self.cardDisplay:getMouseY()
     local selected, _ = self:getCardAtXY(mouseX, mouseY)
