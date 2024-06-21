@@ -76,3 +76,7 @@
 - Added the examine action to dice.
 - Added locking to boards.
 [ ------ ]
+
+[ 6/20/24 ]
+- Added item context menu interactions in search and examine windows.
+[ ------ ]
