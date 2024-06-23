@@ -210,15 +210,6 @@ function gameNightWindow:onMouseWheel(del)
 end
 
 
-function gameNightWindow:itemIsBusy(item)
-    local mouseOverWorldItem = item and item:getWorldItem()
-    local coolDown = mouseOverWorldItem:getModData().gameNightCoolDown and (mouseOverWorldItem:getModData().gameNightCoolDown>getTimestampMs())
-    local inUseID = mouseOverWorldItem:getModData().gameNightInUse
-    local userUsing = inUseID and getPlayerFromUsername(inUseID)
-    return (coolDown or userUsing)
-end
-
-
 function gameNightWindow:processMouseUp(old, x, y)
     if not self.moveWithMouse then
         ---@type InventoryItem
@@ -248,7 +239,7 @@ function gameNightWindow:processMouseUp(old, x, y)
                     end
                 end
                 if selection then
-                    local itemIsBusy = self:itemIsBusy(selection.item)
+                    local itemIsBusy = gamePieceAndBoardHandler.itemIsBusy(selection.item)
                     if itemIsBusy then self:clearMovingPiece() return end
 
                     if isDeck then deckActionHandler.mergeDecks(piece, selection.item, self.player) end
@@ -260,21 +251,26 @@ function gameNightWindow:processMouseUp(old, x, y)
             end
 
             local moveDeckItem = true
-            local shiftAction, _ = gameNightWindow.fetchShiftAction(piece)
+            local shiftActionID, _ = gameNightWindow.fetchShiftAction(piece)
+            local handler = isDeck and deckActionHandler or gamePieceAndBoardHandler
+            local shiftAction = shiftActionID and handler[shiftActionID]
+            local rX, rY
+
+            local onPickup
+
             if shiftAction then
-
-                if isDeck and deckActionHandler[shiftAction] then
-                    moveDeckItem = (not deckActionHandler.staticDeckActions[shiftAction])
-                    local rX, rY = self:determineScaledWorldXY(posX, posY)
-                    deckActionHandler[shiftAction](piece, self.player, rX, rY)
+                if isDeck then
+                    moveDeckItem = (not handler.staticDeckActions[shiftActionID])
+                    rX, rY = self:determineScaledWorldXY(posX, posY)
                 end
-
-                if gamePieceAndBoardHandler[shiftAction] then
-                    gamePieceAndBoardHandler[shiftAction](piece, self.player)
-                end
+                onPickup = {shiftAction, piece, self.player}
             end
 
-            if moveDeckItem then self:moveElement(piece, posX, posY) end
+            if moveDeckItem then
+                self:moveElement(piece, posX, posY, onPickup, handler.handleDetails)
+            else
+                if shiftAction then shiftAction(piece, self.player, rX or posX, rY or posY) end
+            end
         end
     end
     old(self, x, y)
@@ -379,7 +375,7 @@ function gameNightWindow:determineScaledWorldXY(x, y)
 end
 
 
-function gameNightWindow:moveElement(gamePiece, x, y)
+function gameNightWindow:moveElement(gamePiece, x, y, onPickUp, detailsFunc)
     if not self.movingPiece or gamePiece~=self.movingPiece then return end
     ---@type IsoObject|InventoryItem
     local item = gamePiece
@@ -387,13 +383,10 @@ function gameNightWindow:moveElement(gamePiece, x, y)
 
     local element = self.elements[item:getID()]
     local eW, eH = element.w/2, element.h/2
-
     local scaledX, scaledY, offsetZ = self:determineScaledWorldXY(x-eW, y-eH)
-
     local angleChange = self.rotatingPieceDegree
-    local onPickup = angleChange and (angleChange ~= 0) and {gamePieceAndBoardHandler.rotatePiece, item, angleChange, self.player}
 
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, onPickup, nil, scaledX, scaledY, offsetZ, nil)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, onPickUp, detailsFunc, scaledX, scaledY, offsetZ, nil, angleChange)
 end
 
 
