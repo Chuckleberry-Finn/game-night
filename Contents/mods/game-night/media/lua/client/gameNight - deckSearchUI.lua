@@ -22,6 +22,12 @@ function gameNightDeckSearch:closeAndRemove()
 end
 
 
+function gameNightDeckSearch.OnPlayerDeath(playerObj)
+    for item,ui in pairs(gameNightDeckSearch.instances) do ui:closeAndRemove() end
+end
+Events.OnPlayerDeath.Add(gameNightDeckSearch.OnPlayerDeath)
+
+
 function gameNightDeckSearch:update()
     if (not self.player) or (not self.deck) then self:closeAndRemove() return end
 

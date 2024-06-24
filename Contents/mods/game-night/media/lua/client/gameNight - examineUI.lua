@@ -19,6 +19,13 @@ function gameNightExamine:closeAndRemove()
     self:removeFromUIManager()
 end
 
+
+function gameNightExamine.OnPlayerDeath(playerObj)
+    for item,ui in pairs(gameNightExamine.instances) do ui:closeAndRemove() end
+end
+Events.OnPlayerDeath.Add(gameNightExamine.OnPlayerDeath)
+
+
 function gameNightExamine:update()
     if (not self.player) or (not self.item) then self:closeAndRemove() return end
 

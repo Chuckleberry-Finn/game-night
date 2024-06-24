@@ -250,7 +250,7 @@ function gameNightWindow:processMouseUp(old, x, y)
                 end
             end
 
-            local moveDeckItem = true
+            local moveItem = true
             local shiftActionID, _ = gameNightWindow.fetchShiftAction(piece)
             local handler = isDeck and deckActionHandler or gamePieceAndBoardHandler
             local shiftAction = shiftActionID and handler[shiftActionID]
@@ -260,13 +260,13 @@ function gameNightWindow:processMouseUp(old, x, y)
 
             if shiftAction then
                 if isDeck then
-                    moveDeckItem = (not handler.staticDeckActions[shiftActionID])
+                    moveItem = (not handler.staticDeckActions[shiftActionID])
                     rX, rY = self:determineScaledWorldXY(posX, posY)
                 end
                 onPickup = {shiftAction, piece, self.player}
             end
 
-            if moveDeckItem then
+            if moveItem then
                 self:moveElement(piece, posX, posY, onPickup, handler.handleDetails)
             else
                 if shiftAction then shiftAction(piece, self.player, rX or posX, rY or posY) end
@@ -332,10 +332,10 @@ function gameNightWindow:onMouseDown(x, y)
             if coolDown or userUsing then self:clearMovingPiece() return end
 
             if worldItem then
-                local worldItemModData = worldItem:getModData()
-                worldItemModData.gameNightInUse = self.player:getUsername()
-                worldItemModData.gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
-                worldItem:transmitModData()
+                --local worldItemModData = worldItem:getModData()
+                --worldItemModData.gameNightInUse = self.player:getUsername()
+                --worldItemModData.gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
+                --worldItem:transmitModData()
 
                 self.movingPiece = clickedOn.item
 
@@ -682,7 +682,7 @@ function gameNightWindow:labelWithName(element)
             end
 
             local worldItem = element.item:getWorldItem()
-            local coolDown = worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimestampMs()
+            local coolDown = worldItem and worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimestampMs()
             local inUse = worldItem and worldItem:getModData().gameNightInUse
             
             local needsClear = inUse and ((not coolDown) or (inUse==self.player:getUsername() and (self.movingPiece~=element.item)))
@@ -732,6 +732,12 @@ function gameNightWindow:closeAndRemove()
     if gameNightWindow.instance == self then gameNightWindow.instance = nil end
 end
 
+
+function gameNightWindow.OnPlayerDeath(playerObj)
+    local ui = gameNightWindow.instance
+    if ui then ui:closeAndRemove() end
+end
+Events.OnPlayerDeath.Add(gameNightWindow.OnPlayerDeath)
 
 
 function gameNightWindow.open(worldObjects, player, square)

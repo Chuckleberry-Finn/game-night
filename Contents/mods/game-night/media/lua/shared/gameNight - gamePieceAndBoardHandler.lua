@@ -344,10 +344,13 @@ end
 
 function gamePieceAndBoardHandler.itemIsBusy(item)
     local worldItem = item and item:getWorldItem()
+
     if not worldItem then return false end
+
     local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
     local inUseID = worldItem:getModData().gameNightInUse
     local userUsing = inUseID and getPlayerFromUsername(inUseID)
+
     return (coolDown or userUsing)
 end
 
@@ -456,11 +459,12 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
     local itemCont = item:getContainer()
     local playerInventory = player:getInventory()
 
+    local isInPlayer = itemCont and playerInventory and itemCont==playerInventory
+    if not isInPlayer then return end
+
     ---@type IsoWorldInventoryObject|IsoObject
     local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
     if placedItem then
-
-        local isInPlayer = itemCont and playerInventory and itemCont==playerInventory
 
         if isInPlayer then
             itemCont:setDrawDirty(true)
@@ -498,6 +502,9 @@ end
 ---@param xOffset number
 ---@param yOffset number
 function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange)
+
+    local blockUse = gamePieceAndBoardHandler.itemIsBusy(item)
+    if blockUse then return end
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
