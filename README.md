@@ -4,7 +4,9 @@
 
 The framework for Game Night is designed to handle any game you can imagine.  Arguably, the biggest hurdle is <a href=https://github.com/Chuckleberry-Finn/game-night/blob/main/ART.md>acquiring the art assets</a> for your game. If you're a more hands-on learner, try reading through existing add-ons. Much of the information below is taken from them.
 ** **
-#### <a href=https://github.com/Chuckleberry-Finn/game-night/blob/main/ART.md><b>Acquiring art assets</b></a>
+#### <a href=https://github.com/Chuckleberry-Finn/game-night/blob/main/ART.md><b>Acquiring Art Assets</b></a>
+** **
+#### <a href=https://github.com/Chuckleberry-Finn/game-night/blob/main/BATCH-ART.md><b>Creating/Generating Art Assets</b></a>
 ** **
 <details> <summary><b>Implementation Modules:</b></summary>
 
