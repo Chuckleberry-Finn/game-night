@@ -341,8 +341,32 @@ function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value)
     gamePiece:getModData()[key] = value
 end
 
+
+function gamePieceAndBoardHandler.itemIsBusy(item)
+    local worldItem = item and item:getWorldItem()
+
+    if not worldItem then return false end
+
+    local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
+    local inUseID = worldItem:getModData().gameNightInUse
+    local userUsing = inUseID and getPlayerFromUsername(inUseID)
+
+    return (coolDown or userUsing)
+end
+
+
+function gamePieceAndBoardHandler.onPickUp(onPickUp)
+    if onPickUp and type(onPickUp)=="table" then
+        local onCompleteFuncArgs = onPickUp
+        local func = onCompleteFuncArgs[1]
+        local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = onCompleteFuncArgs[2], onCompleteFuncArgs[3], onCompleteFuncArgs[4], onCompleteFuncArgs[5], onCompleteFuncArgs[6], onCompleteFuncArgs[7], onCompleteFuncArgs[8], onCompleteFuncArgs[9]
+        func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+    end
+end
+
+
 ---@param item InventoryItem
-function gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detailsFunc)
+function gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detailsFunc, angleChange)
 
     if not item then return end
 
@@ -350,6 +374,9 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detail
     local worldItem = item:getWorldItem()
     ---@type IsoGridSquare
     local worldItemSq = worldItem and worldItem:getSquare()
+
+    local blockUse = gamePieceAndBoardHandler.itemIsBusy(item)
+    if blockUse then return end
 
    -- if worldItem == nil or worldItemSq == nil then return end
 
@@ -381,19 +408,14 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detail
         itemContainer:setDrawDirty(true)
         playerInv:setDrawDirty(true)
         playerInv:AddItem(item)
+        gamePieceAndBoardHandler.onPickUp(onPickUp)
         pickedUp = true
     end
 
     gamePieceAndBoardHandler.refreshInventory(player)
 
     if item then
-        if onPickUp and type(onPickUp)=="table" then
-            local onCompleteFuncArgs = onPickUp
-            local func = onCompleteFuncArgs[1]
-            local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = onCompleteFuncArgs[2], onCompleteFuncArgs[3], onCompleteFuncArgs[4], onCompleteFuncArgs[5], onCompleteFuncArgs[6], onCompleteFuncArgs[7], onCompleteFuncArgs[8], onCompleteFuncArgs[9]
-            func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-        end
-
+        if angleChange then gamePieceAndBoardHandler.rotatePiece(item, angleChange, player) end
         detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
         detailsFunc(item)
     end
@@ -437,11 +459,12 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
     local itemCont = item:getContainer()
     local playerInventory = player:getInventory()
 
+    local isInPlayer = itemCont and playerInventory and itemCont==playerInventory
+    if not isInPlayer then return end
+
     ---@type IsoWorldInventoryObject|IsoObject
     local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
     if placedItem then
-
-        local isInPlayer = itemCont and playerInventory and itemCont==playerInventory
 
         if isInPlayer then
             itemCont:setDrawDirty(true)
@@ -478,7 +501,10 @@ end
 ---@param item InventoryItem
 ---@param xOffset number
 ---@param yOffset number
-function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos, square)
+function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange)
+
+    local blockUse = gamePieceAndBoardHandler.itemIsBusy(item)
+    if blockUse then return end
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
@@ -486,12 +512,9 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     ---@type IsoGridSquare
     local worldItemSq = square or worldItem and worldItem:getSquare()
 
-    if worldItem then
-        worldItem:getModData().gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
-        worldItem:transmitModData()
-    end
+    local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detailsFunc, angleChange)
 
-    local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detailsFunc)
+    if not pickedUp then gamePieceAndBoardHandler.onPickUp(onPickUp) end
 
     xOffset = xOffset or x or 0
     yOffset = yOffset or y or 0
