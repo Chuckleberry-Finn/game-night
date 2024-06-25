@@ -1,7 +1,16 @@
 local volumetricRender = {}
 
+volumetricRender.loadedTextures = {}
+
+function volumetricRender.loadTexture(texture)
+    if volumetricRender.loadedTextures[texture] == nil then
+        volumetricRender.loadedTextures[texture] = getTexture("media/textures/modelTextures/"..texture..".png") or false
+    end
+    return volumetricRender.loadedTextures[texture]
+end
+
 --- POKER CHIP STACKS
-function volumetricRender.DrawTexturePokerChip(UI, texture, centerX, centerY, rotation, height, segments, r, g, b, a)
+function volumetricRender.DrawTexturePokerChip(UI, texture, sideTexture, centerX, centerY, rotation, height, segments, r, g, b, a)
     if UI.javaObject == nil or not UI:isVisible() then return end
     local halfTextureWidth = texture:getWidth() / 2
     local halfTextureHeight = texture:getHeight() / 2
@@ -23,7 +32,7 @@ function volumetricRender.DrawTexturePokerChip(UI, texture, centerX, centerY, ro
     local x4 = (xOffset1 + yOffset2) + javaObjCenterX
     local y4 = (-xOffset2 + yOffset1) + javaObjCenterY
 
-    local stackTexture = volumetricRender.roundStackTexture
+    local stackTexture = volumetricRender.loadTexture(sideTexture) or volumetricRender.roundStackTexture
     local segmentAngle = 360 / (segments*2)
 
     local function adjustFacePoints(segment, h)
@@ -62,7 +71,7 @@ end
 
 --- ROUND STACKS
 volumetricRender.roundStackTexture = getTexture("media/textures/modelTextures/roundStack.png")
-function volumetricRender.DrawTextureRoundFace(UI, texture, centerX, centerY, rotation, height, segments, r, g, b, a)
+function volumetricRender.DrawTextureRoundFace(UI, texture, sideTexture, centerX, centerY, rotation, height, segments, r, g, b, a)
     if UI.javaObject == nil or not UI:isVisible() then return end
     local halfTextureWidth = texture:getWidth() / 2
     local halfTextureHeight = texture:getHeight() / 2
@@ -84,7 +93,7 @@ function volumetricRender.DrawTextureRoundFace(UI, texture, centerX, centerY, ro
     local x4 = (xOffset1 + yOffset2) + javaObjCenterX
     local y4 = (-xOffset2 + yOffset1) + javaObjCenterY
 
-    local stackTexture = volumetricRender.roundStackTexture
+    local stackTexture = volumetricRender.loadTexture(sideTexture) or volumetricRender.roundStackTexture
     local segmentAngle = 360 / (segments*2)
 
     local function adjustFacePoints(segment, h)
@@ -128,7 +137,7 @@ end
 
 --- CARD STACKS
 volumetricRender.cardStackTexture = getTexture("media/textures/modelTextures/cardStack.png")
-function volumetricRender.DrawTextureCardFace(UI, texture, centerX, centerY, rotation, height, ignore, r, g, b, a)
+function volumetricRender.DrawTextureCardFace(UI, texture, sideTexture, centerX, centerY, rotation, height, ignore, r, g, b, a)
     if UI.javaObject == nil or not UI:isVisible() then return end
     local halfTextureWidth, halfTextureHeight = texture:getWidth() / 2, texture:getHeight() / 2
     local rotatedAngle = math.rad(180.0 + rotation)
@@ -143,7 +152,7 @@ function volumetricRender.DrawTextureCardFace(UI, texture, centerX, centerY, rot
 
     if height > 0 then
         local facePoints = {x1, y1, x2, y2, x3, y3, x4, y4}
-        local cardStackTexture = volumetricRender.cardStackTexture
+        local cardStackTexture = volumetricRender.loadTexture(sideTexture) or volumetricRender.cardStackTexture
         if rotation >= 270 then
             volumetricRender.DrawTextureLeftEdgeSide(cardStackTexture, -height, facePoints, r*0.6, g*0.6, b*0.6, 1)
             if rotation ~= 270 then volumetricRender.DrawTextureBottomEdgeSide(cardStackTexture, -height, facePoints, r, g, b, 1) end

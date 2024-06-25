@@ -496,7 +496,8 @@ function gameNightWindow:generateElement(item, object, priority)
             local r, g, b = 1, 1, 1
             if altRend and altRend.rgb then r, g, b = unpack(altRend.rgb) end
             local sides = altRend and altRend.sides or 12 or 0
-            volumetricRender[func](self, tmpTexture, x, y, rot, depth, sides, r, g, b, 1)
+            local sideTexture = altRend.sideTexture
+            volumetricRender[func](self, tmpTexture, sideTexture, x, y, rot, depth, sides, r, g, b, 1)
             return
         end
     end
