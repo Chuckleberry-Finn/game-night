@@ -247,11 +247,7 @@ function gameNightDeckSearch:cardOnMouseUp(x, y)
     local card = gameWindow and gameWindow.movingPiece
     if card then
         if selection and selection >= 0 then
-            local worldItem = card:getWorldItem()
-            local inUse = worldItem and worldItem:getModData().gameNightInUse
-            local wrongUser = inUse and (inUse~=searchWindow.player:getUsername())
-            if wrongUser then gameWindow:clearMovingPiece(x, y) return end
-
+            if gamePieceAndBoardHandler.itemIsBusy(card) then gameWindow:clearMovingPiece(x, y) return end
             local notCompatible = card:getType() ~= deckItem:getType()
             if notCompatible then gameWindow:clearMovingPiece() return end
 
@@ -314,20 +310,7 @@ function gameNightDeckSearch:onRightMouseDown(x, y)
         local nameLength = getTextManager():MeasureStringX(self.font, self.deck:getDisplayName())
         if x >= self.padding and y >= 2 and x <= self.padding+48+nameLength then
 
-            ---@type IsoWorldInventoryObject|IsoObject
-            local worldItem = self.deck and self.deck:getWorldItem()
-            if worldItem then
-                local inUse = worldItem:getModData().gameNightInUse
-                local userUsing = inUse and getPlayerFromUsername(inUse)
-                local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
-                if inUse and (not coolDown) then
-                    worldItem:getModData().gameNightInUse = nil
-                    worldItem:transmitModData()
-                    inUse = false
-                    userUsing = nil
-                end
-                if userUsing or coolDown then return end
-            end
+            if gamePieceAndBoardHandler.itemIsBusy(self.deck) then return end
 
             ---@type IsoPlayer|IsoGameCharacter
             local playerObj = self.player

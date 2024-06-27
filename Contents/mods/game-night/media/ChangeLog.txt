@@ -77,6 +77,8 @@
 - Added locking to boards.
 [ ------ ]
 
-[ 6/20/24 ]
+[ 6/27/24 ]
 - Added item context menu interactions in search and examine windows.
+- Removed internal "in-use".
+- Reworked network handling of actions. (Comes with some network traffic overhead.)
 [ ------ ]
