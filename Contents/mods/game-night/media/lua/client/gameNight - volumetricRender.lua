@@ -3,6 +3,7 @@ local volumetricRender = {}
 volumetricRender.loadedTextures = {}
 
 function volumetricRender.loadTexture(texture)
+    if not texture then return end
     if volumetricRender.loadedTextures[texture] == nil then
         volumetricRender.loadedTextures[texture] = getTexture("media/textures/modelTextures/"..texture..".png") or false
     end
@@ -32,7 +33,7 @@ function volumetricRender.DrawTexturePokerChip(UI, texture, sideTexture, centerX
     local x4 = (xOffset1 + yOffset2) + javaObjCenterX
     local y4 = (-xOffset2 + yOffset1) + javaObjCenterY
 
-    local stackTexture = volumetricRender.loadTexture(sideTexture) or volumetricRender.roundStackTexture
+    local stackTexture = sideTexture and volumetricRender.loadTexture(sideTexture) or volumetricRender.roundStackTexture
     local segmentAngle = 360 / (segments*2)
 
     local function adjustFacePoints(segment, h)
@@ -93,7 +94,7 @@ function volumetricRender.DrawTextureRoundFace(UI, texture, sideTexture, centerX
     local x4 = (xOffset1 + yOffset2) + javaObjCenterX
     local y4 = (-xOffset2 + yOffset1) + javaObjCenterY
 
-    local stackTexture = volumetricRender.loadTexture(sideTexture) or volumetricRender.roundStackTexture
+    local stackTexture = sideTexture and volumetricRender.loadTexture(sideTexture) or volumetricRender.roundStackTexture
     local segmentAngle = 360 / (segments*2)
 
     local function adjustFacePoints(segment, h)
@@ -152,7 +153,7 @@ function volumetricRender.DrawTextureCardFace(UI, texture, sideTexture, centerX,
 
     if height > 0 then
         local facePoints = {x1, y1, x2, y2, x3, y3, x4, y4}
-        local cardStackTexture = volumetricRender.loadTexture(sideTexture) or volumetricRender.cardStackTexture
+        local cardStackTexture = sideTexture and volumetricRender.loadTexture(sideTexture) or volumetricRender.cardStackTexture
         if rotation >= 270 then
             volumetricRender.DrawTextureLeftEdgeSide(cardStackTexture, -height, facePoints, r*0.6, g*0.6, b*0.6, 1)
             if rotation ~= 270 then volumetricRender.DrawTextureBottomEdgeSide(cardStackTexture, -height, facePoints, r, g, b, 1) end

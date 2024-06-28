@@ -74,20 +74,8 @@ function gameNightExamine:onClick(button) if button.internal == "CLOSE" then sel
 
 function gameNightExamine:onRightMouseDown(x, y)
     if self:isVisible() and self.throughContext then
-        ---@type IsoWorldInventoryObject|IsoObject
-        local worldItem = self.item and self.item:getWorldItem()
-        if worldItem then
-            local inUse = worldItem:getModData().gameNightInUse
-            local userUsing = inUse and getPlayerFromUsername(inUse)
-            local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
-            if inUse and (not coolDown) then
-                worldItem:getModData().gameNightInUse = nil
-                worldItem:transmitModData()
-                inUse = false
-                userUsing = nil
-            end
-            if userUsing or coolDown then return end
-        end
+
+        if gamePieceAndBoardHandler.itemIsBusy(self.item) then return end
 
         ---@type IsoPlayer|IsoGameCharacter
         local playerObj = self.player

@@ -55,19 +55,8 @@ end
 
 
 function gameNightWindow:update()
-    if (not self.player) or (not self.square) or ( self.square:DistToProper(self.player) > 1.5 ) then
-        self:closeAndRemove()
-        return
-    end
-
-    local worldItem = self.movingPiece and self.movingPiece:getWorldItem()
-    local userUsing = worldItem and worldItem:getModData().gameNightInUse
-    local wrongUser = userUsing and userUsing~=self.player:getUsername()
-    local coolDown = wrongUser and worldItem and worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimestampMs()
-    if wrongUser or coolDown then
-        self:clearMovingPiece()
-        return
-    end
+    if (not self.player) or (not self.square) or ( self.square:DistToProper(self.player) > 1.5 ) then self:closeAndRemove() return end
+    if gamePieceAndBoardHandler.itemIsBusy(self.movingPiece) then self:clearMovingPiece() return end
 
     local item = self.player:getPrimaryHandItem()
     if item and gameNightDeckSearch and deckActionHandler.isDeckItem(item) then
@@ -175,16 +164,6 @@ end
 
 function gameNightWindow:clearMovingPiece(x, y)
     if x and y then self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2)) end
-
-    local piece = self.movingPiece
-    if piece then
-        local worldItem = piece:getWorldItem()
-        local inUse = worldItem and worldItem:getModData().gameNightInUse
-        if inUse and (inUse~=self.player:getUsername()) then
-            worldItem:getModData().gameNightInUse = nil
-            worldItem:transmitModData()
-        end
-    end
     self.movingPiece = nil
     self.rotatingPieceDegree = 0
 end
@@ -217,10 +196,11 @@ function gameNightWindow:processMouseUp(old, x, y)
 
         if piece then
 
-            local worldItem = piece:getWorldItem()
-            local inUse = worldItem and worldItem:getModData().gameNightInUse
-            local wrongUser = inUse and (inUse~=self.player:getUsername())
-            if wrongUser then self:clearMovingPiece(x, y) return end
+            if gamePieceAndBoardHandler.itemIsBusy(piece) then
+                old(self, x, y)
+                self:clearMovingPiece()
+                return
+            end
 
             local posX, posY = self:getMouseX(), self:getMouseY()
 
@@ -245,6 +225,7 @@ function gameNightWindow:processMouseUp(old, x, y)
                     if isDeck then deckActionHandler.mergeDecks(piece, selection.item, self.player) end
                     if isStack then gamePieceAndBoardHandler.tryStack(piece, selection.item, self.player) end
 
+                    old(self, x, y)
                     self:clearMovingPiece(x, y)
                     return
                 end
@@ -317,25 +298,11 @@ function gameNightWindow:onMouseDown(x, y)
         local clickedOn = self:getClickedPriorityPiece(self:getMouseX(), self:getMouseY(), false)
         if clickedOn and (not clickedOn.locked) then
 
+            if gamePieceAndBoardHandler.itemIsBusy(clickedOn.item) then return end
+
             ---@type IsoWorldInventoryObject|IsoObject
             local worldItem = clickedOn.item and clickedOn.item:getWorldItem()
-            local inUse = worldItem:getModData().gameNightInUse
-            local userUsing = inUse and getPlayerFromUsername(inUse)
-            local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
-
-            if inUse and (not coolDown) then
-                worldItem:getModData().gameNightInUse = nil
-                worldItem:transmitModData()
-                inUse = false
-                userUsing = nil
-            end
-            if coolDown or userUsing then self:clearMovingPiece() return end
-
             if worldItem then
-                --local worldItemModData = worldItem:getModData()
-                --worldItemModData.gameNightInUse = self.player:getUsername()
-                --worldItemModData.gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
-                --worldItem:transmitModData()
 
                 self.movingPiece = clickedOn.item
 
@@ -382,6 +349,8 @@ function gameNightWindow:moveElement(gamePiece, x, y, onPickUp, detailsFunc)
     if not item then return end
 
     local element = self.elements[item:getID()]
+    if not element then return end
+
     local eW, eH = element.w/2, element.h/2
     local scaledX, scaledY, offsetZ = self:determineScaledWorldXY(x-eW, y-eH)
     local angleChange = self.rotatingPieceDegree
@@ -392,18 +361,7 @@ end
 
 function gameNightWindow:onContextSelection(element, x, y)
 
-    ---@type IsoWorldInventoryObject|IsoObject
-    local worldItem = element.item and element.item:getWorldItem()
-    local inUse = worldItem:getModData().gameNightInUse
-    local userUsing = inUse and getPlayerFromUsername(inUse)
-    local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
-    if inUse and (not coolDown) then
-        worldItem:getModData().gameNightInUse = nil
-        worldItem:transmitModData()
-        inUse = false
-        userUsing = nil
-    end
-    if userUsing or coolDown then return end
+    if gamePieceAndBoardHandler.itemIsBusy(element.item) then return end
 
     ---@type IsoPlayer|IsoGameCharacter
     local playerObj = self.player
@@ -496,7 +454,7 @@ function gameNightWindow:generateElement(item, object, priority)
             local r, g, b = 1, 1, 1
             if altRend and altRend.rgb then r, g, b = unpack(altRend.rgb) end
             local sides = altRend and altRend.sides or 12 or 0
-            local sideTexture = altRend.sideTexture
+            local sideTexture = altRend and altRend.sideTexture
             volumetricRender[func](self, tmpTexture, sideTexture, x, y, rot, depth, sides, r, g, b, 1)
             return
         end
@@ -600,6 +558,8 @@ function gameNightWindow:render()
     if movingPiece then
         if not isMouseButtonDown(0) then return end
 
+        if gamePieceAndBoardHandler.itemIsBusy(movingPiece) then self:clearMovingPiece() return end
+
         local examine = self.examine
         if examine then examine:closeAndRemove() end
 
@@ -684,18 +644,6 @@ function gameNightWindow:labelWithName(element)
 
             local worldItem = element.item:getWorldItem()
             local coolDown = worldItem and worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimestampMs()
-            local inUse = worldItem and worldItem:getModData().gameNightInUse
-            
-            local needsClear = inUse and ((not coolDown) or (inUse==self.player:getUsername() and (self.movingPiece~=element.item)))
-            if needsClear then
-                worldItem:getModData().gameNightInUse = nil
-                worldItem:transmitModData()
-                inUse = false
-            end
-            
-            local wrongUser = (inUse and inUse~=self.player:getUsername())
-            if wrongUser then nameTag = nameTag.." [In Use]" end
-
             if coolDown then
                 local waitX, waitY = element.x-self.waitCursor.xOffset, element.y-self.waitCursor.yOffset
                 self:drawTextureScaledUniform(self.lockedCursor.texture, waitX, waitY, gameNightWindow.scaleSize,1, 1, 1, 1)
@@ -709,7 +657,7 @@ function gameNightWindow:labelWithName(element)
             self:drawTextCentre(nameTag, x+(nameTagWidth/2), y, 1, 1, 1, 0.7, UIFont.NewSmall)
 
             if element.item:getModData()["gameNight_locked"] then
-                self:drawTextureScaledUniform(self.lockedCursor.texture, x-self.lockedCursor.xOffset, y, gameNightWindow.scaleSize,1, 1, 1, 1)
+                self:drawTextureScaledUniform(self.lockedCursor.texture, x-self.lockedCursor.xOffset, y, gameNightWindow.scaleSize,0.75, 1, 1, 1)
             end
         end
     end

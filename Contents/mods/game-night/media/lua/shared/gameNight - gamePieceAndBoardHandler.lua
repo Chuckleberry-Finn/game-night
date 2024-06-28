@@ -344,14 +344,9 @@ end
 
 function gamePieceAndBoardHandler.itemIsBusy(item)
     local worldItem = item and item:getWorldItem()
-
     if not worldItem then return false end
-
     local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
-    local inUseID = worldItem:getModData().gameNightInUse
-    local userUsing = inUseID and getPlayerFromUsername(inUseID)
-
-    return (coolDown or userUsing)
+    return coolDown
 end
 
 
@@ -497,24 +492,67 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
 end
 
 
+gamePieceAndBoardHandler.moveBuffer = {}
+---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
+---@param item InventoryItem
+function gamePieceAndBoardHandler.processMoveFromBuffer(player, item, allowed)
+
+    local buffer = gamePieceAndBoardHandler.moveBuffer[player]
+    print(" buffer: ", buffer, " (", buffer and #buffer, ")")
+
+    print(" -- item: ", item, "("..(item and item:getID() or "nil")..")")
+
+    local move = buffer and buffer["i"..item:getID()]
+    if not move then
+        print("no such move!")
+        return
+    end
+
+    if allowed and item and (not gamePieceAndBoardHandler.itemIsBusy(item)) then
+        print(" --- move in buffer & item not busy:   -item:", (item and item:getID()))
+        local moveItem, onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange = move.item, move.onPickUp, move.detailsFunc, move.xOffset, move.yOffset, move.zPos, move.square, move.angleChange
+        gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, moveItem, onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange, true)
+    end
+
+    buffer["i"..item:getID()] = nil
+end
+
+
 ---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
 ---@param item InventoryItem
 ---@param xOffset number
 ---@param yOffset number
-function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange)
+function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange, byPassClient)
 
     local blockUse = gamePieceAndBoardHandler.itemIsBusy(item)
-    if blockUse then return end
+    if blockUse then
+        print(" - BLOCKED; IN USE")
+        return
+    end
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
+
+    if worldItem and isClient() and (not byPassClient) then
+        gamePieceAndBoardHandler.moveBuffer[player] = gamePieceAndBoardHandler.moveBuffer[player] or {}
+
+        gamePieceAndBoardHandler.moveBuffer[player]["i"..item:getID()] = { item=item, onPickUp = onPickUp , detailsFunc = detailsFunc,
+                                                                           xOffset = xOffset, yOffset = yOffset, zPos = zPos, square = square, angleChange = angleChange }
+        print(" ~ asking for permission.   -item:", (item and item:getID()))
+        sendClientCommand(player, "gameNightAction", "pickupAndPlaceGamePiece", {item=item})
+        return
+    end
 
     ---@type IsoGridSquare
     local worldItemSq = square or worldItem and worldItem:getSquare()
 
     local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detailsFunc, angleChange)
 
-    if not pickedUp then gamePieceAndBoardHandler.onPickUp(onPickUp) end
+    local playerInv = player:getInventory()
+    local itemContainer = item:getContainer()
+    if not pickedUp and itemContainer and itemContainer == playerInv then
+        gamePieceAndBoardHandler.onPickUp(onPickUp)
+    end
 
     xOffset = xOffset or x or 0
     yOffset = yOffset or y or 0

@@ -409,8 +409,14 @@ function deckActionHandler._searchDeck(deckItem, player)
     if deckActionHandler.isDeckItem(deckItem) then gameNightDeckSearch.open(player, deckItem) end
 end
 function deckActionHandler.searchDeck(deckItem, player)
-    gamePieceAndBoardHandler.pickupGamePiece(player, deckItem, {deckActionHandler._searchDeck, deckItem, player}, deckActionHandler.handleDetails)
+    local onPickUp = deckActionHandler._searchDeck
+    local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, deckItem, {onPickUp, deckItem, player}, deckActionHandler.handleDetails)
+    local playerInv = player:getInventory()
+    local itemContainer = deckItem:getContainer()
     gamePieceAndBoardHandler.playSound(deckItem, player)
+    if not pickedUp and itemContainer and itemContainer == playerInv then
+        deckActionHandler._searchDeck(deckItem, player)
+    end
 end
 
 function deckActionHandler.examine(gamePiece, player, indexIfCard)
