@@ -548,7 +548,11 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
     local pickedUp, x, y, z = gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detailsFunc, angleChange)
 
-    if not pickedUp then gamePieceAndBoardHandler.onPickUp(onPickUp) end
+    local playerInv = player:getInventory()
+    local itemContainer = item:getContainer()
+    if not pickedUp and itemContainer and itemContainer == playerInv then
+        gamePieceAndBoardHandler.onPickUp(onPickUp)
+    end
 
     xOffset = xOffset or x or 0
     yOffset = yOffset or y or 0
