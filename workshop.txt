@@ -1,39 +1,6 @@
 version=1
-id=3058279917
-title=Game Night
-description=[h2]This mod adds a UI window in order to play card/board games.[/h2]
-description=[h3]Interactions with the UI reflect those changes to the items in world.[/h3]
-description=[h3]Simply place a Game Night supported item in the world, and right click 'Play'.[/h3]
-description=[h2]Features a card deck system with search UI, flip, shuffle, draw.[/h2]
-description=[b]Play dice games, poker, craps, solitaire, chess, checkers, or any game you can think of.[/b]
-description=
-description=[url=https://ko-fi.com/chuckleberryfinn][img]https://raw.githubusercontent.com/ChuckTheSheep/chuckImages/main/kofi.png[/img][/url][url=https://discord.gg/SReMnbV4V7][img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/main/PZmodCommBanner3.png[/img][/url]
-description=
-description=[url=https://github.com/Chuckleberry-Finn/game-night][img]https://raw.githubusercontent.com/Chuckleberry-Finn/game-night/main/images/addOnGuideBanner.png[/img][/url]
-description=
-description=[h2][b]Modifies the following vanilla items:[/b][/h2]
-description=Dice, GamePieceWhite/Red/Black, Backgammon/CheckerBoard, ChessWhite/Black, PokerChips
-description=[i][b]Adds a number of new items to fill-out missing items/variants for the vanilla items.[/b][/i]
-description=[i]Note: Removing the mod will remove [b]added[/b] items - vanilla items will return to default values.[/i]
-description=
-description=[img]https://raw.githubusercontent.com/Chuckleberry-Finn/game-night/main/images/addons.png[/img]
-description=
-description=[url=https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/main/bingo.png][img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/main/readThrough.png[/img][/url]
-description=[img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/main/noModPacks.png[/img]
-description=[img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/main/bugHunt.png[/img]
-description=[quote][b]Windows:[/b] %userprofile%\Zomboid\console.txt[/quote]
-description=[quote][b]Mac/Linux:[/b] $User\Zomboid\console.txt[/quote]
-description=Upload this file [b]in entirety[/b] to [url=https://github.com/Chuckleberry-Finn/game-night]Github[/url] as an issue.
-description=Share the link in a comment below if it is urgent.
-description=
-description=[url=https://github.com/Chuckleberry-Finn/game-night][img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/main/steamNoGithubYes.png[/img][/url]
-description=
-description=
-description=
-description=[h3][i]Additional Credits:
-description=Shark, Nurver, Ash, BowlOfOodaLoops, Fed_Cap, Tchernobill, Albion, Tsuki, Oppolla[/i][/h3]
-description=[img]https://raw.githubusercontent.com/Chuckleberry-Finn/game-night/main/images/credit.png[/img]
-description=
-description=[h3]The remainder of the included work is Copyright 2023 Chuckleberry Finn. This item is not authorized for posting on Steam, except under the Steam account named Chuckleberry Finn.[/h3]
-tags=Build 41;Framework;Misc;Multiplayer;Pop Culture;Silly/Fun
-visibility=public
+id=3273937271
+title=[BETA] Game Night
+description=BETA
+tags=
+visibility=unlisted

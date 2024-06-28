@@ -16,6 +16,9 @@ CatanResourceDeck.cards = {}
 for _,s in pairs(CatanResourceDeck.types) do for i=1, 19 do table.insert(CatanResourceDeck.cards, s) end end
 deckActionHandler.addDeck("CatanResourceDeck", CatanResourceDeck.cards)
 
+gamePieceAndBoardHandler.registerSpecial("Base.CatanResourceDeck",{ actions = {examine=true}, examineScale = 0.75, textureSize = {90,133} })
+
+
 --- CATAN DEVELOPMENTS DECK
 local CatanDevelopmentDeck = {}
 
@@ -29,6 +32,8 @@ CatanDevelopmentDeck.count = {14,2,2,2}
 
 for i,s in pairs(CatanDevelopmentDeck.types) do for ii=1, CatanDevelopmentDeck.count[i] do table.insert(CatanDevelopmentDeck.cards, s) end end
 deckActionHandler.addDeck("CatanDevelopmentDeck", CatanDevelopmentDeck.cards)
+
+gamePieceAndBoardHandler.registerSpecial("Base.CatanDevelopmentDeck",{ actions = {examine=true}, examineScale = 1, textureSize = {90,133} })
 
 
 -- GAME PIECES / GAME BOARD
@@ -47,7 +52,17 @@ gamePieceAndBoardHandler.registerTypes({
 ---Register special cases for modifying parts of the item
 --- For example, the board is registered to the game-system above - which turns it into a 'GamePiece'
 --- This `special` case changes the category from `GamePiece` to `GameBoard`.
-gamePieceAndBoardHandler.registerSpecial("Base.CatanBoard", { actions = { lock=true }, category = "GameBoard", textureSize = {768,676} })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanBoard", {
+    actions = { lock=true }, category = "GameBoard", textureSize = {697,601},
+    alternateStackRendering = { func="DrawTextureCardFace", depth=5, rgb = {0.35, 0.23, 0.16} } })
+
+gamePieceAndBoardHandler.registerSpecial("Base.CatanPlayerCostsWhite",{ actions = {examine=true}, examineScale = 1, textureSize = {130,160} })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanPlayerCostsRed",{ actions = {examine=true}, examineScale = 1, textureSize = {130,160} })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanPlayerCostsOrange",{ actions = {examine=true}, examineScale = 1, textureSize = {130,160} })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanPlayerCostsBlue",{ actions = {examine=true}, examineScale = 1, textureSize = {130,160} })
+
+gamePieceAndBoardHandler.registerSpecial("Base.CatanLongestRoad",{ actions = {examine=true}, examineScale = 1, textureSize = {120,148} })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanLargestArmy",{ actions = {examine=true}, examineScale = 1, textureSize = {120,148} })
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanCityWhite", { noRotate=true, })
 gamePieceAndBoardHandler.registerSpecial("Base.CatanCityRed", { noRotate=true, })
