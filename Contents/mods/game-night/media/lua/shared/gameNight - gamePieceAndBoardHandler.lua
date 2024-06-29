@@ -485,6 +485,7 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         placedItem:setIgnoreRemoveSandbox(true)
         placedItem:transmitCompleteItemToServer()
         placedItem:getModData().gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
+        placedItem:getModData().placementTimeStamp = getTimestampMs()+1
         placedItem:transmitModData()
 
         gamePieceAndBoardHandler.refreshInventory(player)

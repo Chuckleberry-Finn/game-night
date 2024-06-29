@@ -53,16 +53,38 @@ gamePieceAndBoardHandler.registerTypes({
 --- For example, the board is registered to the game-system above - which turns it into a 'GamePiece'
 --- This `special` case changes the category from `GamePiece` to `GameBoard`.
 gamePieceAndBoardHandler.registerSpecial("Base.CatanBoard", {
-    actions = { lock=true }, category = "GameBoard", textureSize = {697,601},
-    alternateStackRendering = { func="DrawTextureCardFace", depth=5, rgb = {0.35, 0.23, 0.16} } })
+    actions = { lock=true }, category = "GameBoard", textureSize = {697,601},})
+    --alternateStackRendering = { func="DrawTextureCardFace", depth=5, rgb = {0.35, 0.23, 0.16} } })
 
-gamePieceAndBoardHandler.registerSpecial("Base.CatanPlayerCostsWhite",{ shiftAction = "examine", actions = {examine=true}, textureSize = {100,123} })
-gamePieceAndBoardHandler.registerSpecial("Base.CatanPlayerCostsRed",{ shiftAction = "examine", actions = {examine=true}, textureSize = {100,123} })
-gamePieceAndBoardHandler.registerSpecial("Base.CatanPlayerCostsOrange",{ shiftAction = "examine", actions = {examine=true}, textureSize = {100,123} })
-gamePieceAndBoardHandler.registerSpecial("Base.CatanPlayerCostsBlue",{ shiftAction = "examine", actions = {examine=true}, textureSize = {100,123} })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanPlayerCostsWhite",{
+    shiftAction = "examine", actions = {examine=true}, textureSize = {100,123},
+    alternateStackRendering = { func="DrawTextureCardFace", depth=3, rgb = {0.741, 0.725, 0.710} }
+})
 
-gamePieceAndBoardHandler.registerSpecial("Base.CatanLongestRoad",{ shiftAction = "examine", actions = {examine=true}, textureSize = {100,123} })
-gamePieceAndBoardHandler.registerSpecial("Base.CatanLargestArmy",{ shiftAction = "examine", actions = {examine=true}, textureSize = {100,123} })
+gamePieceAndBoardHandler.registerSpecial("Base.CatanPlayerCostsRed",{
+    shiftAction = "examine", actions = {examine=true}, textureSize = {100,123},
+        alternateStackRendering = { func="DrawTextureCardFace", depth=3, rgb = {0.651, 0.353, 0.373} }
+})
+
+gamePieceAndBoardHandler.registerSpecial("Base.CatanPlayerCostsOrange",{
+    shiftAction = "examine", actions = {examine=true}, textureSize = {100,123},
+    alternateStackRendering = { func="DrawTextureCardFace", depth=3, rgb = {0.745, 0.588, 0.408} }
+})
+
+gamePieceAndBoardHandler.registerSpecial("Base.CatanPlayerCostsBlue",{
+    shiftAction = "examine", actions = {examine=true}, textureSize = {100,123},
+    alternateStackRendering = { func="DrawTextureCardFace", depth=3, rgb = {0.376, 0.439, 0.529} }
+})
+
+gamePieceAndBoardHandler.registerSpecial("Base.CatanLongestRoad",{
+    shiftAction = "examine", actions = {examine=true}, textureSize = {100,123},
+    alternateStackRendering = { func="DrawTextureCardFace", depth=3, rgb = {0.741, 0.725, 0.710} }
+})
+
+gamePieceAndBoardHandler.registerSpecial("Base.CatanLargestArmy",{
+    shiftAction = "examine", actions = {examine=true}, textureSize = {100,123},
+    alternateStackRendering = { func="DrawTextureCardFace", depth=3, rgb = {0.741, 0.725, 0.710} }
+})
 
 gamePieceAndBoardHandler.registerSpecial("Base.CatanCityWhite", { noRotate=true, })
 gamePieceAndBoardHandler.registerSpecial("Base.CatanCityRed", { noRotate=true, })
