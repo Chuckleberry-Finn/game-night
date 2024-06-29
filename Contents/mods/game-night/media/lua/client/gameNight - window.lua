@@ -114,7 +114,10 @@ function gameNightWindow:calculateItemDrop(x, y, items)
     for _,element in pairs(self.elements) do
         ---@type InventoryItem
         local item = element.item
+
+        ---@type IsoWorldInventoryObject|IsoObject
         local worldItem = item:getWorldItem()
+
         if worldItem then surfaceZ = worldItem:getWorldPosZ()-worldItem:getZ() break end
     end
 
@@ -165,6 +168,7 @@ end
 function gameNightWindow:clearMovingPiece(x, y)
     if x and y then self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2)) end
     self.movingPiece = nil
+    self.movingPieceOrigin = nil
     self.rotatingPieceDegree = 0
 end
 
@@ -196,7 +200,10 @@ function gameNightWindow:processMouseUp(old, x, y)
 
         if piece then
 
-            if gamePieceAndBoardHandler.itemIsBusy(piece) then
+            local pieceWorldObject = piece:getWorldItem()
+            local pwoStamp = pieceWorldObject and pieceWorldObject:getModData().placementTimeStamp
+
+            if gamePieceAndBoardHandler.itemIsBusy(piece) or (self.movingPieceOriginStamp and pwoStamp and self.movingPieceOriginStamp ~= pwoStamp) then
                 old(self, x, y)
                 self:clearMovingPiece()
                 return
@@ -308,9 +315,8 @@ function gameNightWindow:onMouseDown(x, y)
 
                 local oldZ = 0
                 oldZ = worldItem:getWorldPosZ()-worldItem:getZ()
-
+                self.movingPieceOrigin = worldItem:getModData().placementTimeStamp
                 self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}
-                self.moveWithMouse = false
                 self.moveWithMouse = false
             end
         else
