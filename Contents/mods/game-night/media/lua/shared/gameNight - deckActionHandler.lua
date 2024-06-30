@@ -130,6 +130,9 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
         newCard:getModData()["gameNight_cardDeck"] = drawnCard
         newCard:getModData()["gameNight_cardFlipped"] = flipped
 
+        if deckItem then deckActionHandler.handleDetails(deckItem) end
+        deckActionHandler.handleDetails(newCard)
+
         ---@type IsoObject|IsoWorldInventoryObject
         local worldItem = locations and locations.worldItem or (deckItem and deckItem:getWorldItem())
         local wiX = (locations and locations.offsets and locations.offsets.x) or (worldItem and (worldItem:getWorldPosX()-worldItem:getX())) or 0
@@ -139,6 +142,7 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
         ---@type IsoGridSquare
         local sq = (locations and locations.sq) or (worldItem and worldItem:getSquare())
         if sq then
+            newCard:getModData().gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
             sq:AddWorldInventoryItem(newCard, wiX, wiY, wiZ)
         else
             ---@type ItemContainer
@@ -146,15 +150,6 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
             if container then container:AddItem(newCard) end
         end
 
-        if deckItem then deckActionHandler.handleDetails(deckItem) end
-        deckActionHandler.handleDetails(newCard)
-
-        local newCardWorldItem = newCard:getWorldItem()
-        if newCardWorldItem then
-            newCardWorldItem:getModData().gameNightCoolDown = getTimestampMs()+750
-            newCardWorldItem:transmitModData()
-        end
-        
         return newCard
     end
 end
