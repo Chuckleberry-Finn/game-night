@@ -246,17 +246,17 @@ function gameNightWindow:processMouseUp(old, x, y)
             local shiftActionID, _ = gameNightWindow.fetchShiftAction(piece)
             local handler = isDeck and deckActionHandler or gamePieceAndBoardHandler
             local shiftAction = shiftActionID and handler[shiftActionID]
-            local rX, rY
+            local rX, rY, rZ
 
             if shiftAction then
                 if isDeck then
                     moveItem = (not handler.staticDeckActions[shiftActionID])
-                    local element = self.elements[piece:getID()]
-                    if not element then return end
-                    local eW, eH = element.w/2, element.h/2
-                    rX, rY, rZ = self:determineScaledWorldXY(posX-eW, posY-eH)
                 end
-                shiftAction(piece, self.player, rX or posX, rY or posY)
+                local element = self.elements[piece:getID()]
+                if not element then return end
+                local eW, eH = element.w/2, element.h/2
+                rX, rY, rZ = self:determineScaledWorldXY(posX-eW, posY-eH)
+                shiftAction(piece, self.player, (rX or posX), (rY or posY))
             else
                 if moveItem then self:moveElement(piece, posX, posY, handler.handleDetails) end
             end

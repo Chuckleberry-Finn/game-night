@@ -585,7 +585,9 @@ function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides, x, y, z)
     local result = ZombRand(sides)+1
     result = result>1 and gamePiece:getType()..result or nil
 
-    local x, y = gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece)
+    local xShift, yShift = gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece)
+    x = (x or 0)+xShift
+    y = (y or 0)+yShift
 
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result}, nil, x, y, z)
     gamePieceAndBoardHandler.playSound(gamePiece, player, "dieRoll")
