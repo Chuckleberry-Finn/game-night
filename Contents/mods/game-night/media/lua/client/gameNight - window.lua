@@ -168,7 +168,7 @@ end
 function gameNightWindow:clearMovingPiece(x, y)
     if x and y then self.moveWithMouse = ((x < self.bounds.x1) or (y < self.bounds.y1) or (x > self.bounds.x2) or (y > self.bounds.y2)) end
     self.movingPiece = nil
-    self.movingPieceOrigin = nil
+    self.movingPieceOriginStamp = nil
     self.rotatingPieceDegree = 0
 end
 
@@ -200,10 +200,9 @@ function gameNightWindow:processMouseUp(old, x, y)
 
         if piece then
 
-            local pieceWorldObject = piece:getWorldItem()
-            local pwoStamp = pieceWorldObject and pieceWorldObject:getModData().placementTimeStamp
+            local pieceStamp = piece:getModData().gameNightCoolDown
 
-            if gamePieceAndBoardHandler.itemIsBusy(piece) or (self.movingPieceOriginStamp and pwoStamp and self.movingPieceOriginStamp ~= pwoStamp) then
+            if gamePieceAndBoardHandler.itemIsBusy(piece) or (self.movingPieceOriginStamp and pieceStamp and self.movingPieceOriginStamp ~= pieceStamp) then
                 old(self, x, y)
                 self:clearMovingPiece()
                 return
@@ -315,7 +314,7 @@ function gameNightWindow:onMouseDown(x, y)
 
                 local oldZ = 0
                 oldZ = worldItem:getWorldPosZ()-worldItem:getZ()
-                self.movingPieceOrigin = worldItem:getModData().placementTimeStamp
+                self.movingPieceOriginStamp = clickedOn.item:getModData().gameNightCoolDown
                 self.movingPieceOffset = {self:getMouseX()-clickedOn.x,self:getMouseY()-clickedOn.y,oldZ}
                 self.moveWithMouse = false
             end
@@ -648,8 +647,7 @@ function gameNightWindow:labelWithName(element)
                 end
             end
 
-            local worldItem = element.item:getWorldItem()
-            local coolDown = worldItem and worldItem:getModData().gameNightCoolDown and worldItem:getModData().gameNightCoolDown>getTimestampMs()
+            local coolDown = element.item:getModData().gameNightCoolDown and element.item:getModData().gameNightCoolDown>getTimestampMs()
             if coolDown then
                 local waitX, waitY = element.x-self.waitCursor.xOffset, element.y-self.waitCursor.yOffset
                 self:drawTextureScaledUniform(self.lockedCursor.texture, waitX, waitY, gameNightWindow.scaleSize,1, 1, 1, 1)

@@ -343,9 +343,8 @@ end
 
 
 function gamePieceAndBoardHandler.itemIsBusy(item)
-    local worldItem = item and item:getWorldItem()
-    if not worldItem then return false end
-    local coolDown = worldItem:getModData().gameNightCoolDown and (worldItem:getModData().gameNightCoolDown>getTimestampMs())
+    if not item then return true end
+    local coolDown = item:getModData().gameNightCoolDown and (item:getModData().gameNightCoolDown>getTimestampMs())
     return coolDown
 end
 
@@ -362,16 +361,15 @@ end
 
 ---@param item InventoryItem
 function gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detailsFunc, angleChange)
-
     if not item then return end
+
+    local blockUse = gamePieceAndBoardHandler.itemIsBusy(item)
+    if blockUse then return end
 
     ---@type IsoWorldInventoryObject|IsoObject
     local worldItem = item:getWorldItem()
     ---@type IsoGridSquare
     local worldItemSq = worldItem and worldItem:getSquare()
-
-    local blockUse = gamePieceAndBoardHandler.itemIsBusy(item)
-    if blockUse then return end
 
    -- if worldItem == nil or worldItemSq == nil then return end
 
@@ -480,13 +478,12 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         item:setWorldItem(placedItem)
         local rotation = item:getModData()["gameNight_rotation"] or 0
         item:setWorldZRotation(rotation)
+        item:getModData().gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
 
         placedItem:addToWorld()
         placedItem:setIgnoreRemoveSandbox(true)
         placedItem:transmitCompleteItemToServer()
-        placedItem:getModData().gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
-        placedItem:getModData().placementTimeStamp = getTimestampMs()+1
-        placedItem:transmitModData()
+        --placedItem:transmitModData()
 
         gamePieceAndBoardHandler.refreshInventory(player)
     end
@@ -531,10 +528,7 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
         return
     end
 
-    ---@type IsoWorldInventoryObject|IsoObject
-    local worldItem = item:getWorldItem()
-
-    if worldItem and isClient() and (not byPassClient) then
+    if isClient() and (not byPassClient) then
         gamePieceAndBoardHandler.moveBuffer[player] = gamePieceAndBoardHandler.moveBuffer[player] or {}
 
         gamePieceAndBoardHandler.moveBuffer[player]["i"..item:getID()] = { item=item, onPickUp = onPickUp , detailsFunc = detailsFunc,
@@ -544,6 +538,8 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
         return
     end
 
+    ---@type IsoWorldInventoryObject|IsoObject
+    local worldItem = item:getWorldItem()
     ---@type IsoGridSquare
     local worldItemSq = square or worldItem and worldItem:getSquare()
 
