@@ -160,8 +160,8 @@ function deckActionHandler._flipSpecificCard(deckItem, flipIndex)
     if not deckStates then return end
     deckItem:getModData()["gameNight_cardFlipped"][flipIndex] = not currentFlipStates[flipIndex]
 end
-function deckActionHandler.flipSpecificCard(deckItem, player, index)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._flipSpecificCard, deckItem, index}, deckActionHandler.handleDetails)
+function deckActionHandler.flipSpecificCard(deckItem, player, index, x, y, z)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._flipSpecificCard, deckItem, index}, deckActionHandler.handleDetails, x, y, z)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
@@ -181,8 +181,8 @@ function deckActionHandler._flipCard(deckItem)
     deckItem:getModData()["gameNight_cardDeck"] = handleFlippedDeck
     deckItem:getModData()["gameNight_cardFlipped"] = handleFlippedStates
 end
-function deckActionHandler.flipCard(deckItem, player)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._flipCard, deckItem}, deckActionHandler.handleDetails)
+function deckActionHandler.flipCard(deckItem, player, x, y, z)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._flipCard, deckItem}, deckActionHandler.handleDetails, x, y, z)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
@@ -369,17 +369,17 @@ end
 
 
 ---@param deckItem InventoryItem
-function deckActionHandler.drawRandCard(deckItem, player)
+function deckActionHandler.drawRandCard(deckItem, player, x, y, z)
     local locations = {container=player:getInventory()}
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCardIndex, deckItem, player, nil, locations}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCardIndex, deckItem, player, nil, locations}, deckActionHandler.handleDetails, x, y, z)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
 
 ---@param deckItem InventoryItem
-function deckActionHandler.drawSpecificCard(deckItem, player, index)
+function deckActionHandler.drawSpecificCard(deckItem, player, index, x, y, z)
     local locations = {container=player:getInventory()}
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCardIndex, deckItem, player, index, locations}, deckActionHandler.handleDetails)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._drawCardIndex, deckItem, player, index, locations}, deckActionHandler.handleDetails, x, y, z)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 
@@ -394,8 +394,8 @@ function deckActionHandler._shuffleCards(deckItem)
         deckStates[origIndex], deckStates[shuffledIndex] = deckStates[shuffledIndex], deckStates[origIndex]
     end
 end
-function deckActionHandler.shuffleCards(deckItem, player)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._shuffleCards, deckItem}, deckActionHandler.handleDetails)
+function deckActionHandler.shuffleCards(deckItem, player, x, y, z)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._shuffleCards, deckItem}, deckActionHandler.handleDetails, x, y, z)
     gamePieceAndBoardHandler.playSound(deckItem, player)
 end
 

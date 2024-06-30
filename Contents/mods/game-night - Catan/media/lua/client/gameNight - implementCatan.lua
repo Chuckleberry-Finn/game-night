@@ -115,7 +115,7 @@ gamePieceAndBoardHandler.registerSpecial("Base.CatanRoadOrange", {
     alternateStackRendering = { func="DrawTextureCardFace", depth=5, rgb = {0.745, 0.588, 0.408} } })
 
 ---Define new function under `gamePieceAndBoardHandler`
-function gamePieceAndBoardHandler.rotateRoad(gamePiece, player)
+function gamePieceAndBoardHandler.rotateRoad(gamePiece, player, x, y,z)
     local current = gamePiece:getModData()["gameNight_rotation"] or 0
 
     local states = {[0]=45,[45]=90,[90]=135,[135]=180,[180]=225,[225]=270,[270]=315,[315]=0}
@@ -132,5 +132,5 @@ function gamePieceAndBoardHandler.rotateRoad(gamePiece, player)
     end
 
     gamePieceAndBoardHandler.playSound(gamePiece, player)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_rotation", state})
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_rotation", state}, nil, x, y,z)
 end
