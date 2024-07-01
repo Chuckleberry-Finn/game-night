@@ -344,7 +344,15 @@ end
 
 function gamePieceAndBoardHandler.itemIsBusy(item)
     if not item then return true end
-    local coolDown = item:getModData().gameNightCoolDown and (item:getModData().gameNightCoolDown>getTimestampMs())
+    local coolDown = item:getModData().gameNightCoolDown
+    local busy = coolDown and (coolDown>getTimestampMs())
+    return busy
+end
+
+
+function gamePieceAndBoardHandler.itemCoolDown(item)
+    if not item then return true end
+    local coolDown = item:getModData().gameNightCoolDown
     return coolDown
 end
 
@@ -478,7 +486,6 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
         item:setWorldItem(placedItem)
         local rotation = item:getModData()["gameNight_rotation"] or 0
         item:setWorldZRotation(rotation)
-        item:getModData().gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
 
         placedItem:addToWorld()
         placedItem:setIgnoreRemoveSandbox(true)
@@ -493,7 +500,7 @@ end
 gamePieceAndBoardHandler.moveBuffer = {}
 ---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
 ---@param item InventoryItem
-function gamePieceAndBoardHandler.processMoveFromBuffer(player, item, allowed)
+function gamePieceAndBoardHandler.processMoveFromBuffer(player, item, allowed, coolDown)
 
     local buffer = gamePieceAndBoardHandler.moveBuffer[player]
     print(" buffer: ", buffer, " (", buffer and #buffer, ")")
@@ -507,6 +514,7 @@ function gamePieceAndBoardHandler.processMoveFromBuffer(player, item, allowed)
     end
 
     if allowed and item and (not gamePieceAndBoardHandler.itemIsBusy(item)) then
+        item:getModData().gameNightCoolDown = coolDown
         print(" --- move in buffer & item not busy:   -item:", (item and item:getID()))
         local moveItem, onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange = move.item, move.onPickUp, move.detailsFunc, move.xOffset, move.yOffset, move.zPos, move.square, move.angleChange
         gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, moveItem, onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange, true)
