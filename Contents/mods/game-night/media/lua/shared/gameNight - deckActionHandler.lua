@@ -3,8 +3,6 @@ local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 --require "gameNight - window"
 
 local deckActionHandler = {}
-deckActionHandler.staticDeckActions = {dealCard=true, dealCards=true}
-
 
 deckActionHandler.deckCatalogues = {}
 deckActionHandler.altDetails = {} --altNames, altIcons
@@ -322,7 +320,7 @@ function deckActionHandler._dealCards(deckItem, player, n, x, y)
 end
 
 function deckActionHandler.dealCards(deckItem, player, n, x, y, z)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._dealCards, deckItem, player, n, x, y}, deckActionHandler.handleDetails, x, y, z)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._dealCards, deckItem, player, n, x, y}, deckActionHandler.handleDetails)
 end
 
 function deckActionHandler.dealCard(deckItem, player, x, y, z) deckActionHandler.dealCards(deckItem, player, 1, x, y, z) end
