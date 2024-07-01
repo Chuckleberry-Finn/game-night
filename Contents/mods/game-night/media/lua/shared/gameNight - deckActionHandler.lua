@@ -140,7 +140,7 @@ function deckActionHandler.generateCard(drawnCard, deckItem, flipped, locations)
         ---@type IsoGridSquare
         local sq = (locations and locations.sq) or (worldItem and worldItem:getSquare())
         if sq then
-            newCard:getModData().gameNightCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
+            if isClient() then sendClientCommand(getPlayer(), "gameNightAction", "setCoolDown", {item=deckItem}) end
             sq:AddWorldInventoryItem(newCard, wiX, wiY, wiZ)
         else
             ---@type ItemContainer
