@@ -1,27 +1,35 @@
 local gamePieceAndBoardHandler = require "gameNight - gamePieceAndBoardHandler"
 
-gamePieceAndBoardHandler.coolDownArray = {}
-
+---@param _player IsoGameCharacter|IsoPlayer
 local function onClientCommand(_module, _command, _player, _data)
     if _module ~= "gameNightAction" then return end
 
     if _command == "setCoolDown" then
-        local item = _data.item
-        gamePieceAndBoardHandler.coolDownArray[item] = getTimestampMs()+gamePieceAndBoardHandler.coolDown
+        local itemID = _data.itemID
+        gamePieceAndBoardHandler.coolDownArray[itemID] = getTimestampMs()+gamePieceAndBoardHandler.coolDown
     end
 
     if _command == "pickupAndPlaceGamePiece" then
         --local moveID = _data.moveID
 
-        local item = _data.item
-        local coolDown = gamePieceAndBoardHandler.coolDownArray[item]
+        local itemID = _data.itemID
+        local coolDown = gamePieceAndBoardHandler.coolDownArray[itemID]
         local allowed = (not coolDown) or coolDown<getTimestampMs()
 
-        print(" ~ receiving request - processing response")
+        print(" ~ coolDown:",coolDown," , ",getTimestampMs(), " (",(coolDown and getTimestampMs()-coolDown),")")
 
-        if allowed then gamePieceAndBoardHandler.coolDownArray[item] = getTimestampMs()+gamePieceAndBoardHandler.coolDown end
+        print(" ~~ receiving request - processing response: allowed=",allowed)
 
-        sendServerCommand(_player, _module, _command, {item=item, allowed=allowed, coolDown=gamePieceAndBoardHandler.coolDownArray[item]})
+        local newCoolDown
+        if allowed then
+            newCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
+            gamePieceAndBoardHandler.coolDownArray[itemID] = newCoolDown
+        end
+
+        print(" -- gamePieceAndBoardHandler.coolDownArray[itemID]:", gamePieceAndBoardHandler.coolDownArray[itemID])
+
+        local username = _player:getUsername()
+        sendServerCommand(_module, _command, {username=username, itemID=itemID, allowed=allowed, newCoolDown=newCoolDown})
     end
 end
 Events.OnClientCommand.Add(onClientCommand)--what the server gets from the client
@@ -31,12 +39,18 @@ local function onServerCommand(_module, _command, _data)
     if _module ~= "gameNightAction" then return end
     if _command == "pickupAndPlaceGamePiece" then
         --local moveID = _data.moveID
-        local item = _data.item
+        local itemID = _data.itemID
         local allowed = _data.allowed
-        local coolDown = _data.coolDown
+        local newCoolDown = _data.newCoolDown
         print(" ~~ received response! move buffer buffering!")
 
-        gamePieceAndBoardHandler.processMoveFromBuffer(getPlayer(), item, allowed, coolDown)
+        local username = _data.username
+
+        if username and username == getPlayer():getUsername() then
+            gamePieceAndBoardHandler.processMoveFromBuffer(getPlayer(), itemID, allowed, newCoolDown)
+        else
+            gamePieceAndBoardHandler.coolDownArray[itemID] = newCoolDown
+        end
     end
 end
 Events.OnServerCommand.Add(onServerCommand)--what clients gets from the server

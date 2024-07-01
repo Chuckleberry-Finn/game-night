@@ -58,9 +58,9 @@ function gameNightWindow:update()
     if (not self.player) or (not self.square) or ( self.square:DistToProper(self.player) > 1.5 ) then self:closeAndRemove() return end
 
     local coolDown = gamePieceAndBoardHandler.itemCoolDown(self.movingPiece)
-    local onCoolDown = (self.movingPieceOriginStamp and coolDown and self.movingPieceOriginStamp ~= coolDown)
+    local coolDownMismatch = (self.movingPieceOriginStamp and coolDown and self.movingPieceOriginStamp ~= coolDown)
     local busy = gamePieceAndBoardHandler.itemIsBusy(self.movingPiece)
-    if busy or onCoolDown then self:clearMovingPiece() return end
+    if busy or coolDownMismatch then self:clearMovingPiece() return end
 
     local item = self.player:getPrimaryHandItem()
     if item and gameNightDeckSearch and deckActionHandler.isDeckItem(item) then
@@ -205,9 +205,9 @@ function gameNightWindow:processMouseUp(old, x, y)
         if piece then
 
             local coolDown = gamePieceAndBoardHandler.itemCoolDown(piece)
-            local onCoolDown = (self.movingPieceOriginStamp and coolDown and self.movingPieceOriginStamp ~= coolDown)
+            local coolDownMismatch = (self.movingPieceOriginStamp and coolDown and self.movingPieceOriginStamp ~= coolDown)
             local busy = gamePieceAndBoardHandler.itemIsBusy(piece)
-            if busy or onCoolDown then
+            if busy or coolDownMismatch then
                 old(self, x, y)
                 self:clearMovingPiece()
                 return
@@ -564,9 +564,9 @@ function gameNightWindow:render()
         if not isMouseButtonDown(0) then return end
 
         local coolDown = gamePieceAndBoardHandler.itemCoolDown(movingPiece)
-        local onCoolDown = (self.movingPieceOriginStamp and coolDown and self.movingPieceOriginStamp ~= coolDown)
+        local coolDownMistmach = (self.movingPieceOriginStamp and coolDown and self.movingPieceOriginStamp ~= coolDown)
         local busy = gamePieceAndBoardHandler.itemIsBusy(movingPiece)
-        if busy or onCoolDown then
+        if busy or coolDownMistmach then
             self:clearMovingPiece()
             return
         end
@@ -653,10 +653,8 @@ function gameNightWindow:labelWithName(element)
                 end
             end
 
-            local coolDown = gamePieceAndBoardHandler.itemCoolDown(element.item)
-            local onCoolDown = (self.movingPieceOriginStamp and coolDown and self.movingPieceOriginStamp ~= coolDown)
             local busy = gamePieceAndBoardHandler.itemIsBusy(element.item)
-            if busy or onCoolDown then
+            if busy then
                 local waitX, waitY = element.x-self.waitCursor.xOffset, element.y-self.waitCursor.yOffset
                 self:drawTextureScaledUniform(self.lockedCursor.texture, waitX, waitY, gameNightWindow.scaleSize,1, 1, 1, 1)
             end

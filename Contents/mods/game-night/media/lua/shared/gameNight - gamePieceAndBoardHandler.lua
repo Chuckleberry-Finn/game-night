@@ -341,10 +341,12 @@ function gamePieceAndBoardHandler.setModDataValue(gamePiece, key, value)
     gamePiece:getModData()[key] = value
 end
 
+gamePieceAndBoardHandler.coolDownArray = {}
+
 
 function gamePieceAndBoardHandler.itemIsBusy(item)
     if not item then return true end
-    local coolDown = item:getModData().gameNightCoolDown
+    local coolDown = gamePieceAndBoardHandler.coolDownArray[item:getID()]
     local busy = coolDown and (coolDown>getTimestampMs())
     return busy
 end
@@ -352,7 +354,7 @@ end
 
 function gamePieceAndBoardHandler.itemCoolDown(item)
     if not item then return true end
-    local coolDown = item:getModData().gameNightCoolDown
+    local coolDown = gamePieceAndBoardHandler.coolDownArray[item:getID()]
     return coolDown
 end
 
@@ -500,27 +502,30 @@ end
 gamePieceAndBoardHandler.moveBuffer = {}
 ---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
 ---@param item InventoryItem
-function gamePieceAndBoardHandler.processMoveFromBuffer(player, item, allowed, coolDown)
+function gamePieceAndBoardHandler.processMoveFromBuffer(player, itemID, allowed, newCoolDown)
 
     local buffer = gamePieceAndBoardHandler.moveBuffer[player]
     print(" buffer: ", buffer, " (", buffer and #buffer, ")")
 
-    print(" -- item: ", item, "("..(item and item:getID() or "nil")..")")
+    print(" -- itemID: ", itemID)
 
-    local move = buffer and buffer["i"..item:getID()]
+    local move = buffer and buffer["i"..itemID]
     if not move then
         print("no such move!")
         return
     end
 
-    if allowed and item and (not gamePieceAndBoardHandler.itemIsBusy(item)) then
-        item:getModData().gameNightCoolDown = coolDown
-        print(" --- move in buffer & item not busy:   -item:", (item and item:getID()))
-        local moveItem, onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange = move.item, move.onPickUp, move.detailsFunc, move.xOffset, move.yOffset, move.zPos, move.square, move.angleChange
+    local moveItem = move.item
+
+    if allowed and moveItem and (not gamePieceAndBoardHandler.itemIsBusy(moveItem)) then
+        print(" --- move in buffer & item not busy")
+        local onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange = move.onPickUp, move.detailsFunc, move.xOffset, move.yOffset, move.zPos, move.square, move.angleChange
         gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, moveItem, onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange, true)
     end
 
-    buffer["i"..item:getID()] = nil
+    if newCoolDown then gamePieceAndBoardHandler.coolDownArray[itemID] = newCoolDown end
+
+    buffer["i"..itemID] = nil
 end
 
 
@@ -539,10 +544,12 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     if isClient() and (not byPassClient) then
         gamePieceAndBoardHandler.moveBuffer[player] = gamePieceAndBoardHandler.moveBuffer[player] or {}
 
-        gamePieceAndBoardHandler.moveBuffer[player]["i"..item:getID()] = { item=item, onPickUp = onPickUp , detailsFunc = detailsFunc,
+        local itemID = item:getID()
+
+        gamePieceAndBoardHandler.moveBuffer[player]["i"..itemID] = { item=item, onPickUp = onPickUp , detailsFunc = detailsFunc,
                                                                            xOffset = xOffset, yOffset = yOffset, zPos = zPos, square = square, angleChange = angleChange }
-        print(" ~ asking for permission.   -item:", (item and item:getID()))
-        sendClientCommand(player, "gameNightAction", "pickupAndPlaceGamePiece", {item=item})
+        print(" ~ asking for permission.   -item:", itemID)
+        sendClientCommand(player, "gameNightAction", "pickupAndPlaceGamePiece", {itemID=itemID})
         return
     end
 
