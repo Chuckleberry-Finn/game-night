@@ -233,11 +233,11 @@ end
 
 ---@param gamePieceA InventoryItem
 ---@param gamePieceB InventoryItem
-function gamePieceAndBoardHandler.tryStack(gamePieceA, gamePieceB, player)
+function gamePieceAndBoardHandler.tryStack(gamePieceA, gamePieceB, player, x, y, z)
     if gamePieceA:getFullType() ~= gamePieceB:getFullType() then return end
     if not gamePieceAndBoardHandler.testCanStack(gamePieceA, gamePieceB) then return end
     gamePieceAndBoardHandler.pickupGamePiece(player, gamePieceA)
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePieceB, {gamePieceAndBoardHandler._tryStack, gamePieceA, gamePieceB, player})
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePieceB, {gamePieceAndBoardHandler._tryStack, gamePieceA, gamePieceB, player}, nil, x, y, z)
     gamePieceAndBoardHandler.playSound(gamePieceB, player)
 end
 
@@ -576,7 +576,7 @@ function gamePieceAndBoardHandler.examine(gamePiece, player, indexIfCard)
 end
 
 
-function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
+function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides, x, y, z)
 
     local fullType = gamePiece:getFullType()
     local specialCase = fullType and gamePieceAndBoardHandler.specials[fullType]
@@ -585,9 +585,11 @@ function gamePieceAndBoardHandler.rollDie(gamePiece, player, sides)
     local result = ZombRand(sides)+1
     result = result>1 and gamePiece:getType()..result or nil
 
-    local x, y = gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece)
+    local xShift, yShift = gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece)
+    x = (x or 0)+xShift
+    y = (y or 0)+yShift
 
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result}, nil, x, y)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result}, nil, x, y, z)
     gamePieceAndBoardHandler.playSound(gamePiece, player, "dieRoll")
 end
 
@@ -647,7 +649,7 @@ function gamePieceAndBoardHandler.rotatePiece(gamePiece, angleChange, player)
 end
 
 
-function gamePieceAndBoardHandler.coinFlip(gamePiece, player)
+function gamePieceAndBoardHandler.coinFlip(gamePiece, player, x, y, z)
     local heads = ZombRand(2) == 0
 
     local fullType = gamePiece:getFullType()
@@ -658,11 +660,11 @@ function gamePieceAndBoardHandler.coinFlip(gamePiece, player)
     if not heads then altState = nil end
 
     gamePieceAndBoardHandler.playSound(gamePiece, player, "coinFlip")
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", altState})
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", altState}, nil, x, y, z)
 end
 
 
-function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
+function gamePieceAndBoardHandler.flipPiece(gamePiece, player, x, y, z)
 
     local fullType = gamePiece:getFullType()
     local specialCase = gamePieceAndBoardHandler.specials[fullType]
@@ -670,15 +672,15 @@ function gamePieceAndBoardHandler.flipPiece(gamePiece, player)
 
     if gamePiece:getModData()["gameNight_altState"] then result = nil end
 
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result})
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result}, nil, x, y, z)
 end
 
 
-function gamePieceAndBoardHandler.lock(gamePiece, player)
+function gamePieceAndBoardHandler.lock(gamePiece, player, x, y, z)
     local result = true
     if gamePiece:getModData()["gameNight_locked"] then result = nil end
 
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_locked", result})
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_locked", result}, nil, x, y, z)
 end
 
 

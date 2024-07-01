@@ -56,7 +56,12 @@ end
 
 function gameNightWindow:update()
     if (not self.player) or (not self.square) or ( self.square:DistToProper(self.player) > 1.5 ) then self:closeAndRemove() return end
-    if gamePieceAndBoardHandler.itemIsBusy(self.movingPiece) then self:clearMovingPiece() return end
+
+    local pieceStamp = self.movingPiece and self.movingPiece:getModData().gameNightCoolDown
+    if gamePieceAndBoardHandler.itemIsBusy(self.movingPiece) or (self.movingPieceOriginStamp and pieceStamp and self.movingPieceOriginStamp ~= pieceStamp) then
+        self:clearMovingPiece()
+        return
+    end
 
     local item = self.player:getPrimaryHandItem()
     if item and gameNightDeckSearch and deckActionHandler.isDeckItem(item) then
@@ -237,26 +242,19 @@ function gameNightWindow:processMouseUp(old, x, y)
                 end
             end
 
-            local moveItem = true
             local shiftActionID, _ = gameNightWindow.fetchShiftAction(piece)
             local handler = isDeck and deckActionHandler or gamePieceAndBoardHandler
             local shiftAction = shiftActionID and handler[shiftActionID]
-            local rX, rY
-
-            local onPickup
+            local rX, rY, rZ
 
             if shiftAction then
-                if isDeck then
-                    moveItem = (not handler.staticDeckActions[shiftActionID])
-                    rX, rY = self:determineScaledWorldXY(posX, posY)
-                end
-                onPickup = {shiftAction, piece, self.player}
-            end
-
-            if moveItem then
-                self:moveElement(piece, posX, posY, onPickup, handler.handleDetails)
+                local element = self.elements[piece:getID()]
+                if not element then return end
+                local eW, eH = element.w/2, element.h/2
+                rX, rY, rZ = self:determineScaledWorldXY(posX-eW, posY-eH)
+                shiftAction(piece, self.player, (rX or posX), (rY or posY))
             else
-                if shiftAction then shiftAction(piece, self.player, rX or posX, rY or posY) end
+                self:moveElement(piece, posX, posY, handler.handleDetails)
             end
         end
     end
@@ -347,7 +345,7 @@ function gameNightWindow:determineScaledWorldXY(x, y)
 end
 
 
-function gameNightWindow:moveElement(gamePiece, x, y, onPickUp, detailsFunc)
+function gameNightWindow:moveElement(gamePiece, x, y, detailsFunc)
     if not self.movingPiece or gamePiece~=self.movingPiece then return end
     ---@type IsoObject|InventoryItem
     local item = gamePiece
@@ -360,7 +358,7 @@ function gameNightWindow:moveElement(gamePiece, x, y, onPickUp, detailsFunc)
     local scaledX, scaledY, offsetZ = self:determineScaledWorldXY(x-eW, y-eH)
     local angleChange = self.rotatingPieceDegree
 
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, onPickUp, detailsFunc, scaledX, scaledY, offsetZ, nil, angleChange)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, nil, detailsFunc, scaledX, scaledY, offsetZ, nil, angleChange)
 end
 
 
@@ -563,7 +561,11 @@ function gameNightWindow:render()
     if movingPiece then
         if not isMouseButtonDown(0) then return end
 
-        if gamePieceAndBoardHandler.itemIsBusy(movingPiece) then self:clearMovingPiece() return end
+        local pieceStamp = movingPiece:getModData().gameNightCoolDown
+        if gamePieceAndBoardHandler.itemIsBusy(movingPiece) or (self.movingPieceOriginStamp and pieceStamp and self.movingPieceOriginStamp ~= pieceStamp) then
+            self:clearMovingPiece()
+            return
+        end
 
         local examine = self.examine
         if examine then examine:closeAndRemove() end
