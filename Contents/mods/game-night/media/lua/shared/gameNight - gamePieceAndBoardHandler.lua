@@ -249,7 +249,10 @@ end
 
 function gamePieceAndBoardHandler.takeOneOffStack(gamePiece, player, x, y, z)
     local gpaStack = gamePiece:getModData()["gameNight_stacked"]
-    if not gpaStack or gpaStack <= 1 then return end
+    if not gpaStack or gpaStack <= 1 then
+        gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, nil, nil, x, y, z)
+        return
+    end
 
     local locations = {}
     local worldItem = gamePiece:getWorldItem()
