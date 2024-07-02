@@ -77,8 +77,10 @@
 - Added locking to boards.
 [ ------ ]
 
-[ 6/27/24 ]
+[ 7/2/24 ]
 - Added item context menu interactions in search and examine windows.
-- Removed internal "in-use".
-- Reworked network handling of actions. (Comes with some network traffic overhead.)
+- Removed "in-use" feature in favor of better cool-down handling.
+- Reworked network handling of actions. (Comes with some network traffic overhead but overall better outcomes.)
+- Improvements: Uno cards have updated SVG artwork thanks to Wikipedia.
+- Improvements: Catan has upgraded artwork thanks to `https://github.com/BryantCabrera/Settlers-of-Catan`.
 [ ------ ]
