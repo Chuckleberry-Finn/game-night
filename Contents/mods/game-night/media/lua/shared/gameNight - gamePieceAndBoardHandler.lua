@@ -48,14 +48,14 @@ gamePieceAndBoardHandler.specials = {
     ["Base.CheckerBoard"]={ actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
     ["Base.ChessBoard"]={ actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
 
-    ["Base.PokerChips"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.8, 0.42, 0.41}, sides=7} },
-    ["Base.PokerChipsBlue"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.41, 0.52, 0.82}, sides=7 } },
-    ["Base.PokerChipsYellow"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.79, 0.75, 0.38}, sides=7 } },
-    ["Base.PokerChipsWhite"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.94, 0.92, 0.88}, sides=7 } },
-    ["Base.PokerChipsBlack"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.45, 0.43, 0.4}, sides=7 } },
-    ["Base.PokerChipsOrange"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.82, 0.65, 0.36}, sides=7 } },
-    ["Base.PokerChipsPurple"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.71, 0.4, 0.73}, sides=7 } },
-    ["Base.PokerChipsGreen"] = { weight = 0.003, canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.44, 0.62, 0.37}, sides=7 } },
+    ["Base.PokerChips"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.8, 0.42, 0.41}, sides=7} },
+    ["Base.PokerChipsBlue"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.41, 0.52, 0.82}, sides=7 } },
+    ["Base.PokerChipsYellow"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.79, 0.75, 0.38}, sides=7 } },
+    ["Base.PokerChipsWhite"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.94, 0.92, 0.88}, sides=7 } },
+    ["Base.PokerChipsBlack"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.45, 0.43, 0.4}, sides=7 } },
+    ["Base.PokerChipsOrange"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.82, 0.65, 0.36}, sides=7 } },
+    ["Base.PokerChipsPurple"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.71, 0.4, 0.73}, sides=7 } },
+    ["Base.PokerChipsGreen"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.44, 0.62, 0.37}, sides=7 } },
 }
 
 
@@ -180,7 +180,7 @@ function gamePieceAndBoardHandler.canUnstackPiece(gamePiece)
 end
 
 
-function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, player, locations)
+function gamePieceAndBoardHandler._unstack(gamePiece, player, numberOf, locations)
     --sq=sq, offsets={x=wiX,y=wiY,z=wiZ}, container=container
 
     local newPiece = InventoryItemFactory.CreateItem(gamePiece:getType())
@@ -218,6 +218,11 @@ function gamePieceAndBoardHandler.unstack(gamePiece, numberOf, player, locations
 end
 
 
+function gamePieceAndBoardHandler.unstack(gamePiece, player, numberOf, locations)
+    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler._unstack, gamePiece, player, numberOf, locations}, nil)
+end
+
+
 function gamePieceAndBoardHandler.testCanStack(gamePieceA, gamePieceB)
     if not gamePieceAndBoardHandler.canStackPiece(gamePieceA) or not gamePieceAndBoardHandler.canStackPiece(gamePieceB) then return false end
     local gpaStack, gpbStack = (gamePieceA:getModData()["gameNight_stacked"] or 1), (gamePieceB:getModData()["gameNight_stacked"] or 1)
@@ -242,19 +247,40 @@ function gamePieceAndBoardHandler.tryStack(gamePieceA, gamePieceB, player, x, y,
 end
 
 
+function gamePieceAndBoardHandler.takeOneOffStack(gamePiece, player, x, y, z)
+    local gpaStack = gamePiece:getModData()["gameNight_stacked"]
+    if not gpaStack or gpaStack <= 1 then return end
+
+    local locations = {}
+    local worldItem = gamePiece:getWorldItem()
+    local sq = worldItem and worldItem:getSquare()
+    if sq then
+        locations.sq = sq
+        locations.offsets = {x=x,y=y,z=z}
+    end
+    gamePieceAndBoardHandler.unstack(gamePiece, player, 1, locations)
+end
+
+
 function gamePieceAndBoardHandler.generateContextMenuForStacking(context, player, gamePiece)
     if not gamePieceAndBoardHandler.canUnstackPiece(gamePiece) then return end
 
     local stack = gamePiece:getModData()["gameNight_stacked"] and gamePiece:getModData()["gameNight_stacked"]>1 and gamePiece:getModData()["gameNight_stacked"]
     if not stack then return end
 
-    local unStack = context:addOptionOnTop(getText("IGUI_take"), gamePiece, gamePieceAndBoardHandler.unstack, 1, player)
+
+    local locations = {}--
+    local worldItem = gamePiece:getWorldItem()
+    local sq = worldItem and worldItem:getSquare()
+    if sq then locations[sq] = sq end
+
+    local unStack = context:addOptionOnTop(getText("IGUI_take"), gamePiece, gamePieceAndBoardHandler._unstack, player, 1, locations)
 
     local subDrawMenu = ISContextMenu:getNew(context)
     context:addSubMenu(unStack, subDrawMenu)
 
     for i=1, 25, 5 do if stack >= i then
-        local option = subDrawMenu:addOption(getText("IGUI_takeMore", i), gamePiece, gamePieceAndBoardHandler.unstack, i, player)
+        local option = subDrawMenu:addOption(getText("IGUI_takeMore", i), gamePiece, gamePieceAndBoardHandler._unstack, player, i, locations)
     end end
 end
 
@@ -451,7 +477,7 @@ function gamePieceAndBoardHandler.shiftPieceSlightly(gamePiece, offset)
     return xOffset, yOffset
 end
 
-gamePieceAndBoardHandler.coolDown = (isClient() or isServer()) and 750 or 5
+gamePieceAndBoardHandler.coolDown = (isClient() or isServer()) and 1001 or 3
 
 ---@param player IsoPlayer|IsoGameCharacter|IsoMovingObject|IsoObject
 ---@param item InventoryItem
@@ -505,20 +531,13 @@ gamePieceAndBoardHandler.moveBuffer = {}
 function gamePieceAndBoardHandler.processMoveFromBuffer(player, itemID, allowed, newCoolDown)
 
     local buffer = gamePieceAndBoardHandler.moveBuffer[player]
-    print(" buffer: ", buffer, " (", buffer and #buffer, ")")
-
-    print(" -- itemID: ", itemID)
 
     local move = buffer and buffer["i"..itemID]
-    if not move then
-        print("no such move!")
-        return
-    end
+    if not move then return end
 
     local moveItem = move.item
 
     if allowed and moveItem and (not gamePieceAndBoardHandler.itemIsBusy(moveItem)) then
-        print(" --- move in buffer & item not busy")
         local onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange = move.onPickUp, move.detailsFunc, move.xOffset, move.yOffset, move.zPos, move.square, move.angleChange
         gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, moveItem, onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange, true)
     end
@@ -536,10 +555,7 @@ end
 function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detailsFunc, xOffset, yOffset, zPos, square, angleChange, byPassClient)
 
     local blockUse = gamePieceAndBoardHandler.itemIsBusy(item)
-    if blockUse then
-        print(" - BLOCKED; IN USE")
-        return
-    end
+    if blockUse then return end
 
     if isClient() and (not byPassClient) then
         gamePieceAndBoardHandler.moveBuffer[player] = gamePieceAndBoardHandler.moveBuffer[player] or {}
@@ -548,7 +564,6 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
         gamePieceAndBoardHandler.moveBuffer[player]["i"..itemID] = { item=item, onPickUp = onPickUp , detailsFunc = detailsFunc,
                                                                            xOffset = xOffset, yOffset = yOffset, zPos = zPos, square = square, angleChange = angleChange }
-        print(" ~ asking for permission.   -item:", itemID)
         sendClientCommand(player, "gameNightAction", "pickupAndPlaceGamePiece", {itemID=itemID})
         return
     end
