@@ -84,3 +84,7 @@
 - Improvements: Uno cards have updated SVG artwork thanks to Wikipedia.
 - Improvements: Catan has upgraded artwork thanks to `https://github.com/BryantCabrera/Settlers-of-Catan`.
 [ ------ ]
+
+[ 7/4/24 ]
+- Modified loot generation so items 'load' when found.
+[ ------ ]
