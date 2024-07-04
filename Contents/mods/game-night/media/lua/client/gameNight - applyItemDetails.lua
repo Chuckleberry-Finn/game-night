@@ -83,7 +83,7 @@ end
 
 
 function applyItemDetails.applyToInventory(ISInventoryPage, step)
-    if step == "begin" then
+    if step == "end" then
         applyItemDetails.applyGameNightToInventory(ISInventoryPage.inventory)
     end
 end
