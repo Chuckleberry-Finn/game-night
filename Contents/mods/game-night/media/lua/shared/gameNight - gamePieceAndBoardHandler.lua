@@ -494,6 +494,7 @@ function gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOff
     local isInPlayer = itemCont and playerInventory and itemCont==playerInventory
     if not isInPlayer then return end
 
+    if (not item) or (not worldItemSq) then return end
     ---@type IsoWorldInventoryObject|IsoObject
     local placedItem = IsoWorldInventoryObject.new(item, worldItemSq, xOffset, yOffset, zPos)
     if placedItem then
@@ -705,6 +706,12 @@ function gamePieceAndBoardHandler.flipPiece(gamePiece, player, x, y, z)
 
     if gamePiece:getModData()["gameNight_altState"] then result = nil end
 
+    if x == true then
+        x = nil
+        y = nil
+        z = nil
+    end
+    
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result}, nil, x, y, z)
 end
 
