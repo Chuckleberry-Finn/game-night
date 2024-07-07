@@ -561,6 +561,8 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
     local blockUse = gamePieceAndBoardHandler.itemIsBusy(item)
     if blockUse then return end
 
+    if xOffset == true then xOffset, yOffset, zPos = nil, nil, nil end
+
     if isClient() and (not byPassClient) then
         gamePieceAndBoardHandler.moveBuffer[player] = gamePieceAndBoardHandler.moveBuffer[player] or {}
 
@@ -705,13 +707,6 @@ function gamePieceAndBoardHandler.flipPiece(gamePiece, player, x, y, z)
     local result = specialCase and specialCase.altState
 
     if gamePiece:getModData()["gameNight_altState"] then result = nil end
-
-    if x == true then
-        x = nil
-        y = nil
-        z = nil
-    end
-    
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_altState", result}, nil, x, y, z)
 end
 
@@ -719,7 +714,6 @@ end
 function gamePieceAndBoardHandler.lock(gamePiece, player, x, y, z)
     local result = true
     if gamePiece:getModData()["gameNight_locked"] then result = nil end
-
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_locked", result}, nil, x, y, z)
 end
 
