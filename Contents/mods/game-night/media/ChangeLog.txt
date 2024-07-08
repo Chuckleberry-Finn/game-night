@@ -97,3 +97,7 @@
 - Improve API: no default weight set.
 - Improve API: default to scripted Icon if in-play/out-of-play texture can't be determined.
 [ ------ ]
+
+[ 7/8/24 ]
+- Improved label/mouse-over for rotated pieces.
+[ ------ ]

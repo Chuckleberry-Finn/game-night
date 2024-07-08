@@ -251,7 +251,7 @@ function gameNightWindow:processMouseUp(old, x, y)
             if shiftAction then
                 local element = self.elements[piece:getID()]
                 if not element then return end
-                local eW, eH = element.w/2, element.h/2
+                local eW, eH = element.w/2, element.h/2 + (element.depth or 0)
                 rX, rY, rZ = self:determineScaledWorldXY(posX-eW, posY-eH)
                 shiftAction(piece, self.player, (rX or posX), (rY or posY))
             else
@@ -357,6 +357,7 @@ function gameNightWindow:moveElement(gamePiece, x, y, detailsFunc)
     if not element then return end
 
     local eW, eH = element.w/2, element.h/2 + (element.depth or 0)
+    --gameNightWindow.calculate_rotated_dimensions(element.w/2, element.h/2+ (element.depth or 0), element.rot)
 
     local scaledX, scaledY, offsetZ = self:determineScaledWorldXY(x-eW, y-eH)
     local angleChange = self.rotatingPieceDegree
