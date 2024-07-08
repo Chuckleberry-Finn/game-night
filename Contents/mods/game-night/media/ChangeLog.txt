@@ -92,3 +92,8 @@
 [ 7/5/2024 ]
 - Fix flip piece context menu.
 [ ------ ]
+
+[ 7/8/24 ]
+- Improve API: no default weight set.
+- Improve API: default to scripted Icon if in-play/out-of-play texture can't be determined.
+[ ------ ]
