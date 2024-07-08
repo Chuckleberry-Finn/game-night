@@ -356,7 +356,8 @@ function gameNightWindow:moveElement(gamePiece, x, y, detailsFunc)
     local element = self.elements[item:getID()]
     if not element then return end
 
-    local eW, eH = element.w/2, element.h/2
+    local eW, eH = element.w/2, element.h/2 + (element.depth or 0)
+
     local scaledX, scaledY, offsetZ = self:determineScaledWorldXY(x-eW, y-eH)
     local angleChange = self.rotatingPieceDegree
 
@@ -387,13 +388,22 @@ function gameNightWindow:onContextSelection(element, x, y)
 end
 
 
+function gameNightWindow.calculate_rotated_dimensions(width, height, rot)
+    local angle_radians = (rot * math.pi / 180)
+    local placed_width = math.abs(width * math.cos(angle_radians)) + math.abs(height * math.sin(angle_radians))
+    local placed_height = math.abs(width * math.sin(angle_radians)) + math.abs(height * math.cos(angle_radians))
+
+    return placed_width, placed_height
+end
+
+
 function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
     local offsetX, offsetY = clicked and clicked.x or 0, clicked and clicked.y or 0
     local cursorX, cursorY = x+offsetX, y+offsetY
 
     local selection = clicked
     for item,element in pairs(self.elements) do
-        local w, h = element.w/2, element.h/2 + (element.depth or 0)
+        local w, h = gameNightWindow.calculate_rotated_dimensions(element.w/2, element.h/2 + (element.depth or 0), element.rot)
 
         local inBounds = ((cursorX >= element.x-w) and (cursorY >= element.y-h) and (cursorX <= element.x+w) and (cursorY <= element.y+h))
         if inBounds and ((not selection) or element.priority > selection.priority) then
@@ -403,6 +413,7 @@ function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
 
     return selection
 end
+
 
 function gameNightWindow.round(number, digit_position)
     local precision = math.pow(10, digit_position)
@@ -439,7 +450,7 @@ function gameNightWindow:generateElement(item, object, priority)
 
     local locked = item:getModData()["gameNight_locked"]
 
-    self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, priority=priority, locked=locked}
+    self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, rot=rot, priority=priority, locked=locked}
 
     local tmpTexture = Texture.new(texture)
     tmpTexture:setHeight(h)
