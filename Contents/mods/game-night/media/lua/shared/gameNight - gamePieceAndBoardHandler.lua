@@ -299,9 +299,7 @@ function gamePieceAndBoardHandler.applyScriptChanges()
         if script then
 
             local newCategory = special and special.category or "GamePiece"
-            if newCategory then
-                script:DoParam("DisplayCategory = "..newCategory)
-            end
+            if newCategory then script:DoParam("DisplayCategory = "..newCategory) end
 
             local iconPath = "OutOfPlayTextures/"..script:getName()..".png"
             local icon = Texture.trygetTexture("Item_"..iconPath)
@@ -310,11 +308,27 @@ function gamePieceAndBoardHandler.applyScriptChanges()
             local tags = script:getTags()
             if not tags:contains("gameNight") then tags:add("gameNight") end
 
-            local weight = special and special.weight or 0.01
-            script:DoParam("Weight = "..weight)
+            local special_weight = special and special.weight
+            if special_weight then script:DoParam("Weight = "..special_weight) end
         end
     end
 
+end
+
+
+---@param gamePiece InventoryItem
+function gamePieceAndBoardHandler.fetchIconState(gamePiece, mainDir,additionalTextureDir,altState)
+    local iconState = altState or gamePiece:getType()
+    local texturePath = mainDir.."/"..additionalTextureDir..iconState..".png"
+    local texture = Texture.trygetTexture(texturePath)
+
+    if not texture then
+        local scriptIcon = gamePiece:getScriptItem():getIcon()
+        texturePath = mainDir.."/"..additionalTextureDir..scriptIcon..".png"
+        texture = Texture.trygetTexture(texturePath)
+    end
+
+    if texture then return texture end
 end
 
 
@@ -343,18 +357,14 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece, stackInit)
     gamePiece:setName(gamePiece:getScriptItem():getDisplayName()..name_suffix)
     gamePiece:setActualWeight(gamePiece:getScriptItem():getActualWeight()*(stack or 1))
 
-    local iconState = gamePiece:getModData()["gameNight_altState"] or gamePiece:getType()
-
+    local iconState = gamePiece:getModData()["gameNight_altState"]
     local additionalTextureDir = special and special.addTextureDir or ""
 
-    local texturePath = "Item_InPlayTextures/"..additionalTextureDir..iconState..".png"
-    local texture = Texture.trygetTexture(texturePath)
+    local texture = gamePieceAndBoardHandler.fetchIconState(gamePiece, "Item_InPlayTextures", additionalTextureDir, iconState)
     if texture then gamePiece:getModData()["gameNight_textureInPlay"] = texture end
 
-    local iconPath = "Item_OutOfPlayTextures/"..additionalTextureDir..iconState..".png"
-    local icon = Texture.trygetTexture(iconPath)
+    local icon = gamePieceAndBoardHandler.fetchIconState(gamePiece, "Item_OutOfPlayTextures", additionalTextureDir, iconState)
     if icon then gamePiece:setTexture(icon) end
-
 end
 
 

@@ -16,10 +16,7 @@ function Recipe.GameNight.Unbox(items, result, player)
 
     for _=1, itemContainerDistribution.rolls do
         for k,item in pairs(itemContainerDistribution.items) do
-            if type(item) == "string" then
-                local createdItem = ItemPickerJava.tryAddItemToContainer(itemContainer, item, nil)
-                if not createdItem then return end
-            end
+            if type(item) == "string" then ItemPickerJava.tryAddItemToContainer(itemContainer, item, nil) end
         end
     end
 end
