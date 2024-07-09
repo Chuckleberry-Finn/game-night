@@ -251,8 +251,7 @@ function gameNightWindow:processMouseUp(old, x, y)
             if shiftAction then
                 local element = self.elements[piece:getID()]
                 if not element then return end
-                local eW, eH = element.w/2, element.h/2 + (element.depth or 0)
-                rX, rY, rZ = self:determineScaledWorldXY(posX-eW, posY-eH)
+                rX, rY, rZ = self:determineScaledWorldXY(posX, posY, element)
                 shiftAction(piece, self.player, (rX or posX), (rY or posY))
             else
                 self:moveElement(piece, posX, posY, handler.handleDetails)
@@ -326,18 +325,23 @@ function gameNightWindow:onMouseDown(x, y)
 end
 
 
-function gameNightWindow:determineScaledWorldXY(x, y)
+function gameNightWindow:determineScaledWorldXY(x, y, element)
     local offsetX = self.movingPieceOffset and self.movingPieceOffset[1] or 0
     local offsetY = self.movingPieceOffset and self.movingPieceOffset[2] or 0
     local offsetZ = self.movingPieceOffset and self.movingPieceOffset[3] or 0
 
+    x, y = x-element.w/2, y-element.h/2 + (element.depth or 0)
+
     local newX = x-offsetX
     local newY = y-offsetY
 
-    newX = math.min(math.max(newX, self.bounds.x1), self.bounds.x2)
-    newY = math.min(math.max(newY, self.bounds.y1), self.bounds.y2)
+    --local w, h = element.w, element.h
+    local w, h = gameNightWindow.calculate_rotated_dimensions(element.w, element.h, element.rot)
 
-    if newX < self.bounds.x1 or newY < self.bounds.y1 or newX > self.bounds.x2 or newY > self.bounds.y2 then return end
+    newX = math.min(math.max(newX, self.bounds.x1+(w or 0)), self.bounds.x2-(w or 0))
+    newY = math.min(math.max(newY, self.bounds.y1+(h or 0)), self.bounds.y2+(h or 0))
+
+    --if newX < self.bounds.x1 or newY < self.bounds.y1 or newX > self.bounds.x2 or newY > self.bounds.y2 then return end
 
     local boundsDifference = self.padding*2
     local scaledX = (newX/(self.width-boundsDifference))
@@ -356,10 +360,7 @@ function gameNightWindow:moveElement(gamePiece, x, y, detailsFunc)
     local element = self.elements[item:getID()]
     if not element then return end
 
-    local eW, eH = element.w/2, element.h/2 + (element.depth or 0)
-    --gameNightWindow.calculate_rotated_dimensions(element.w/2, element.h/2+ (element.depth or 0), element.rot)
-
-    local scaledX, scaledY, offsetZ = self:determineScaledWorldXY(x-eW, y-eH)
+    local scaledX, scaledY, offsetZ = self:determineScaledWorldXY(x, y, element)
     local angleChange = self.rotatingPieceDegree
 
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, nil, detailsFunc, scaledX, scaledY, offsetZ, nil, angleChange)
