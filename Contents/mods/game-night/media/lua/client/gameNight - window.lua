@@ -326,20 +326,30 @@ end
 
 
 function gameNightWindow:determineScaledWorldXY(x, y, element)
+
+    if not element then return x, y end
+
     local offsetX = self.movingPieceOffset and self.movingPieceOffset[1] or 0
     local offsetY = self.movingPieceOffset and self.movingPieceOffset[2] or 0
     local offsetZ = self.movingPieceOffset and self.movingPieceOffset[3] or 0
 
-    x, y = x-element.w/2, y-element.h/2 + (element.depth or 0)
+    local oW, oH = element.w, element.h
+    local w, h = gameNightWindow.calculate_rotated_dimensions((element.w/2), (element.h/2), element.rot, element.depth)
 
-    local newX = x-offsetX
-    local newY = y-offsetY
+    local newX = (x-(oW/2))-offsetX
+    local newY = (y-(oH/2))-offsetY
 
-    --local w, h = element.w, element.h
-    local w, h = gameNightWindow.calculate_rotated_dimensions(element.w, element.h, element.rot)
+    local str = "\n offsetY:"..offsetY.."\n bounds:"..self.bounds.y2.."\n - y:"..newY
+    str = str.."\n -- max? y1_constraint:"..(self.bounds.y1+h-(oH/2))
+    str = str.."\n -- min? y2_constraint:"..(self.bounds.y2)-(h)-(oH/2)-(element.depth or 0)
 
-    newX = math.min(math.max(newX, self.bounds.x1+(w or 0)), self.bounds.x2-(w or 0))
-    newY = math.min(math.max(newY, self.bounds.y1+(h or 0)), self.bounds.y2+(h or 0))
+    newX = math.max( (self.bounds.x1+w-(oW/2)), newX )
+    newY = math.max( (self.bounds.y1+h-(oH/2)), newY )
+
+    --newX = math.min(math.max(newX, (self.bounds.x1+w-(oW/2)) ), (self.bounds.x2-(w)-(oW/2)) )
+    --newY = math.min(math.max(newY, (self.bounds.y1+h-(oH/2)) ), (self.bounds.y2-(h)-(oH/2)-(element.depth or 0)) )
+
+    print(str.."\n --- y:",newY,"\n\n")
 
     --if newX < self.bounds.x1 or newY < self.bounds.y1 or newX > self.bounds.x2 or newY > self.bounds.y2 then return end
 
@@ -390,10 +400,12 @@ function gameNightWindow:onContextSelection(element, x, y)
 end
 
 
-function gameNightWindow.calculate_rotated_dimensions(width, height, rot)
+function gameNightWindow.calculate_rotated_dimensions(width, height, rot, depth)
     local angle_radians = (rot * math.pi / 180)
     local placed_width = math.abs(width * math.cos(angle_radians)) + math.abs(height * math.sin(angle_radians))
     local placed_height = math.abs(width * math.sin(angle_radians)) + math.abs(height * math.cos(angle_radians))
+
+    if depth then placed_height = placed_height+(depth/2) end
 
     return placed_width, placed_height
 end
@@ -405,9 +417,22 @@ function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
 
     local selection = clicked
     for item,element in pairs(self.elements) do
-        local w, h = gameNightWindow.calculate_rotated_dimensions(element.w/2, element.h/2 + (element.depth or 0), element.rot)
+        local w, h = gameNightWindow.calculate_rotated_dimensions((element.w/2), (element.h/2), element.rot, element.depth)
 
-        local inBounds = ((cursorX >= element.x-w) and (cursorY >= element.y-h) and (cursorX <= element.x+w) and (cursorY <= element.y+h))
+        local d = element.depth and element.depth/2 or 0
+
+        local x1 = (element.x-w)
+        local y1 = (element.y-h)-d
+
+        local x2 = (element.x+w)
+        local y2 = (element.y+h)-d
+
+        if getDebug() then
+            self:drawRectBorder(element.x, element.y, 2, 2, 1, 0, 1, 1)
+            self:drawRectBorder(x1, y1, w*2, h*2, 1, 1, 0.5, 0)
+        end
+
+        local inBounds = ((cursorX >= x1) and (cursorY >= y1) and (cursorX <= x2) and (cursorY <= y2))
         if inBounds and ((not selection) or element.priority > selection.priority) then
             selection = element
         end
