@@ -338,24 +338,14 @@ function gameNightWindow:determineScaledWorldXY(x, y, element)
 
     local newX = (x-(oW/2))-offsetX
     local newY = (y-(oH/2))-offsetY
+    local depth = element.depth and (element.depth/2) or 0
 
-    local str = "\n offsetY:"..offsetY.."\n bounds:"..self.bounds.y2.."\n - y:"..newY
-    str = str.."\n -- max? y1_constraint:"..(self.bounds.y1+h-(oH/2))
-    str = str.."\n -- min? y2_constraint:"..(self.bounds.y2)-(h)-(oH/2)-(element.depth or 0)
-
-    newX = math.max( (self.bounds.x1+w-(oW/2)), newX )
-    newY = math.max( (self.bounds.y1+h-(oH/2)), newY )
-
-    --newX = math.min(math.max(newX, (self.bounds.x1+w-(oW/2)) ), (self.bounds.x2-(w)-(oW/2)) )
-    --newY = math.min(math.max(newY, (self.bounds.y1+h-(oH/2)) ), (self.bounds.y2-(h)-(oH/2)-(element.depth or 0)) )
-
-    print(str.."\n --- y:",newY,"\n\n")
-
-    --if newX < self.bounds.x1 or newY < self.bounds.y1 or newX > self.bounds.x2 or newY > self.bounds.y2 then return end
+    newX = math.min(math.max(newX, (self.bounds.x1+w-(oW/2)) ), (self.bounds.x2-(w)-(oW/2)) )
+    newY = math.min(math.max(newY, (self.bounds.y1+h-(oH/2)) ), (self.bounds.y2-(h)-(oH/2)+depth) )
 
     local boundsDifference = self.padding*2
-    local scaledX = (newX/(self.width-boundsDifference))
-    local scaledY = (newY/(self.height-boundsDifference))
+    local scaledX = ( newX / (self.width-boundsDifference) )
+    local scaledY = ( newY / (self.height-boundsDifference) )
 
     return scaledX, scaledY, offsetZ
 end
@@ -427,10 +417,12 @@ function gameNightWindow:getClickedPriorityPiece(x, y, clicked)
         local x2 = (element.x+w)
         local y2 = (element.y+h)-d
 
+        --[[
         if getDebug() then
-            self:drawRectBorder(element.x, element.y, 2, 2, 1, 0, 1, 1)
-            self:drawRectBorder(x1, y1, w*2, h*2, 1, 1, 0.5, 0)
+            self:drawRectBorder(element.x, element.y, 2, 2, 0.9, 0, 1, 1)
+            self:drawRectBorder(x1, y1, w*2, h*2, 0.4, 1, 0.5, 0)
         end
+        --]]
 
         local inBounds = ((cursorX >= x1) and (cursorY >= y1) and (cursorX <= x2) and (cursorY <= y2))
         if inBounds and ((not selection) or element.priority > selection.priority) then
@@ -471,10 +463,6 @@ function gameNightWindow:generateElement(item, object, priority)
     local y = self.round( ((object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))) + h/2, -5)
 
     local rot = item:getModData()["gameNight_rotation"] or 0
-
-    x = math.min(math.max(x, self.bounds.x1), self.bounds.x2-w/2)
-    y = math.min(math.max(y, self.bounds.y1), self.bounds.y2-h/2)
-
     local locked = item:getModData()["gameNight_locked"]
 
     self.elements[item:getID()] = {x=x, y=y, w=w, h=h, item=item, rot=rot, priority=priority, locked=locked}
