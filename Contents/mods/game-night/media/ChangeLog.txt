@@ -102,3 +102,7 @@
 - Improved label/mouse-over for rotated pieces.
 - Improved hit-boxes for items in play.
 [ ------ ]
+
+[ 7/10/24 ]
+- Added `gameNight_boxEnough` as a item param for non-boxes to feel like boxes.
+[ ------ ]
