@@ -68,7 +68,7 @@ function applyItemDetails.applyGameNightToInventory(ItemContainer, stackInit)
 
     local applyStacks = false
     local containingItem = ItemContainer:getContainingItem()
-    if containingItem and containingItem:getDisplayCategory() == "GameBox" and (not containingItem:getModData().gameNight_gameBoxFill) then
+    if containingItem and (containingItem:getDisplayCategory() == "GameBox" or containingItem:getModData().gameNight_boxEnough) and (not containingItem:getModData().gameNight_gameBoxFill) then
         containingItem:getModData().gameNight_gameBoxFill = true
         applyStacks = true
     end
