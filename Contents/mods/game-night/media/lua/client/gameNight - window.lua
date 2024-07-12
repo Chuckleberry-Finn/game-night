@@ -110,9 +110,10 @@ function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self
 
 function gameNightWindow:calculateItemDrop(x, y, items)
     local boundsDifference = self.padding*2
-    local scaledX = (x/(self.width-boundsDifference))
-    local scaledY = (y/(self.height-boundsDifference))
-
+    local boundW = (self.width-boundsDifference)
+    local scaledX = (x/boundW)
+    local boundH = (self.height-boundsDifference)
+    local scaledY = (y/boundH)
     local surfaceZ = 0
 
     for _,element in pairs(self.elements) do
@@ -127,6 +128,11 @@ function gameNightWindow:calculateItemDrop(x, y, items)
 
     for n,item in pairs(items) do
 
+        local element = self.elements[item:getID()]
+        local rW, rH = gameNightWindow.calculate_rotated_dimensions((element.w/2), (element.h/2), element.rot, element.depth)
+        local eW = rW/boundW
+        local eH = rH/boundH
+
         local sound = item:getModData()["gameNight_sound"]
         if sound then self.player:getEmitter():playSound(sound) end
 
@@ -134,6 +140,8 @@ function gameNightWindow:calculateItemDrop(x, y, items)
             scaledX = scaledX+ZombRandFloat(-0.02,0.02)
             scaledY = scaledY+ZombRandFloat(-0.02,0.02)
         end
+        scaledX = math.max(math.min(scaledX,1.045-eW),0.045+eW)
+        scaledY = math.max(math.min(scaledY,1.045-eH),0.045+eH)
         gamePieceAndBoardHandler.pickupAndPlaceGamePiece(self.player, item, nil, nil, scaledX, scaledY, surfaceZ, self.square)
     end
     self:clearMovingPiece(x, y)
@@ -459,8 +467,13 @@ function gameNightWindow:generateElement(item, object, priority)
     w = w * gameNightWindow.scaleSize
     h = h * gameNightWindow.scaleSize
 
-    local x = self.round( ((object:getWorldPosX()-object:getX()) * (self.width-(self.padding*2))) + w/2, -5)
-    local y = self.round( ((object:getWorldPosY()-object:getY()) * (self.height-(self.padding*2))) + h/2, -5)
+    local pad = self.padding*2
+    local windowW = self.width-pad
+    local windowH = self.height-pad
+    local x = self.round( ((object:getWorldPosX()-object:getX()) * windowW) + w/2, -5)
+    local y = self.round( ((object:getWorldPosY()-object:getY()) * windowH) + h/2, -5)
+    x = math.min(math.max(x,0+(w/2)),(self.width)-(w/2))
+    y = math.min(math.max(y,0+(h/2)),(self.height)-(h/2))
 
     local rot = item:getModData()["gameNight_rotation"] or 0
     local locked = item:getModData()["gameNight_locked"]
