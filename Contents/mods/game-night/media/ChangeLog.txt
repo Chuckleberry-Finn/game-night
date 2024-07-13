@@ -106,3 +106,11 @@
 [ 7/12/24 ]
 - Added `gameNight_boxEnough` as a item param for non-boxes to feel like boxes.
 [ ------ ]
+
+[ 7/12/24 #2 ]
+- Fixed issues with bounding/constraints of the UI.
+[ ------ ]
+
+[ 7/12/24 #3 ]
+- Fixed oversight with hotfix #2.
+[ ------ ]

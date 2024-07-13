@@ -129,9 +129,9 @@ function gameNightWindow:calculateItemDrop(x, y, items)
     for n,item in pairs(items) do
 
         local element = self.elements[item:getID()]
-        local rW, rH = gameNightWindow.calculate_rotated_dimensions((element.w/2), (element.h/2), element.rot, element.depth)
-        local eW = rW/boundW
-        local eH = rH/boundH
+        local rW, rH = element and gameNightWindow.calculate_rotated_dimensions((element.w/2), (element.h/2), element.rot, element.depth)
+        local eW = rW and rW/boundW or 0
+        local eH = rH and rH/boundH or 0
 
         local sound = item:getModData()["gameNight_sound"]
         if sound then self.player:getEmitter():playSound(sound) end
