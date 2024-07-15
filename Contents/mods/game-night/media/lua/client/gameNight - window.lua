@@ -57,15 +57,19 @@ end
 function gameNightWindow:update()
     if (not self.player) or (not self.square) or ( self.square:DistToProper(self.player) > 1.5 ) then self:closeAndRemove() return end
 
-    local coolDown = gamePieceAndBoardHandler.itemCoolDown(self.movingPiece)
-    local coolDownMismatch = (self.movingPieceOriginStamp and coolDown and self.movingPieceOriginStamp ~= coolDown)
-    local busy = gamePieceAndBoardHandler.itemIsBusy(self.movingPiece)
-    if busy or coolDownMismatch then self:clearMovingPiece() return end
-
+    if self.movingPiece then
+        local coolDown = gamePieceAndBoardHandler.itemCoolDown(self.movingPiece)
+        local coolDownMismatch = (self.movingPieceOriginStamp and coolDown and self.movingPieceOriginStamp ~= coolDown)
+        local busy = gamePieceAndBoardHandler.itemIsBusy(self.movingPiece)
+        if busy or coolDownMismatch then self:clearMovingPiece() end
+    end
+    
     local item = self.player:getPrimaryHandItem()
     if item and gameNightDeckSearch and deckActionHandler.isDeckItem(item) then
         local handUI = gameNightDeckSearch.instances[item]
-        if ((not handUI) or (not handUI.held)) then gameNightHand.open(self.player, item) end
+        if ((not handUI) or (not handUI.held)) then
+            gameNightHand.open(self.player, item)
+        end
     end
 end
 
