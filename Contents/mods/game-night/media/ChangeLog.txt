@@ -114,3 +114,7 @@
 [ 7/12/24 #3 ]
 - Fixed oversight with hotfix #2.
 [ ------ ]
+
+[ 7/15/24 ]
+- Fix issue with in-hand UI.
+[ ------ ]
