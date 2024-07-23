@@ -41,12 +41,15 @@ gamePieceAndBoardHandler.specials = {
     ["Base.Dice"]={ category = "Die", actions = { examine=true, rollDie=6 }, shiftAction = "rollDie", noRotate=true, },
     ["Base.DiceWhite"]={ category = "Die", actions = { examine=true, rollDie=6 }, shiftAction = "rollDie", noRotate=true, },
 
-    ["Base.GamePieceRed"]={ actions = { flipPiece=true }, altState="GamePieceRedFlipped", shiftAction = "flipPiece", noRotate=true, },
-    ["Base.GamePieceBlack"]={ actions = { flipPiece=true }, altState="GamePieceBlackFlipped", shiftAction = "flipPiece", noRotate=true, },
+    ["Base.GamePieceRed"]={ weight = 0.01, actions = { flipPiece=true }, altState="GamePieceRedFlipped", shiftAction = "flipPiece", noRotate=true, },
+    ["Base.GamePieceBlack"]={ weight = 0.01, actions = { flipPiece=true }, altState="GamePieceBlackFlipped", shiftAction = "flipPiece", noRotate=true, },
 
     ["Base.BackgammonBoard"]={ actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
     ["Base.CheckerBoard"]={ actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
     ["Base.ChessBoard"]={ actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
+
+    ["Base.ChessWhite"]={ weight = 0.01, },
+    ["Base.ChessBlack"]={ weight = 0.01, },
 
     ["Base.PokerChips"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.8, 0.42, 0.41}, sides=7} },
     ["Base.PokerChipsBlue"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.41, 0.52, 0.82}, sides=7 } },
@@ -352,10 +355,14 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece, stackInit)
         gamePiece:getModData()["gameNight_stacked"] = stackInit and canStack or 1
     end
 
+    local script = gamePiece:getScriptItem()
+
     local stack = gamePiece:getModData()["gameNight_stacked"]
     local name_suffix = stack and stack>1 and " ["..stack.."]" or ""
-    gamePiece:setName(gamePiece:getScriptItem():getDisplayName()..name_suffix)
-    gamePiece:setActualWeight(gamePiece:getScriptItem():getActualWeight()*(stack or 1))
+    gamePiece:setName(script:getDisplayName()..name_suffix)
+
+    local special_weight = special and special.weight or script:getActualWeight()
+    gamePiece:setActualWeight(special_weight*(stack or 1))
 
     local iconState = gamePiece:getModData()["gameNight_altState"]
     local additionalTextureDir = special and special.addTextureDir or ""

@@ -118,3 +118,7 @@
 [ 7/15/24 ]
 - Fix issue with in-hand UI.
 [ ------ ]
+
+[ 7/22/24 ]
+- Fix weight of checkers pieces.
+[ ------ ]
