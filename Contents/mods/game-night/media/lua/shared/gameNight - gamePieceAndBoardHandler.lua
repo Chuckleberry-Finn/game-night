@@ -327,7 +327,7 @@ function gamePieceAndBoardHandler.fetchIconState(gamePiece, mainDir,additionalTe
 
     if not texture then
         local scriptIcon = gamePiece:getScriptItem():getIcon()
-        texturePath = mainDir.."/"..additionalTextureDir..scriptIcon..".png"
+        texturePath = scriptIcon--mainDir.."/"..additionalTextureDir..scriptIcon..".png"
         texture = Texture.trygetTexture(texturePath)
     end
 
