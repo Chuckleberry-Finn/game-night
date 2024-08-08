@@ -33,7 +33,7 @@ end
 
 gamePieceAndBoardHandler._itemTypes = nil
 function gamePieceAndBoardHandler.generate_itemTypes()
-    gamePieceAndBoardHandler._itemTypes = {}
+    gamePieceAndBoardHandler._itemTypes = gamePieceAndBoardHandler._itemTypes or {}
     for _,itemType in pairs(gamePieceAndBoardHandler.itemTypes) do gamePieceAndBoardHandler._itemTypes[itemType] = true end
 end
 
