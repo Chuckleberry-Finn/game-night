@@ -122,3 +122,8 @@
 [ 7/22/24 ]
 - Fix weight of checkers pieces.
 [ ------ ]
+
+[ 8/9/24 ]
+- Fixes issue with items not defaulting to their `scriptIcon`.
+- Fixes oversight with item type registration.
+[ ------ ]

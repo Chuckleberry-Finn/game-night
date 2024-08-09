@@ -301,8 +301,11 @@ function gamePieceAndBoardHandler.applyScriptChanges()
         local script = scriptManager:getItem(scriptType)
         if script then
 
-            local newCategory = special and special.category or "GamePiece"
-            if newCategory then script:DoParam("DisplayCategory = "..newCategory) end
+            if special then
+                local newCategory = special.category or special.category or "GamePiece"
+                if special.ignoreCategory then newCategory = nil end
+                if newCategory then script:DoParam("DisplayCategory = "..newCategory) end
+            end
 
             local iconPath = "OutOfPlayTextures/"..script:getName()..".png"
             local icon = Texture.trygetTexture("Item_"..iconPath)
@@ -344,8 +347,12 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece, stackInit)
     if not gamePieceAndBoardHandler._itemTypes[fullType] then return end
 
     local special = gamePieceAndBoardHandler.specials[fullType]
-    local newCategory = special and special.category or "GamePiece"
-    if newCategory then gamePiece:setDisplayCategory(newCategory) end
+
+    if special then
+        local newCategory = special and special.category or "GamePiece"
+        if special.ignoreCategory then newCategory = nil end
+        if newCategory then gamePiece:setDisplayCategory(newCategory) end
+    end
 
     gamePiece:getModData()["gameNight_sound"] = special and special.moveSound or "pieceMove"
 
