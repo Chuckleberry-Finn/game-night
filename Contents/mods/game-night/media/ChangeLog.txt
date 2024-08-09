@@ -127,3 +127,7 @@
 - Fixes issue with items not defaulting to their `scriptIcon`.
 - Fixes oversight with item type registration.
 [ ------ ]
+
+[ x ]
+- Adds new `ignoreCategory` setting.
+[ ------ ]
