@@ -130,4 +130,5 @@
 
 [ x ]
 - Adds new `ignoreCategory` setting.
+- Fix: Extra checks for edge-cases where cursor data could be missing.
 [ ------ ]
