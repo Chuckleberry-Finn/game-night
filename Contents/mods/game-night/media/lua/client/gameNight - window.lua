@@ -595,9 +595,13 @@ function gameNightWindow:render()
 
     if gameNightWindow.cursor then
         for username,data in pairs(self.cursorDraws) do
-            data.ticks = data.ticks - 1
-            self:drawTextureScaledUniform(gameNightWindow.cursor, data.x, data.y, gameNightWindow.scaleSize, 1, data.r, data.g, data.b)
-            self:drawText(username, data.x+(gameNightWindow.cursorW or 0), data.y, data.r, data.g, data.b, 1, UIFont.NewSmall)
+            if data then
+                data.ticks = data.ticks - 1
+                self:drawTextureScaledUniform(gameNightWindow.cursor, data.x, data.y, gameNightWindow.scaleSize, 1, data.r, data.g, data.b)
+                if data.x then
+                    self:drawText(username, data.x+(gameNightWindow.cursorW or 0), data.y, data.r, data.g, data.b, 1, UIFont.NewSmall)
+                end
+            end
             if data.ticks <= 0 then self.cursorDraws[username] = nil end
         end
     end
