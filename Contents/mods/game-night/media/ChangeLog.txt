@@ -128,7 +128,7 @@
 - Fixes oversight with item type registration.
 [ ------ ]
 
-[ x ]
-- Adds new `ignoreCategory` setting.
+[ 8/26/24 ]
+- Adds new `ignoreCategory` setting for item registration.
 - Fix: Extra checks for edge-cases where cursor data could be missing.
 [ ------ ]
