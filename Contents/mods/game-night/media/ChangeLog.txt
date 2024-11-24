@@ -132,3 +132,7 @@
 - Adds new `ignoreCategory` setting for item registration.
 - Fix: Extra checks for edge-cases where cursor data could be missing.
 [ ------ ]
+
+[ 11/24/24 ]
+- Fix for edge-case with cursor sharing breaking.
+[ ------ ]

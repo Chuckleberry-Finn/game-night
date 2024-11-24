@@ -601,11 +601,10 @@ function gameNightWindow:render()
                 if data.x then
                     self:drawText(username, data.x+(gameNightWindow.cursorW or 0), data.y, data.r, data.g, data.b, 1, UIFont.NewSmall)
                 end
+                if data.ticks <= 0 then self.cursorDraws[username] = nil end
             end
-            if data.ticks <= 0 then self.cursorDraws[username] = nil end
         end
     end
-    --self.cursorDraws = {}
 
     if movingPiece then
         if not isMouseButtonDown(0) then return end
