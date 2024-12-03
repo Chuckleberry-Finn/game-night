@@ -140,4 +140,5 @@
 [ 12/2/2024 ]
 - Added General Loot Multiplier (GameNight.LootMultiplier)
   Impacts all game items found in the world.
+- Added changes to unhappiness with item interaction.
 [ ------ ]
