@@ -5,3 +5,6 @@ option GameNight.DisplayItemNames
 
 option GameNight.DisplayPlayerCursors
 {type = boolean, default = true, page = GameNight, translation = GameNight_DisplayPlayerCursors,}
+
+option GameNight.LootMultiplier
+{type = double, min = 0.0001, max = 1000, default = 1, page = GameNight, translation = GameNight_LootMultiplier,}

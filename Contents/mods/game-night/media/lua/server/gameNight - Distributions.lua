@@ -113,8 +113,10 @@ function gameNightDistro.overrideProceduralDist()
             local replacement = gameNightDistro.proceduralDistOverWrite.itemToReplacement[itemType]
             if replacement then
 
+                local chance = ProceduralDistributions.list[contID].items[i+1] * (SandboxVars.GameNight.LootMultiplier)
+
                 if type(replacement)=="table" then
-                    local chance = ProceduralDistributions.list[contID].items[i+1]
+
                     chance = chance/#replacement
 
                     ProceduralDistributions.list[contID].items[i] = replacement[1]
@@ -125,6 +127,7 @@ function gameNightDistro.overrideProceduralDist()
                     end
                 else
                     ProceduralDistributions.list[contID].items[i] = replacement
+                    ProceduralDistributions.list[contID].items[i+1] = chance
                 end
             end
         end
@@ -167,11 +170,10 @@ function gameNightDistro.fillProceduralDist()
             local gnRoll = itemData.rolls or 1
 
             local sealed = gNDpDGN.listsToInsert[distID].sealed and getScriptManager():getItem("Base."..item.."_sealed") and "_sealed" or ""
-
             local distChance = (distData.chanceOverride and distData.chanceOverride[item]) or distData.generalChance
             local itemChance = (itemData.chanceFactor or 1) * (itemData.perDistFactor and itemData.perDistFactor[distID] or 1)
 
-            local chance = distChance * itemChance
+            local chance = distChance * itemChance * (SandboxVars.GameNight.LootMultiplier)
             if chance > 0 then
                 for i=1, gnRoll do
                     table.insert(ProceduralDistributions.list[distID].items, item..sealed)

@@ -136,3 +136,8 @@
 [ 11/24/24 ]
 - Fix for edge-case with cursor sharing breaking.
 [ ------ ]
+
+[ 12/2/2024 ]
+- Added General Loot Multiplier (GameNight.LootMultiplier)
+  Impacts all game items found in the world.
+[ ------ ]
