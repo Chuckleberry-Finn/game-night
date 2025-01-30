@@ -1,9 +1,22 @@
 module Base
 {
+    craftRecipe UnsealBox
+    {
+        timedAction = OpenAmmoBox,
+        Time = 25,
+        category = Games,
+        tags = CanBeDoneInDark;InHandCraft;CanBeDoneFromFloor;RightClickOnly,
+        inputs { item 1 [Base.CheckersBox_sealed;ChessBox_sealed;BackgammonBox_sealed;PokerBox_sealed] mappers[gameBoxes] flags[Prop2], }
 
-    recipe Unseal Box { CheckersBox_sealed, Result:CheckersBox, CanBeDoneFromFloor:true, OnCreate:Recipe.GameNight.Unbox, Time:50.0, }
-    recipe Unseal Box { ChessBox_sealed, Result:ChessBox, CanBeDoneFromFloor:true, OnCreate:Recipe.GameNight.Unbox, Time:50.0, }
-    recipe Unseal Box { BackgammonBox_sealed, Result:BackgammonBox, CanBeDoneFromFloor:true, OnCreate:Recipe.GameNight.Unbox, Time:50.0, }
-    recipe Unseal Box { PokerBox_sealed, Result:PokerBox, CanBeDoneFromFloor:true, OnCreate:Recipe.GameNight.Unbox, Time:50.0, }
+        OnCreate = Recipe.GameNight.Unbox,
 
+        outputs { item 1 mapper:gameBoxes, }
+        itemMapper gameBoxes
+        {
+            Base.CheckersBox = Base.CheckersBox_sealed,
+            Base.ChessBox = Base.ChessBox_sealed,
+            Base.BackgammonBox = Base.BackgammonBox_sealed,
+            Base.PokerBox = Base.PokerBox_sealed,
+        }
+    }
 }

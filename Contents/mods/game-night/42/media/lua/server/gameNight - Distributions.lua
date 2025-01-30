@@ -75,19 +75,30 @@ gameNightDistro.gameNightBoxes = {
 
 }
 
-function gameNightDistro.addToSuburbsDist()
-    for contID,content in pairs(gameNightDistro.gameNightBoxes) do SuburbsDistributions[contID] = content end
-end
 
+function gameNightDistro.addToSuburbsDist() for contID,content in pairs(gameNightDistro.gameNightBoxes) do SuburbsDistributions[contID] = content end end
 
 
 require "Items/ProceduralDistributions"
 
 gameNightDistro.proceduralDistOverWrite = {}
-gameNightDistro.proceduralDistOverWrite.lists = {"WardrobeChild", "CrateRandomJunk",
-
-                                                 "CrateToys","BarCounterMisc","PoliceDesk","OfficeDeskHome",
-                                                 "OfficeDesk","HolidayStuff","Hobbies","GigamartToys","Gifts"}
+gameNightDistro.proceduralDistOverWrite.lists = {
+    "BarCounterMisc",
+    "BookstoreHobbies",
+    "CrateRandomJunk",
+    "CrateToys",
+    "Gifts",
+    "GiftStoreToys",
+    "GigamartToys",
+    "HolidayStuff",
+    "Hobbies",
+    "LivingRoomWardrobe",
+    "OfficeDeskHome",
+    "OfficeDesk",
+    "PoliceDesk",
+    "RecRoomShelf",
+    "WardrobeChild",
+}
 
 gameNightDistro.proceduralDistOverWrite.itemToReplacement = {
     ["BackgammonBoard"] = "BackgammonBox",
@@ -144,18 +155,23 @@ gameNightDistro.proceduralDistGameNight.itemsToAdd = {
     ["PokerBox"] = {}, }
 
 gameNightDistro.proceduralDistGameNight.listsToInsert = {
-    
+
     ["ClassroomDesk"] = { generalChance = 0.05, },
     ["BedroomDresser"] = { generalChance = 0.2, },
     ["ClassroomMisc"] = { generalChance = 0.1, },
     ["SchoolLockers"] = { generalChance = 0.075, },
     ["OfficeDeskHome"] = { generalChance = 0.025, },
-
+    ["LivingRoomWardrobe"] = { generalChance = 0.025, },
+    ["RecRoomShelf"] = { generalChance = 0.055, },
     ["BarCounterMisc"] = { generalChance = 6, },
-    ["Gifts"] = { generalChance = 8, sealed = true },
-    ["GigamartToys"] = { generalChance = 8, sealed = true },
     ["Hobbies"] = { generalChance = 8, },
+
+    ["Gifts"] = { generalChance = 8, sealed = true },
+    ["BookstoreHobbies"] = { generalChance = 8, sealed = true },
+    ["GigamartToys"] = { generalChance = 8, sealed = true },
+    ["GiftStoreToys"] = { generalChance = 8, sealed = true },
     ["HolidayStuff"] = { generalChance = 8, sealed = true },
+    ["CrateToys"] = { generalChance = 6, sealed = true },
 
     ---these are already in the distro so no need to double them up
     ["WardrobeChild"] = { generalChance = 2, chanceOverride = {["BackgammonBox"] = 0, ["ChessBox"] = 0, ["CheckersBox"] = 0, ["PokerBox"] = 0,} },
@@ -166,7 +182,9 @@ gameNightDistro.proceduralDistGameNight.listsToInsert = {
 function gameNightDistro.fillProceduralDist()
     local gNDpDGN = gameNightDistro.proceduralDistGameNight
     for distID,distData in pairs(gNDpDGN.listsToInsert) do
+        print(" inserting into: ", distID)
         for item,itemData in pairs(gNDpDGN.itemsToAdd) do
+
             local gnRoll = itemData.rolls or 1
 
             local sealed = gNDpDGN.listsToInsert[distID].sealed and getScriptManager():getItem("Base."..item.."_sealed") and "_sealed" or ""
@@ -175,6 +193,8 @@ function gameNightDistro.fillProceduralDist()
 
             local chance = distChance * itemChance * (SandboxVars.GameNight.LootMultiplier)
             if chance > 0 then
+                print(" -- adding: ", item..sealed, " @:",chance,"%")
+
                 for i=1, gnRoll do
                     table.insert(ProceduralDistributions.list[distID].items, item..sealed)
                     table.insert(ProceduralDistributions.list[distID].items, chance)

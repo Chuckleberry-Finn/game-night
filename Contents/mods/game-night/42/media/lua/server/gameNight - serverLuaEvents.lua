@@ -1,4 +1,5 @@
 local gameNightDistro = require "gameNight - Distributions"
-Events.OnGameBoot.Add(gameNightDistro.addToSuburbsDist())
-Events.OnGameBoot.Add(gameNightDistro.overrideProceduralDist())
-Events.OnGameBoot.Add(gameNightDistro.fillProceduralDist())
+print("TESTING GAME NIGHT DIST CHANGES")
+Events.OnDistributionMerge.Add(gameNightDistro.addToSuburbsDist())
+Events.OnPostDistributionMerge.Add(gameNightDistro.overrideProceduralDist())
+Events.OnPostDistributionMerge.Add(gameNightDistro.fillProceduralDist())
