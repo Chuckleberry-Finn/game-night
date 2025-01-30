@@ -1,0 +1,7 @@
+IGUI_FR = {
+
+    IGUI_MonopolyChance = "Chance",
+    IGUI_MonopolyCommunityChest = "Caisse de communauté",
+    IGUI_MonopolyDeed = "Propriété",
+
+}

@@ -1,0 +1,4 @@
+module Base
+{
+    recipe Unseal Box { MonopolyBox_sealed, Result:MonopolyBox, CanBeDoneFromFloor:true, OnCreate:Recipe.GameNight.Unbox, Time:50.0, }
+}

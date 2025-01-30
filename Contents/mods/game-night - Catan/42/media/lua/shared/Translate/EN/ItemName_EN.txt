@@ -1,0 +1,31 @@
+ItemName_EN = {
+
+    ItemName_Base.CatanBoard = "Catan Board"
+    ItemName_Base.CatanBox = "Catan Box",
+    ItemName_Base.CatanBox_sealed = "Catan Box (Sealed)",
+    ItemName_Base.CatanResourceCard = "Resource Deck"
+    ItemName_Base.CatanDevelopmentCard = "Development Deck"
+
+    ItemName_Base.CatanRobber = "Robber Piece"
+    ItemName_Base.CatanPlayerCosts = "Player Costs"
+
+    ItemName_Base.CatanLongestRoad = "Longest Road"
+    ItemName_Base.CatanLargestArmy = "Largest Army"
+
+    ItemName_Base.CatanWood = "Wood Resource"
+    ItemName_Base.CatanBrick = "Brick Resource"
+    ItemName_Base.CatanWheat = "Wheat Resource"
+    ItemName_Base.CatanSheep = "Sheep Resource"
+    ItemName_Base.CatanStone = "Stone Resource"
+
+    ItemName_Base.CatanKnight = "Knight"
+    ItemName_Base.CatanMonopoly = "Monopoly"
+    ItemName_Base.CatanYearOfPlenty = "Year of Plenty"
+    ItemName_Base.CatanRoadBuilding = "Road Building"
+    ItemName_Base.CatanPalace = "Palace"
+    ItemName_Base.CatanMarket = "Market"
+    ItemName_Base.CatanUniversity = "University"
+    ItemName_Base.CatanChapel = "Chapel"
+    ItemName_Base.CatanLibrary = "Library"
+
+}

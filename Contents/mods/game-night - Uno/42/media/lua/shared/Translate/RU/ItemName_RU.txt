@@ -1,0 +1,5 @@
+ItemName_RU = {
+
+    ItemName_Base.UnoCards = "Карты Уно",
+    ItemName_Base.UnoBox = "Настольная игра (Карты Уно)",
+}

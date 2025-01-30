@@ -1,0 +1,121 @@
+module Base
+{
+
+    item PlayingCards1 {
+        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
+        DisplayName = Playing Cards, Icon = PlayingCards1/deck, WorldStaticModel = PlayingCards1,
+    }
+
+	item PlayingCards2 {
+        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
+        DisplayName = Playing Cards, Icon = PlayingCards2/deck, WorldStaticModel = PlayingCards2,
+    }
+
+ 	item PlayingCards3 {
+ 	    DisplayCategory = Deck, Weight = 0.01, Type = Normal,
+        DisplayName = Playing Cards, Icon = PlayingCards3/deck, WorldStaticModel = PlayingCards3,
+    }
+
+    item DiceWhite {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Dice, Icon = OutOfPlayTextures/DiceWhite, WorldStaticModel = DiceWhite,
+    }
+
+    item GamePieceBlackBackgammon {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Black Game Pieces, Icon = OutOfPlayTextures/GamePieceBlackBackgammon, WorldStaticModel = GamePieceBlackBackgammon_Ground,
+    }
+
+    item ChessBoard {
+        DisplayCategory = GameBoard, Weight = 0.01, Type = Normal,
+        DisplayName	=	Chessboard, Icon = OutOfPlayTextures/ChessBoard, WorldStaticModel = ChessBoard_Ground,
+    }
+
+    item ChessBlackKing {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackKing, WorldStaticModel = BlackChessPieces,
+    }
+    item ChessWhiteKing {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteKing, WorldStaticModel = WhiteChessPieces,
+    }
+
+     item ChessBlackQueen {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackQueen, WorldStaticModel = BlackChessPieces,
+    }
+    item ChessWhiteQueen {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteQueen, WorldStaticModel = WhiteChessPieces,
+    }
+
+
+    item ChessBlackBishop {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackBishop, WorldStaticModel = BlackChessPieces,
+    }
+    item ChessWhiteBishop {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteBishop, WorldStaticModel = WhiteChessPieces,
+    }
+
+    item ChessBlackRook {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackRook, WorldStaticModel = BlackChessPieces,
+    }
+    item ChessWhiteRook {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteRook, WorldStaticModel = WhiteChessPieces,
+    }
+
+    item ChessBlackKnight {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackKnight, WorldStaticModel = BlackChessPieces,
+    }
+    item ChessWhiteKnight {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteKnight, WorldStaticModel = WhiteChessPieces,
+    }
+
+
+    item PokerChips {
+        DisplayCategory = GamePiece, Weight = 0.001, Type = Normal,
+        DisplayName	=	Poker Chips, Icon =	OutOfPlayTextures/PokerChipsRed, WorldStaticModel = PokerChips_Ground,
+    }
+
+    item PokerChipsWhite {
+        DisplayCategory = GamePiece, Weight = 0.001, Type = Normal,
+        DisplayName	=	Poker Chips, Icon =	OutOfPlayTextures/PokerChipsWhite, WorldStaticModel = PokerChipsWhite,
+    }
+
+    item PokerChipsBlack {
+        DisplayCategory = GamePiece, Weight = 0.001, Type = Normal,
+        DisplayName	=	Poker Chips, Icon = OutOfPlayTextures/PokerChipsBlack, WorldStaticModel = PokerChipsBlack,
+    }
+
+    item PokerChipsOrange {
+        DisplayCategory = GamePiece, Weight = 0.001, Type = Normal,
+        DisplayName	= Poker Chips, Icon = OutOfPlayTextures/PokerChipsOrange, WorldStaticModel = PokerChipsOrange,
+    }
+
+    item PokerChipsBlue {
+        DisplayCategory = GamePiece, Weight = 0.001, Type = Normal,
+        DisplayName	= Poker Chips, Icon = OutOfPlayTextures/PokerChipsBlue, WorldStaticModel = PokerChipsBlue,
+    }
+
+    item PokerChipsGreen {
+        DisplayCategory = GamePiece, Weight = 0.001, Type = Normal,
+        DisplayName	= Poker Chips, Icon = OutOfPlayTextures/PokerChipsGreen, WorldStaticModel = PokerChipsGreen,
+    }
+
+    item PokerChipsPurple {
+        DisplayCategory = GamePiece, Weight = 0.001, Type = Normal,
+        DisplayName	= Poker Chips, Icon = OutOfPlayTextures/PokerChipsPurple, WorldStaticModel = PokerChipsPurple,
+    }
+
+    item PokerChipsYellow {
+        DisplayCategory = GamePiece, Weight = 0.001, Type = Normal,
+        DisplayName	= Poker Chips, Icon = OutOfPlayTextures/PokerChipsYellow, WorldStaticModel = PokerChipsYellow,
+    }
+
+}

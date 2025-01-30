@@ -1,0 +1,150 @@
+module Base
+{
+
+    item CatanBoard
+    {
+        DisplayCategory = GameBoard, Weight = 0.01, Type = Normal,
+        DisplayName = CatanBoard, Icon = OutOfPlayTextures/CatanBoard, WorldStaticModel = CatanBoard,
+    }
+
+     item CatanBox
+    {
+        DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
+        DisplayName = Catan Box, Icon = Boxes/catanBox, WorldStaticModel = CatanBox,
+    }
+
+     item CatanBox_sealed
+    {
+        DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Normal, Capacity = 2,
+        DisplayName = Catan Box (Sealed), Icon = Boxes/catanBox, WorldStaticModel = CatanBox,
+    }
+
+    item CatanResourceDeck
+    {
+        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
+        DisplayName = Resource Card,
+        Icon = CatanResourceDeck/deck,
+        WorldStaticModel = CatanResourceDeck,
+    }
+
+    item CatanDevelopmentDeck
+    {
+        DisplayCategory = Deck, Weight = 0.01, Type = Normal, DisplayName = Development Card,
+        Icon = CatanDevelopmentDeck/deck, WorldStaticModel = CatanDevelopmentDeck,
+    }
+
+    item CatanRobber
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Robber Piece, Icon = OutOfPlayTextures/CatanRobber, WorldStaticModel = PokerChips_Ground,
+    }
+
+    item CatanSettlementWhite
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = White Settlement, Icon = OutOfPlayTextures/CatanSettlementWhite, WorldStaticModel = CatanSettlementWhite,
+    }
+
+    item CatanCityWhite
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = White City, Icon = OutOfPlayTextures/CatanCityWhite, WorldStaticModel = CatanCityWhite,
+    }
+
+    item CatanRoadWhite
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = White Road, Icon = OutOfPlayTextures/CatanRoadWhite, WorldStaticModel = CatanRoadWhite,
+    }
+
+    item CatanSettlementRed
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Red Settlement, Icon = OutOfPlayTextures/CatanSettlementRed, WorldStaticModel = CatanSettlementRed,
+    }
+
+    item CatanCityRed
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Red City, Icon = OutOfPlayTextures/CatanCityRed, WorldStaticModel = CatanCityRed,
+    }
+
+    item CatanRoadRed
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Red Road, Icon = OutOfPlayTextures/CatanRoadRed, WorldStaticModel = CatanRoadRed,
+    }
+
+    item CatanSettlementOrange
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Orange Settlement, Icon = OutOfPlayTextures/CatanSettlementOrange, WorldStaticModel = CatanSettlementOrange,
+    }
+
+    item CatanCityOrange
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Orange City, Icon = OutOfPlayTextures/CatanCityOrange, WorldStaticModel = CatanCityOrange,
+    }
+
+    item CatanRoadOrange
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Orange Road, Icon = OutOfPlayTextures/CatanRoadOrange, WorldStaticModel = CatanRoadOrange,
+    }
+
+    item CatanSettlementBlue
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Blue Settlement, Icon = OutOfPlayTextures/CatanSettlementBlue, WorldStaticModel = CatanSettlementBlue,
+    }
+
+    item CatanCityBlue
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Blue City, Icon = OutOfPlayTextures/CatanCityBlue, WorldStaticModel = CatanCityBlue,
+    }
+
+    item CatanRoadBlue
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
+        DisplayName = Blue Road, Icon = OutOfPlayTextures/CatanRoadBlue, WorldStaticModel = CatanRoadBlue,
+    }
+
+    item CatanPlayerCostsWhite
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, Tooltip = Tooltip_PlayerCosts,
+        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsWhite, WorldStaticModel = CatanPlayerCostsWhite,
+    }
+
+   item CatanPlayerCostsRed
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, Tooltip = Tooltip_PlayerCosts,
+        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsRed, WorldStaticModel = CatanPlayerCostsRed,
+    }
+
+   item CatanPlayerCostsOrange
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, Tooltip = Tooltip_PlayerCosts,
+        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsOrange, WorldStaticModel = CatanPlayerCostsOrange,
+    }
+
+   item CatanPlayerCostsBlue
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, Tooltip = Tooltip_PlayerCosts,
+        DisplayName = CatanPlayerCosts, Icon = OutOfPlayTextures/PlayerCostsBlue, WorldStaticModel = CatanPlayerCostsBlue,
+    }
+
+   item CatanLongestRoad
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, Tooltip = Tooltip_CatanLongestRoad,
+        DisplayName = CatanLongestRoad, Icon = OutOfPlayTextures/LongestRoad, WorldStaticModel = CatanLongestRoad,
+    }
+
+   item CatanLargestArmy
+    {
+        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, Tooltip = Tooltip_CatanLargestArmy,
+        DisplayName = CatanLargestArmy, Icon = OutOfPlayTextures/LargestArmy, WorldStaticModel = CatanLargestArmy,
+    }
+
+}

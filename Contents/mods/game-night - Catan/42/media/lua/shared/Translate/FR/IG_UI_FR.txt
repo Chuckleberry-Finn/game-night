@@ -1,0 +1,6 @@
+IGUI_FR = {
+    IGUI_rotateRoad = "Tourner"
+    
+    IGUI_CatanResourceCard = "Carte de ressources",
+    IGUI_CatanDevelopmentCard = "Carte de développement",
+}

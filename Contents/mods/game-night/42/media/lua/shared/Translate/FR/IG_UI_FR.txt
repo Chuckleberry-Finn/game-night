@@ -1,0 +1,36 @@
+IGUI_FR = {
+    IGUI_draw = "Tirer",
+    IGUI_deal = "Distribuer une carte",
+    IGUI_dealCards = "Distribuer %1 cartes",
+    IGUI_drawCard = "Tirer une carte du dessus",
+    IGUI_drawCards = "Tirer %1 cartes",
+    IGUI_splitCards = "Diviser %1 cartes"
+    IGUI_drawRandCard = "Tirer une carte au hasard",
+    IGUI_shuffleCards = "Mélanger",
+    IGUI_flipCard = "Retourner",
+    IGUI_searchDeck = "Rechercher"
+    IGUI_flipPiece = "Retourner",
+    IGUI_rollDie = "Lancer",
+    IGUI_examineCard = "Examiner",
+
+    IGUI_take = "Prendre",
+    IGUI_takeMore = "Prendre %1",
+
+    IGUI_SpecialActionAll = " tout"
+
+    IGUI_Play_Game = "Jouer au jeu",
+
+    IGUI_lockElement = "Verrouiller en place"
+
+    IGUI_ItemCat_Card = "Carte",
+    IGUI_ItemCat_Deck = "Paquet",
+    IGUI_ItemCat_GamePiece = "Pièce de jeu",
+    IGUI_ItemCat_GameBoard = "Plateau de jeu",
+    IGUI_ItemCat_GameBox = "Boîte de jeu",
+    IGUI_ItemCat_Die = "Dé",
+
+    IGUI_CardDeck = "Carte à jouer",
+    IGUI_PlayingCards1 = "Carte à jouer",
+    IGUI_PlayingCards2 = "Carte à jouer",
+    IGUI_PlayingCards3 = "Carte à jouer",
+}

@@ -1,0 +1,30 @@
+module Base
+{
+    model MonopolyDeedDeck { mesh = WorldItems/cardpack, texture = Item_MonopolyDeed/deckTexture, scale = 0.02, }
+    model MonopolyDeedSingle { mesh = WorldItems/card, texture = Item_MonopolyDeed/deckTexture, scale = 0.02, }
+
+    model MonopolyChanceDeck { mesh = WorldItems/cardpack, texture = Item_MonopolyChance/deckTexture, scale = 0.02, }
+    model MonopolyChanceSingle { mesh = WorldItems/card, texture = Item_MonopolyChance/deckTexture, scale = 0.02, }
+
+    model MonopolyCommunityChestDeck { mesh = WorldItems/cardpack, texture = Item_MonopolyCommunityChest/deckTexture, scale = 0.02, }
+    model MonopolyCommunityChestSingle { mesh = WorldItems/card, texture = Item_MonopolyCommunityChest/deckTexture, scale = 0.02, }
+
+    model MonopolyBox { mesh = WorldItems/cardpack, texture = Item_Boxes/monopolyBox_ground, scale = 0.06, }
+
+    model MonopolyMoney1 { mesh = WorldItems/gameNightMoney, texture = Item_OutOfPlayTextures/monopolyMoney1, scale = 0.0004, }
+    model MonopolyMoney5 { mesh = WorldItems/gameNightMoney, texture = Item_OutOfPlayTextures/monopolyMoney5, scale = 0.0004, }
+    model MonopolyMoney10 { mesh = WorldItems/gameNightMoney, texture = Item_OutOfPlayTextures/monopolyMoney10, scale = 0.0004, }
+    model MonopolyMoney20 { mesh = WorldItems/gameNightMoney, texture = Item_OutOfPlayTextures/monopolyMoney20, scale = 0.0004, }
+    model MonopolyMoney50 { mesh = WorldItems/gameNightMoney, texture = Item_OutOfPlayTextures/monopolyMoney50, scale = 0.0004, }
+    model MonopolyMoney100 { mesh = WorldItems/gameNightMoney, texture = Item_OutOfPlayTextures/monopolyMoney100, scale = 0.0004, }
+    model MonopolyMoney500 { mesh = WorldItems/gameNightMoney, texture = Item_OutOfPlayTextures/monopolyMoney500, scale = 0.0004, }
+
+    model MonopolyBoard {
+        mesh = WorldItems/CheckerBoard, texture = Item_InPlayTextures/MonopolyBoard, scale = 0.48,
+        attachment world { offset = -0.215 -0.0700 0.245, rotate = 0.0000 0.0000 0.0000, }
+    }
+
+    model MonopolyPiece { mesh = WorldItems/gameNightCube, texture = modelTextures/ChessPieceBlack, scale = 0.001, }
+    model MonopolyHouse { mesh = WorldItems/gameNightCube, texture = modelTextures/house, scale = 0.001, }
+    model MonopolyHotel { mesh = WorldItems/gameNightCube, texture = modelTextures/hotel, scale = 0.001, }
+}

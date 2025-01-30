@@ -1,0 +1,10 @@
+Sandbox_FR = {
+	Sandbox_GameNight = "Game Night",
+
+    Sandbox_GameNight_DisplayItemNames = "Afficher les noms des éléments"
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Afficher les noms des objets dans le jeu."
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Afficher les curseurs des joueurs dans l'interface utilisateur"
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Afficher les curseurs des joueurs à l'écran. Les curseurs ne devraient pas causer de problèmes de trafic, cependant, le processus implique l'envoi rapide de petites quantités de données - cette option est destinée aux personnes effectuant un dépannage et utilisant quelque chose qui crée des journaux pour le trafic réseau. Il n'est pas recommandé de jouer sans curseurs visibles."
+
+	}

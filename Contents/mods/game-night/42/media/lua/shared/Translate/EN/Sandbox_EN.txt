@@ -1,0 +1,13 @@
+Sandbox_EN = {
+	Sandbox_GameNight = "Game Night",
+
+    Sandbox_GameNight_DisplayItemNames = "Display Item Names",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Display item names in game.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Display Player Cursors in Game-UI",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Display the cursors of players on-screen. The cursors should not cause any form of traffic issues, however, the process involves sending tiny bits of data rapidly - this option is intended for people performing troubleshooting and using something that creates logs for network traffic. It is not recommended to play without visible cursors.",
+
+    Sandbox_GameNight_LootMultiplier = "General Loot Multiplier",
+    Sandbox_GameNight_LootMultiplier_tooltip = "This is multiplied against the default loot chances. Impacts all game items found in the world.<br>Changes will require a reboot."
+
+	}

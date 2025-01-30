@@ -1,0 +1,14 @@
+Tooltip_FR = {
+    Tooltip_PlayerCosts = "Route : 1 brique, 1 bois  (0 PV)<br>Colonie : 1 brique, 1 bois, 1 blé, 1 laine  (1 PV)<br>Ville : 2 blés, 3 pierres  (2 PV)<br>Carte développement : 1 mouton, 1 blé, 1 pierre  (?)",
+    Tooltip_CatanLongestRoad = "Le premier joueur qui construit 5 routes contiguës obtient cette carte.<br>Un autre joueur doit construire une route de plus pour la récupérer.  (2 PV)",
+    Tooltip_CatanLargestArmy = "Le premier joueur qui possède 3 cartes Chevalier devant lui obtient cette carte.<br>Un autre joueur doit jouer un Chevalier de plus pour la récupérer.  (2 PV)",
+    Tooltip_Knight = "Bouger le voleur et placer le sur une nouvelle case.<br>Voler aléatoirement une carte d'un adversaire avec une colonie ou une ville adjacente au voleur.",
+    Tooltip_Road Building = "Construisez gratuitement 2 routes."
+    Tooltip_Year of Plenty = "Prenez dans la Réserve 2 cartes Ressource de votre choix."
+    Tooltip_Monopoly = "Nommez une ressource.<br>Tous les joueurs doivent vous donner toutes les cartes ressources correspondantes qu'ils ont en main."
+    Tooltip_Chapel = "Cette carte vaut 1 Point de Victoire.<br>Elle n'a pas besoin d'être jouée."
+    Tooltip_Library = "Cette carte vaut 1 Point de Victoire.<br>Elle n'a pas besoin d'être jouée."
+    Tooltip_Market = "Cette carte vaut 1 Point de Victoire.<br>Elle n'a pas besoin d'être jouée."
+    Tooltip_Palace = "Cette carte vaut 1 Point de Victoire.<br>Elle n'a pas besoin d'être jouée."
+    Tooltip_University = "Cette carte vaut 1 Point de Victoire.<br>Elle n'a pas besoin d'être jouée."
+}

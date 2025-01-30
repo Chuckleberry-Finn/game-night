@@ -1,0 +1,7 @@
+Sandbox_RU = {
+
+	Sandbox_GameNight = "Настольные Игры",
+
+    Sandbox_GameNight_DisplayItemNames = "Отображать названия предметов"
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Отображать названия предметов во время игры."
+}
