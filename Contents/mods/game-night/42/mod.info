@@ -3,4 +3,6 @@ id=gamenight
 description=Boardgames and Cardgames
 poster=poster.png
 require=\ChuckleberryFinnAlertSystem,\errorMagnifier,
-
+author=Chuckleberry Finn
+icon=icon.png
+versionMin=42.0

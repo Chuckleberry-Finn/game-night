@@ -3,4 +3,6 @@ id=gamenight_Monopoly
 description=
 poster=poster.png
 require=gamenight
-
+author=Chuckleberry Finn
+icon=icon.png
+versionMin=42.0

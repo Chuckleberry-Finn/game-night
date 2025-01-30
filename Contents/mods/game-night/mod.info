@@ -2,4 +2,6 @@ name=Game Night
 id=gamenight
 description=Boardgames and Cardgames
 poster=poster.png
-
+author=Chuckleberry Finn
+icon=icon.png
+versionMin=42.0
