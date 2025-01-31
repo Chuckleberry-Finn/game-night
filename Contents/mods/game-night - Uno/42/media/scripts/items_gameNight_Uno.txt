@@ -8,15 +8,4 @@ module Base
         WorldStaticModel = UnoCards,
     }
 
-    item UnoBox
-    {
-        DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
-        DisplayName = Uno Box, Icon = Boxes/unoBox, WorldStaticModel = UnoBox,
-    }
-
-    item UnoBox_sealed
-    {
-        DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Normal, Capacity = 2,
-        DisplayName = Uno Box (Sealed), Icon = Boxes/unoBox, WorldStaticModel = UnoBox,
-    }
 }
