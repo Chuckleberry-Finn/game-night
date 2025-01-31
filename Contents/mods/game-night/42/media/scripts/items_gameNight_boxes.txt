@@ -4,48 +4,28 @@ module Base
         {
             DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
             DisplayName = Checkers Box, Icon = Boxes/checkersBox, WorldStaticModel = CheckersBox,
-        }
-
-    item CheckersBox_sealed
-        {
-            DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Normal, Capacity = 2,
-            DisplayName = Checkers Box (Sealed), Icon = Boxes/checkersBox, WorldStaticModel = CheckersBox,
+            OnCreate = gameNightOnCreateGameBox,
         }
 
     item ChessBox
         {
             DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
             DisplayName = Chess Box, Icon = Boxes/chessBox, WorldStaticModel = ChessBox,
+            OnCreate = gameNightOnCreateGameBox,
         }
-
-    item ChessBox_sealed
-        {
-            DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Normal, Capacity = 2,
-            DisplayName = Chess Box (Sealed), Icon = Boxes/chessBox, WorldStaticModel = ChessBox,
-        }
-
 
     item BackgammonBox
         {
             DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
             DisplayName = Backgammon Box, Icon = Boxes/backgammonBox, WorldStaticModel = BackgammonBox,
+            OnCreate = gameNightOnCreateGameBox,
         }
 
-    item BackgammonBox_sealed
-        {
-            DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Normal, Capacity = 2,
-            DisplayName = Backgammon Box (Sealed), Icon = Boxes/backgammonBox, WorldStaticModel = BackgammonBox,
-        }
 
     item PokerBox
         {
             DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
             DisplayName = Poker Box, Icon = Boxes/pokerBox, WorldStaticModel = PokerBox,
-        }
-
-    item PokerBox_sealed
-        {
-            DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Normal, Capacity = 2,
-            DisplayName = Poker Box (Sealed), Icon = Boxes/pokerBox, WorldStaticModel = PokerBox,
+            OnCreate = gameNightOnCreateGameBox,
         }
 }
