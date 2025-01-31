@@ -144,5 +144,13 @@
 [ ------ ]
 
 [ B42 ]
-- Initial 42 Changeover.
+Initial 42 Changeover:
+
+Under the hood stuff:
+- refactored itemfactory.createItem to instanceItem
+
+User Experience:
+- Added new mod icons
+- Removed the 'unseal' feature, boxes can now be spawned-in fully stocked.
+- Removed Uno Box, cards now spawn as is.
 [ ------ ]
