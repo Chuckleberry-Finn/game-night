@@ -1,4 +1,0 @@
-IGUI_RU = {
-    
-    IGUI_rotateRoad = "Крутить"
-}
