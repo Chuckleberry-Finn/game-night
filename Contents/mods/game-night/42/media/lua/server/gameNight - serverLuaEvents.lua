@@ -1,5 +1,5 @@
 local gameNightDistro = require "gameNight - Distributions"
 
-Events.OnDistributionMerge.Add(gameNightDistro.addToSuburbsDist)
+Events.OnPreDistributionMerge.Add(gameNightDistro.addToDistributions)
 Events.OnPostDistributionMerge.Add(gameNightDistro.overrideProceduralDist)
 Events.OnPostDistributionMerge.Add(gameNightDistro.fillProceduralDist)

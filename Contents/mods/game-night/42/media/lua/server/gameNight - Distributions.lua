@@ -76,7 +76,7 @@ gameNightDistro.gameNightBoxes = {
 }
 
 
-function gameNightDistro.addToSuburbsDist() for contID,content in pairs(gameNightDistro.gameNightBoxes) do SuburbsDistributions[contID] = content end end
+function gameNightDistro.addToDistributions() for contID,content in pairs(gameNightDistro.gameNightBoxes) do Distributions[1][contID] = content end end
 
 
 require "Items/ProceduralDistributions"
