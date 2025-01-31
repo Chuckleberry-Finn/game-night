@@ -4,45 +4,19 @@ local gameNightDistro = require "gameNight - Distributions"
 
 gameNightDistro.proceduralDistGameNight.itemsToAdd["CatanBox"] = {}
 
-gameNightDistro.gameNightBoxes["CatanBox"] = {
-    rolls = 1,
-    items = {
-        "CatanLargestArmy", 9999,
-        "CatanLongestRoad", 9999,
-        "CatanPlayerCostsBlue", 9999,
-        "CatanPlayerCostsOrange", 9999,
-        "CatanPlayerCostsRed", 9999,
-        "CatanPlayerCostsWhite", 9999,
-        "CatanRobber", 9999,
-        "CatanDevelopmentDeck", 9999,
-        "CatanResourceDeck", 9999,
-        "CatanBoard", 9999,
+gameNightDistro.gameNightBoxes.CatanBox = {
 
-        "Dice", 9999, "Dice", 9999,
+    CatanLargestArmy = 1,
+    CatanLongestRoad = 1,
+    CatanRobber = 1,
+    CatanDevelopmentDeck = 1,
+    CatanResourceDeck = 1,
+    CatanBoard = 1,
 
-        "CatanSettlementBlue", 9999, "CatanSettlementBlue", 9999, "CatanSettlementBlue", 9999, "CatanSettlementBlue", 9999, "CatanSettlementBlue", 9999,
-        "CatanCityBlue", 9999, "CatanCityBlue", 9999, "CatanCityBlue", 9999, "CatanCityBlue", 9999,
-        "CatanRoadBlue", 9999, "CatanRoadBlue", 9999, "CatanRoadBlue", 9999, "CatanRoadBlue", 9999, "CatanRoadBlue", 9999,
-        "CatanRoadBlue", 9999, "CatanRoadBlue", 9999, "CatanRoadBlue", 9999, "CatanRoadBlue", 9999, "CatanRoadBlue", 9999,
-        "CatanRoadBlue", 9999, "CatanRoadBlue", 9999, "CatanRoadBlue", 9999, "CatanRoadBlue", 9999, "CatanRoadBlue", 9999,
+    Dice = 2,
 
-        "CatanSettlementWhite", 9999, "CatanSettlementWhite", 9999, "CatanSettlementWhite", 9999, "CatanSettlementWhite", 9999, "CatanSettlementWhite", 9999,
-        "CatanCityWhite", 9999, "CatanCityWhite", 9999, "CatanCityWhite", 9999, "CatanCityWhite", 9999,
-        "CatanRoadWhite", 9999, "CatanRoadWhite", 9999, "CatanRoadWhite", 9999, "CatanRoadWhite", 9999, "CatanRoadWhite", 9999,
-        "CatanRoadWhite", 9999, "CatanRoadWhite", 9999, "CatanRoadWhite", 9999, "CatanRoadWhite", 9999, "CatanRoadWhite", 9999,
-        "CatanRoadWhite", 9999, "CatanRoadWhite", 9999, "CatanRoadWhite", 9999, "CatanRoadWhite", 9999, "CatanRoadWhite", 9999,
-
-        "CatanSettlementRed", 9999, "CatanSettlementRed", 9999, "CatanSettlementRed", 9999, "CatanSettlementRed", 9999, "CatanSettlementRed", 9999,
-        "CatanCityRed", 9999, "CatanCityRed", 9999, "CatanCityRed", 9999, "CatanCityRed", 9999,
-        "CatanRoadRed", 9999, "CatanRoadRed", 9999, "CatanRoadRed", 9999, "CatanRoadRed", 9999, "CatanRoadRed", 9999,
-        "CatanRoadRed", 9999, "CatanRoadRed", 9999, "CatanRoadRed", 9999, "CatanRoadRed", 9999, "CatanRoadRed", 9999,
-        "CatanRoadRed", 9999, "CatanRoadRed", 9999, "CatanRoadRed", 9999, "CatanRoadRed", 9999, "CatanRoadRed", 9999,
-
-        "CatanSettlementOrange", 9999, "CatanSettlementOrange", 9999, "CatanSettlementOrange", 9999, "CatanSettlementOrange", 9999, "CatanSettlementOrange", 9999,
-        "CatanCityOrange", 9999, "CatanCityOrange", 9999, "CatanCityOrange", 9999, "CatanCityOrange", 9999,
-        "CatanRoadOrange", 9999, "CatanRoadOrange", 9999, "CatanRoadOrange", 9999, "CatanRoadOrange", 9999, "CatanRoadOrange", 9999,
-        "CatanRoadOrange", 9999, "CatanRoadOrange", 9999, "CatanRoadOrange", 9999, "CatanRoadOrange", 9999, "CatanRoadOrange", 9999,
-        "CatanRoadOrange", 9999, "CatanRoadOrange", 9999, "CatanRoadOrange", 9999, "CatanRoadOrange", 9999, "CatanRoadOrange", 9999,
-    },
-    junk = { rolls = 1, items = {} }, fillRand = 0,
+    CatanPlayerCostsBlue = 1, CatanSettlementBlue = 5, CatanCityBlue = 4, CatanRoadBlue = 15,
+    CatanPlayerCostsWhite = 1, CatanSettlementWhite = 5, CatanCityWhite = 4, CatanRoadWhite = 15,
+    CatanPlayerCostsRed = 1, CatanSettlementRed = 5, CatanCityRed = 4, CatanRoadRed = 15,
+    CatanPlayerCostsOrange = 1, CatanSettlementOrange = 5, CatanCityOrange = 4, CatanRoadOrange = 15,
 }
