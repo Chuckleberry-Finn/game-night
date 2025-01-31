@@ -76,7 +76,7 @@ gameNightDistro.gameNightBoxes = {
 }
 
 
-function gameNightDistro.addToDistributions() for contID,content in pairs(gameNightDistro.gameNightBoxes) do Distributions[1][contID] = content end end
+function gameNightDistro.addToDistributions() for contID,content in pairs(gameNightDistro.gameNightBoxes) do SuburbsDistributions[contID] = content end end
 
 
 require "Items/ProceduralDistributions"
@@ -160,7 +160,10 @@ gameNightDistro.proceduralDistGameNight.listsToInsert = {
     ["BedroomDresser"] = { generalChance = 0.2, },
     ["ClassroomMisc"] = { generalChance = 0.1, },
     ["SchoolLockers"] = { generalChance = 0.075, },
+    ["SchoolLockersBad"] = { generalChance = 0.035, },
     ["OfficeDeskHome"] = { generalChance = 0.025, },
+    ["LivingRoomShelf"] = { generalChance = 0.025, },
+    ["LivingRoomShelfClassy"] = { generalChance = 0.035, },
     ["LivingRoomWardrobe"] = { generalChance = 0.025, },
     ["RecRoomShelf"] = { generalChance = 0.055, },
     ["BarCounterMisc"] = { generalChance = 6, },
