@@ -4,79 +4,49 @@ local gameNightDistro = {}
 
 gameNightDistro.gameNightBoxes = {
 
-    CheckersBox = { rolls = 1,
-        items = {
-            "GamePieceRed", 9999, "GamePieceRed", 9999, "GamePieceRed", 9999, "GamePieceRed", 9999,
-            "GamePieceRed", 9999, "GamePieceRed", 9999, "GamePieceRed", 9999, "GamePieceRed", 9999,
-            "GamePieceRed", 9999, "GamePieceRed", 9999, "GamePieceRed", 9999, "GamePieceRed", 9999,
-            "GamePieceBlack", 9999, "GamePieceBlack", 9999, "GamePieceBlack", 9999, "GamePieceBlack", 9999,
-            "GamePieceBlack", 9999, "GamePieceBlack", 9999, "GamePieceBlack", 9999, "GamePieceBlack", 9999,
-            "GamePieceBlack", 9999, "GamePieceBlack", 9999, "GamePieceBlack", 9999, "GamePieceBlack", 9999,
-            "CheckerBoard", 9999,
-        },
-        junk = { rolls = 1, items = {} }, fillRand = 0,
+    CheckersBox = {
+        GamePieceRed = 12,
+        GamePieceBlack = 12,
+        CheckerBoard = 1,
     },
 
-    ChessBox = { rolls = 1,
-        items = {
-            "ChessWhiteKing", 9999, "ChessWhiteQueen", 9999,
-            "ChessWhiteBishop", 9999, "ChessWhiteBishop", 9999,
-            "ChessWhiteKnight", 9999, "ChessWhiteKnight", 9999,
-            "ChessWhiteRook", 9999, "ChessWhiteRook", 9999,
+    ChessBox = {
+        ChessWhiteKing = 1, ChessWhiteQueen = 1,
+        ChessWhiteBishop = 1, ChessWhiteBishop = 1,
+        ChessWhiteKnight = 1, ChessWhiteKnight = 1,
+        ChessWhiteRook = 1, ChessWhiteRook = 1,
 
-            "ChessBlackKing", 9999, "ChessBlackQueen", 9999,
-            "ChessBlackBishop", 9999, "ChessBlackBishop", 9999,
-            "ChessBlackKnight", 9999, "ChessBlackKnight", 9999,
-            "ChessBlackRook", 9999, "ChessBlackRook", 9999,
+        ChessBlackKing = 1, ChessBlackQueen = 1,
+        ChessBlackBishop = 1, ChessBlackBishop = 1,
+        ChessBlackKnight = 1, ChessBlackKnight = 1,
+        ChessBlackRook = 1, ChessBlackRook = 1,
 
-            "ChessWhite", 9999, "ChessWhite", 9999, "ChessWhite", 9999, "ChessWhite", 9999,
-            "ChessWhite", 9999, "ChessWhite", 9999, "ChessWhite", 9999, "ChessWhite", 9999,
+        ChessWhite = 8, ChessBlack = 8,
 
-            "ChessBlack", 9999, "ChessBlack", 9999, "ChessBlack", 9999, "ChessBlack", 9999,
-            "ChessBlack", 9999, "ChessBlack", 9999, "ChessBlack", 9999, "ChessBlack", 9999,
-
-            "ChessBoard", 9999,
-        },
-        junk = { rolls = 1, items = {} }, fillRand = 0,
+        ChessBoard = 1,
     },
 
-    BackgammonBox = { rolls = 1,
-        items = {
-            "DiceWhite", 9999,
-            "DiceWhite", 9999,
-            "GamePieceBlackBackgammon", 9999, "GamePieceBlackBackgammon", 9999, "GamePieceBlackBackgammon", 9999,
-            "GamePieceBlackBackgammon", 9999, "GamePieceBlackBackgammon", 9999, "GamePieceBlackBackgammon", 9999,
-            "GamePieceBlackBackgammon", 9999, "GamePieceBlackBackgammon", 9999, "GamePieceBlackBackgammon", 9999,
-            "GamePieceBlackBackgammon", 9999, "GamePieceBlackBackgammon", 9999, "GamePieceBlackBackgammon", 9999,
-            "GamePieceBlackBackgammon", 9999, "GamePieceBlackBackgammon", 9999, "GamePieceBlackBackgammon", 9999,
-            "GamePieceWhite", 9999, "GamePieceWhite", 9999, "GamePieceWhite", 9999,
-            "GamePieceWhite", 9999, "GamePieceWhite", 9999, "GamePieceWhite", 9999,
-            "GamePieceWhite", 9999, "GamePieceWhite", 9999, "GamePieceWhite", 9999,
-            "GamePieceWhite", 9999, "GamePieceWhite", 9999, "GamePieceWhite", 9999,
-            "GamePieceWhite", 9999, "GamePieceWhite", 9999, "GamePieceWhite", 9999,
-            "BackgammonBoard", 9999,
-        },
-        junk = { rolls = 1, items = {} }, fillRand = 0,
+    BackgammonBox = {
+            DiceWhite = 2,
+            GamePieceBlackBackgammon = 15,
+            GamePieceWhite = 15,
+            BackgammonBoard = 1,
     },
 
-    PokerBox = { rolls = 1,
-        items = {
+    PokerBox = {
+            PokerChips = 1, PokerChipsBlue = 1,
+            PokerChipsYellow = 1, PokerChipsWhite = 1,
+            PokerChipsBlack = 1, PokerChipsOrange = 1,
+            PokerChipsPurple = 1, PokerChipsGreen = 1,
 
-            "PokerChips", 9999, "PokerChipsBlue", 9999,
-            "PokerChipsYellow", 9999, "PokerChipsWhite", 9999,
-            "PokerChipsBlack", 9999, "PokerChipsOrange", 9999,
-            "PokerChipsPurple", 9999, "PokerChipsGreen", 9999,
-
-            "CardDeck", 9999, "CardDeck", 9999,
-            "Dice", 9999, "Dice", 9999,
-        },
-        junk = { rolls = 1, items = {} }, fillRand = 0,
+            CardDeck = 2,
+            Dice = 2,
     },
 
 }
 
-
-function gameNightDistro.addToDistributions() for contID,content in pairs(gameNightDistro.gameNightBoxes) do SuburbsDistributions[contID] = content end end
+gameNightDistro.emptyLoot =  { rolls = 1, items = {} }
+function gameNightDistro.addToDistributions() for contID,content in pairs(gameNightDistro.gameNightBoxes) do SuburbsDistributions[contID] = gameNightDistro.emptyLoot end end
 
 
 require "Items/ProceduralDistributions"
@@ -169,12 +139,12 @@ gameNightDistro.proceduralDistGameNight.listsToInsert = {
     ["BarCounterMisc"] = { generalChance = 6, },
     ["Hobbies"] = { generalChance = 8, },
 
-    ["Gifts"] = { generalChance = 8, sealed = true },
-    ["BookstoreHobbies"] = { generalChance = 8, sealed = true },
-    ["GigamartToys"] = { generalChance = 8, sealed = true },
-    ["GiftStoreToys"] = { generalChance = 8, sealed = true },
-    ["HolidayStuff"] = { generalChance = 8, sealed = true },
-    ["CrateToys"] = { generalChance = 6, sealed = true },
+    ["Gifts"] = { generalChance = 8, },
+    ["BookstoreHobbies"] = { generalChance = 8, },
+    ["GigamartToys"] = { generalChance = 8, },
+    ["GiftStoreToys"] = { generalChance = 8, },
+    ["HolidayStuff"] = { generalChance = 8, },
+    ["CrateToys"] = { generalChance = 6, },
 
     ---these are already in the distro so no need to double them up
     ["WardrobeChild"] = { generalChance = 2, chanceOverride = {["BackgammonBox"] = 0, ["ChessBox"] = 0, ["CheckersBox"] = 0, ["PokerBox"] = 0,} },
@@ -187,14 +157,14 @@ function gameNightDistro.fillProceduralDist()
     for distID,distData in pairs(gNDpDGN.listsToInsert) do
         for item,itemData in pairs(gNDpDGN.itemsToAdd) do
             local gnRoll = itemData.rolls or 1
-            local sealed = gNDpDGN.listsToInsert[distID].sealed and getScriptManager():getItem("Base."..item.."_sealed") and "_sealed" or ""
+
             local distChance = (distData.chanceOverride and distData.chanceOverride[item]) or distData.generalChance
             local itemChance = (itemData.chanceFactor or 1) * (itemData.perDistFactor and itemData.perDistFactor[distID] or 1)
 
             local chance = distChance * itemChance * (SandboxVars.GameNight.LootMultiplier)
             if chance > 0 then
                 for i=1, gnRoll do
-                    table.insert(ProceduralDistributions.list[distID].items, item..sealed)
+                    table.insert(ProceduralDistributions.list[distID].items, item)
                     table.insert(ProceduralDistributions.list[distID].items, chance)
                 end
             end
