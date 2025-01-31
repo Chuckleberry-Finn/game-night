@@ -4,29 +4,16 @@ local gameNightDistro = require "gameNight - Distributions"
 
 gameNightDistro.proceduralDistGameNight.itemsToAdd["MonopolyBox"] = {}
 
-gameNightDistro.gameNightBoxes["MonopolyBox"] = {
-    rolls = 1,
-    items = {
-        "Dice", 9999, "Dice", 9999, "MonopolyBoard", 9999, "MonopolyDeed", 9999,
-        "MonopolyChance", 9999, "MonopolyCommunityChest", 9999,
-        "MonopolyBoat", 9999, "MonopolyBoot", 9999, "MonopolyCar", 9999, "MonopolyDog", 9999,
-        "MonopolyHat", 9999, "MonopolyIron", 9999, "MonopolyThimble", 9999, "MonopolyWheelbarrow", 9999,
+gameNightDistro.gameNightBoxes.MonopolyBox = {
 
-        "MonopolyHotel", 9999, "MonopolyHotel", 9999, "MonopolyHotel", 9999, "MonopolyHotel", 9999,
-        "MonopolyHotel", 9999, "MonopolyHotel", 9999, "MonopolyHotel", 9999, "MonopolyHotel", 9999,
-        "MonopolyHotel", 9999, "MonopolyHotel", 9999, "MonopolyHotel", 9999, "MonopolyHotel", 9999,
+    Dice = 2, MonopolyBoard = 1, MonopolyDeed = 1,
+    MonopolyChance = 1, MonopolyCommunityChest = 1,
+    MonopolyBoat = 1, MonopolyBoot = 1, MonopolyCar = 1, MonopolyDog = 1,
+    MonopolyHat = 1, MonopolyIron = 1, MonopolyThimble = 1, MonopolyWheelbarrow = 1,
 
-        "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999,
-        "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999,
-        "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999,
-        "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999,
-        "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999,
-        "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999,
-        "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999,
-        "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999, "MonopolyHouse", 9999,
+    MonopolyHotel = 12,
+    MonopolyHouse = 32,
 
-        "MonopolyMoney1", 9999, "MonopolyMoney5", 9999, "MonopolyMoney10", 9999, "MonopolyMoney20", 9999,
-        "MonopolyMoney50", 9999, "MonopolyMoney100", 9999, "MonopolyMoney500", 9999,
-    },
-    junk = { rolls = 1, items = {} }, fillRand = 0,
+    MonopolyMoney1 = 1, MonopolyMoney5 = 1, MonopolyMoney10 = 1, MonopolyMoney20 = 1,
+    MonopolyMoney50 = 1, MonopolyMoney100 = 1, MonopolyMoney500 = 1,
 }
