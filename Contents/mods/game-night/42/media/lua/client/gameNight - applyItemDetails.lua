@@ -62,6 +62,28 @@ function applyItemDetails.applyGameNightToItem(item, stackInit)
 end
 
 
+applyItemDetails.runExplore = {}
+
+function applyItemDetails.scanRunExplore()
+    if #applyItemDetails.runExplore <= 0 then return end
+    for i=#applyItemDetails.runExplore, 0, -1 do
+        local item = applyItemDetails.runExplore[i]
+        if item then
+            local container = item:getInventory()
+            container:setExplored(true)
+            gameNightOnCreateGameBox(item)
+
+            local items = container:getItems()
+            for iteration=0, items:size()-1 do
+                ---@type InventoryItem
+                local ii = items:get(iteration)
+                applyItemDetails.applyGameNightToItem(ii, true)
+            end
+        end
+        applyItemDetails.runExplore[i] = nil
+    end
+end
+
 ---@param ItemContainer ItemContainer
 function applyItemDetails.applyGameNightToInventory(ItemContainer, stackInit)
     if not ItemContainer then return end
@@ -69,7 +91,15 @@ function applyItemDetails.applyGameNightToInventory(ItemContainer, stackInit)
     local applyStacks = false
     local containingItem = ItemContainer:getContainingItem()
     if containingItem and (containingItem:getDisplayCategory() == "GameBox" or containingItem:getModData().gameNight_boxEnough) and (not containingItem:getModData().gameNight_gameBoxFill) then
+
         containingItem:getModData().gameNight_gameBoxFill = true
+
+        if not ItemContainer:isExplored() then
+            table.insert(applyItemDetails.runExplore, containingItem)
+            return
+        end
+
+        gameNightOnCreateGameBox(containingItem)
         applyStacks = true
     end
 
@@ -88,7 +118,10 @@ function applyItemDetails.applyToInventory(ISInventoryPage, step)
     end
 end
 
-function applyItemDetails.applyToFillContainer(contName, contType, container)
+function applyItemDetails.applyToFillContainer(contName, contType, container, info)
+
+    print("contName: ", contName, "|  contType:",contType, "|  container:",container, "|  info: ",info)
+
     applyItemDetails.applyGameNightToInventory(container, true)
 end
 

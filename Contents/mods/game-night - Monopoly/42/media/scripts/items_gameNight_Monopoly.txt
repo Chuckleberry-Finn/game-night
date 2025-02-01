@@ -10,7 +10,6 @@ module Base
     {
        DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
        DisplayName = Monopoly Box, Icon = Boxes/monopolyBox, WorldStaticModel = MonopolyBox,
-       OnCreate = gameNightOnCreateGameBox,
     }
 
     item MonopolyMoney1

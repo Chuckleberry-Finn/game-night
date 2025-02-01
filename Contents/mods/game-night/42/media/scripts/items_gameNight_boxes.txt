@@ -4,21 +4,18 @@ module Base
         {
             DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
             DisplayName = Checkers Box, Icon = Boxes/checkersBox, WorldStaticModel = CheckersBox,
-            OnCreate = gameNightOnCreateGameBox,
         }
 
     item ChessBox
         {
             DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
             DisplayName = Chess Box, Icon = Boxes/chessBox, WorldStaticModel = ChessBox,
-            OnCreate = gameNightOnCreateGameBox,
         }
 
     item BackgammonBox
         {
             DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
             DisplayName = Backgammon Box, Icon = Boxes/backgammonBox, WorldStaticModel = BackgammonBox,
-            OnCreate = gameNightOnCreateGameBox,
         }
 
 
@@ -26,6 +23,5 @@ module Base
         {
             DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
             DisplayName = Poker Box, Icon = Boxes/pokerBox, WorldStaticModel = PokerBox,
-            OnCreate = gameNightOnCreateGameBox,
         }
 }

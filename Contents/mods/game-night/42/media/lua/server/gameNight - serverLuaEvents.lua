@@ -1,4 +1,4 @@
-local gameNightDistro = require "gameNight - Distributions"
+local gameNightDistro = require("gameNight - Distributions")
 
 Events.OnPreDistributionMerge.Add(gameNightDistro.addToDistributions)
 Events.OnPostDistributionMerge.Add(gameNightDistro.overrideProceduralDist)
