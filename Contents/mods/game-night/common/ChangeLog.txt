@@ -153,6 +153,7 @@ User Experience:
 - Added new mod icons
 - Removed the 'unseal' feature, boxes can now be spawned-in fully stocked.
 - Removed Uno Box, cards now spawn as is.
+- Fixed card flipping not refreshing the item.
 [ ------ ]
 
 [ ALERT_CONFIG ]
