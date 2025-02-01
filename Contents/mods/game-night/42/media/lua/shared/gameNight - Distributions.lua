@@ -155,19 +155,24 @@ gameNightDistro.proceduralDistGameNight.listsToInsert = {
 function gameNightDistro.fillProceduralDist()
     local gNDpDGN = gameNightDistro.proceduralDistGameNight
     for distID,distData in pairs(gNDpDGN.listsToInsert) do
-        for item,itemData in pairs(gNDpDGN.itemsToAdd) do
-            local gnRoll = itemData.rolls or 1
 
-            local distChance = (distData.chanceOverride and distData.chanceOverride[item]) or distData.generalChance
-            local itemChance = (itemData.chanceFactor or 1) * (itemData.perDistFactor and itemData.perDistFactor[distID] or 1)
+        if ProceduralDistributions.list[distID] then
+            for item,itemData in pairs(gNDpDGN.itemsToAdd) do
+                local gnRoll = itemData.rolls or 1
 
-            local chance = distChance * itemChance * (SandboxVars.GameNight.LootMultiplier)
-            if chance > 0 then
-                for i=1, gnRoll do
-                    table.insert(ProceduralDistributions.list[distID].items, item)
-                    table.insert(ProceduralDistributions.list[distID].items, chance)
+                local distChance = (distData.chanceOverride and distData.chanceOverride[item]) or distData.generalChance
+                local itemChance = (itemData.chanceFactor or 1) * (itemData.perDistFactor and itemData.perDistFactor[distID] or 1)
+
+                local chance = distChance * itemChance * (SandboxVars.GameNight.LootMultiplier)
+                if chance > 0 then
+                    for i=1, gnRoll do
+                        table.insert(ProceduralDistributions.list[distID].items, item)
+                        table.insert(ProceduralDistributions.list[distID].items, chance)
+                    end
                 end
             end
+        else
+            print("ERROR: gameNightDistro.fillProceduralDist: ProceduralDistributions.list.", distID, " not found")
         end
     end
 end
