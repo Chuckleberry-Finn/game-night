@@ -112,6 +112,11 @@ function deckActionHandler.handleDetails(deckItem)
 
     if texture then deckItem:setTexture(texture) end
 
+    local cont = deckItem:getContainer()
+    local parent = cont and cont:getParent()
+    if parent and instanceof(parent, "IsoPlayer") then
+        gamePieceAndBoardHandler.refreshInventory(parent)
+    end
 end
 
 
@@ -157,6 +162,7 @@ function deckActionHandler._flipSpecificCard(deckItem, flipIndex)
     local deckStates, currentFlipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates then return end
     deckItem:getModData()["gameNight_cardFlipped"][flipIndex] = not currentFlipStates[flipIndex]
+    deckActionHandler.handleDetails(deckItem)
 end
 function deckActionHandler.flipSpecificCard(deckItem, player, index, x, y, z)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._flipSpecificCard, deckItem, index}, deckActionHandler.handleDetails, x, y, z)
@@ -178,6 +184,7 @@ function deckActionHandler._flipCard(deckItem)
 
     deckItem:getModData()["gameNight_cardDeck"] = handleFlippedDeck
     deckItem:getModData()["gameNight_cardFlipped"] = handleFlippedStates
+    deckActionHandler.handleDetails(deckItem)
 end
 function deckActionHandler.flipCard(deckItem, player, x, y, z)
     gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, deckItem, {deckActionHandler._flipCard, deckItem}, deckActionHandler.handleDetails, x, y, z)

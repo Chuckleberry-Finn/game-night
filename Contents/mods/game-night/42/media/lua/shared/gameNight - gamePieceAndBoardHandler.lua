@@ -214,7 +214,6 @@ function gamePieceAndBoardHandler._unstack(gamePiece, player, numberOf, location
 
         gamePieceAndBoardHandler.handleDetails(gamePiece)
         gamePieceAndBoardHandler.handleDetails(newPiece)
-        gamePieceAndBoardHandler.refreshInventory(player)
 
         return gamePiece
     end
@@ -316,6 +315,7 @@ function gamePieceAndBoardHandler.applyScriptChanges()
 
             local special_weight = special and special.weight
             if special_weight then script:DoParam("Weight = "..special_weight) end
+
         end
     end
 
@@ -379,6 +379,12 @@ function gamePieceAndBoardHandler.handleDetails(gamePiece, stackInit)
 
     local icon = gamePieceAndBoardHandler.fetchIconState(gamePiece, "Item_OutOfPlayTextures", additionalTextureDir, iconState)
     if icon then gamePiece:setTexture(icon) end
+
+    local cont = gamePiece:getContainer()
+    local parent = cont and cont:getParent()
+    if parent and instanceof(parent, "IsoPlayer") then
+        gamePieceAndBoardHandler.refreshInventory(parent)
+    end
 end
 
 
@@ -468,13 +474,13 @@ function gamePieceAndBoardHandler.pickupGamePiece(player, item, onPickUp, detail
         pickedUp = true
     end
 
-    gamePieceAndBoardHandler.refreshInventory(player)
-
     if item then
         if angleChange then gamePieceAndBoardHandler.rotatePiece(item, angleChange, player) end
         detailsFunc = detailsFunc or gamePieceAndBoardHandler.handleDetails
         detailsFunc(item)
     end
+
+    gamePieceAndBoardHandler.refreshInventory(player)
 
     return pickedUp, xOffset, yOffset, zPos
 end
@@ -625,6 +631,8 @@ function gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, item, onPickUp
 
         gamePieceAndBoardHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOffset, zPos)
     end
+
+    gamePieceAndBoardHandler.refreshInventory(player)
 end
 
 
