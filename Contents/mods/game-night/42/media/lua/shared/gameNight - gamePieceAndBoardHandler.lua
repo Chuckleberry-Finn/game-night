@@ -16,7 +16,7 @@ gamePieceAndBoardHandler.itemTypes = {
     "Base.ChessWhiteQueen", "Base.ChessBlackQueen", "Base.ChessWhiteRook","Base.ChessBlackRook",
     "Base.ChessWhiteKnight", "Base.ChessBlackKnight",
 
-    "Base.StellaOcta","Base.Dice4", "Base.Dice6", "Base.Dice8", "Base.Dice10", "Base.Dice12", "Base.Dice20",
+    "Base.StellaOcta","Base.Dice_4", "Base.Dice_6", "Base.Dice_8", "Base.Dice_10", "Base.Dice_12", "Base.Dice_20",
 }
 
 
@@ -65,7 +65,7 @@ gamePieceAndBoardHandler.specials = {
 ---Because I hate copy pasted code - this iterates through the side values and registers their special actions.
 local dice_sides = {4,6,8,10,12,20}
 for _,side in pairs(dice_sides) do
-    gamePieceAndBoardHandler.registerSpecial("Base.Dice"..side, {
+    gamePieceAndBoardHandler.registerSpecial("Base.Dice_"..side, {
         addTextureDir = "dice/", noRotate=true, actions = { examine=true, rollDie=side, placeDieOnSide=true }, shiftAction = "rollDie",
     })
 end
