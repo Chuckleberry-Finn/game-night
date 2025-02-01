@@ -33,54 +33,54 @@ module Base
 
     item ChessBlackKing {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackKing, WorldStaticModel = BlackChessPieces,
+        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackKing, WorldStaticModel = gn_BlackChessPieces,
     }
     item ChessWhiteKing {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteKing, WorldStaticModel = WhiteChessPieces,
+        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteKing, WorldStaticModel = gn_WhiteChessPieces,
     }
 
      item ChessBlackQueen {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackQueen, WorldStaticModel = BlackChessPieces,
+        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackQueen, WorldStaticModel = gn_BlackChessPieces,
     }
     item ChessWhiteQueen {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteQueen, WorldStaticModel = WhiteChessPieces,
+        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteQueen, WorldStaticModel = gn_WhiteChessPieces,
     }
 
 
     item ChessBlackBishop {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackBishop, WorldStaticModel = BlackChessPieces,
+        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackBishop, WorldStaticModel = gn_BlackChessPieces,
     }
     item ChessWhiteBishop {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteBishop, WorldStaticModel = WhiteChessPieces,
+        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteBishop, WorldStaticModel = gn_WhiteChessPieces,
     }
 
     item ChessBlackRook {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackRook, WorldStaticModel = BlackChessPieces,
+        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackRook, WorldStaticModel = gn_BlackChessPieces,
     }
     item ChessWhiteRook {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteRook, WorldStaticModel = WhiteChessPieces,
+        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteRook, WorldStaticModel = gn_WhiteChessPieces,
     }
 
     item ChessBlackKnight {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackKnight, WorldStaticModel = BlackChessPieces,
+        DisplayName	= Black Chess Piece, Icon = OutOfPlayTextures/ChessBlackKnight, WorldStaticModel = gn_BlackChessPieces,
     }
     item ChessWhiteKnight {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteKnight, WorldStaticModel = WhiteChessPieces,
+        DisplayName	= White Chess Piece, Icon = OutOfPlayTextures/ChessWhiteKnight, WorldStaticModel = gn_WhiteChessPieces,
     }
 
 
     item PokerChips {
         DisplayCategory = GamePiece, Weight = 0.001, Type = Normal,
-        DisplayName	=	Poker Chips, Icon =	OutOfPlayTextures/PokerChipsRed, WorldStaticModel = PokerChips_Ground,
+        DisplayName	=	Poker Chips, Icon =	OutOfPlayTextures/PokerChipsRed, WorldStaticModel = gn_PokerChips_Ground,
     }
 
     item PokerChipsWhite {

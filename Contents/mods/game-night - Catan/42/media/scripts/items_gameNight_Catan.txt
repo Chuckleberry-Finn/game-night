@@ -30,7 +30,7 @@ module Base
     item CatanRobber
     {
         DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName = Robber Piece, Icon = OutOfPlayTextures/CatanRobber, WorldStaticModel = PokerChips_Ground,
+        DisplayName = Robber Piece, Icon = OutOfPlayTextures/CatanRobber, WorldStaticModel = CatanRobber,
     }
 
     item CatanSettlementWhite

@@ -6,7 +6,7 @@ gamePieceAndBoardHandler.itemTypes = {
     "Base.ChessWhite","Base.ChessBlack","Base.PokerChips",
 
     --added
-    "Base.DiceWhite",
+    "Base.DiceWhite","Base.CardDeck",
 
     "Base.PokerChipsBlue","Base.PokerChipsYellow","Base.PokerChipsWhite","Base.PokerChipsBlack",
     "Base.PokerChipsOrange","Base.PokerChipsPurple","Base.PokerChipsGreen",
@@ -37,21 +37,26 @@ function gamePieceAndBoardHandler.generate_itemTypes()
     for _,itemType in pairs(gamePieceAndBoardHandler.itemTypes) do gamePieceAndBoardHandler._itemTypes[itemType] = true end
 end
 
+
 gamePieceAndBoardHandler.specials = {
-    ["Base.Dice"]={ category = "Die", actions = { examine=true, rollDie=6 }, shiftAction = "rollDie", noRotate=true, },
+    ["Base.Dice"]={ category = "Die", modelOverride = "gn_Dice", actions = { examine=true, rollDie=6 }, shiftAction = "rollDie", noRotate=true, },
     ["Base.DiceWhite"]={ category = "Die", actions = { examine=true, rollDie=6 }, shiftAction = "rollDie", noRotate=true, },
 
-    ["Base.GamePieceRed"]={ weight = 0.01, actions = { flipPiece=true }, altState="GamePieceRedFlipped", shiftAction = "flipPiece", noRotate=true, },
-    ["Base.GamePieceBlack"]={ weight = 0.01, actions = { flipPiece=true }, altState="GamePieceBlackFlipped", shiftAction = "flipPiece", noRotate=true, },
+    ["Base.CardDeck"]={ modelOverride = "gn_CardDeck" },
 
-    ["Base.BackgammonBoard"]={ actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
-    ["Base.CheckerBoard"]={ actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
+    ["Base.GamePieceWhite"]={ modelOverride = "gn_GamePiecesWhite_Ground", },
+
+    ["Base.GamePieceRed"]={ modelOverride = "gn_GamePiecesRed_Ground", weight = 0.01, actions = { flipPiece=true }, altState="GamePieceRedFlipped", shiftAction = "flipPiece", noRotate=true, },
+    ["Base.GamePieceBlack"]={ modelOverride = "gn_GamePiecesBlack_Ground", weight = 0.01, actions = { flipPiece=true }, altState="GamePieceBlackFlipped", shiftAction = "flipPiece", noRotate=true, },
+
+    ["Base.BackgammonBoard"]={ modelOverride = "gn_BackgammonBoard_Ground", actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
+    ["Base.CheckerBoard"]={ modelOverride = "gn_CheckerBoard_Ground", actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
     ["Base.ChessBoard"]={ actions = { lock=true }, category = "GameBoard", textureSize = {532,540} },
 
-    ["Base.ChessWhite"]={ weight = 0.01, },
-    ["Base.ChessBlack"]={ weight = 0.01, },
+    ["Base.ChessWhite"]={ modelOverride = "gn_WhiteChessPieces", weight = 0.01, },
+    ["Base.ChessBlack"]={ modelOverride = "gn_BlackChessPieces", weight = 0.01, },
 
-    ["Base.PokerChips"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.8, 0.42, 0.41}, sides=7} },
+    ["Base.PokerChips"] = { modelOverride = "gn_PokerChips_Ground", weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.8, 0.42, 0.41}, sides=7} },
     ["Base.PokerChipsBlue"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.41, 0.52, 0.82}, sides=7 } },
     ["Base.PokerChipsYellow"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.79, 0.75, 0.38}, sides=7 } },
     ["Base.PokerChipsWhite"] = { weight = 0.003, shiftAction = "takeOneOffStack", canStack = 50, noRotate=true, alternateStackRendering = {depth = 4, func="DrawTexturePokerChip", rgb = {0.94, 0.92, 0.88}, sides=7 } },
@@ -301,9 +306,12 @@ function gamePieceAndBoardHandler.applyScriptChanges()
         if script then
 
             if special then
-                local newCategory = special.category or special.category or "GamePiece"
+                local newCategory = special.category or "GamePiece"
                 if special.ignoreCategory then newCategory = nil end
                 if newCategory then script:DoParam("DisplayCategory = "..newCategory) end
+
+                local modelOverride = special.modelOverride
+                if modelOverride then script:DoParam("WorldStaticModel = "..modelOverride) end
             end
 
             local iconPath = "OutOfPlayTextures/"..script:getName()..".png"

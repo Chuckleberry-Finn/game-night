@@ -4,15 +4,22 @@ module Base
 	model ChessBox { mesh = WorldItems/cardpack, texture = Item_Boxes/chessBox_ground, scale = 0.06, }
 	model BackgammonBox { mesh = WorldItems/cardpack, texture = Item_Boxes/backgammonBox_ground, scale = 0.06, }
 	model PokerBox { mesh = WorldItems/cardpack, texture = Item_Boxes/PokerBox_ground, scale = 0.06, }
-	model GamePiecesWhite_Ground { mesh = WorldItems/coin, texture = modelTextures/GamePieceWhite, scale = 0.003, }
-	model GamePieceBlackBackgammon_Ground { mesh = WorldItems/coin, texture = modelTextures/GamePieceBlack, scale = 0.003, }
-	model GamePiecesBlack_Ground { mesh = WorldItems/coin, texture = modelTextures/CheckersBlack, scale = 0.004, }
-	model GamePiecesRed_Ground { mesh = WorldItems/coin, texture = modelTextures/CheckersRed, scale = 0.004, }
-	model WhiteChessPieces { mesh = WorldItems/chess, texture = modelTextures/ChessPieceWhite, scale = 0.004, }
-	model BlackChessPieces { mesh = WorldItems/chess, texture = modelTextures/ChessPieceBlack, scale = 0.004,}
-	model Dice { mesh = WorldItems/gameNightCube, texture = modelTextures/Dice, scale = 0.0015, }
+
+    model GamePieceBlackBackgammon_Ground { mesh = WorldItems/coin, texture = modelTextures/GamePieceBlack, scale = 0.003, }
+
+	model gn_GamePiecesWhite_Ground { mesh = WorldItems/coin, texture = modelTextures/GamePieceWhite, scale = 0.003, }
+
+	model gn_GamePiecesBlack_Ground { mesh = WorldItems/coin, texture = modelTextures/CheckersBlack, scale = 0.004, }
+	model gn_GamePiecesRed_Ground { mesh = WorldItems/coin, texture = modelTextures/CheckersRed, scale = 0.004, }
+
+	model gn_WhiteChessPieces { mesh = WorldItems/chess, texture = modelTextures/ChessPieceWhite, scale = 0.004, }
+	model gn_BlackChessPieces { mesh = WorldItems/chess, texture = modelTextures/ChessPieceBlack, scale = 0.004,}
+	model gn_Dice { mesh = WorldItems/gameNightCube, texture = modelTextures/Dice, scale = 0.0015, }
+
 	model DiceWhite { mesh = WorldItems/gameNightCube, texture = modelTextures/DiceWhite, scale = 0.0015, }
-	model PokerChips_Ground { mesh = WorldItems/coin, texture = modelTextures/PokerChips, scale = 0.004, }
+
+	model gn_PokerChips_Ground { mesh = WorldItems/coin, texture = modelTextures/PokerChips, scale = 0.004, }
+
 	model PokerChipsBlack { mesh = WorldItems/coin, texture = modelTextures/PokerChipsBlack, scale = 0.004, }
 	model PokerChipsBlue { mesh = WorldItems/coin, texture = modelTextures/PokerChipsBlue, scale = 0.004, }
 	model PokerChipsGreen { mesh = WorldItems/coin, texture = modelTextures/PokerChipsGreen, scale = 0.004, }
@@ -20,8 +27,8 @@ module Base
 	model PokerChipsPurple { mesh = WorldItems/coin, texture = modelTextures/PokerChipsPurple, scale = 0.004, }
 	model PokerChipsWhite { mesh = WorldItems/coin, texture = modelTextures/PokerChipsWhite, scale = 0.004, }
 	model PokerChipsYellow { mesh = WorldItems/coin, texture = modelTextures/PokerChipsYellow, scale = 0.004, }
-	model CardDeck { mesh = WorldItems/cardpack, texture = Item_CardDeck/deckTexture, scale = 0.02, }
-	model CardDeckSingle { mesh = WorldItems/card, texture = Item_CardDeck/deckTexture, scale = 0.02, }
+
+	model gn_CardDeck { mesh = WorldItems/cardpack, texture = Item_CardDeck/deckTexture, scale = 0.02, }
 
     model PlayingCards1 { mesh = WorldItems/cardpack, texture = Item_PlayingCards1/deckTexture, scale = 0.024, }
     model PlayingCards2 { mesh = WorldItems/cardpack, texture = Item_PlayingCards2/deckTexture, scale = 0.024, }
@@ -29,27 +36,21 @@ module Base
 
     model StellaOcta { mesh = WorldItems/gameNightCube, texture = modelTextures/stellaOcta, scale = 0.0015, }
 
-	model BackgammonBoard_Ground
+	model gn_BackgammonBoard_Ground
     {
-        mesh = WorldItems/BackgammonBoard,
-        texture = Item_InPlayTextures/BackgammonBoard,
-		scale = 0.48,
+        mesh = WorldItems/BackgammonBoard, texture = Item_InPlayTextures/BackgammonBoard, scale = 0.48,
 		attachment world { offset = -0.215 -0.0700 0.245, rotate = 0.0000 0.0000 0.0000, }
     }
 
-    model CheckerBoard_Ground
+    model gn_CheckerBoard_Ground
     {
-        mesh = WorldItems/CheckerBoard,
-        texture = Item_InPlayTextures/CheckerBoard,
-		scale = 0.48,
+        mesh = WorldItems/CheckerBoard, texture = Item_InPlayTextures/CheckerBoard, scale = 0.48,
 		attachment world { offset = -0.215 -0.0700 0.245, rotate = 0.0000 0.0000 0.0000, }
     }
 
 	model ChessBoard_Ground
 	{
-		mesh = WorldItems/CheckerBoard,
-		texture = Item_InPlayTextures/ChessBoard,
-		scale = 0.48,
+		mesh = WorldItems/CheckerBoard, texture = Item_InPlayTextures/ChessBoard, scale = 0.48,
 		attachment world { offset = -0.215 -0.0700 0.245, rotate = 0.0000 0.0000 0.0000, }
 	}
 }
