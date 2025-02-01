@@ -119,9 +119,7 @@ function applyItemDetails.applyToInventory(ISInventoryPage, step)
 end
 
 function applyItemDetails.applyToFillContainer(contName, contType, container, info)
-
-    print("contName: ", contName, "|  contType:",contType, "|  container:",container, "|  info: ",info)
-
+    
     applyItemDetails.applyGameNightToInventory(container, true)
 end
 
