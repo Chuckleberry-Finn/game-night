@@ -143,16 +143,18 @@
 - Added changes to unhappiness with item interaction.
 [ ------ ]
 
-[ B42 ]
+[ 2/1/25 - B42 ]
 Initial 42 Changeover:
 
 Under the hood stuff:
-- refactored itemfactory.createItem to instanceItem
+- Refactored itemfactory.createItem to instanceItem.
+- Removed unsealing recipes.
+- Changed how distributions are handled/added to.
 
 User Experience:
 - Added new mod icons
 - Removed the 'unseal' feature, boxes can now be spawned-in fully stocked.
-- Removed Uno Box, cards now spawn as is.
+- Removed Uno Box, cards now spawn in as is.
 - Fixed card flipping not refreshing the item.
 [ ------ ]
 
