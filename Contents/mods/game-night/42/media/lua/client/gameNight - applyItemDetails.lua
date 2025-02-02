@@ -88,6 +88,9 @@ end
 function applyItemDetails.applyGameNightToInventory(ItemContainer, stackInit)
     if not ItemContainer then return end
 
+    --TODO: REMOVE THIS WHEN THE DEVS FIX THIS EVENT CALL
+    if not instanceof(ItemContainer, "ItemContainer") then return end
+
     local applyStacks = false
     local containingItem = ItemContainer:getContainingItem()
     if containingItem and (containingItem:getDisplayCategory() == "GameBox" or containingItem:getModData().gameNight_boxEnough) and (not containingItem:getModData().gameNight_gameBoxFill) then
