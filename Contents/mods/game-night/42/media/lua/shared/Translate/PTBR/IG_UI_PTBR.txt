@@ -1,0 +1,41 @@
+IGUI_PTBR = {
+    IGUI_draw = "Empate",
+    IGUI_deal = "Carta de negócio",
+    IGUI_dealCards = "Distribuir %1 Cartas",
+    IGUI_drawCard = "Comprar carta do topo",
+    IGUI_drawCards = "Compre %1 cartas",
+    IGUI_splitCards = "Dividir %1 Cartas"
+    IGUI_drawRandCard = "Desenhe uma carta aleatória",
+    IGUI_shuffleCards = "Embaralhar",
+    IGUI_flipCard = "Virar",
+    IGUI_searchDeck = "Procurar"
+    IGUI_flipPiece = "Virar",
+    IGUI_rollDie = "Rolar",
+    IGUI_lock = "Trancar",
+
+    IGUI_placeDieOnSide = "Coloque como..."
+    IGUI_PlaceDieOnSide = "Coloque como %1",
+    IGUI_examine = "Examinar",
+    IGUI_coinFlip = "Moeda de cara ou coroa",
+
+    IGUI_take = "Pegar",
+    IGUI_takeMore = "Pegue %1",
+
+    IGUI_SpecialActionAll = "Todos"
+
+    IGUI_Play_Game = "Jogar jogo",
+
+    IGUI_lockElement = "Bloqueio no lugar"
+
+    IGUI_ItemCat_Card = "Cartão",
+    IGUI_ItemCat_Deck = "Baralho",
+    IGUI_ItemCat_GamePiece = "Peça de jogo",
+    IGUI_ItemCat_GameBoard = "Tabuleiro de jogo",
+    IGUI_ItemCat_GameBox = "Caixa de jogo",
+    IGUI_ItemCat_Die = "Morrer",
+
+    IGUI_CardDeck = "Carta de baralho",
+    IGUI_PlayingCards1 = "Carta de baralho",
+    IGUI_PlayingCards2 = "Carta de baralho",
+    IGUI_PlayingCards3 = "Carta de baralho",
+}

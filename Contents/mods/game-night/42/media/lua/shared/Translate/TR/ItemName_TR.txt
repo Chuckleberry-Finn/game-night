@@ -1,0 +1,48 @@
+ItemName_TR = {
+
+    ItemName_Base.GamePieceBlack = "Siyah Dama Taşı",
+    ItemName_Base.GamePieceRed = "Kırmızı Damalı Parça",
+    ItemName_Base.GamePieceWhite = "Beyaz Tavla Taşı",
+    ItemName_Base.GamePieceBlackBackgammon = "Siyah Tavla Taşı",
+
+    ItemName_Base.PlayingCards1 = "Oyun Kartları",
+    ItemName_Base.PlayingCards2 = "Oyun Kartları",
+    ItemName_Base.PlayingCards3 = "Oyun Kartları",
+
+    ItemName_Base.CheckersBox = "Dama Kutusu",
+    ItemName_Base.CheckersBox_sealed = "Dama Kutusu (Mühürlü)",
+
+    ItemName_Base.BackgammonBox = "Tavla Kutusu",
+    ItemName_Base.BackgammonBox_sealed = "Tavla Kutusu (Kapalı)",
+
+    ItemName_Base.ChessWhite = "Beyaz Piyon Satranç Taşı",
+    ItemName_Base.ChessBlack = "Siyah Piyon Satranç Taşı",
+    ItemName_Base.ChessWhiteKing = "Beyaz Şah Satranç Taşı",
+    ItemName_Base.ChessBlackKing = "Siyah Şah Satranç Taşı",
+    ItemName_Base.ChessWhiteBishop = "Beyaz Fil Satranç Taşı",
+    ItemName_Base.ChessBlackBishop = "Siyah Fil Satranç Taşı",
+    ItemName_Base.ChessWhiteQueen = "Beyaz Kraliçe Satranç Taşı",
+    ItemName_Base.ChessBlackQueen = "Siyah Kraliçe Satranç Taşı",
+    ItemName_Base.ChessWhiteRook = "Beyaz Kale Satranç Taşı",
+    ItemName_Base.ChessBlackRook = "Siyah Kale Satranç Taşı",
+    ItemName_Base.ChessWhiteKnight = "Beyaz At Satranç Taşı",
+    ItemName_Base.ChessBlackKnight = "Kara Şövalye Satranç Taşı",
+
+    ItemName_Base.ChessBox = "Satranç Kutusu",
+    ItemName_Base.ChessBox_sealed = "Satranç Kutusu (Kapalı)",
+
+    ItemName_Base.PokerChips = "Kırmızı Poker Fişi",
+    ItemName_Base.PokerChipsBlue = "Mavi Poker Fişi",
+    ItemName_Base.PokerChipsGreen = "Yeşil Poker Fişi",
+    ItemName_Base.PokerChipsPurple = "Mor Poker Fişi",
+    ItemName_Base.PokerChipsYellow = "Sarı Poker Fişi",
+    ItemName_Base.PokerChipsOrange = "Turuncu Poker Fişi",
+    ItemName_Base.PokerChipsWhite = "Beyaz Poker Fişi",
+    ItemName_Base.PokerChipsBlack = "Siyah Poker Fişi",
+
+    ItemName_Base.PokerBox = "Poker Kutusu",
+    ItemName_Base.PokerBox_sealed = "Poker Kutusu (Mühürlü)",
+
+    ItemName_Base.Dice = "Ölmek",
+    ItemName_Base.DiceWhite = "Ölmek",
+}

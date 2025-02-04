@@ -1,0 +1,13 @@
+Sandbox_TH = {
+	Sandbox_GameNight = "คืนแห่งเกม",
+
+    Sandbox_GameNight_DisplayItemNames = "แสดงชื่อรายการ",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "แสดงชื่อไอเทมในเกม",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "แสดงเคอร์เซอร์ของผู้เล่นใน Game-UI",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "แสดงเคอร์เซอร์ของผู้เล่นบนหน้าจอ เคอร์เซอร์ไม่ควรทำให้เกิดปัญหาด้านการรับส่งข้อมูลใดๆ อย่างไรก็ตาม กระบวนการนี้เกี่ยวข้องกับการส่งข้อมูลจำนวนเล็กน้อยอย่างรวดเร็ว ตัวเลือกนี้มีไว้สำหรับผู้ที่กำลังแก้ไขปัญหาและใช้สิ่งที่สร้างบันทึกสำหรับการรับส่งข้อมูลบนเครือข่าย ไม่แนะนำให้เล่นโดยไม่มีเคอร์เซอร์ที่มองเห็นได้",
+
+    Sandbox_GameNight_LootMultiplier = "ตัวคูณการปล้นทั่วไป",
+    Sandbox_GameNight_LootMultiplier_tooltip = "ค่านี้จะคูณกับโอกาสการดรอปของเริ่มต้น ส่งผลต่อไอเท็มทั้งหมดในเกมที่พบในโลก<br>การเปลี่ยนแปลงจะต้องรีบูต"
+
+	}

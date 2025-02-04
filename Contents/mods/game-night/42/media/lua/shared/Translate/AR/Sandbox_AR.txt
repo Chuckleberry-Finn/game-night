@@ -1,0 +1,13 @@
+Sandbox_AR = {
+	Sandbox_GameNight = "Noche de juegos",
+
+    Sandbox_GameNight_DisplayItemNames = "Mostrar nombres de elementos",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Mostrar los nombres de los elementos en el juego.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Mostrar cursores de jugadores en la interfaz de usuario del juego",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Muestra los cursores de los jugadores en la pantalla. Los cursores no deberían causar ningún tipo de problema de tráfico, sin embargo, el proceso implica enviar pequeños fragmentos de datos rápidamente. Esta opción está destinada a personas que realizan tareas de resolución de problemas y utilizan algo que crea registros del tráfico de red. No se recomienda jugar sin cursores visibles.",
+
+    Sandbox_GameNight_LootMultiplier = "Multiplicador de botín general",
+    Sandbox_GameNight_LootMultiplier_tooltip = "Esto se multiplica por las posibilidades de botín predeterminadas. Afecta a todos los elementos del juego que se encuentran en el mundo.<br>Los cambios requerirán un reinicio."
+
+	}

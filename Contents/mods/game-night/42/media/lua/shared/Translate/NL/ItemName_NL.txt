@@ -1,0 +1,48 @@
+ItemName_NL = {
+
+    ItemName_Base.GamePieceBlack = "Zwarte damstenen stuk",
+    ItemName_Base.GamePieceRed = "Rood schaakstuk",
+    ItemName_Base.GamePieceWhite = "Wit Backgammon Stuk",
+    ItemName_Base.GamePieceBlackBackgammon = "Zwarte Backgammon Stuk",
+
+    ItemName_Base.PlayingCards1 = "Speelkaarten",
+    ItemName_Base.PlayingCards2 = "Speelkaarten",
+    ItemName_Base.PlayingCards3 = "Speelkaarten",
+
+    ItemName_Base.CheckersBox = "Damborddoos",
+    ItemName_Base.CheckersBox_sealed = "Checkers Box (verzegeld)",
+
+    ItemName_Base.BackgammonBox = "Backgammon-doos",
+    ItemName_Base.BackgammonBox_sealed = "Backgammon Box (verzegeld)",
+
+    ItemName_Base.ChessWhite = "Witte pion schaakstuk",
+    ItemName_Base.ChessBlack = "Zwarte pion schaakstuk",
+    ItemName_Base.ChessWhiteKing = "Witte Koning Schaakstuk",
+    ItemName_Base.ChessBlackKing = "Zwarte Koning Schaakstuk",
+    ItemName_Base.ChessWhiteBishop = "Witte Loper Schaakstuk",
+    ItemName_Base.ChessBlackBishop = "Zwarte Loper Schaakstuk",
+    ItemName_Base.ChessWhiteQueen = "Witte Koningin Schaakstuk",
+    ItemName_Base.ChessBlackQueen = "Zwarte Koningin Schaakstuk",
+    ItemName_Base.ChessWhiteRook = "Witte toren schaakstuk",
+    ItemName_Base.ChessBlackRook = "Zwarte toren schaakstuk",
+    ItemName_Base.ChessWhiteKnight = "Witte Ridder Schaakstuk",
+    ItemName_Base.ChessBlackKnight = "Zwarte Paard Schaakstuk",
+
+    ItemName_Base.ChessBox = "Schaakdoos",
+    ItemName_Base.ChessBox_sealed = "Schaakdoos (verzegeld)",
+
+    ItemName_Base.PokerChips = "Rode pokerchip",
+    ItemName_Base.PokerChipsBlue = "Blauwe pokerchip",
+    ItemName_Base.PokerChipsGreen = "Groene Pokerchip",
+    ItemName_Base.PokerChipsPurple = "Paarse pokerchip",
+    ItemName_Base.PokerChipsYellow = "Gele pokerchip",
+    ItemName_Base.PokerChipsOrange = "Oranje pokerchip",
+    ItemName_Base.PokerChipsWhite = "Witte pokerchip",
+    ItemName_Base.PokerChipsBlack = "Zwarte pokerchip",
+
+    ItemName_Base.PokerBox = "Pokerdoos",
+    ItemName_Base.PokerBox_sealed = "Pokerdoos (verzegeld)",
+
+    ItemName_Base.Dice = "Sterven",
+    ItemName_Base.DiceWhite = "Sterven",
+}

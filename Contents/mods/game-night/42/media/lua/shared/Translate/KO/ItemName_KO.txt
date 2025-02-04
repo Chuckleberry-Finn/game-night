@@ -1,0 +1,48 @@
+ItemName_KO = {
+
+    ItemName_Base.GamePieceBlack = "검은색 체커 조각",
+    ItemName_Base.GamePieceRed = "레드 체커 조각",
+    ItemName_Base.GamePieceWhite = "화이트 백개먼 피스",
+    ItemName_Base.GamePieceBlackBackgammon = "블랙 백개먼 피스",
+
+    ItemName_Base.PlayingCards1 = "카드 놀이",
+    ItemName_Base.PlayingCards2 = "카드 놀이",
+    ItemName_Base.PlayingCards3 = "카드 놀이",
+
+    ItemName_Base.CheckersBox = "체커스 박스",
+    ItemName_Base.CheckersBox_sealed = "체커스 박스(봉인)",
+
+    ItemName_Base.BackgammonBox = "백개먼 박스",
+    ItemName_Base.BackgammonBox_sealed = "백게몬 박스(봉인)",
+
+    ItemName_Base.ChessWhite = "화이트 폰 체스 피스",
+    ItemName_Base.ChessBlack = "블랙 폰 체스 말",
+    ItemName_Base.ChessWhiteKing = "화이트 킹 체스 피스",
+    ItemName_Base.ChessBlackKing = "블랙 킹 체스 피스",
+    ItemName_Base.ChessWhiteBishop = "화이트 비숍 체스 말",
+    ItemName_Base.ChessBlackBishop = "블랙 비숍 체스 말",
+    ItemName_Base.ChessWhiteQueen = "화이트 퀸 체스 피스",
+    ItemName_Base.ChessBlackQueen = "블랙 퀸 체스 피스",
+    ItemName_Base.ChessWhiteRook = "화이트 룩 체스 피스",
+    ItemName_Base.ChessBlackRook = "블랙 룩 체스 피스",
+    ItemName_Base.ChessWhiteKnight = "화이트 나이트 체스 피스",
+    ItemName_Base.ChessBlackKnight = "블랙 나이트 체스 피스",
+
+    ItemName_Base.ChessBox = "체스 박스",
+    ItemName_Base.ChessBox_sealed = "체스 박스(봉인)",
+
+    ItemName_Base.PokerChips = "레드 포커 칩",
+    ItemName_Base.PokerChipsBlue = "블루 포커 칩",
+    ItemName_Base.PokerChipsGreen = "그린 포커 칩",
+    ItemName_Base.PokerChipsPurple = "퍼플 포커 칩",
+    ItemName_Base.PokerChipsYellow = "옐로우 포커 칩",
+    ItemName_Base.PokerChipsOrange = "오렌지 포커 칩",
+    ItemName_Base.PokerChipsWhite = "화이트 포커 칩",
+    ItemName_Base.PokerChipsBlack = "블랙 포커 칩",
+
+    ItemName_Base.PokerBox = "포커 박스",
+    ItemName_Base.PokerBox_sealed = "포커 박스(봉인)",
+
+    ItemName_Base.Dice = "주사위",
+    ItemName_Base.DiceWhite = "주사위",
+}

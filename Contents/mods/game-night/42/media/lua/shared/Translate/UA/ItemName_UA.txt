@@ -1,0 +1,48 @@
+ItemName_UA = {
+
+    ItemName_Base.GamePieceBlack = "Чорні шашки",
+    ItemName_Base.GamePieceRed = "Червоні шашки",
+    ItemName_Base.GamePieceWhite = "Фігура білих нард",
+    ItemName_Base.GamePieceBlackBackgammon = "Чорні нарди",
+
+    ItemName_Base.PlayingCards1 = "Гральні карти",
+    ItemName_Base.PlayingCards2 = "Гральні карти",
+    ItemName_Base.PlayingCards3 = "Гральні карти",
+
+    ItemName_Base.CheckersBox = "Checkers Box",
+    ItemName_Base.CheckersBox_sealed = "Скринька для шашок (запечатана)",
+
+    ItemName_Base.BackgammonBox = "Ящик для нард",
+    ItemName_Base.BackgammonBox_sealed = "Коробка для нард (запечатана)",
+
+    ItemName_Base.ChessWhite = "Білий пішак шахова фігура",
+    ItemName_Base.ChessBlack = "Чорний пішак шахова фігура",
+    ItemName_Base.ChessWhiteKing = "Білий король шахова фігура",
+    ItemName_Base.ChessBlackKing = "Чорний король шахова фігура",
+    ItemName_Base.ChessWhiteBishop = "Шахова фігура White Bishop",
+    ItemName_Base.ChessBlackBishop = "Шахова фігура Black Bishop",
+    ItemName_Base.ChessWhiteQueen = "Біла королева шахова фігура",
+    ItemName_Base.ChessBlackQueen = "Чорна королева шахова фігура",
+    ItemName_Base.ChessWhiteRook = "Біла тура шахова фігура",
+    ItemName_Base.ChessBlackRook = "Чорна тура шахова фігура",
+    ItemName_Base.ChessWhiteKnight = "Шахова фігура білого лицаря",
+    ItemName_Base.ChessBlackKnight = "Чорний лицар шахова фігура",
+
+    ItemName_Base.ChessBox = "Шахівниця",
+    ItemName_Base.ChessBox_sealed = "Шахівниця (запечатана)",
+
+    ItemName_Base.PokerChips = "Червона фішка для покеру",
+    ItemName_Base.PokerChipsBlue = "Синя покерна фішка",
+    ItemName_Base.PokerChipsGreen = "Зелена фішка для покеру",
+    ItemName_Base.PokerChipsPurple = "Фіолетова фішка для покеру",
+    ItemName_Base.PokerChipsYellow = "Жовта фішка для покеру",
+    ItemName_Base.PokerChipsOrange = "Помаранчева фішка для покеру",
+    ItemName_Base.PokerChipsWhite = "Біла покерна фішка",
+    ItemName_Base.PokerChipsBlack = "Чорна фішка для покеру",
+
+    ItemName_Base.PokerBox = "Покерна коробка",
+    ItemName_Base.PokerBox_sealed = "Покерна коробка (запечатана)",
+
+    ItemName_Base.Dice = "Померти",
+    ItemName_Base.DiceWhite = "Померти",
+}

@@ -1,0 +1,41 @@
+IGUI_JP = {
+    IGUI_draw = "描く",
+    IGUI_deal = "取引カード",
+    IGUI_dealCards = "%1 枚のカードを配る",
+    IGUI_drawCard = "上からカードを引く",
+    IGUI_drawCards = "カードを%1枚引く",
+    IGUI_splitCards = "%1 枚のカードを分割"
+    IGUI_drawRandCard = "ランダムカードを引く",
+    IGUI_shuffleCards = "シャッフル",
+    IGUI_flipCard = "フリップ",
+    IGUI_searchDeck = "検索"
+    IGUI_flipPiece = "フリップ",
+    IGUI_rollDie = "ロール",
+    IGUI_lock = "ロック",
+
+    IGUI_placeDieOnSide = "次のように配置します..."
+    IGUI_PlaceDieOnSide = "%1 として配置",
+    IGUI_examine = "診る",
+    IGUI_coinFlip = "コインを投げる",
+
+    IGUI_take = "取る",
+    IGUI_takeMore = "%1を取る",
+
+    IGUI_SpecialActionAll = "全て"
+
+    IGUI_Play_Game = "ゲームをプレイ",
+
+    IGUI_lockElement = "所定の位置に固定する"
+
+    IGUI_ItemCat_Card = "カード",
+    IGUI_ItemCat_Deck = "デッキ",
+    IGUI_ItemCat_GamePiece = "ゲームピース",
+    IGUI_ItemCat_GameBoard = "ゲームボード",
+    IGUI_ItemCat_GameBox = "ゲームボックス",
+    IGUI_ItemCat_Die = "死ぬ",
+
+    IGUI_CardDeck = "トランプ",
+    IGUI_PlayingCards1 = "トランプ",
+    IGUI_PlayingCards2 = "トランプ",
+    IGUI_PlayingCards3 = "トランプ",
+}

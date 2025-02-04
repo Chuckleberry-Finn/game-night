@@ -1,0 +1,41 @@
+IGUI_RU = {
+    IGUI_draw = "Рисовать",
+    IGUI_deal = "Карта сделки",
+    IGUI_dealCards = "Сдать %1 карты",
+    IGUI_drawCard = "Вытяните карту сверху",
+    IGUI_drawCards = "Возьмите %1 карты",
+    IGUI_splitCards = "Разделить %1 карты"
+    IGUI_drawRandCard = "Вытяните случайную карту",
+    IGUI_shuffleCards = "Перемешать",
+    IGUI_flipCard = "Подбросить",
+    IGUI_searchDeck = "Поиск"
+    IGUI_flipPiece = "Подбросить",
+    IGUI_rollDie = "Рулон",
+    IGUI_lock = "Замок",
+
+    IGUI_placeDieOnSide = "Разместить как..."
+    IGUI_PlaceDieOnSide = "Место как %1",
+    IGUI_examine = "Исследовать",
+    IGUI_coinFlip = "Подбросить монету",
+
+    IGUI_take = "Брать",
+    IGUI_takeMore = "Возьми %1",
+
+    IGUI_SpecialActionAll = "Все"
+
+    IGUI_Play_Game = "Играть в игру",
+
+    IGUI_lockElement = "Зафиксировать на месте"
+
+    IGUI_ItemCat_Card = "Карточка",
+    IGUI_ItemCat_Deck = "Палуба",
+    IGUI_ItemCat_GamePiece = "Игровая часть",
+    IGUI_ItemCat_GameBoard = "Игровое поле",
+    IGUI_ItemCat_GameBox = "Игровая приставка",
+    IGUI_ItemCat_Die = "Умереть",
+
+    IGUI_CardDeck = "Игральная карта",
+    IGUI_PlayingCards1 = "Игральная карта",
+    IGUI_PlayingCards2 = "Игральная карта",
+    IGUI_PlayingCards3 = "Игральная карта",
+}

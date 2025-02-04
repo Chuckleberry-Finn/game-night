@@ -1,0 +1,41 @@
+IGUI_CA = {
+    IGUI_draw = "Dibuixa",
+    IGUI_deal = "Targeta de repartiment",
+    IGUI_dealCards = "Reparteix %1 cartes",
+    IGUI_drawCard = "Treu la targeta des de dalt",
+    IGUI_drawCards = "Dibuixa %1 cartes",
+    IGUI_splitCards = "Dividiu les cartes %1"
+    IGUI_drawRandCard = "Treu una carta aleatòria",
+    IGUI_shuffleCards = "Barrejar",
+    IGUI_flipCard = "Flip",
+    IGUI_searchDeck = "Cerca"
+    IGUI_flipPiece = "Flip",
+    IGUI_rollDie = "Rotlla",
+    IGUI_lock = "Bloqueig",
+
+    IGUI_placeDieOnSide = "Col·loca com..."
+    IGUI_PlaceDieOnSide = "Col·loca com a %1",
+    IGUI_examine = "Examinar",
+    IGUI_coinFlip = "Moneda de volta",
+
+    IGUI_take = "Pren",
+    IGUI_takeMore = "Agafeu %1",
+
+    IGUI_SpecialActionAll = "Tots"
+
+    IGUI_Play_Game = "Jugar al joc",
+
+    IGUI_lockElement = "Tancament al seu lloc"
+
+    IGUI_ItemCat_Card = "Targeta",
+    IGUI_ItemCat_Deck = "coberta",
+    IGUI_ItemCat_GamePiece = "Peça de joc",
+    IGUI_ItemCat_GameBoard = "Tauler de joc",
+    IGUI_ItemCat_GameBox = "Caixa de joc",
+    IGUI_ItemCat_Die = "Morir",
+
+    IGUI_CardDeck = "Carta de joc",
+    IGUI_PlayingCards1 = "Carta de joc",
+    IGUI_PlayingCards2 = "Carta de joc",
+    IGUI_PlayingCards3 = "Carta de joc",
+}

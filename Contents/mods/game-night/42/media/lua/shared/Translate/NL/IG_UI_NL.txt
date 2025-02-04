@@ -1,0 +1,41 @@
+IGUI_NL = {
+    IGUI_draw = "Tekenen",
+    IGUI_deal = "Dealkaart",
+    IGUI_dealCards = "Deel %1 kaarten",
+    IGUI_drawCard = "Trek een kaart van bovenaf",
+    IGUI_drawCards = "Trek %1 kaarten",
+    IGUI_splitCards = "Splits %1 kaarten"
+    IGUI_drawRandCard = "Trek een willekeurige kaart",
+    IGUI_shuffleCards = "Schudden",
+    IGUI_flipCard = "Omdraaien",
+    IGUI_searchDeck = "Zoekopdracht"
+    IGUI_flipPiece = "Omdraaien",
+    IGUI_rollDie = "Rollen",
+    IGUI_lock = "Slot",
+
+    IGUI_placeDieOnSide = "Plaats als..."
+    IGUI_PlaceDieOnSide = "Plaats als %1",
+    IGUI_examine = "Onderzoeken",
+    IGUI_coinFlip = "Muntje opgooien",
+
+    IGUI_take = "Nemen",
+    IGUI_takeMore = "Neem %1",
+
+    IGUI_SpecialActionAll = "Alle"
+
+    IGUI_Play_Game = "Speel spel",
+
+    IGUI_lockElement = "Vastzetten op zijn plaats"
+
+    IGUI_ItemCat_Card = "Kaart",
+    IGUI_ItemCat_Deck = "Dek",
+    IGUI_ItemCat_GamePiece = "Spelstuk",
+    IGUI_ItemCat_GameBoard = "Spelbord",
+    IGUI_ItemCat_GameBox = "Speldoos",
+    IGUI_ItemCat_Die = "Sterven",
+
+    IGUI_CardDeck = "Speelkaart",
+    IGUI_PlayingCards1 = "Speelkaart",
+    IGUI_PlayingCards2 = "Speelkaart",
+    IGUI_PlayingCards3 = "Speelkaart",
+}

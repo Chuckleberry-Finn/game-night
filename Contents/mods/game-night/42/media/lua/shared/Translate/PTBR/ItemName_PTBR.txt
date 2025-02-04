@@ -1,0 +1,48 @@
+ItemName_PTBR = {
+
+    ItemName_Base.GamePieceBlack = "Peça de xadrez preta",
+    ItemName_Base.GamePieceRed = "Peça de xadrez vermelho",
+    ItemName_Base.GamePieceWhite = "Peça de Gamão Branco",
+    ItemName_Base.GamePieceBlackBackgammon = "Peça de Gamão Preto",
+
+    ItemName_Base.PlayingCards1 = "Cartas de jogar",
+    ItemName_Base.PlayingCards2 = "Cartas de jogar",
+    ItemName_Base.PlayingCards3 = "Cartas de jogar",
+
+    ItemName_Base.CheckersBox = "Caixa de damas",
+    ItemName_Base.CheckersBox_sealed = "Caixa de Damas (Selada)",
+
+    ItemName_Base.BackgammonBox = "Caixa de Gamão",
+    ItemName_Base.BackgammonBox_sealed = "Caixa de Gamão (Selada)",
+
+    ItemName_Base.ChessWhite = "Peça de xadrez peão branco",
+    ItemName_Base.ChessBlack = "Peça de xadrez peão preto",
+    ItemName_Base.ChessWhiteKing = "Peça de Xadrez Rei Branco",
+    ItemName_Base.ChessBlackKing = "Peça de Xadrez Rei Preto",
+    ItemName_Base.ChessWhiteBishop = "Peça de Xadrez Bispo Branco",
+    ItemName_Base.ChessBlackBishop = "Peça de Xadrez Bispo Preto",
+    ItemName_Base.ChessWhiteQueen = "Peça de Xadrez Rainha Branca",
+    ItemName_Base.ChessBlackQueen = "Peça de Xadrez Rainha Preta",
+    ItemName_Base.ChessWhiteRook = "Peça de Xadrez Torre Branca",
+    ItemName_Base.ChessBlackRook = "Peça de Xadrez Torre Preta",
+    ItemName_Base.ChessWhiteKnight = "Peça de xadrez do cavaleiro branco",
+    ItemName_Base.ChessBlackKnight = "Peça de xadrez do cavaleiro preto",
+
+    ItemName_Base.ChessBox = "Caixa de Xadrez",
+    ItemName_Base.ChessBox_sealed = "Caixa de Xadrez (Selada)",
+
+    ItemName_Base.PokerChips = "Ficha de pôquer vermelha",
+    ItemName_Base.PokerChipsBlue = "Ficha de pôquer azul",
+    ItemName_Base.PokerChipsGreen = "Ficha de pôquer verde",
+    ItemName_Base.PokerChipsPurple = "Ficha de pôquer roxa",
+    ItemName_Base.PokerChipsYellow = "Ficha de pôquer amarela",
+    ItemName_Base.PokerChipsOrange = "Ficha de pôquer laranja",
+    ItemName_Base.PokerChipsWhite = "Ficha de pôquer branca",
+    ItemName_Base.PokerChipsBlack = "Ficha de pôquer preta",
+
+    ItemName_Base.PokerBox = "Caixa de pôquer",
+    ItemName_Base.PokerBox_sealed = "Caixa de pôquer (lacrada)",
+
+    ItemName_Base.Dice = "Morrer",
+    ItemName_Base.DiceWhite = "Morrer",
+}

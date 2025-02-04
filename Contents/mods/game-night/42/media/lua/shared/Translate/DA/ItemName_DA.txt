@@ -1,0 +1,48 @@
+ItemName_DA = {
+
+    ItemName_Base.GamePieceBlack = "Sort tern stykke",
+    ItemName_Base.GamePieceRed = "Rødt ternstykke",
+    ItemName_Base.GamePieceWhite = "Hvidt backgammon stykke",
+    ItemName_Base.GamePieceBlackBackgammon = "Sort backgammon stykke",
+
+    ItemName_Base.PlayingCards1 = "Spillekort",
+    ItemName_Base.PlayingCards2 = "Spillekort",
+    ItemName_Base.PlayingCards3 = "Spillekort",
+
+    ItemName_Base.CheckersBox = "Checkers Box",
+    ItemName_Base.CheckersBox_sealed = "Checkers Box (forseglet)",
+
+    ItemName_Base.BackgammonBox = "Backgammon boks",
+    ItemName_Base.BackgammonBox_sealed = "Backgammon æske (forseglet)",
+
+    ItemName_Base.ChessWhite = "Hvidt bonde skakstykke",
+    ItemName_Base.ChessBlack = "Sort bonde skakstykke",
+    ItemName_Base.ChessWhiteKing = "Hvidt kongeskakstykke",
+    ItemName_Base.ChessBlackKing = "Sort konge skakstykke",
+    ItemName_Base.ChessWhiteBishop = "Hvidt biskop skakstykke",
+    ItemName_Base.ChessBlackBishop = "Sort biskop skakstykke",
+    ItemName_Base.ChessWhiteQueen = "Hvidt dronning skakstykke",
+    ItemName_Base.ChessBlackQueen = "Sort dronning skakstykke",
+    ItemName_Base.ChessWhiteRook = "White Rook skakstykke",
+    ItemName_Base.ChessBlackRook = "Black Rook skakstykke",
+    ItemName_Base.ChessWhiteKnight = "Hvid ridder skakstykke",
+    ItemName_Base.ChessBlackKnight = "Sort ridder skakstykke",
+
+    ItemName_Base.ChessBox = "Skakboks",
+    ItemName_Base.ChessBox_sealed = "Skakboks (forseglet)",
+
+    ItemName_Base.PokerChips = "Rød pokerchip",
+    ItemName_Base.PokerChipsBlue = "Blå pokerchip",
+    ItemName_Base.PokerChipsGreen = "Grøn pokerchip",
+    ItemName_Base.PokerChipsPurple = "Lilla pokerchip",
+    ItemName_Base.PokerChipsYellow = "Gul pokerchip",
+    ItemName_Base.PokerChipsOrange = "Orange pokerchip",
+    ItemName_Base.PokerChipsWhite = "Hvid pokerchip",
+    ItemName_Base.PokerChipsBlack = "Sort pokerchip",
+
+    ItemName_Base.PokerBox = "Poker boks",
+    ItemName_Base.PokerBox_sealed = "Pokerboks (forseglet)",
+
+    ItemName_Base.Dice = "Dø",
+    ItemName_Base.DiceWhite = "Dø",
+}

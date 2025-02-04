@@ -1,0 +1,48 @@
+ItemName_CA = {
+
+    ItemName_Base.GamePieceBlack = "Peça de dames negres",
+    ItemName_Base.GamePieceRed = "Peça de dames vermelles",
+    ItemName_Base.GamePieceWhite = "Peça blanca de backgammon",
+    ItemName_Base.GamePieceBlackBackgammon = "Peça de backgammon negre",
+
+    ItemName_Base.PlayingCards1 = "Jugant a les cartes",
+    ItemName_Base.PlayingCards2 = "Jugant a les cartes",
+    ItemName_Base.PlayingCards3 = "Jugant a les cartes",
+
+    ItemName_Base.CheckersBox = "Caixa de dames",
+    ItemName_Base.CheckersBox_sealed = "Caixa de dames (segellada)",
+
+    ItemName_Base.BackgammonBox = "Caixa de backgammon",
+    ItemName_Base.BackgammonBox_sealed = "Caixa de backgammon (segellada)",
+
+    ItemName_Base.ChessWhite = "Peça d'escacs de peó blanc",
+    ItemName_Base.ChessBlack = "Peça d'escacs de peó negre",
+    ItemName_Base.ChessWhiteKing = "Peça d'escacs del Rei Blanc",
+    ItemName_Base.ChessBlackKing = "Peça d'escacs Rei Negre",
+    ItemName_Base.ChessWhiteBishop = "Peça d'escacs White Bishop",
+    ItemName_Base.ChessBlackBishop = "Peça d'escacs Black Bishop",
+    ItemName_Base.ChessWhiteQueen = "Peça d'escacs de la reina blanca",
+    ItemName_Base.ChessBlackQueen = "Peça d'escacs de la reina negra",
+    ItemName_Base.ChessWhiteRook = "Peça d'escacs White Rook",
+    ItemName_Base.ChessBlackRook = "Peça d'escacs Black Rook",
+    ItemName_Base.ChessWhiteKnight = "Peça d'escacs de cavaller blanc",
+    ItemName_Base.ChessBlackKnight = "Peça d'escacs de cavaller negre",
+
+    ItemName_Base.ChessBox = "Caixa d'escacs",
+    ItemName_Base.ChessBox_sealed = "Caixa d'escacs (segellada)",
+
+    ItemName_Base.PokerChips = "Xip de pòquer vermell",
+    ItemName_Base.PokerChipsBlue = "Xip de pòquer blau",
+    ItemName_Base.PokerChipsGreen = "Xip de pòquer verd",
+    ItemName_Base.PokerChipsPurple = "Xip de pòquer morat",
+    ItemName_Base.PokerChipsYellow = "Xip de pòquer groc",
+    ItemName_Base.PokerChipsOrange = "Xip de pòquer taronja",
+    ItemName_Base.PokerChipsWhite = "Xip de pòquer blanc",
+    ItemName_Base.PokerChipsBlack = "Xip de pòquer negre",
+
+    ItemName_Base.PokerBox = "Caixa de pòquer",
+    ItemName_Base.PokerBox_sealed = "Caixa de pòquer (segellada)",
+
+    ItemName_Base.Dice = "Morir",
+    ItemName_Base.DiceWhite = "Morir",
+}

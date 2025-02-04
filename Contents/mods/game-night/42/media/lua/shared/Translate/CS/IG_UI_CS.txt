@@ -1,0 +1,41 @@
+IGUI_CS = {
+    IGUI_draw = "Remíza",
+    IGUI_deal = "Deal Card",
+    IGUI_dealCards = "Rozdejte %1 karet",
+    IGUI_drawCard = "Vytáhněte kartu shora",
+    IGUI_drawCards = "Doberte %1 karet",
+    IGUI_splitCards = "Rozdělte %1 karet"
+    IGUI_drawRandCard = "Vytáhněte náhodnou kartu",
+    IGUI_shuffleCards = "Zamíchat",
+    IGUI_flipCard = "Překlopit",
+    IGUI_searchDeck = "Vyhledávání"
+    IGUI_flipPiece = "Překlopit",
+    IGUI_rollDie = "Role",
+    IGUI_lock = "Zámek",
+
+    IGUI_placeDieOnSide = "Umístěte jako..."
+    IGUI_PlaceDieOnSide = "Umístěte jako %1",
+    IGUI_examine = "Přezkoumat",
+    IGUI_coinFlip = "Flip Coin",
+
+    IGUI_take = "Vezměte",
+    IGUI_takeMore = "Vezměte %1",
+
+    IGUI_SpecialActionAll = "Vše"
+
+    IGUI_Play_Game = "Hrát hru",
+
+    IGUI_lockElement = "Zámek na místě"
+
+    IGUI_ItemCat_Card = "Karta",
+    IGUI_ItemCat_Deck = "Paluba",
+    IGUI_ItemCat_GamePiece = "Herní kousek",
+    IGUI_ItemCat_GameBoard = "Herní deska",
+    IGUI_ItemCat_GameBox = "Hrací krabice",
+    IGUI_ItemCat_Die = "Zemřít",
+
+    IGUI_CardDeck = "Hrací karta",
+    IGUI_PlayingCards1 = "Hrací karta",
+    IGUI_PlayingCards2 = "Hrací karta",
+    IGUI_PlayingCards3 = "Hrací karta",
+}

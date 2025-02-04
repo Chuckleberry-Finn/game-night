@@ -1,0 +1,13 @@
+Sandbox_FI = {
+	Sandbox_GameNight = "Peli-ilta",
+
+    Sandbox_GameNight_DisplayItemNames = "Näytä kohteiden nimet",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Näytä esineiden nimet pelissä.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Näytä soittimen osoittimet pelin käyttöliittymässä",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Näytä pelaajien osoittimet näytöllä. Kohdistimet eivät saa aiheuttaa minkäänlaisia ​​liikenneongelmia, mutta prosessiin kuuluu pienten tietojen nopea lähettäminen - tämä vaihtoehto on tarkoitettu ihmisille, jotka tekevät vianmääritystä ja käyttävät jotain, joka luo lokeja verkkoliikenteelle. Ei ole suositeltavaa pelata ilman näkyviä kohdistimia.",
+
+    Sandbox_GameNight_LootMultiplier = "Yleinen saaliskerroin",
+    Sandbox_GameNight_LootMultiplier_tooltip = "Tämä kerrotaan oletusarvoisia ryöstömahdollisuuksia vastaan. Vaikuttaa kaikkiin maailmassa löydettyihin pelikohteisiin.<br>Muutokset vaativat uudelleenkäynnistyksen."
+
+	}

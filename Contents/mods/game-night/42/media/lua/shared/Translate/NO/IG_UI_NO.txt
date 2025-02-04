@@ -1,0 +1,41 @@
+IGUI_NO = {
+    IGUI_draw = "Tegne",
+    IGUI_deal = "Deal kort",
+    IGUI_dealCards = "Del ut %1 kort",
+    IGUI_drawCard = "Trekk kort fra toppen",
+    IGUI_drawCards = "Trekk %1 kort",
+    IGUI_splitCards = "Del %1 kort"
+    IGUI_drawRandCard = "Trekk tilfeldig kort",
+    IGUI_shuffleCards = "Bland",
+    IGUI_flipCard = "Vend",
+    IGUI_searchDeck = "Søk"
+    IGUI_flipPiece = "Vend",
+    IGUI_rollDie = "Rulle",
+    IGUI_lock = "Låse",
+
+    IGUI_placeDieOnSide = "Plasser som..."
+    IGUI_PlaceDieOnSide = "Plasser som %1",
+    IGUI_examine = "Undersøke",
+    IGUI_coinFlip = "Flip Coin",
+
+    IGUI_take = "Ta",
+    IGUI_takeMore = "Ta %1",
+
+    IGUI_SpecialActionAll = "Alle"
+
+    IGUI_Play_Game = "Spill Spill",
+
+    IGUI_lockElement = "Lås på plass"
+
+    IGUI_ItemCat_Card = "Kort",
+    IGUI_ItemCat_Deck = "Dekk",
+    IGUI_ItemCat_GamePiece = "Spillestykke",
+    IGUI_ItemCat_GameBoard = "Spillebrett",
+    IGUI_ItemCat_GameBox = "Spillboks",
+    IGUI_ItemCat_Die = "Dø",
+
+    IGUI_CardDeck = "Spillekort",
+    IGUI_PlayingCards1 = "Spillekort",
+    IGUI_PlayingCards2 = "Spillekort",
+    IGUI_PlayingCards3 = "Spillekort",
+}

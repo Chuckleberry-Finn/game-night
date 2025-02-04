@@ -1,0 +1,13 @@
+Sandbox_PTBR = {
+	Sandbox_GameNight = "Noite de jogos",
+
+    Sandbox_GameNight_DisplayItemNames = "Exibir nomes de itens",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Exibir nomes de itens no jogo.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Exibir cursores do jogador na interface do jogo",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Exiba os cursores dos jogadores na tela. Os cursores não devem causar nenhum tipo de problema de tráfego, no entanto, o processo envolve o envio rápido de pequenos pedaços de dados - esta opção é destinada a pessoas que realizam solução de problemas e usam algo que cria logs para tráfego de rede. Não é recomendado jogar sem cursores visíveis.",
+
+    Sandbox_GameNight_LootMultiplier = "Multiplicador de Loot Geral",
+    Sandbox_GameNight_LootMultiplier_tooltip = "Isso é multiplicado contra as chances de loot padrão. Impacta todos os itens do jogo encontrados no mundo.<br>As mudanças exigirão uma reinicialização."
+
+	}

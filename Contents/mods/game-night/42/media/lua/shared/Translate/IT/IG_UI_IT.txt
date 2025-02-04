@@ -1,0 +1,41 @@
+IGUI_IT = {
+    IGUI_draw = "Disegno",
+    IGUI_deal = "Carta dell'affare",
+    IGUI_dealCards = "Distribuisci %1 carte",
+    IGUI_drawCard = "Pesca la carta dall'alto",
+    IGUI_drawCards = "Pesca %1 carte",
+    IGUI_splitCards = "Dividi %1 carte"
+    IGUI_drawRandCard = "Pesca una carta a caso",
+    IGUI_shuffleCards = "Mescolare",
+    IGUI_flipCard = "Capovolgere",
+    IGUI_searchDeck = "Ricerca"
+    IGUI_flipPiece = "Capovolgere",
+    IGUI_rollDie = "Rotolo",
+    IGUI_lock = "Serratura",
+
+    IGUI_placeDieOnSide = "Posiziona come..."
+    IGUI_PlaceDieOnSide = "Posiziona come %1",
+    IGUI_examine = "Esaminare",
+    IGUI_coinFlip = "Lancia la moneta",
+
+    IGUI_take = "Prendere",
+    IGUI_takeMore = "Prendi %1",
+
+    IGUI_SpecialActionAll = "Tutto"
+
+    IGUI_Play_Game = "Gioca al gioco",
+
+    IGUI_lockElement = "Blocca in posizione"
+
+    IGUI_ItemCat_Card = "Carta",
+    IGUI_ItemCat_Deck = "Ponte",
+    IGUI_ItemCat_GamePiece = "Pezzo di gioco",
+    IGUI_ItemCat_GameBoard = "Tabellone di gioco",
+    IGUI_ItemCat_GameBox = "Scatola di gioco",
+    IGUI_ItemCat_Die = "Morire",
+
+    IGUI_CardDeck = "Carta da gioco",
+    IGUI_PlayingCards1 = "Carta da gioco",
+    IGUI_PlayingCards2 = "Carta da gioco",
+    IGUI_PlayingCards3 = "Carta da gioco",
+}

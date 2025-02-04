@@ -1,0 +1,48 @@
+ItemName_JP = {
+
+    ItemName_Base.GamePieceBlack = "ブラックチェッカーピース",
+    ItemName_Base.GamePieceRed = "レッドチェッカーピース",
+    ItemName_Base.GamePieceWhite = "白いバックギャモンの駒",
+    ItemName_Base.GamePieceBlackBackgammon = "黒バックギャモン駒",
+
+    ItemName_Base.PlayingCards1 = "トランプ",
+    ItemName_Base.PlayingCards2 = "トランプ",
+    ItemName_Base.PlayingCards3 = "トランプ",
+
+    ItemName_Base.CheckersBox = "チェッカーボックス",
+    ItemName_Base.CheckersBox_sealed = "チェッカーズボックス（未開封）",
+
+    ItemName_Base.BackgammonBox = "バックギャモンボックス",
+    ItemName_Base.BackgammonBox_sealed = "バックギャモンボックス（未開封）",
+
+    ItemName_Base.ChessWhite = "白のポーンチェスの駒",
+    ItemName_Base.ChessBlack = "黒のポーンチェスの駒",
+    ItemName_Base.ChessWhiteKing = "白のキングチェスの駒",
+    ItemName_Base.ChessBlackKing = "黒のキングチェスの駒",
+    ItemName_Base.ChessWhiteBishop = "白のビショップチェスの駒",
+    ItemName_Base.ChessBlackBishop = "ブラックビショップチェスの駒",
+    ItemName_Base.ChessWhiteQueen = "白のクイーンチェスの駒",
+    ItemName_Base.ChessBlackQueen = "黒のクイーンチェスの駒",
+    ItemName_Base.ChessWhiteRook = "白のルークのチェスの駒",
+    ItemName_Base.ChessBlackRook = "黒のルークのチェスの駒",
+    ItemName_Base.ChessWhiteKnight = "ホワイトナイトチェスの駒",
+    ItemName_Base.ChessBlackKnight = "ブラックナイトチェスの駒",
+
+    ItemName_Base.ChessBox = "チェスボックス",
+    ItemName_Base.ChessBox_sealed = "チェスボックス（未開封）",
+
+    ItemName_Base.PokerChips = "赤いポーカーチップ",
+    ItemName_Base.PokerChipsBlue = "青いポーカーチップ",
+    ItemName_Base.PokerChipsGreen = "緑のポーカーチップ",
+    ItemName_Base.PokerChipsPurple = "紫色のポーカーチップ",
+    ItemName_Base.PokerChipsYellow = "黄色のポーカーチップ",
+    ItemName_Base.PokerChipsOrange = "オレンジポーカーチップ",
+    ItemName_Base.PokerChipsWhite = "白いポーカーチップ",
+    ItemName_Base.PokerChipsBlack = "ブラックポーカーチップ",
+
+    ItemName_Base.PokerBox = "ポーカーボックス",
+    ItemName_Base.PokerBox_sealed = "ポーカーボックス（未開封）",
+
+    ItemName_Base.Dice = "死ぬ",
+    ItemName_Base.DiceWhite = "死ぬ",
+}

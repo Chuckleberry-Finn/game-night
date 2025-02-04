@@ -1,0 +1,48 @@
+ItemName_HU = {
+
+    ItemName_Base.GamePieceBlack = "Fekete dámadarab",
+    ItemName_Base.GamePieceRed = "Piros Dáma darab",
+    ItemName_Base.GamePieceWhite = "Fehér Backgammon darab",
+    ItemName_Base.GamePieceBlackBackgammon = "Fekete Backgammon darab",
+
+    ItemName_Base.PlayingCards1 = "Kártyázás",
+    ItemName_Base.PlayingCards2 = "Kártyázás",
+    ItemName_Base.PlayingCards3 = "Kártyázás",
+
+    ItemName_Base.CheckersBox = "Dámadoboz",
+    ItemName_Base.CheckersBox_sealed = "Dámadoboz (lezárt)",
+
+    ItemName_Base.BackgammonBox = "Backgammon doboz",
+    ItemName_Base.BackgammonBox_sealed = "Backgammon doboz (lezárt)",
+
+    ItemName_Base.ChessWhite = "Fehér gyalog sakkfigura",
+    ItemName_Base.ChessBlack = "Fekete gyalog sakkfigura",
+    ItemName_Base.ChessWhiteKing = "Fehér király sakkfigura",
+    ItemName_Base.ChessBlackKing = "Fekete király sakkfigura",
+    ItemName_Base.ChessWhiteBishop = "Fehér püspök sakkfigura",
+    ItemName_Base.ChessBlackBishop = "Fekete püspök sakkfigura",
+    ItemName_Base.ChessWhiteQueen = "Fehér királynő sakkfigura",
+    ItemName_Base.ChessBlackQueen = "Fekete királynő sakkfigura",
+    ItemName_Base.ChessWhiteRook = "White Rook sakkfigura",
+    ItemName_Base.ChessBlackRook = "Black Rook sakkfigura",
+    ItemName_Base.ChessWhiteKnight = "Fehér lovag sakkfigura",
+    ItemName_Base.ChessBlackKnight = "Fekete lovag sakkfigura",
+
+    ItemName_Base.ChessBox = "Sakkdoboz",
+    ItemName_Base.ChessBox_sealed = "Sakkdoboz (lezárt)",
+
+    ItemName_Base.PokerChips = "Red Poker Chip",
+    ItemName_Base.PokerChipsBlue = "Kék póker zseton",
+    ItemName_Base.PokerChipsGreen = "Zöld pókerzseton",
+    ItemName_Base.PokerChipsPurple = "Lila póker zseton",
+    ItemName_Base.PokerChipsYellow = "Sárga póker zseton",
+    ItemName_Base.PokerChipsOrange = "Narancssárga póker zseton",
+    ItemName_Base.PokerChipsWhite = "Fehér póker zseton",
+    ItemName_Base.PokerChipsBlack = "Fekete póker zseton",
+
+    ItemName_Base.PokerBox = "Poker Box",
+    ItemName_Base.PokerBox_sealed = "Pókerdoboz (lezárt)",
+
+    ItemName_Base.Dice = "Meghal",
+    ItemName_Base.DiceWhite = "Meghal",
+}

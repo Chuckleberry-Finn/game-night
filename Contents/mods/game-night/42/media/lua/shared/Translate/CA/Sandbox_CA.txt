@@ -1,0 +1,13 @@
+Sandbox_CA = {
+	Sandbox_GameNight = "Nit de Jocs",
+
+    Sandbox_GameNight_DisplayItemNames = "Mostra els noms dels elements",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Mostra els noms dels elements al joc.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Mostra els cursors del jugador a la IU del joc",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Mostra els cursors dels jugadors a la pantalla. Els cursors no haurien de causar cap tipus de problema de trànsit, però el procés implica l'enviament de petites dades ràpidament; aquesta opció està pensada per a persones que realitzin la resolució de problemes i utilitzen alguna cosa que creï registres per al trànsit de la xarxa. No es recomana jugar sense cursors visibles.",
+
+    Sandbox_GameNight_LootMultiplier = "Multiplicador de botí general",
+    Sandbox_GameNight_LootMultiplier_tooltip = "Això es multiplica amb les possibilitats de botí predeterminades. Afecta tots els elements del joc que es troben al món.<br>Els canvis requeriran un reinici."
+
+	}

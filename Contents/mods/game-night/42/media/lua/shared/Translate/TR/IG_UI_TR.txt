@@ -1,0 +1,41 @@
+IGUI_TR = {
+    IGUI_draw = "Çizmek",
+    IGUI_deal = "Anlaşma Kartı",
+    IGUI_dealCards = "%1 Kartları Dağıt",
+    IGUI_drawCard = "Üstten Kart Çek",
+    IGUI_drawCards = "%1 Kart Çek",
+    IGUI_splitCards = "%1 Kartını Böl"
+    IGUI_drawRandCard = "Rastgele Kart Çek",
+    IGUI_shuffleCards = "Karıştır",
+    IGUI_flipCard = "Çevir",
+    IGUI_searchDeck = "Aramak"
+    IGUI_flipPiece = "Çevir",
+    IGUI_rollDie = "Rulo",
+    IGUI_lock = "Kilit",
+
+    IGUI_placeDieOnSide = "Yer olarak..."
+    IGUI_PlaceDieOnSide = "%1 olarak yerleştirin",
+    IGUI_examine = "İncelemek",
+    IGUI_coinFlip = "Madeni Parayı Çevir",
+
+    IGUI_take = "Almak",
+    IGUI_takeMore = "%1'i al",
+
+    IGUI_SpecialActionAll = "Tüm"
+
+    IGUI_Play_Game = "Oyun Oyna",
+
+    IGUI_lockElement = "Yerinde Kilitleme"
+
+    IGUI_ItemCat_Card = "Kart",
+    IGUI_ItemCat_Deck = "Güverte",
+    IGUI_ItemCat_GamePiece = "Oyun Parçası",
+    IGUI_ItemCat_GameBoard = "Oyun Tahtası",
+    IGUI_ItemCat_GameBox = "Oyun Kutusu",
+    IGUI_ItemCat_Die = "Ölmek",
+
+    IGUI_CardDeck = "Oyun Kartı",
+    IGUI_PlayingCards1 = "Oyun Kartı",
+    IGUI_PlayingCards2 = "Oyun Kartı",
+    IGUI_PlayingCards3 = "Oyun Kartı",
+}

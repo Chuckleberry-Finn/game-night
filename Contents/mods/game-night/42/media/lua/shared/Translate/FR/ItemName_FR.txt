@@ -1,0 +1,48 @@
+ItemName_FR = {
+
+    ItemName_Base.GamePieceBlack = "Pièce de damier noire",
+    ItemName_Base.GamePieceRed = "Pièce de damier rouge",
+    ItemName_Base.GamePieceWhite = "Pièce de backgammon blanche",
+    ItemName_Base.GamePieceBlackBackgammon = "Pièce de backgammon noire",
+
+    ItemName_Base.PlayingCards1 = "Cartes à jouer",
+    ItemName_Base.PlayingCards2 = "Cartes à jouer",
+    ItemName_Base.PlayingCards3 = "Cartes à jouer",
+
+    ItemName_Base.CheckersBox = "Boîte à dames",
+    ItemName_Base.CheckersBox_sealed = "Coffret de dames (scellé)",
+
+    ItemName_Base.BackgammonBox = "Coffret de backgammon",
+    ItemName_Base.BackgammonBox_sealed = "Coffret de backgammon (scellé)",
+
+    ItemName_Base.ChessWhite = "Pièce d'échecs pion blanc",
+    ItemName_Base.ChessBlack = "Pièce d'échecs pion noir",
+    ItemName_Base.ChessWhiteKing = "Pièce d'échecs Roi Blanc",
+    ItemName_Base.ChessBlackKing = "Pièce d'échecs Roi Noir",
+    ItemName_Base.ChessWhiteBishop = "Pièce d'échecs Fou Blanc",
+    ItemName_Base.ChessBlackBishop = "Pièce d'échecs Fou noir",
+    ItemName_Base.ChessWhiteQueen = "Pièce d'échecs Reine blanche",
+    ItemName_Base.ChessBlackQueen = "Pièce d'échecs Reine noire",
+    ItemName_Base.ChessWhiteRook = "Pièce d'échecs Tour blanche",
+    ItemName_Base.ChessBlackRook = "Pièce d'échecs Tour noire",
+    ItemName_Base.ChessWhiteKnight = "Pièce d'échecs Cavalier blanc",
+    ItemName_Base.ChessBlackKnight = "Pièce d'échecs du Cavalier noir",
+
+    ItemName_Base.ChessBox = "Coffret d'échecs",
+    ItemName_Base.ChessBox_sealed = "Coffret d'échecs (scellé)",
+
+    ItemName_Base.PokerChips = "Jeton de poker rouge",
+    ItemName_Base.PokerChipsBlue = "Jeton de poker bleu",
+    ItemName_Base.PokerChipsGreen = "Jeton de poker vert",
+    ItemName_Base.PokerChipsPurple = "Jeton de poker violet",
+    ItemName_Base.PokerChipsYellow = "Jeton de poker jaune",
+    ItemName_Base.PokerChipsOrange = "Jeton de poker orange",
+    ItemName_Base.PokerChipsWhite = "Jeton de poker blanc",
+    ItemName_Base.PokerChipsBlack = "Jeton de poker noir",
+
+    ItemName_Base.PokerBox = "Coffret de poker",
+    ItemName_Base.PokerBox_sealed = "Coffret de poker (scellé)",
+
+    ItemName_Base.Dice = "Mourir",
+    ItemName_Base.DiceWhite = "Mourir",
+}

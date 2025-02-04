@@ -1,0 +1,41 @@
+IGUI_HU = {
+    IGUI_draw = "Rajzolj",
+    IGUI_deal = "Deal Card",
+    IGUI_dealCards = "Osszon %1 kártyát",
+    IGUI_drawCard = "Húzz kártyát felülről",
+    IGUI_drawCards = "Húzz %1 kártyát",
+    IGUI_splitCards = "%1 kártya felosztása"
+    IGUI_drawRandCard = "Véletlenszerű kártya húzása",
+    IGUI_shuffleCards = "Keverés",
+    IGUI_flipCard = "Flip",
+    IGUI_searchDeck = "Keresés"
+    IGUI_flipPiece = "Flip",
+    IGUI_rollDie = "Tekercs",
+    IGUI_lock = "Zár",
+
+    IGUI_placeDieOnSide = "Helyezze el, mint..."
+    IGUI_PlaceDieOnSide = "Helyezd el mint %1",
+    IGUI_examine = "Vizsgálja meg",
+    IGUI_coinFlip = "Flip Coin",
+
+    IGUI_take = "Vesz",
+    IGUI_takeMore = "Vegye %1",
+
+    IGUI_SpecialActionAll = "Minden"
+
+    IGUI_Play_Game = "Játssz játékot",
+
+    IGUI_lockElement = "Zár a Helyben"
+
+    IGUI_ItemCat_Card = "Kártya",
+    IGUI_ItemCat_Deck = "Fedélzet",
+    IGUI_ItemCat_GamePiece = "Játékdarab",
+    IGUI_ItemCat_GameBoard = "Játéktábla",
+    IGUI_ItemCat_GameBox = "Game Box",
+    IGUI_ItemCat_Die = "Meghal",
+
+    IGUI_CardDeck = "Kártya",
+    IGUI_PlayingCards1 = "Kártya",
+    IGUI_PlayingCards2 = "Kártya",
+    IGUI_PlayingCards3 = "Kártya",
+}

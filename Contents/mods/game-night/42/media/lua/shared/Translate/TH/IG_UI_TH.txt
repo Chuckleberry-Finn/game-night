@@ -1,0 +1,41 @@
+IGUI_TH = {
+    IGUI_draw = "วาด",
+    IGUI_deal = "การ์ดดีล",
+    IGUI_dealCards = "แจกไพ่ %1 ใบ",
+    IGUI_drawCard = "ดึงการ์ดจากด้านบน",
+    IGUI_drawCards = "จั่วไพ่ 1 ใบ",
+    IGUI_splitCards = "แบ่งไพ่ %1"
+    IGUI_drawRandCard = "วาดการ์ดสุ่ม",
+    IGUI_shuffleCards = "สับเปลี่ยน",
+    IGUI_flipCard = "พลิก",
+    IGUI_searchDeck = "ค้นหา"
+    IGUI_flipPiece = "พลิก",
+    IGUI_rollDie = "ม้วน",
+    IGUI_lock = "ล็อค",
+
+    IGUI_placeDieOnSide = "วางเป็น..."
+    IGUI_PlaceDieOnSide = "วางเป็น %1",
+    IGUI_examine = "พิจารณา",
+    IGUI_coinFlip = "พลิกเหรียญ",
+
+    IGUI_take = "เอา",
+    IGUI_takeMore = "รับ %1",
+
+    IGUI_SpecialActionAll = "ทั้งหมด"
+
+    IGUI_Play_Game = "เล่นเกม",
+
+    IGUI_lockElement = "ล็อคในสถานที่"
+
+    IGUI_ItemCat_Card = "การ์ด",
+    IGUI_ItemCat_Deck = "ดาดฟ้า",
+    IGUI_ItemCat_GamePiece = "เกมพีช",
+    IGUI_ItemCat_GameBoard = "กระดานเกม",
+    IGUI_ItemCat_GameBox = "กล่องเกม",
+    IGUI_ItemCat_Die = "ตาย",
+
+    IGUI_CardDeck = "ไพ่เล่น",
+    IGUI_PlayingCards1 = "ไพ่เล่น",
+    IGUI_PlayingCards2 = "ไพ่เล่น",
+    IGUI_PlayingCards3 = "ไพ่เล่น",
+}

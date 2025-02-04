@@ -1,0 +1,41 @@
+IGUI_ES = {
+    IGUI_draw = "Dibujar",
+    IGUI_deal = "Tarjeta de oferta",
+    IGUI_dealCards = "Repartir %1 cartas",
+    IGUI_drawCard = "Sacar carta de arriba",
+    IGUI_drawCards = "Robar %1 cartas",
+    IGUI_splitCards = "Dividir %1 cartas"
+    IGUI_drawRandCard = "Sacar carta al azar",
+    IGUI_shuffleCards = "Barajar",
+    IGUI_flipCard = "Voltear",
+    IGUI_searchDeck = "Buscar"
+    IGUI_flipPiece = "Voltear",
+    IGUI_rollDie = "Rollo",
+    IGUI_lock = "Cerrar",
+
+    IGUI_placeDieOnSide = "Lugar como..."
+    IGUI_PlaceDieOnSide = "Colocar como %1",
+    IGUI_examine = "Examinar",
+    IGUI_coinFlip = "Moneda al aire",
+
+    IGUI_take = "Llevar",
+    IGUI_takeMore = "Toma %1",
+
+    IGUI_SpecialActionAll = "Todo"
+
+    IGUI_Play_Game = "Jugar juego",
+
+    IGUI_lockElement = "Bloquear en su lugar"
+
+    IGUI_ItemCat_Card = "Tarjeta",
+    IGUI_ItemCat_Deck = "Cubierta",
+    IGUI_ItemCat_GamePiece = "Pieza de juego",
+    IGUI_ItemCat_GameBoard = "Tablero de juego",
+    IGUI_ItemCat_GameBox = "Caja de juego",
+    IGUI_ItemCat_Die = "Morir",
+
+    IGUI_CardDeck = "Naipe",
+    IGUI_PlayingCards1 = "Naipe",
+    IGUI_PlayingCards2 = "Naipe",
+    IGUI_PlayingCards3 = "Naipe",
+}

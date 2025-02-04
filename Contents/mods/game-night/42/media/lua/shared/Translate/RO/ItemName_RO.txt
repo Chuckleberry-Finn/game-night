@@ -1,0 +1,48 @@
+ItemName_RO = {
+
+    ItemName_Base.GamePieceBlack = "Piesa de dame negre",
+    ItemName_Base.GamePieceRed = "Piesa de dame roșii",
+    ItemName_Base.GamePieceWhite = "Piesă de table albă",
+    ItemName_Base.GamePieceBlackBackgammon = "Piesă de table neagră",
+
+    ItemName_Base.PlayingCards1 = "Cărți de joc",
+    ItemName_Base.PlayingCards2 = "Cărți de joc",
+    ItemName_Base.PlayingCards3 = "Cărți de joc",
+
+    ItemName_Base.CheckersBox = "Caseta de dame",
+    ItemName_Base.CheckersBox_sealed = "Cutie de dame (sigilată)",
+
+    ItemName_Base.BackgammonBox = "Cutie de table",
+    ItemName_Base.BackgammonBox_sealed = "Cutie de table (sigilată)",
+
+    ItemName_Base.ChessWhite = "Piesă de șah cu pion alb",
+    ItemName_Base.ChessBlack = "Piesă de șah pion negru",
+    ItemName_Base.ChessWhiteKing = "Piesă de șah Regele Alb",
+    ItemName_Base.ChessBlackKing = "Piesa de șah Regele Negru",
+    ItemName_Base.ChessWhiteBishop = "Piesă de șah White Bishop",
+    ItemName_Base.ChessBlackBishop = "Piesa de șah Black Bishop",
+    ItemName_Base.ChessWhiteQueen = "Piesă de șah regina albă",
+    ItemName_Base.ChessBlackQueen = "Piesa de șah regina neagră",
+    ItemName_Base.ChessWhiteRook = "Piesă de șah White Rook",
+    ItemName_Base.ChessBlackRook = "Piesa de șah Black Rook",
+    ItemName_Base.ChessWhiteKnight = "Piesă de șah Cavaler Alb",
+    ItemName_Base.ChessBlackKnight = "Piesă de șah Black Knight",
+
+    ItemName_Base.ChessBox = "Cutie de șah",
+    ItemName_Base.ChessBox_sealed = "Cutie de șah (sigilată)",
+
+    ItemName_Base.PokerChips = "Chip roșu de poker",
+    ItemName_Base.PokerChipsBlue = "Blue Poker Chip",
+    ItemName_Base.PokerChipsGreen = "Chip de poker verde",
+    ItemName_Base.PokerChipsPurple = "Chip de poker violet",
+    ItemName_Base.PokerChipsYellow = "Chip galben de poker",
+    ItemName_Base.PokerChipsOrange = "Chip de poker portocaliu",
+    ItemName_Base.PokerChipsWhite = "Chip de poker alb",
+    ItemName_Base.PokerChipsBlack = "Black Poker Chip",
+
+    ItemName_Base.PokerBox = "Cutie de poker",
+    ItemName_Base.PokerBox_sealed = "Cutie de poker (sigilată)",
+
+    ItemName_Base.Dice = "Muri",
+    ItemName_Base.DiceWhite = "Muri",
+}

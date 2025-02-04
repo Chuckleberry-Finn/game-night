@@ -1,0 +1,13 @@
+Sandbox_CS = {
+	Sandbox_GameNight = "Game Night",
+
+    Sandbox_GameNight_DisplayItemNames = "Zobrazit názvy položek",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Zobrazte názvy položek ve hře.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Zobrazte kurzory přehrávače v herním uživatelském rozhraní",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Zobrazte kurzory hráčů na obrazovce. Kurzory by neměly způsobovat žádné problémy s provozem, proces však zahrnuje rychlé odesílání malých kousků dat – tato možnost je určena pro lidi, kteří provádějí odstraňování problémů a používají něco, co vytváří protokoly síťového provozu. Nedoporučuje se hrát bez viditelných kurzorů.",
+
+    Sandbox_GameNight_LootMultiplier = "Obecný násobitel kořisti",
+    Sandbox_GameNight_LootMultiplier_tooltip = "To se násobí oproti výchozím šancím na kořist. Ovlivňuje všechny herní položky nalezené na světě.<br>Změny budou vyžadovat restart."
+
+	}

@@ -1,0 +1,41 @@
+IGUI_KO = {
+    IGUI_draw = "그리다",
+    IGUI_deal = "딜 카드",
+    IGUI_dealCards = "%1 카드 처리",
+    IGUI_drawCard = "위에서 카드를 뽑다",
+    IGUI_drawCards = "%1장의 카드를 뽑습니다",
+    IGUI_splitCards = "%1 카드 분할"
+    IGUI_drawRandCard = "랜덤 카드 뽑기",
+    IGUI_shuffleCards = "혼합",
+    IGUI_flipCard = "튀기다",
+    IGUI_searchDeck = "찾다"
+    IGUI_flipPiece = "튀기다",
+    IGUI_rollDie = "연타",
+    IGUI_lock = "잠그다",
+
+    IGUI_placeDieOnSide = "...로 배치"
+    IGUI_PlaceDieOnSide = "%1로 배치",
+    IGUI_examine = "조사하다",
+    IGUI_coinFlip = "동전 던지기",
+
+    IGUI_take = "가져가다",
+    IGUI_takeMore = "%1 가져가기",
+
+    IGUI_SpecialActionAll = "모두"
+
+    IGUI_Play_Game = "게임 플레이",
+
+    IGUI_lockElement = "제자리에 고정"
+
+    IGUI_ItemCat_Card = "카드",
+    IGUI_ItemCat_Deck = "갑판",
+    IGUI_ItemCat_GamePiece = "게임 조각",
+    IGUI_ItemCat_GameBoard = "게임 보드",
+    IGUI_ItemCat_GameBox = "게임박스",
+    IGUI_ItemCat_Die = "주사위",
+
+    IGUI_CardDeck = "카드",
+    IGUI_PlayingCards1 = "카드",
+    IGUI_PlayingCards2 = "카드",
+    IGUI_PlayingCards3 = "카드",
+}

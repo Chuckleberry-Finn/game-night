@@ -1,0 +1,13 @@
+Sandbox_NO = {
+	Sandbox_GameNight = "Spillekveld",
+
+    Sandbox_GameNight_DisplayItemNames = "Vis varenavn",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Vis elementnavn i spillet.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Vis spillerpekere i Game-UI",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Vis markørene til spillerne på skjermen. Markørene skal ikke forårsake noen form for trafikkproblemer, men prosessen innebærer å sende ørsmå biter av data raskt – dette alternativet er beregnet på personer som utfører feilsøking og bruker noe som lager logger for nettverkstrafikk. Det anbefales ikke å spille uten synlige markører.",
+
+    Sandbox_GameNight_LootMultiplier = "Generell lottmultiplikator",
+    Sandbox_GameNight_LootMultiplier_tooltip = "Dette multipliseres med standard loot-sjansene. Påvirker alle spillobjekter som finnes i verden.<br>Endringer vil kreve en omstart."
+
+	}

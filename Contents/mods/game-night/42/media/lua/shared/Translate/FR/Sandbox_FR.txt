@@ -1,0 +1,13 @@
+Sandbox_FR = {
+	Sandbox_GameNight = "Soirée de jeux",
+
+    Sandbox_GameNight_DisplayItemNames = "Afficher les noms des éléments",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Afficher les noms des objets dans le jeu.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Afficher les curseurs des joueurs dans l'interface utilisateur du jeu",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Affichez les curseurs des joueurs à l'écran. Les curseurs ne devraient pas causer de problèmes de trafic, cependant, le processus implique l'envoi rapide de minuscules bits de données - cette option est destinée aux personnes effectuant un dépannage et utilisant un outil qui crée des journaux pour le trafic réseau. Il n'est pas recommandé de jouer sans curseurs visibles.",
+
+    Sandbox_GameNight_LootMultiplier = "Multiplicateur de butin général",
+    Sandbox_GameNight_LootMultiplier_tooltip = "Ceci est multiplié par rapport aux chances de butin par défaut. Affecte tous les objets de jeu trouvés dans le monde.<br>Les modifications nécessiteront un redémarrage."
+
+	}

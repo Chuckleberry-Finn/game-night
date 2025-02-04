@@ -1,0 +1,48 @@
+ItemName_CS = {
+
+    ItemName_Base.GamePieceBlack = "Černá dáma",
+    ItemName_Base.GamePieceRed = "Kus červené dámy",
+    ItemName_Base.GamePieceWhite = "Kus bílého backgammonu",
+    ItemName_Base.GamePieceBlackBackgammon = "Kus černého backgammonu",
+
+    ItemName_Base.PlayingCards1 = "Hrací karty",
+    ItemName_Base.PlayingCards2 = "Hrací karty",
+    ItemName_Base.PlayingCards3 = "Hrací karty",
+
+    ItemName_Base.CheckersBox = "Dáma Box",
+    ItemName_Base.CheckersBox_sealed = "Krabice na dámu (zapečetěná)",
+
+    ItemName_Base.BackgammonBox = "Box na backgammon",
+    ItemName_Base.BackgammonBox_sealed = "Box na backgammon (zapečetěný)",
+
+    ItemName_Base.ChessWhite = "Bílá pěšcová šachová figurka",
+    ItemName_Base.ChessBlack = "Černá pěšcová šachová figurka",
+    ItemName_Base.ChessWhiteKing = "Bílý král šachová figurka",
+    ItemName_Base.ChessBlackKing = "Šachová figurka Černý král",
+    ItemName_Base.ChessWhiteBishop = "Bílá biskupská šachová figurka",
+    ItemName_Base.ChessBlackBishop = "Černá biskupská šachová figurka",
+    ItemName_Base.ChessWhiteQueen = "Bílá královna šachová figurka",
+    ItemName_Base.ChessBlackQueen = "Černá královna šachová figurka",
+    ItemName_Base.ChessWhiteRook = "Bílá věž šachová figurka",
+    ItemName_Base.ChessBlackRook = "Černá věž šachová figurka",
+    ItemName_Base.ChessWhiteKnight = "Bílý rytíř šachová figurka",
+    ItemName_Base.ChessBlackKnight = "Černý rytíř šachová figurka",
+
+    ItemName_Base.ChessBox = "Šachovnice",
+    ItemName_Base.ChessBox_sealed = "Šachovnice (zapečetěná)",
+
+    ItemName_Base.PokerChips = "Červený pokerový žeton",
+    ItemName_Base.PokerChipsBlue = "Modrý pokerový žeton",
+    ItemName_Base.PokerChipsGreen = "Zelený pokerový žeton",
+    ItemName_Base.PokerChipsPurple = "Purple Poker Chip",
+    ItemName_Base.PokerChipsYellow = "Žlutý pokerový žeton",
+    ItemName_Base.PokerChipsOrange = "Orange Poker Chip",
+    ItemName_Base.PokerChipsWhite = "Bílý pokerový žeton",
+    ItemName_Base.PokerChipsBlack = "Black Poker Chip",
+
+    ItemName_Base.PokerBox = "Poker Box",
+    ItemName_Base.PokerBox_sealed = "Poker Box (zapečetěný)",
+
+    ItemName_Base.Dice = "Zemřít",
+    ItemName_Base.DiceWhite = "Zemřít",
+}

@@ -1,0 +1,41 @@
+IGUI_FI = {
+    IGUI_draw = "Piirrä",
+    IGUI_deal = "Deal Card",
+    IGUI_dealCards = "Jaa %1 korttia",
+    IGUI_drawCard = "Piirrä kortti ylhäältä",
+    IGUI_drawCards = "Piirrä %1 korttia",
+    IGUI_splitCards = "Jaa %1 korttia"
+    IGUI_drawRandCard = "Piirrä satunnainen kortti",
+    IGUI_shuffleCards = "Sekoita",
+    IGUI_flipCard = "Kääntää",
+    IGUI_searchDeck = "Haku"
+    IGUI_flipPiece = "Kääntää",
+    IGUI_rollDie = "Rullaa",
+    IGUI_lock = "Lukko",
+
+    IGUI_placeDieOnSide = "Paikka kuin..."
+    IGUI_PlaceDieOnSide = "Sijoita nimellä %1",
+    IGUI_examine = "Tutki",
+    IGUI_coinFlip = "Käännä kolikko",
+
+    IGUI_take = "Ota",
+    IGUI_takeMore = "Ota %1",
+
+    IGUI_SpecialActionAll = "Kaikki"
+
+    IGUI_Play_Game = "Pelaa peliä",
+
+    IGUI_lockElement = "Lukitse Paikoilleen"
+
+    IGUI_ItemCat_Card = "Kortti",
+    IGUI_ItemCat_Deck = "Kansi",
+    IGUI_ItemCat_GamePiece = "Pelipala",
+    IGUI_ItemCat_GameBoard = "Pelilauta",
+    IGUI_ItemCat_GameBox = "Pelilaatikko",
+    IGUI_ItemCat_Die = "Kuole",
+
+    IGUI_CardDeck = "Pelikortti",
+    IGUI_PlayingCards1 = "Pelikortti",
+    IGUI_PlayingCards2 = "Pelikortti",
+    IGUI_PlayingCards3 = "Pelikortti",
+}

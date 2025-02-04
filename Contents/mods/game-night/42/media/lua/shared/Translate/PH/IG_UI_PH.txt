@@ -1,0 +1,41 @@
+IGUI_PH = {
+    IGUI_draw = "Gumuhit",
+    IGUI_deal = "Deal Card",
+    IGUI_dealCards = "Deal ng %1 Card",
+    IGUI_drawCard = "Gumuhit ng Card Mula sa Itaas",
+    IGUI_drawCards = "Gumuhit ng %1 Card",
+    IGUI_splitCards = "Hatiin ang %1 Card"
+    IGUI_drawRandCard = "Gumuhit ng Random Card",
+    IGUI_shuffleCards = "Balasahin",
+    IGUI_flipCard = "I-flip",
+    IGUI_searchDeck = "Maghanap"
+    IGUI_flipPiece = "I-flip",
+    IGUI_rollDie = "Roll",
+    IGUI_lock = "Lock",
+
+    IGUI_placeDieOnSide = "Lugar bilang..."
+    IGUI_PlaceDieOnSide = "Ilagay bilang %1",
+    IGUI_examine = "Suriin",
+    IGUI_coinFlip = "I-flip ang barya",
+
+    IGUI_take = "Kunin",
+    IGUI_takeMore = "Kunin ang %1",
+
+    IGUI_SpecialActionAll = "Lahat"
+
+    IGUI_Play_Game = "Maglaro ng Laro",
+
+    IGUI_lockElement = "Lock In Place"
+
+    IGUI_ItemCat_Card = "Card",
+    IGUI_ItemCat_Deck = "Deck",
+    IGUI_ItemCat_GamePiece = "Game Piraso",
+    IGUI_ItemCat_GameBoard = "Lupon ng Laro",
+    IGUI_ItemCat_GameBox = "Kahon ng Laro",
+    IGUI_ItemCat_Die = "mamatay",
+
+    IGUI_CardDeck = "Naglalaro ng Card",
+    IGUI_PlayingCards1 = "Naglalaro ng Card",
+    IGUI_PlayingCards2 = "Naglalaro ng Card",
+    IGUI_PlayingCards3 = "Naglalaro ng Card",
+}

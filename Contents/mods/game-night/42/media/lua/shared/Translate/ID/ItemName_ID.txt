@@ -1,0 +1,48 @@
+ItemName_ID = {
+
+    ItemName_Base.GamePieceBlack = "Potongan Catur Hitam",
+    ItemName_Base.GamePieceRed = "Potongan Catur Merah",
+    ItemName_Base.GamePieceWhite = "Potongan Backgammon Putih",
+    ItemName_Base.GamePieceBlackBackgammon = "Potongan Backgammon Hitam",
+
+    ItemName_Base.PlayingCards1 = "Bermain Kartu",
+    ItemName_Base.PlayingCards2 = "Bermain Kartu",
+    ItemName_Base.PlayingCards3 = "Bermain Kartu",
+
+    ItemName_Base.CheckersBox = "Kotak Catur",
+    ItemName_Base.CheckersBox_sealed = "Kotak Catur (Tertutup)",
+
+    ItemName_Base.BackgammonBox = "Kotak Backgammon",
+    ItemName_Base.BackgammonBox_sealed = "Kotak Backgammon (Tertutup)",
+
+    ItemName_Base.ChessWhite = "Buah Catur Pion Putih",
+    ItemName_Base.ChessBlack = "Buah Catur Pion Hitam",
+    ItemName_Base.ChessWhiteKing = "Buah Catur Raja Putih",
+    ItemName_Base.ChessBlackKing = "Buah Catur Raja Hitam",
+    ItemName_Base.ChessWhiteBishop = "Potongan Catur Uskup Putih",
+    ItemName_Base.ChessBlackBishop = "Potongan Catur Uskup Hitam",
+    ItemName_Base.ChessWhiteQueen = "Buah Catur Ratu Putih",
+    ItemName_Base.ChessBlackQueen = "Buah Catur Ratu Hitam",
+    ItemName_Base.ChessWhiteRook = "Buah Catur Benteng Putih",
+    ItemName_Base.ChessBlackRook = "Buah Catur Benteng Hitam",
+    ItemName_Base.ChessWhiteKnight = "Potongan Catur Ksatria Putih",
+    ItemName_Base.ChessBlackKnight = "Potongan Catur Ksatria Hitam",
+
+    ItemName_Base.ChessBox = "Kotak Catur",
+    ItemName_Base.ChessBox_sealed = "Kotak Catur (Tertutup)",
+
+    ItemName_Base.PokerChips = "Chip Poker Merah",
+    ItemName_Base.PokerChipsBlue = "Chip Poker Biru",
+    ItemName_Base.PokerChipsGreen = "Chip Poker Hijau",
+    ItemName_Base.PokerChipsPurple = "Chip Poker Ungu",
+    ItemName_Base.PokerChipsYellow = "Chip Poker Kuning",
+    ItemName_Base.PokerChipsOrange = "Chip Poker Oranye",
+    ItemName_Base.PokerChipsWhite = "Chip Poker Putih",
+    ItemName_Base.PokerChipsBlack = "Chip Poker Hitam",
+
+    ItemName_Base.PokerBox = "Kotak Poker",
+    ItemName_Base.PokerBox_sealed = "Kotak Poker (Tertutup)",
+
+    ItemName_Base.Dice = "Mati",
+    ItemName_Base.DiceWhite = "Mati",
+}

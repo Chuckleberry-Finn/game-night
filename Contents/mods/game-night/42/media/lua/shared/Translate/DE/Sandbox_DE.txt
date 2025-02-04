@@ -1,0 +1,13 @@
+Sandbox_DE = {
+	Sandbox_GameNight = "Spieleabend",
+
+    Sandbox_GameNight_DisplayItemNames = "Anzeigeelementnamen",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Gegenstandsnamen im Spiel anzeigen.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Anzeige von Spielercursorn in der Spiel-Benutzeroberfläche",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Zeigen Sie die Cursor der Spieler auf dem Bildschirm an. Die Cursor sollten keine Verkehrsprobleme verursachen, allerdings werden bei diesem Vorgang schnell kleine Datenmengen gesendet. Diese Option ist für Personen gedacht, die Fehler beheben und etwas verwenden, das Protokolle für den Netzwerkverkehr erstellt. Es wird nicht empfohlen, ohne sichtbare Cursor zu spielen.",
+
+    Sandbox_GameNight_LootMultiplier = "Allgemeiner Beutemultiplikator",
+    Sandbox_GameNight_LootMultiplier_tooltip = "Dies wird mit den standardmäßigen Beutechancen multipliziert. Wirkt sich auf alle in der Welt gefundenen Spielgegenstände aus.<br>Änderungen erfordern einen Neustart."
+
+	}

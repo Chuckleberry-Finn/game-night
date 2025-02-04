@@ -1,0 +1,13 @@
+Sandbox_RO = {
+	Sandbox_GameNight = "Noaptea jocurilor",
+
+    Sandbox_GameNight_DisplayItemNames = "Afișează numele articolelor",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Afișează numele elementelor în joc.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Afișează cursoarele jucătorului în UI de joc",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Afișați cursoarele jucătorilor pe ecran. Cursoarele nu ar trebui să provoace nicio formă de probleme de trafic, cu toate acestea, procesul implică trimiterea rapidă a unor bucăți mici de date - această opțiune este destinată persoanelor care efectuează depanare și folosesc ceva care creează jurnalele pentru traficul de rețea. Nu este recomandat să jucați fără cursoare vizibile.",
+
+    Sandbox_GameNight_LootMultiplier = "Multiplicator general de pradă",
+    Sandbox_GameNight_LootMultiplier_tooltip = "Aceasta este înmulțită față de șansele implicite de pradă. Afectează toate elementele de joc găsite în lume.<br>Modificările vor necesita o repornire."
+
+	}

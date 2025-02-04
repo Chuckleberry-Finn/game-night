@@ -1,0 +1,13 @@
+Sandbox_TR = {
+	Sandbox_GameNight = "Oyun Gecesi",
+
+    Sandbox_GameNight_DisplayItemNames = "Öğe Adlarını Görüntüle",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Oyunda eşya adlarını göster.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Oyuncu İmleçlerini Oyun Arayüzünde Göster",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Oyuncuların imleçlerini ekranda görüntüleyin. İmleçler herhangi bir trafik sorununa neden olmamalıdır, ancak süreç küçük veri parçalarını hızla göndermeyi içerir - bu seçenek sorun giderme gerçekleştiren ve ağ trafiği için günlükler oluşturan bir şey kullanan kişiler için tasarlanmıştır. Görünür imleçler olmadan oynamanız önerilmez.",
+
+    Sandbox_GameNight_LootMultiplier = "Genel Ganimet Çarpanı",
+    Sandbox_GameNight_LootMultiplier_tooltip = "Bu, varsayılan ganimet şanslarına karşı çarpılır. Dünyada bulunan tüm oyun öğelerini etkiler.<br>Değişiklikler yeniden başlatma gerektirecektir."
+
+	}

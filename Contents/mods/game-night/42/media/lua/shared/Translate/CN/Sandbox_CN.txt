@@ -1,0 +1,13 @@
+Sandbox_CN = {
+	Sandbox_GameNight = "游戏之夜",
+
+    Sandbox_GameNight_DisplayItemNames = "显示项目名称",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "在游戏中显示物品名称。",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "在游戏 UI 中显示玩家光标",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "在屏幕上显示玩家的光标。光标不应导致任何形式的流量问题，但是，该过程涉及快速发送微小的数据位 - 此选项适用于执行故障排除并使用创建网络流量日志的程序的人。不建议在没有可见光标的情况下玩游戏。",
+
+    Sandbox_GameNight_LootMultiplier = "通用战利品倍数",
+    Sandbox_GameNight_LootMultiplier_tooltip = "这与默认的战利品几率相乘。影响世界上发现的所有游戏物品。<br>更改将需要重新启动。"
+
+	}

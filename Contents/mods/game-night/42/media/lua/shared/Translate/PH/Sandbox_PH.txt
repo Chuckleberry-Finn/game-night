@@ -1,0 +1,13 @@
+Sandbox_PH = {
+	Sandbox_GameNight = "Game Gabi",
+
+    Sandbox_GameNight_DisplayItemNames = "Ipakita ang Mga Pangalan ng Item",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Ipakita ang mga pangalan ng item sa laro.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Ipakita ang Mga Cursor ng Manlalaro sa Game-UI",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Ipakita ang mga cursor ng mga manlalaro sa screen. Ang mga cursor ay hindi dapat magdulot ng anumang anyo ng mga isyu sa trapiko, gayunpaman, ang proseso ay nagsasangkot ng mabilis na pagpapadala ng maliliit na piraso ng data - ang pagpipiliang ito ay inilaan para sa mga taong nagsasagawa ng pag-troubleshoot at paggamit ng isang bagay na lumilikha ng mga log para sa trapiko sa network. Hindi inirerekomenda na maglaro nang walang nakikitang mga cursor.",
+
+    Sandbox_GameNight_LootMultiplier = "Pangkalahatang Loot Multiplier",
+    Sandbox_GameNight_LootMultiplier_tooltip = "Ito ay pinarami laban sa mga default na pagkakataon sa pagnakawan. Nakakaapekto sa lahat ng item ng laro na matatagpuan sa mundo.<br>Ang mga pagbabago ay mangangailangan ng reboot."
+
+	}

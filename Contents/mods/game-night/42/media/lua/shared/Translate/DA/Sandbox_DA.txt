@@ -1,0 +1,13 @@
+Sandbox_DA = {
+	Sandbox_GameNight = "Spilaften",
+
+    Sandbox_GameNight_DisplayItemNames = "Vis varenavne",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "Vis emnenavne i spillet.",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "Vis afspillermarkører i Game-UI",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Vis spillernes markører på skærmen. Markørerne bør ikke forårsage nogen form for trafikproblemer, men processen involverer at sende bittesmå stykker data hurtigt - denne mulighed er beregnet til folk, der udfører fejlfinding og bruger noget, der skaber logfiler for netværkstrafik. Det anbefales ikke at spille uden synlige markører.",
+
+    Sandbox_GameNight_LootMultiplier = "Generel byttemultiplikator",
+    Sandbox_GameNight_LootMultiplier_tooltip = "Dette ganges med standard loot-chancerne. Påvirker alle spilgenstande, der findes i verden.<br>Ændringer kræver en genstart."
+
+	}

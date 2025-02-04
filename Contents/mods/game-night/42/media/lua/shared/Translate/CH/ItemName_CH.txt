@@ -1,0 +1,48 @@
+ItemName_CH = {
+
+    ItemName_Base.GamePieceBlack = "黑色棋子",
+    ItemName_Base.GamePieceRed = "紅色方格棋子",
+    ItemName_Base.GamePieceWhite = "白雙陸棋棋子",
+    ItemName_Base.GamePieceBlackBackgammon = "黑色西洋雙陸棋棋子",
+
+    ItemName_Base.PlayingCards1 = "撲克牌",
+    ItemName_Base.PlayingCards2 = "撲克牌",
+    ItemName_Base.PlayingCards3 = "撲克牌",
+
+    ItemName_Base.CheckersBox = "方格盒子",
+    ItemName_Base.CheckersBox_sealed = "方格盒（密封）",
+
+    ItemName_Base.BackgammonBox = "雙陸棋盒",
+    ItemName_Base.BackgammonBox_sealed = "雙陸棋盒（密封）",
+
+    ItemName_Base.ChessWhite = "白色棋子",
+    ItemName_Base.ChessBlack = "黑色棋子",
+    ItemName_Base.ChessWhiteKing = "白王棋子",
+    ItemName_Base.ChessBlackKing = "黑王棋子",
+    ItemName_Base.ChessWhiteBishop = "白象棋子",
+    ItemName_Base.ChessBlackBishop = "黑象棋棋子",
+    ItemName_Base.ChessWhiteQueen = "白皇后棋子",
+    ItemName_Base.ChessBlackQueen = "黑皇后棋子",
+    ItemName_Base.ChessWhiteRook = "白車棋子",
+    ItemName_Base.ChessBlackRook = "黑車棋子",
+    ItemName_Base.ChessWhiteKnight = "白騎士棋子",
+    ItemName_Base.ChessBlackKnight = "黑騎士棋子",
+
+    ItemName_Base.ChessBox = "棋盒",
+    ItemName_Base.ChessBox_sealed = "棋盒（密封）",
+
+    ItemName_Base.PokerChips = "紅色撲克籌碼",
+    ItemName_Base.PokerChipsBlue = "藍色撲克籌碼",
+    ItemName_Base.PokerChipsGreen = "綠色撲克籌碼",
+    ItemName_Base.PokerChipsPurple = "紫色撲克籌碼",
+    ItemName_Base.PokerChipsYellow = "黃色撲克籌碼",
+    ItemName_Base.PokerChipsOrange = "橘色撲克籌碼",
+    ItemName_Base.PokerChipsWhite = "白色撲克籌碼",
+    ItemName_Base.PokerChipsBlack = "黑色撲克籌碼",
+
+    ItemName_Base.PokerBox = "撲克盒",
+    ItemName_Base.PokerBox_sealed = "撲克盒（密封）",
+
+    ItemName_Base.Dice = "死",
+    ItemName_Base.DiceWhite = "死",
+}

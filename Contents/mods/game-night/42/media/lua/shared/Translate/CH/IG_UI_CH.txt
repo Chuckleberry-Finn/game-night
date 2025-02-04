@@ -1,0 +1,41 @@
+IGUI_CH = {
+    IGUI_draw = "畫",
+    IGUI_deal = "發牌卡",
+    IGUI_dealCards = "發 %1 張牌",
+    IGUI_drawCard = "從頂部抽卡",
+    IGUI_drawCards = "抽%1張牌",
+    IGUI_splitCards = "分割 %1 卡"
+    IGUI_drawRandCard = "抽隨機卡",
+    IGUI_shuffleCards = "隨機播放",
+    IGUI_flipCard = "翻動",
+    IGUI_searchDeck = "搜尋"
+    IGUI_flipPiece = "翻動",
+    IGUI_rollDie = "卷",
+    IGUI_lock = "鎖",
+
+    IGUI_placeDieOnSide = "放置為..."
+    IGUI_PlaceDieOnSide = "地點為 %1",
+    IGUI_examine = "檢查",
+    IGUI_coinFlip = "投擲硬幣",
+
+    IGUI_take = "拿",
+    IGUI_takeMore = "拍攝 %1",
+
+    IGUI_SpecialActionAll = "全部"
+
+    IGUI_Play_Game = "玩遊戲",
+
+    IGUI_lockElement = "鎖定到位"
+
+    IGUI_ItemCat_Card = "卡片",
+    IGUI_ItemCat_Deck = "甲板",
+    IGUI_ItemCat_GamePiece = "遊戲棋子",
+    IGUI_ItemCat_GameBoard = "遊戲板",
+    IGUI_ItemCat_GameBox = "遊戲盒",
+    IGUI_ItemCat_Die = "死",
+
+    IGUI_CardDeck = "紙牌",
+    IGUI_PlayingCards1 = "紙牌",
+    IGUI_PlayingCards2 = "紙牌",
+    IGUI_PlayingCards3 = "紙牌",
+}

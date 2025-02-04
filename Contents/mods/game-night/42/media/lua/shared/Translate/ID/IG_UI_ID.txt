@@ -1,0 +1,41 @@
+IGUI_ID = {
+    IGUI_draw = "Menggambar",
+    IGUI_deal = "Kartu Transaksi",
+    IGUI_dealCards = "Bagikan %1 Kartu",
+    IGUI_drawCard = "Tarik Kartu Dari Atas",
+    IGUI_drawCards = "Tarik %1 Kartu",
+    IGUI_splitCards = "Membagi %1 Kartu"
+    IGUI_drawRandCard = "Gambar Kartu Acak",
+    IGUI_shuffleCards = "Acak",
+    IGUI_flipCard = "Membalik",
+    IGUI_searchDeck = "Mencari"
+    IGUI_flipPiece = "Membalik",
+    IGUI_rollDie = "Gulungan",
+    IGUI_lock = "Kunci",
+
+    IGUI_placeDieOnSide = "Tempatkan sebagai..."
+    IGUI_PlaceDieOnSide = "Tempatkan sebagai %1",
+    IGUI_examine = "Meneliti",
+    IGUI_coinFlip = "Lempar Koin",
+
+    IGUI_take = "Mengambil",
+    IGUI_takeMore = "Ambil %1",
+
+    IGUI_SpecialActionAll = "Semua"
+
+    IGUI_Play_Game = "Mainkan Game",
+
+    IGUI_lockElement = "Kunci di Tempat"
+
+    IGUI_ItemCat_Card = "Kartu",
+    IGUI_ItemCat_Deck = "Dek",
+    IGUI_ItemCat_GamePiece = "Bagian Permainan",
+    IGUI_ItemCat_GameBoard = "Papan Permainan",
+    IGUI_ItemCat_GameBox = "Kotak Permainan",
+    IGUI_ItemCat_Die = "Mati",
+
+    IGUI_CardDeck = "Kartu",
+    IGUI_PlayingCards1 = "Kartu",
+    IGUI_PlayingCards2 = "Kartu",
+    IGUI_PlayingCards3 = "Kartu",
+}

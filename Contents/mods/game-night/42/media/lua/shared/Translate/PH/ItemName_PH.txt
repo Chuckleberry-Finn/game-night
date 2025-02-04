@@ -1,0 +1,48 @@
+ItemName_PH = {
+
+    ItemName_Base.GamePieceBlack = "Itim na Checkers Piece",
+    ItemName_Base.GamePieceRed = "Piraso ng Red Checkers",
+    ItemName_Base.GamePieceWhite = "White Backgammon Piece",
+    ItemName_Base.GamePieceBlackBackgammon = "Itim na Backgammon Piece",
+
+    ItemName_Base.PlayingCards1 = "Naglalaro ng Card",
+    ItemName_Base.PlayingCards2 = "Naglalaro ng Card",
+    ItemName_Base.PlayingCards3 = "Naglalaro ng Card",
+
+    ItemName_Base.CheckersBox = "Kahon ng Checkers",
+    ItemName_Base.CheckersBox_sealed = "Checkers Box (Sealed)",
+
+    ItemName_Base.BackgammonBox = "Kahon ng Backgammon",
+    ItemName_Base.BackgammonBox_sealed = "Backgammon Box (Sealed)",
+
+    ItemName_Base.ChessWhite = "White Pawn Chess Piece",
+    ItemName_Base.ChessBlack = "Black Pawn Chess Piece",
+    ItemName_Base.ChessWhiteKing = "White King Chess Piece",
+    ItemName_Base.ChessBlackKing = "Black King Chess Piece",
+    ItemName_Base.ChessWhiteBishop = "White Bishop Chess Piece",
+    ItemName_Base.ChessBlackBishop = "Itim na Bishop Chess Piece",
+    ItemName_Base.ChessWhiteQueen = "White Queen Chess Piece",
+    ItemName_Base.ChessBlackQueen = "Black Queen Chess Piece",
+    ItemName_Base.ChessWhiteRook = "White Rook Chess Piece",
+    ItemName_Base.ChessBlackRook = "Black Rook Chess Piece",
+    ItemName_Base.ChessWhiteKnight = "White Knight Chess Piece",
+    ItemName_Base.ChessBlackKnight = "Black Knight Chess Piece",
+
+    ItemName_Base.ChessBox = "Kahon ng Chess",
+    ItemName_Base.ChessBox_sealed = "Chess Box (Sealed)",
+
+    ItemName_Base.PokerChips = "Pulang Poker Chip",
+    ItemName_Base.PokerChipsBlue = "Asul na Poker Chip",
+    ItemName_Base.PokerChipsGreen = "Green Poker Chip",
+    ItemName_Base.PokerChipsPurple = "Purple Poker Chip",
+    ItemName_Base.PokerChipsYellow = "Yellow Poker Chip",
+    ItemName_Base.PokerChipsOrange = "Orange Poker Chip",
+    ItemName_Base.PokerChipsWhite = "Puting Poker Chip",
+    ItemName_Base.PokerChipsBlack = "Itim na Poker Chip",
+
+    ItemName_Base.PokerBox = "Poker Box",
+    ItemName_Base.PokerBox_sealed = "Poker Box (Sealed)",
+
+    ItemName_Base.Dice = "mamatay",
+    ItemName_Base.DiceWhite = "mamatay",
+}

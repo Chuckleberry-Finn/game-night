@@ -1,0 +1,48 @@
+ItemName_FI = {
+
+    ItemName_Base.GamePieceBlack = "Musta tammi pala",
+    ItemName_Base.GamePieceRed = "Punainen tammi pala",
+    ItemName_Base.GamePieceWhite = "Valkoinen backgammon pala",
+    ItemName_Base.GamePieceBlackBackgammon = "Musta backgammon pala",
+
+    ItemName_Base.PlayingCards1 = "Pelikortit",
+    ItemName_Base.PlayingCards2 = "Pelikortit",
+    ItemName_Base.PlayingCards3 = "Pelikortit",
+
+    ItemName_Base.CheckersBox = "Tammilaatikko",
+    ItemName_Base.CheckersBox_sealed = "Tammilaatikko (sinetöity)",
+
+    ItemName_Base.BackgammonBox = "Backgammon Box",
+    ItemName_Base.BackgammonBox_sealed = "Backgammon-laatikko (sinetöity)",
+
+    ItemName_Base.ChessWhite = "Valkoinen sotilasshakkinappula",
+    ItemName_Base.ChessBlack = "Musta sotilasshakkinappula",
+    ItemName_Base.ChessWhiteKing = "Valkoinen kuningas shakkinappula",
+    ItemName_Base.ChessBlackKing = "Musta kuningas shakkinappula",
+    ItemName_Base.ChessWhiteBishop = "Valkoinen piispan shakkinappula",
+    ItemName_Base.ChessBlackBishop = "Musta piispan shakkinappula",
+    ItemName_Base.ChessWhiteQueen = "Valkoinen kuningatar shakkinappula",
+    ItemName_Base.ChessBlackQueen = "Musta kuningatar shakkinappula",
+    ItemName_Base.ChessWhiteRook = "Valkoinen torni shakkinappula",
+    ItemName_Base.ChessBlackRook = "Musta torni shakkinappula",
+    ItemName_Base.ChessWhiteKnight = "Valkoinen ritari shakkinappula",
+    ItemName_Base.ChessBlackKnight = "Musta ritari shakkinappula",
+
+    ItemName_Base.ChessBox = "Shakkilaatikko",
+    ItemName_Base.ChessBox_sealed = "Shakkilaatikko (sinetöity)",
+
+    ItemName_Base.PokerChips = "Punainen pokerimerkki",
+    ItemName_Base.PokerChipsBlue = "Sininen pokerimerkki",
+    ItemName_Base.PokerChipsGreen = "Vihreä pokerimerkki",
+    ItemName_Base.PokerChipsPurple = "Purppura pokerimerkki",
+    ItemName_Base.PokerChipsYellow = "Keltainen pokerimerkki",
+    ItemName_Base.PokerChipsOrange = "Oranssi pokerimerkki",
+    ItemName_Base.PokerChipsWhite = "Valkoinen pokerimerkki",
+    ItemName_Base.PokerChipsBlack = "Musta pokerimerkki",
+
+    ItemName_Base.PokerBox = "Poker Box",
+    ItemName_Base.PokerBox_sealed = "Poker Box (Sinetöity)",
+
+    ItemName_Base.Dice = "Kuole",
+    ItemName_Base.DiceWhite = "Kuole",
+}

@@ -1,0 +1,48 @@
+ItemName_TH = {
+
+    ItemName_Base.GamePieceBlack = "ชิ้นส่วนหมากรุกสีดำ",
+    ItemName_Base.GamePieceRed = "ชิ้นหมากรุกสีแดง",
+    ItemName_Base.GamePieceWhite = "ชิ้นแบ็คแกมมอนสีขาว",
+    ItemName_Base.GamePieceBlackBackgammon = "แบ็คแกมมอนสีดำ",
+
+    ItemName_Base.PlayingCards1 = "ไพ่",
+    ItemName_Base.PlayingCards2 = "ไพ่",
+    ItemName_Base.PlayingCards3 = "ไพ่",
+
+    ItemName_Base.CheckersBox = "กล่องหมากรุก",
+    ItemName_Base.CheckersBox_sealed = "กล่องหมากรุก (ปิดผนึก)",
+
+    ItemName_Base.BackgammonBox = "กล่องแบ็กแกมมอน",
+    ItemName_Base.BackgammonBox_sealed = "กล่องแบ็กแกมมอน (ปิดผนึก)",
+
+    ItemName_Base.ChessWhite = "หมากรุกเบี้ยสีขาว",
+    ItemName_Base.ChessBlack = "หมากรุกเบี้ยดำ",
+    ItemName_Base.ChessWhiteKing = "หมากรุกราชาสีขาว",
+    ItemName_Base.ChessBlackKing = "หมากรุกราชาดำ",
+    ItemName_Base.ChessWhiteBishop = "หมากรุกบิชอปสีขาว",
+    ItemName_Base.ChessBlackBishop = "หมากรุกบิชอปสีดำ",
+    ItemName_Base.ChessWhiteQueen = "หมากรุกราชินีสีขาว",
+    ItemName_Base.ChessBlackQueen = "หมากรุกราชินีดำ",
+    ItemName_Base.ChessWhiteRook = "หมากรุกเรือสีขาว",
+    ItemName_Base.ChessBlackRook = "หมากรุกเรือดำ",
+    ItemName_Base.ChessWhiteKnight = "หมากรุกอัศวินสีขาว",
+    ItemName_Base.ChessBlackKnight = "หมากรุกอัศวินดำ",
+
+    ItemName_Base.ChessBox = "กล่องหมากรุก",
+    ItemName_Base.ChessBox_sealed = "กล่องหมากรุก (ปิดผนึก)",
+
+    ItemName_Base.PokerChips = "ชิปโป๊กเกอร์สีแดง",
+    ItemName_Base.PokerChipsBlue = "ชิปโป๊กเกอร์สีน้ำเงิน",
+    ItemName_Base.PokerChipsGreen = "ชิปโป๊กเกอร์สีเขียว",
+    ItemName_Base.PokerChipsPurple = "ชิปโป๊กเกอร์สีม่วง",
+    ItemName_Base.PokerChipsYellow = "ชิปโป๊กเกอร์สีเหลือง",
+    ItemName_Base.PokerChipsOrange = "ชิปโป๊กเกอร์สีส้ม",
+    ItemName_Base.PokerChipsWhite = "ชิปโป๊กเกอร์สีขาว",
+    ItemName_Base.PokerChipsBlack = "ชิปโป๊กเกอร์สีดำ",
+
+    ItemName_Base.PokerBox = "กล่องโป๊กเกอร์",
+    ItemName_Base.PokerBox_sealed = "กล่องโป๊กเกอร์ (ปิดผนึก)",
+
+    ItemName_Base.Dice = "ตาย",
+    ItemName_Base.DiceWhite = "ตาย",
+}

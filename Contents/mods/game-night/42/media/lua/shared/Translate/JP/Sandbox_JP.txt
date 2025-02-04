@@ -1,0 +1,13 @@
+Sandbox_JP = {
+	Sandbox_GameNight = "ゲームナイト",
+
+    Sandbox_GameNight_DisplayItemNames = "アイテム名の表示",
+    Sandbox_GameNight_DisplayItemNames_tooltip = "ゲーム内でアイテム名を表示します。",
+
+    Sandbox_GameNight_DisplayPlayerCursors = "ゲームUIにプレイヤーカーソルを表示する",
+    Sandbox_GameNight_DisplayPlayerCursors_tooltip = "プレイヤーのカーソルを画面上に表示します。カーソルはトラフィックの問題を引き起こすことはありませんが、プロセスには少量のデータを高速に送信することが含まれます。このオプションは、トラブルシューティングを実行し、ネットワーク トラフィックのログを作成するものを使用するユーザーを対象としています。カーソルを表示せずにプレイすることはお勧めしません。",
+
+    Sandbox_GameNight_LootMultiplier = "一般的な戦利品乗数",
+    Sandbox_GameNight_LootMultiplier_tooltip = "これはデフォルトの戦利品獲得確率に掛け合わされます。ワールド内で見つかったすべてのゲーム アイテムに影響します。<br>変更には再起動が必要です。"
+
+	}
