@@ -1,9 +1,9 @@
 IGUI_RO = {
-    IGUI_draw = "Remiză",
+    IGUI_draw = "Trage Card",
     IGUI_deal = "Deal Card",
     IGUI_dealCards = "Împărțiți %1 cărți",
     IGUI_drawCard = "Trageți cartea de sus",
-    IGUI_drawCards = "Trage %1 cărți",
+    IGUI_drawCards = "Trageți %1 cărți",
     IGUI_splitCards = "Împărțiți %1 carduri"
     IGUI_drawRandCard = "Trage carte aleatorie",
     IGUI_shuffleCards = "Amesteca",

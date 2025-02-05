@@ -1,6 +1,6 @@
 UI_CN = {
-UI_GameNightWindow = "<CENTRE> <SIZE:medium> 这是游戏窗口。 <LINE> <LINE> <SIZE:small> <LEFT> 此窗口和游戏之夜与许多控件相关 <LINE> <LINE> <SIZE:small> <LEFT> 按住左键单击可移动物品，Shift 键可改变操作。 <LINE> <LINE> <SIZE:small> <LEFT> 右键单击​​棋子将打开一个上下文菜单，其中显示可用的操作。 <LINE> <LINE> <SIZE:small> <LEFT> 您还可以从库存或卡牌组搜索窗口中拖动物品。 <LINE> <LINE> <SIZE:small> <LEFT> 在最近交互的棋子上有一个计时器图标表示延迟/冷却。 <LINE> <LINE> <SIZE:small> <LEFT> 此外，在左下角，关闭按钮旁边还有一个缩放 UI 按钮。 <LINE> <LINE> <LINE> <SIZE:small> <LEFT> 享受游戏之夜！ <行> <行>",
+UI_GameNightWindow = "<CENTRE> <SIZE:medium> 这是游戏窗口。<LINE> <LINE> <SIZE:small> <LEFT> 此窗口和游戏之夜与许多控件相关 <LINE> <LINE> <SIZE:small> <LEFT> 按住左键单击可移动物品，Shift 键可改变操作。<LINE> <LINE> <SIZE:small> <LEFT> 右键单击​​棋子将打开一个上下文菜单，显示可用的操作。<LINE> <LINE> <SIZE:small> <LEFT> 您还可以从库存或卡片组搜索窗口中拖动物品。 <LINE> <LINE> <SIZE:small> <LEFT> 在最近交互的部件上有一个计时器图标表示延迟/冷却。<LINE> <LINE> <SIZE:small> <LEFT> 此外，在左下角关闭按钮旁边还有一个缩放 UI 按钮。<LINE> <LINE> <LINE> <SIZE:small> <LEFT> 享受游戏之夜！<LINE> <LINE>",
 
-UI_GameNightSearch = "<CENTRE> <SIZE:medium> 这是牌组搜索窗口。<LINE> <LINE> <SIZE:small> <LEFT> 您可以在这里与卡片互动，就像在其他地方一样，但还有一些附加选项。<LINE> <LINE> <SIZE:small> <LEFT> 将卡片拖到其他卡片之间（您看到细线的地方）并将卡片插入那里。<LINE> <LINE> <SIZE:small> <LEFT> 将一张卡片拖到另一张卡片上（整张卡片突出显示）将交换两者。<LINE> <LINE> <SIZE:small> <LEFT> 您还可以将项目从这里拖到游戏窗口。<LINE> <LINE> <LINE> <SIZE:small> <LEFT> 享受游戏之夜！<LINE> <LINE>",
+UI_GameNightSearch = "<CENTRE> <SIZE:medium> 这是牌组搜索窗口。<LINE> <LINE> <SIZE:small> <LEFT> 您可以像在其他地方一样在这里与卡片互动，但还有几个附加选项。<LINE> <LINE> <SIZE:small> <LEFT> 将卡片拖到其他卡片之间（您看到细线的地方）并将卡片插入那里。<LINE> <LINE> <SIZE:small> <LEFT> 将一张卡片拖到另一张卡片上（整张卡片突出显示）将交换两者。<LINE> <LINE> <SIZE:small> <LEFT> 您还可以将物品从这里拖到游戏窗口。 <LINE> <LINE> <LINE> <SIZE:small> <LEFT> 享受游戏之夜！<LINE> <LINE>",
 
 }

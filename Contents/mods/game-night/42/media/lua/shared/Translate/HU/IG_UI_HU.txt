@@ -1,5 +1,5 @@
 IGUI_HU = {
-    IGUI_draw = "Rajzolj",
+    IGUI_draw = "Kártya húzása",
     IGUI_deal = "Deal Card",
     IGUI_dealCards = "Osszon %1 kártyát",
     IGUI_drawCard = "Húzz kártyát felülről",
@@ -19,7 +19,7 @@ IGUI_HU = {
     IGUI_coinFlip = "Flip Coin",
 
     IGUI_take = "Vesz",
-    IGUI_takeMore = "Vegye %1",
+    IGUI_takeMore = "Vegye ki a következőt: %1",
 
     IGUI_SpecialActionAll = "Minden"
 

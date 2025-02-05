@@ -1,10 +1,10 @@
 IGUI_CH = {
-    IGUI_draw = "畫",
-    IGUI_deal = "發牌卡",
+    IGUI_draw = "抽牌",
+    IGUI_deal = "交易卡",
     IGUI_dealCards = "發 %1 張牌",
     IGUI_drawCard = "從頂部抽牌",
-    IGUI_drawCards = "抽%1張牌",
-    IGUI_splitCards = "拆分%1張牌"
+    IGUI_drawCards = "抽取 %1 張牌",
+    IGUI_splitCards = "分頁 %1 張牌"
     IGUI_drawRandCard = "抽隨機卡",
     IGUI_shuffleCards = "隨機播放",
     IGUI_flipCard = "翻動",
@@ -14,12 +14,12 @@ IGUI_CH = {
     IGUI_lock = "鎖",
 
     IGUI_placeDieOnSide = "放置為..."
-    IGUI_PlaceDieOnSide = "地點為 %1",
+    IGUI_PlaceDieOnSide = "放置為 %1",
     IGUI_examine = "檢查",
     IGUI_coinFlip = "投擲硬幣",
 
     IGUI_take = "拿",
-    IGUI_takeMore = "拍攝 %1",
+    IGUI_takeMore = "採取 %1",
 
     IGUI_SpecialActionAll = "全部"
 

@@ -1,5 +1,5 @@
 IGUI_PL = {
-    IGUI_draw = "Rysować",
+    IGUI_draw = "Dobierz kartę",
     IGUI_deal = "Karta rozdania",
     IGUI_dealCards = "Rozdaj %1 kart",
     IGUI_drawCard = "Dobierz kartę z góry",

@@ -1,10 +1,10 @@
 IGUI_PH = {
-    IGUI_draw = "Gumuhit",
+    IGUI_draw = "Gumuhit ng Card",
     IGUI_deal = "Deal Card",
-    IGUI_dealCards = "Deal ng %1 Card",
+    IGUI_dealCards = "Deal %1 Mga Card",
     IGUI_drawCard = "Gumuhit ng Card Mula sa Itaas",
-    IGUI_drawCards = "Gumuhit ng %1 Card",
-    IGUI_splitCards = "Hatiin ang %1 Card"
+    IGUI_drawCards = "Gumuhit ng %1 Mga Card",
+    IGUI_splitCards = "Hatiin ang %1 Mga Card"
     IGUI_drawRandCard = "Gumuhit ng Random Card",
     IGUI_shuffleCards = "Balasahin",
     IGUI_flipCard = "I-flip",
@@ -14,7 +14,7 @@ IGUI_PH = {
     IGUI_lock = "Lock",
 
     IGUI_placeDieOnSide = "Lugar bilang..."
-    IGUI_PlaceDieOnSide = "Ilagay bilang %1",
+    IGUI_PlaceDieOnSide = "Lugar bilang %1",
     IGUI_examine = "Suriin",
     IGUI_coinFlip = "I-flip ang barya",
 

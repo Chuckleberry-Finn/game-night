@@ -1,9 +1,9 @@
 IGUI_ES = {
-    IGUI_draw = "Dibujar",
+    IGUI_draw = "Robar carta",
     IGUI_deal = "Tarjeta de oferta",
     IGUI_dealCards = "Repartir %1 cartas",
     IGUI_drawCard = "Sacar carta de arriba",
-    IGUI_drawCards = "Robar %1 cartas",
+    IGUI_drawCards = "Roba %1 cartas",
     IGUI_splitCards = "Dividir %1 cartas"
     IGUI_drawRandCard = "Sacar carta al azar",
     IGUI_shuffleCards = "Barajar",

@@ -1,5 +1,5 @@
 IGUI_NO = {
-    IGUI_draw = "Tegne",
+    IGUI_draw = "Trekk kort",
     IGUI_deal = "Deal kort",
     IGUI_dealCards = "Del ut %1 kort",
     IGUI_drawCard = "Trekk kort fra toppen",

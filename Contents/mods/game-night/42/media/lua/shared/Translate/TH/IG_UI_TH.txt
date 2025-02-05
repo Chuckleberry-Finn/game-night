@@ -1,10 +1,10 @@
 IGUI_TH = {
-    IGUI_draw = "วาด",
+    IGUI_draw = "การ์ดจั่วไพ่",
     IGUI_deal = "ดีลการ์ด",
     IGUI_dealCards = "แจกไพ่ %1 ใบ",
     IGUI_drawCard = "ดึงการ์ดจากด้านบน",
-    IGUI_drawCards = "จั่วไพ่ 1 ใบ",
-    IGUI_splitCards = "แบ่งไพ่ %1"
+    IGUI_drawCards = "จั่วไพ่ %1 ใบ",
+    IGUI_splitCards = "แยกไพ่ %1 ใบ"
     IGUI_drawRandCard = "วาดการ์ดสุ่ม",
     IGUI_shuffleCards = "สับเปลี่ยน",
     IGUI_flipCard = "พลิก",

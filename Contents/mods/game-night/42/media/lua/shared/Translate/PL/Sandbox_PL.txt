@@ -8,6 +8,6 @@ Sandbox_PL = {
     Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Wyświetl kursory graczy na ekranie. Kursory nie powinny powodować żadnych problemów z ruchem, jednak proces ten obejmuje szybkie wysyłanie małych bitów danych - ta opcja jest przeznaczona dla osób wykonujących rozwiązywanie problemów i używających czegoś, co tworzy logi dla ruchu sieciowego. Nie zaleca się grania bez widocznych kursorów.",
 
     Sandbox_GameNight_LootMultiplier = "Ogólny mnożnik łupów",
-    Sandbox_GameNight_LootMultiplier_tooltip = "Jest to mnożone przez domyślne szanse na łupy. Wpływa na wszystkie przedmioty gry znalezione w świecie.<br>Zmiany będą wymagały ponownego uruchomienia."
+    Sandbox_GameNight_LootMultiplier_tooltip = "Jest to mnożone przez domyślne szanse na łupy. Ma wpływ na wszystkie przedmioty gry znalezione w świecie.<br>Zmiany będą wymagały ponownego uruchomienia."
 
 	}

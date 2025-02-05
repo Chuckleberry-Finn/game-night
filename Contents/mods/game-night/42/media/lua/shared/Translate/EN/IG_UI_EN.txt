@@ -1,5 +1,5 @@
 IGUI_EN = {
-    IGUI_draw = "Draw",
+    IGUI_draw = "Draw Card",
     IGUI_deal = "Deal Card",
     IGUI_dealCards = "Deal %1 Cards",
     IGUI_drawCard = "Draw Card From Top",

@@ -8,6 +8,6 @@ Sandbox_CH = {
     Sandbox_GameNight_DisplayPlayerCursors_tooltip = "在螢幕上顯示玩家的遊標。遊標不應該導致任何形式的流量問題，但是，該過程涉及快速發送微小資料位元 - 此選項適用於執行故障排除和使用為網路流量建立日誌的工具的人員。不建議在沒有可見遊標的情況下玩遊戲。",
 
     Sandbox_GameNight_LootMultiplier = "通用戰利品倍數",
-    Sandbox_GameNight_LootMultiplier_tooltip = "這與預設的戰利品機會相乘。影響世界上所有遊戲物品。"
+    Sandbox_GameNight_LootMultiplier_tooltip = "這與預設的戰利品機會相乘。影響世界上所有的遊戲物品。"
 
 	}

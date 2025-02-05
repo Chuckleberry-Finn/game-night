@@ -1,10 +1,10 @@
 IGUI_CN = {
-    IGUI_draw = "画",
+    IGUI_draw = "抽牌",
     IGUI_deal = "发牌卡",
     IGUI_dealCards = "发 %1 张牌",
     IGUI_drawCard = "从顶部抽牌",
-    IGUI_drawCards = "抽%1张牌",
-    IGUI_splitCards = "拆分%1张牌"
+    IGUI_drawCards = "抽取 %1 张牌",
+    IGUI_splitCards = "拆分 %1 张牌"
     IGUI_drawRandCard = "抽随机卡",
     IGUI_shuffleCards = "随机播放",
     IGUI_flipCard = "翻动",
@@ -14,12 +14,12 @@ IGUI_CN = {
     IGUI_lock = "锁",
 
     IGUI_placeDieOnSide = "放置为..."
-    IGUI_PlaceDieOnSide = "地点为 %1",
+    IGUI_PlaceDieOnSide = "放置为 %1",
     IGUI_examine = "检查",
     IGUI_coinFlip = "抛硬币",
 
     IGUI_take = "拿",
-    IGUI_takeMore = "拍摄 %1",
+    IGUI_takeMore = "采取 %1",
 
     IGUI_SpecialActionAll = "全部"
 

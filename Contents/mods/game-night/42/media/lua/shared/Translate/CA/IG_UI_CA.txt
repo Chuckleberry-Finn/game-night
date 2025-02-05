@@ -1,10 +1,10 @@
 IGUI_CA = {
-    IGUI_draw = "Dibuixa",
+    IGUI_draw = "Sorteig Carta",
     IGUI_deal = "Targeta de repartiment",
-    IGUI_dealCards = "Reparteix %1 cartes",
+    IGUI_dealCards = "Reparteix %1 targetes",
     IGUI_drawCard = "Treu la targeta des de dalt",
     IGUI_drawCards = "Dibuixa %1 cartes",
-    IGUI_splitCards = "Dividiu les cartes %1"
+    IGUI_splitCards = "Dividiu %1 targetes"
     IGUI_drawRandCard = "Treu una carta aleatòria",
     IGUI_shuffleCards = "Barrejar",
     IGUI_flipCard = "Flip",
@@ -19,7 +19,7 @@ IGUI_CA = {
     IGUI_coinFlip = "Moneda tirada",
 
     IGUI_take = "Pren",
-    IGUI_takeMore = "Agafeu %1",
+    IGUI_takeMore = "Preneu %1",
 
     IGUI_SpecialActionAll = "Tots"
 

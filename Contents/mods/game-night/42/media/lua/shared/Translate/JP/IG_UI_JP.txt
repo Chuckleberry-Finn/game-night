@@ -1,9 +1,9 @@
 IGUI_JP = {
-    IGUI_draw = "描く",
+    IGUI_draw = "カードを引く",
     IGUI_deal = "取引カード",
     IGUI_dealCards = "%1 枚のカードを配る",
     IGUI_drawCard = "上からカードを引く",
-    IGUI_drawCards = "カードを%1枚引く",
+    IGUI_drawCards = "%1 枚のカードを引く",
     IGUI_splitCards = "%1 枚のカードを分割"
     IGUI_drawRandCard = "ランダムカードを引く",
     IGUI_shuffleCards = "シャッフル",
@@ -19,7 +19,7 @@ IGUI_JP = {
     IGUI_coinFlip = "コインを投げる",
 
     IGUI_take = "取る",
-    IGUI_takeMore = "%1を取る",
+    IGUI_takeMore = "%1 を取る",
 
     IGUI_SpecialActionAll = "全て"
 

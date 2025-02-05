@@ -1,10 +1,10 @@
 IGUI_TR = {
-    IGUI_draw = "Çizmek",
+    IGUI_draw = "Kart Çekme",
     IGUI_deal = "Anlaşma Kartı",
-    IGUI_dealCards = "%1 Kartları Dağıt",
+    IGUI_dealCards = "%1 Kart Dağıt",
     IGUI_drawCard = "Üstten Kart Çek",
     IGUI_drawCards = "%1 Kart Çek",
-    IGUI_splitCards = "%1 Kartını Böl"
+    IGUI_splitCards = "%1 Kartı Böl"
     IGUI_drawRandCard = "Rastgele Kart Çek",
     IGUI_shuffleCards = "Karıştır",
     IGUI_flipCard = "Çevir",
@@ -19,7 +19,7 @@ IGUI_TR = {
     IGUI_coinFlip = "Madeni Parayı Çevir",
 
     IGUI_take = "Almak",
-    IGUI_takeMore = "%1'i al",
+    IGUI_takeMore = "%1 al",
 
     IGUI_SpecialActionAll = "Tüm"
 

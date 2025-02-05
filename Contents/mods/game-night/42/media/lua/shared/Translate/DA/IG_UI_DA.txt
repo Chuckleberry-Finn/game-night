@@ -1,10 +1,10 @@
 IGUI_DA = {
-    IGUI_draw = "Tegne",
+    IGUI_draw = "Træk kort",
     IGUI_deal = "Deal kort",
     IGUI_dealCards = "Uddel %1 kort",
     IGUI_drawCard = "Træk kort fra toppen",
     IGUI_drawCards = "Træk %1 kort",
-    IGUI_splitCards = "Del %1 kort"
+    IGUI_splitCards = "Opdel %1 kort"
     IGUI_drawRandCard = "Træk tilfældigt kort",
     IGUI_shuffleCards = "Bland",
     IGUI_flipCard = "Vend",

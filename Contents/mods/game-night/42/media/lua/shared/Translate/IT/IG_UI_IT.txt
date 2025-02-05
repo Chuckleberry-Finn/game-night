@@ -1,5 +1,5 @@
 IGUI_IT = {
-    IGUI_draw = "Disegno",
+    IGUI_draw = "Carta da pesca",
     IGUI_deal = "Carta dell'affare",
     IGUI_dealCards = "Distribuisci %1 carte",
     IGUI_drawCard = "Pesca la carta dall'alto",

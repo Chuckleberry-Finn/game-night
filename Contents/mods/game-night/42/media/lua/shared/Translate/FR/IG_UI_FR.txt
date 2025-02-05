@@ -1,10 +1,10 @@
 IGUI_FR = {
-    IGUI_draw = "Dessiner",
+    IGUI_draw = "Pioche de carte",
     IGUI_deal = "Carte de transaction",
     IGUI_dealCards = "Distribuer %1 cartes",
     IGUI_drawCard = "Tirer une carte du haut",
     IGUI_drawCards = "Piochez %1 cartes",
-    IGUI_splitCards = "Diviser %1 cartes"
+    IGUI_splitCards = "Diviser les cartes %1"
     IGUI_drawRandCard = "Tirer une carte au hasard",
     IGUI_shuffleCards = "Mélanger",
     IGUI_flipCard = "Retourner",

@@ -1,7 +1,7 @@
 IGUI_PTBR = {
-    IGUI_draw = "Empate",
+    IGUI_draw = "Comprar carta",
     IGUI_deal = "Carta de negócio",
-    IGUI_dealCards = "Distribuir %1 Cartas",
+    IGUI_dealCards = "Distribuir %1 cartas",
     IGUI_drawCard = "Comprar carta do topo",
     IGUI_drawCards = "Compre %1 cartas",
     IGUI_splitCards = "Dividir %1 Cartas"

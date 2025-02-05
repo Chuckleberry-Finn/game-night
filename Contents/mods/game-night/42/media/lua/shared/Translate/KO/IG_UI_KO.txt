@@ -1,7 +1,7 @@
 IGUI_KO = {
-    IGUI_draw = "그리다",
+    IGUI_draw = "드로우 카드",
     IGUI_deal = "딜 카드",
-    IGUI_dealCards = "%1 카드 처리",
+    IGUI_dealCards = "%1장의 카드 처리",
     IGUI_drawCard = "위에서 카드를 뽑다",
     IGUI_drawCards = "%1장의 카드를 뽑습니다",
     IGUI_splitCards = "%1 카드 분할"
@@ -14,12 +14,12 @@ IGUI_KO = {
     IGUI_lock = "잠그다",
 
     IGUI_placeDieOnSide = "...로 배치"
-    IGUI_PlaceDieOnSide = "%1로 배치",
+    IGUI_PlaceDieOnSide = "%1(으)로 배치",
     IGUI_examine = "조사하다",
     IGUI_coinFlip = "동전 던지기",
 
     IGUI_take = "가져가다",
-    IGUI_takeMore = "%1 가져가기",
+    IGUI_takeMore = "%1을(를) 가져가세요",
 
     IGUI_SpecialActionAll = "모두"
 

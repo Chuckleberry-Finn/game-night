@@ -1,5 +1,5 @@
 IGUI_DE = {
-    IGUI_draw = "Ziehen",
+    IGUI_draw = "Karte ziehen",
     IGUI_deal = "Deal-Karte",
     IGUI_dealCards = "%1 Karten austeilen",
     IGUI_drawCard = "Karte von oben ziehen",
@@ -14,7 +14,7 @@ IGUI_DE = {
     IGUI_lock = "Sperren",
 
     IGUI_placeDieOnSide = "Platzieren als..."
-    IGUI_PlaceDieOnSide = "Als %1 platzieren",
+    IGUI_PlaceDieOnSide = "Platzieren als %1",
     IGUI_examine = "Prüfen",
     IGUI_coinFlip = "Münze werfen",
 

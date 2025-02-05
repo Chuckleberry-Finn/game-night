@@ -1,5 +1,5 @@
 IGUI_FI = {
-    IGUI_draw = "Piirrä",
+    IGUI_draw = "Piirrä kortti",
     IGUI_deal = "Deal Card",
     IGUI_dealCards = "Jaa %1 korttia",
     IGUI_drawCard = "Piirrä kortti ylhäältä",

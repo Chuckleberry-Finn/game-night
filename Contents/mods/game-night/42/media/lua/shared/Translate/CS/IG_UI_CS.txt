@@ -1,10 +1,10 @@
 IGUI_CS = {
-    IGUI_draw = "Remíza",
+    IGUI_draw = "Draw Card",
     IGUI_deal = "Deal Card",
-    IGUI_dealCards = "Rozdejte %1 karet",
+    IGUI_dealCards = "Rozdejte karty %1",
     IGUI_drawCard = "Vytáhněte kartu shora",
-    IGUI_drawCards = "Doberte %1 karet",
-    IGUI_splitCards = "Rozdělte %1 karet"
+    IGUI_drawCards = "Dotáhněte si karty %1",
+    IGUI_splitCards = "Rozdělit %1 karty"
     IGUI_drawRandCard = "Vytáhněte náhodnou kartu",
     IGUI_shuffleCards = "Zamíchat",
     IGUI_flipCard = "Překlopit",
@@ -14,7 +14,7 @@ IGUI_CS = {
     IGUI_lock = "Zámek",
 
     IGUI_placeDieOnSide = "Umístěte jako..."
-    IGUI_PlaceDieOnSide = "Umístěte jako %1",
+    IGUI_PlaceDieOnSide = "Umístit jako %1",
     IGUI_examine = "Přezkoumat",
     IGUI_coinFlip = "Flip Coin",
 

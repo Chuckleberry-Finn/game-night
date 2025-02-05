@@ -1,9 +1,9 @@
 IGUI_RU = {
-    IGUI_draw = "Рисовать",
+    IGUI_draw = "Вытянуть карту",
     IGUI_deal = "Карта сделки",
-    IGUI_dealCards = "Сдать %1 карты",
+    IGUI_dealCards = "Раздайте %1 карт",
     IGUI_drawCard = "Вытяните карту сверху",
-    IGUI_drawCards = "Возьмите %1 карты",
+    IGUI_drawCards = "Возьмите %1 карт",
     IGUI_splitCards = "Разделить %1 карты"
     IGUI_drawRandCard = "Вытяните случайную карту",
     IGUI_shuffleCards = "Перемешать",
@@ -14,7 +14,7 @@ IGUI_RU = {
     IGUI_lock = "Замок",
 
     IGUI_placeDieOnSide = "Разместить как..."
-    IGUI_PlaceDieOnSide = "Место как %1",
+    IGUI_PlaceDieOnSide = "Разместить как %1",
     IGUI_examine = "Исследовать",
     IGUI_coinFlip = "Подбросить монету",
 

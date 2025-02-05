@@ -1,7 +1,7 @@
 IGUI_NL = {
-    IGUI_draw = "Tekenen",
+    IGUI_draw = "Kaart trekken",
     IGUI_deal = "Dealkaart",
-    IGUI_dealCards = "Deel %1 kaarten",
+    IGUI_dealCards = "Deal %1 kaarten",
     IGUI_drawCard = "Trek een kaart van bovenaf",
     IGUI_drawCards = "Trek %1 kaarten",
     IGUI_splitCards = "Splits %1 kaarten"

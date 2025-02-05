@@ -1,10 +1,10 @@
 IGUI_ID = {
-    IGUI_draw = "Menggambar",
+    IGUI_draw = "Kartu Undian",
     IGUI_deal = "Kartu Transaksi",
     IGUI_dealCards = "Bagikan %1 Kartu",
     IGUI_drawCard = "Tarik Kartu Dari Atas",
-    IGUI_drawCards = "Tarik %1 Kartu",
-    IGUI_splitCards = "Membagi %1 Kartu"
+    IGUI_drawCards = "Ambil Kartu %1",
+    IGUI_splitCards = "Membagi Kartu %1"
     IGUI_drawRandCard = "Gambar Kartu Acak",
     IGUI_shuffleCards = "Acak",
     IGUI_flipCard = "Membalik",
