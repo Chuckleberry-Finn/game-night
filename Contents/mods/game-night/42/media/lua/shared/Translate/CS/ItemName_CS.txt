@@ -10,7 +10,7 @@ ItemName_CS = {
     ItemName_Base.PlayingCards3 = "Hrací karty",
 
     ItemName_Base.CheckersBox = "Dáma Box",
-    ItemName_Base.CheckersBox_sealed = "Krabice na dámu (zapečetěná)",
+    ItemName_Base.CheckersBox_sealed = "Krabička na dámu (zapečetěná)",
 
     ItemName_Base.BackgammonBox = "Box na backgammon",
     ItemName_Base.BackgammonBox_sealed = "Box na backgammon (zapečetěný)",

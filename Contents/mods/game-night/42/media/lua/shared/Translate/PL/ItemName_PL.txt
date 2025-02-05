@@ -3,7 +3,7 @@ ItemName_PL = {
     ItemName_Base.GamePieceBlack = "Czarny pionek w warcaby",
     ItemName_Base.GamePieceRed = "Czerwony element szachownicy",
     ItemName_Base.GamePieceWhite = "Biały pionek Backgammon",
-    ItemName_Base.GamePieceBlackBackgammon = "Czarny pionek Backgammon",
+    ItemName_Base.GamePieceBlackBackgammon = "Czarny element Backgammon",
 
     ItemName_Base.PlayingCards1 = "Karty do gry",
     ItemName_Base.PlayingCards2 = "Karty do gry",
@@ -13,7 +13,7 @@ ItemName_PL = {
     ItemName_Base.CheckersBox_sealed = "Pudełko Checkers (zapieczętowane)",
 
     ItemName_Base.BackgammonBox = "Skrzynka na backgammona",
-    ItemName_Base.BackgammonBox_sealed = "Pudełko na Backgammon (zapieczętowane)",
+    ItemName_Base.BackgammonBox_sealed = "Pudełko Backgammon (zapieczętowane)",
 
     ItemName_Base.ChessWhite = "Biały pionek szachowy",
     ItemName_Base.ChessBlack = "Czarny pionek szachowy",

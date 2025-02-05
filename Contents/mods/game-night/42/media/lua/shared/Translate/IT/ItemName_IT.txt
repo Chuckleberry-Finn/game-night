@@ -1,6 +1,6 @@
 ItemName_IT = {
 
-    ItemName_Base.GamePieceBlack = "Pezzo dama nera",
+    ItemName_Base.GamePieceBlack = "Pezzo da dama nera",
     ItemName_Base.GamePieceRed = "Pezzo di scacchi rossi",
     ItemName_Base.GamePieceWhite = "Pezzo bianco del backgammon",
     ItemName_Base.GamePieceBlackBackgammon = "Pezzo nero del backgammon",
@@ -20,7 +20,7 @@ ItemName_IT = {
     ItemName_Base.ChessWhiteKing = "Pezzo degli scacchi del re bianco",
     ItemName_Base.ChessBlackKing = "Pezzo degli scacchi del re nero",
     ItemName_Base.ChessWhiteBishop = "Pezzo degli scacchi dell'Alfiere Bianco",
-    ItemName_Base.ChessBlackBishop = "Pezzo degli scacchi dell'alfiere nero",
+    ItemName_Base.ChessBlackBishop = "Pezzo degli scacchi dell'Alfiere Nero",
     ItemName_Base.ChessWhiteQueen = "Pezzo degli scacchi della regina bianca",
     ItemName_Base.ChessBlackQueen = "Pezzo degli scacchi della regina nera",
     ItemName_Base.ChessWhiteRook = "Pezzo degli scacchi Torre Bianca",

@@ -8,6 +8,6 @@ Sandbox_HU = {
     Sandbox_GameNight_DisplayPlayerCursors_tooltip = "Jelenítse meg a játékosok kurzorait a képernyőn. A kurzorok nem okozhatnak semmilyen forgalmi problémát, azonban a folyamat apró adatok gyors elküldésével jár – ez az opció azoknak a felhasználóknak szól, akik hibaelhárítást végeznek, és olyan dolgokat használnak, amelyek naplókat hoznak létre a hálózati forgalom számára. Nem ajánlott látható kurzorok nélkül játszani.",
 
     Sandbox_GameNight_LootMultiplier = "Általános zsákmányszorzó",
-    Sandbox_GameNight_LootMultiplier_tooltip = "Ezt megszorozzák az alapértelmezett zsákmányolási esélyekkel. A világon található összes játékelemre hatással van.<br>A változtatásokhoz újraindítás szükséges."
+    Sandbox_GameNight_LootMultiplier_tooltip = "Ezt megszorozzák az alapértelmezett zsákmányolási esélyekkel. A világon található összes játékelemre hatással van.<br>A módosítások újraindítást igényelnek."
 
 	}

@@ -16,7 +16,7 @@ IGUI_CA = {
     IGUI_placeDieOnSide = "Col·loca com..."
     IGUI_PlaceDieOnSide = "Col·loca com a %1",
     IGUI_examine = "Examinar",
-    IGUI_coinFlip = "Moneda de volta",
+    IGUI_coinFlip = "Moneda tirada",
 
     IGUI_take = "Pren",
     IGUI_takeMore = "Agafeu %1",

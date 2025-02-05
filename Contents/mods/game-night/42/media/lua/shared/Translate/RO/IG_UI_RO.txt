@@ -31,7 +31,7 @@ IGUI_RO = {
     IGUI_ItemCat_Deck = "Punte",
     IGUI_ItemCat_GamePiece = "Piesa de joc",
     IGUI_ItemCat_GameBoard = "Tabla de joc",
-    IGUI_ItemCat_GameBox = "Cutia de jocuri",
+    IGUI_ItemCat_GameBox = "Cutia de joc",
     IGUI_ItemCat_Die = "Muri",
 
     IGUI_CardDeck = "Carte de joc",

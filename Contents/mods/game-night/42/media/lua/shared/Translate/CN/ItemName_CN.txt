@@ -1,7 +1,7 @@
 ItemName_CN = {
 
     ItemName_Base.GamePieceBlack = "黑色棋子",
-    ItemName_Base.GamePieceRed = "红色方格棋子",
+    ItemName_Base.GamePieceRed = "红色格子棋子",
     ItemName_Base.GamePieceWhite = "白色西洋双陆棋棋子",
     ItemName_Base.GamePieceBlackBackgammon = "黑色西洋双陆棋棋子",
 

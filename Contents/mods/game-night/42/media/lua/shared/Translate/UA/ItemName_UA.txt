@@ -9,7 +9,7 @@ ItemName_UA = {
     ItemName_Base.PlayingCards2 = "Гральні карти",
     ItemName_Base.PlayingCards3 = "Гральні карти",
 
-    ItemName_Base.CheckersBox = "Checkers Box",
+    ItemName_Base.CheckersBox = "Шашки Box",
     ItemName_Base.CheckersBox_sealed = "Скринька для шашок (запечатана)",
 
     ItemName_Base.BackgammonBox = "Ящик для нард",
@@ -24,7 +24,7 @@ ItemName_UA = {
     ItemName_Base.ChessWhiteQueen = "Біла королева шахова фігура",
     ItemName_Base.ChessBlackQueen = "Чорна королева шахова фігура",
     ItemName_Base.ChessWhiteRook = "Біла тура шахова фігура",
-    ItemName_Base.ChessBlackRook = "Чорна тура шахова фігура",
+    ItemName_Base.ChessBlackRook = "Шахова фігура Чорна тура",
     ItemName_Base.ChessWhiteKnight = "Шахова фігура білого лицаря",
     ItemName_Base.ChessBlackKnight = "Чорний лицар шахова фігура",
 

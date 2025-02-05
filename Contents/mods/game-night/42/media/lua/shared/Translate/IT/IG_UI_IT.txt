@@ -29,7 +29,7 @@ IGUI_IT = {
 
     IGUI_ItemCat_Card = "Carta",
     IGUI_ItemCat_Deck = "Ponte",
-    IGUI_ItemCat_GamePiece = "Pezzo di gioco",
+    IGUI_ItemCat_GamePiece = "Pezzo del gioco",
     IGUI_ItemCat_GameBoard = "Tabellone di gioco",
     IGUI_ItemCat_GameBox = "Scatola di gioco",
     IGUI_ItemCat_Die = "Morire",

@@ -1,6 +1,6 @@
 UI_CH = {
 UI_GameNightWindow = "<CENTRE> <SIZE:medium> 這是遊戲視窗。 <LINE> <LINE> <SIZE:small> <LEFT> 此視窗和遊戲之夜有許多控制 <LINE> <LINE> <SIZE:small> <LEFT> 按住左鍵點擊可移動項目左右移動，Shift鍵可改變動作。 <LINE> <LINE> <SIZE:small> <LEFT> 右鍵點選棋子將開啟一個上下文選單，顯示可用的動作。 <LINE> <LINE> <SIZE:small> <LEFT> 您也可以從庫存或卡片組搜尋視窗拖曳動物品。 <LINE> <LINE> <SIZE:small> <LEFT> 最近與之互動的部件上有一個計時器圖示表示延遲/冷卻。 <LINE> <LINE> <SIZE:small> <LEFT> 另外，左下角關閉按鈕旁邊還有一個縮放 UI 按鈕。 <LINE> <LINE> <LINE> <SIZE:small> <LEFT> 享受遊戲之夜！ <行><行>",
 
-UI_GameNightSearch = "<CENTRE> <SIZE:medium> 這是牌組搜尋視窗。 <LINE> <LINE> <SIZE:small> <LEFT> 您可以在這裡與卡片進行交互，就像在其他地方一樣，只需一些附加選項即可。 <LINE> <LINE> <SIZE:small> <LEFT> 將卡片拖曳到其他卡片之間（您可以看到一條細線），然後將卡片插入其中。 <LINE> <LINE> <SIZE:small> <LEFT> 將一張卡片拖曳到另一張卡片上（整張卡片反白）將交換兩張卡片。 <LINE> <LINE> <SIZE:small> <LEFT> 您也可以將項目從此處拖曳到遊戲視窗。 <LINE> <LINE> <LINE> <SIZE:small> <LEFT> 享受遊戲之夜！ <線路> <線路>",
+UI_GameNightSearch = "<CENTRE> <SIZE:medium> 這是甲板搜尋視窗。 <LINE> <LINE> <SIZE:small> <LEFT> 您可以在此處與卡片進行交互，就像在其他地方一樣，但還有幾個附加選項。 <LINE> <LINE> <SIZE:small> <LEFT> 將卡片拖曳到其他卡片之間（您看到細線的地方）並將卡片插入那裡。 <LINE> <LINE> <SIZE:small> <LEFT> 將一張卡片拖曳到另一張卡片上（整張卡片反白）將交換兩者。 <LINE> <LINE> <SIZE:small> <LEFT> 您也可以將物品從這裡拖曳到遊戲視窗中。 <LINE> <LINE> <LINE> <SIZE:small> <LEFT> 享受遊戲之夜！ <行><行>",
 
 }

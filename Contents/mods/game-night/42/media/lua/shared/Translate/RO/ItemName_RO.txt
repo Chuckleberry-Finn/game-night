@@ -32,7 +32,7 @@ ItemName_RO = {
     ItemName_Base.ChessBox_sealed = "Cutie de șah (sigilată)",
 
     ItemName_Base.PokerChips = "Chip roșu de poker",
-    ItemName_Base.PokerChipsBlue = "Blue Poker Chip",
+    ItemName_Base.PokerChipsBlue = "Chip de poker albastru",
     ItemName_Base.PokerChipsGreen = "Chip de poker verde",
     ItemName_Base.PokerChipsPurple = "Chip de poker violet",
     ItemName_Base.PokerChipsYellow = "Chip galben de poker",

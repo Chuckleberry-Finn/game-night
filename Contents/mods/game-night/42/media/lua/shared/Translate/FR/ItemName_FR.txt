@@ -15,7 +15,7 @@ ItemName_FR = {
     ItemName_Base.BackgammonBox = "Coffret de backgammon",
     ItemName_Base.BackgammonBox_sealed = "Coffret de backgammon (scellé)",
 
-    ItemName_Base.ChessWhite = "Pièce d'échecs pion blanc",
+    ItemName_Base.ChessWhite = "Pièce d'échecs à pion blanc",
     ItemName_Base.ChessBlack = "Pièce d'échecs pion noir",
     ItemName_Base.ChessWhiteKing = "Pièce d'échecs Roi Blanc",
     ItemName_Base.ChessBlackKing = "Pièce d'échecs Roi Noir",
