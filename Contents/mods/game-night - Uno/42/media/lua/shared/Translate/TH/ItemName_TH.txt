@@ -1,0 +1,3 @@
+ItemName_TH = {
+    ItemName_Base.UnoCards = "ไพ่อูโน่",
+}

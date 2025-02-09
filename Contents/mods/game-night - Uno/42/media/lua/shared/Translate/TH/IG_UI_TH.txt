@@ -1,0 +1,3 @@
+IGUI_TH = {
+    IGUI_UnoCards = "การ์ดอูโน่",
+}

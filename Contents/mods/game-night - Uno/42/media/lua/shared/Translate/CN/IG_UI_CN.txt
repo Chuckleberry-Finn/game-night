@@ -1,0 +1,3 @@
+IGUI_CN = {
+    IGUI_UnoCards = "乌诺卡",
+}

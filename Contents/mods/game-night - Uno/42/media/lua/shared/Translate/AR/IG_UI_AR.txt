@@ -1,0 +1,3 @@
+IGUI_AR = {
+    IGUI_UnoCards = "Tarjeta Uno",
+}

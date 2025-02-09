@@ -1,0 +1,3 @@
+IGUI_DA = {
+    IGUI_UnoCards = "Uno kort",
+}
