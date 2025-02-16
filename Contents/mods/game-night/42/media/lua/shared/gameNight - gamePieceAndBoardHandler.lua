@@ -414,7 +414,7 @@ gamePieceAndBoardHandler.coolDownArray = {}
 function gamePieceAndBoardHandler.itemIsBusy(item)
     if not item then return true end
     local coolDown = gamePieceAndBoardHandler.coolDownArray[item:getID()]
-    local busy = coolDown and (coolDown>getTimestampMs())
+    local busy = coolDown and (coolDown>GameTime.getServerTimeMills())
     return busy
 end
 

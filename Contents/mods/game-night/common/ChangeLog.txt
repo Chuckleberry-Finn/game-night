@@ -163,3 +163,7 @@ link1 = Chuck's Kofi = https://steamcommunity.com/linkfilter/?u=https://ko-fi.co
 link2 = Workshop = https://steamcommunity.com/id/Chuckleberry_Finn/myworkshopfiles/?appid=108600,
 link3 = Github = https://steamcommunity.com/linkfilter/?u=https://github.com/Chuckleberry-Finn,
 [ ------ ]
+
+[ 2/15/25 ]
+- Improved cooldown checks. (GameTime.getServerTimeMills used for timestamps, credit to Albion for the suggestion.)
+[ ------ ]

@@ -6,18 +6,18 @@ local function onClientCommand(_module, _command, _player, _data)
 
     if _command == "setCoolDown" then
         local itemID = _data.itemID
-        gamePieceAndBoardHandler.coolDownArray[itemID] = getTimestampMs()+gamePieceAndBoardHandler.coolDown
+        gamePieceAndBoardHandler.coolDownArray[itemID] = GameTime.getServerTimeMills()+gamePieceAndBoardHandler.coolDown
     end
 
     if _command == "pickupAndPlaceGamePiece" then
 
         local itemID = _data.itemID
         local coolDown = gamePieceAndBoardHandler.coolDownArray[itemID]
-        local allowed = (not coolDown) or coolDown<getTimestampMs()
+        local allowed = (not coolDown) or coolDown<GameTime.getServerTimeMills()
 
         local newCoolDown
         if allowed then
-            newCoolDown = getTimestampMs()+gamePieceAndBoardHandler.coolDown
+            newCoolDown = GameTime.getServerTimeMills()+gamePieceAndBoardHandler.coolDown
             gamePieceAndBoardHandler.coolDownArray[itemID] = newCoolDown
         end
 
