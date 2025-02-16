@@ -5,7 +5,7 @@ volumetricRender.loadedTextures = {}
 function volumetricRender.loadTexture(texture)
     if not texture then return end
     if volumetricRender.loadedTextures[texture] == nil then
-        volumetricRender.loadedTextures[texture] = getTexture("media/textures/modelTextures/"..texture..".png") or false
+        volumetricRender.loadedTextures[texture] = getTexture("common/media/textures/modelTextures/"..texture..".png") or false
     end
     return volumetricRender.loadedTextures[texture]
 end
@@ -71,7 +71,7 @@ end
 
 
 --- ROUND STACKS
-volumetricRender.roundStackTexture = getTexture("media/textures/modelTextures/roundStack.png")
+volumetricRender.roundStackTexture = getTexture("common/media/textures/modelTextures/roundStack.png")
 function volumetricRender.DrawTextureRoundFace(UI, texture, sideTexture, centerX, centerY, rotation, height, segments, r, g, b, a)
     if UI.javaObject == nil or not UI:isVisible() then return end
     local halfTextureWidth = texture:getWidth() / 2
@@ -137,7 +137,7 @@ end
 
 
 --- CARD STACKS
-volumetricRender.cardStackTexture = getTexture("media/textures/modelTextures/cardStack.png")
+volumetricRender.cardStackTexture = getTexture("common/media/textures/modelTextures/cardStack.png")
 function volumetricRender.DrawTextureCardFace(UI, texture, sideTexture, centerX, centerY, rotation, height, ignore, r, g, b, a)
     if UI.javaObject == nil or not UI:isVisible() then return end
     local halfTextureWidth, halfTextureHeight = texture:getWidth() / 2, texture:getHeight() / 2

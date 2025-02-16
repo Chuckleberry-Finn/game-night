@@ -1,6 +1,6 @@
 local uiInfo = {}
 
-uiInfo.texture = getTexture("media/ui/Panel_info_button.png")
+uiInfo.texture = getTexture("common/media/ui/Panel_info_button.png")
 
 
 function uiInfo:setInfo(text)

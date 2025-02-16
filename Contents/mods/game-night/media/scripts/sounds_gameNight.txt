@@ -2,13 +2,13 @@ module Base {
 
     sound cardFlip {
         category = GameNight, is3D = true,
-        clip { file = media/sound/cardFlip.ogg, } }
+        clip { file = common/media/sound/cardFlip.ogg, } }
 
     sound pieceMove {
         category = GameNight, is3D = true,
-        clip { file = media/sound/pieceMove.ogg, } }
+        clip { file = common/media/sound/pieceMove.ogg, } }
 
     sound dieRoll {
         category = GameNight, is3D = true,
-        clip { file = media/sound/dieRoll.ogg, } }
+        clip { file = common/media/sound/dieRoll.ogg, } }
 }

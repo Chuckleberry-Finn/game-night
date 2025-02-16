@@ -22,7 +22,6 @@ module Base
 	model PokerChipsYellow { mesh = WorldItems/coin, texture = modelTextures/PokerChipsYellow, scale = 0.004, }
 	model CardDeck { mesh = WorldItems/cardpack, texture = Item_CardDeck/deckTexture, scale = 0.02, }
 	model CardDeckSingle { mesh = WorldItems/card, texture = Item_CardDeck/deckTexture, scale = 0.02, }
-
     model PlayingCards1 { mesh = WorldItems/cardpack, texture = Item_PlayingCards1/deckTexture, scale = 0.024, }
     model PlayingCards2 { mesh = WorldItems/cardpack, texture = Item_PlayingCards2/deckTexture, scale = 0.024, }
     model PlayingCards3 { mesh = WorldItems/cardpack, texture = Item_PlayingCards3/deckTexture, scale = 0.024, }

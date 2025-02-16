@@ -553,7 +553,7 @@ function gameNightWindow.fetchShiftAction(gamePiece)
 
     if shiftActionID then
         if not gameNightWindow.cachedActionIcons[shiftActionID] then
-            gameNightWindow.cachedActionIcons[shiftActionID] = getTexture("media/textures/actionIcons/"..shiftActionID..".png") or true
+            gameNightWindow.cachedActionIcons[shiftActionID] = getTexture("common/media/textures/actionIcons/"..shiftActionID..".png") or true
         end
         local texture = gameNightWindow.cachedActionIcons[shiftActionID]
         return shiftActionID, texture
@@ -589,7 +589,7 @@ function gameNightWindow:render()
     self.elements = {}
     for priority,stuff in pairs(loadOrder) do self:generateElement(stuff.item, stuff.object, priority) end
 
-    gameNightWindow.cursor = gameNightWindow.cursor or getTexture("media/textures/actionIcons/gamenight_cursor.png")
+    gameNightWindow.cursor = gameNightWindow.cursor or getTexture("common/media/textures/actionIcons/gamenight_cursor.png")
     gameNightWindow.cursorW = gameNightWindow.cursorW or (gameNightWindow.cursor and gameNightWindow.cursor:getWidth())
     gameNightWindow.cursorH = gameNightWindow.cursorH or (gameNightWindow.cursor and gameNightWindow.cursor:getHeight())
 
@@ -647,7 +647,7 @@ function gameNightWindow:render()
             end
         end
         if selection then
-            gameNightWindow.cachedActionIcons.mergeCards = gameNightWindow.cachedActionIcons.mergeCards or getTexture("media/textures/actionIcons/mergeCards.png")
+            gameNightWindow.cachedActionIcons.mergeCards = gameNightWindow.cachedActionIcons.mergeCards or getTexture("common/media/textures/actionIcons/mergeCards.png")
             local mergeCards = gameNightWindow.cachedActionIcons.mergeCards
             self:drawTextureScaledUniform(mergeCards, x, y, gameNightWindow.scaleSize, 0.75, 1, 1, 1)
         else
@@ -779,12 +779,12 @@ function gameNightWindow:new(x, y, width, height, player, square)
     o.square = square
 
     o.waitCursor = {}
-    o.waitCursor.texture = getTexture("media/textures/actionIcons/gamenight_wait.png")
+    o.waitCursor.texture = getTexture("common/media/textures/actionIcons/gamenight_wait.png")
     o.waitCursor.xOffset = (o.waitCursor.texture:getWidth()/2) * gameNightWindow.scaleSize
     o.waitCursor.yOffset = (o.waitCursor.texture:getHeight()/2) * gameNightWindow.scaleSize
 
     o.lockedCursor = {}
-    o.lockedCursor.texture = getTexture("media/textures/actionIcons/lock.png")
+    o.lockedCursor.texture = getTexture("common/media/textures/actionIcons/lock.png")
     o.lockedCursor.xOffset = (o.lockedCursor.texture:getWidth()*1.5) * gameNightWindow.scaleSize
 
     o.elements = {}

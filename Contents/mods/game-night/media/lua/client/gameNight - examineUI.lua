@@ -42,7 +42,7 @@ function gameNightExamine:update()
         local flippedValue = flipped[self.index]
 
         local textureToUse = deckActionHandler.fetchAltIcon(self.card, self.item)
-        local texturePath = (flippedValue and "media/textures/Item_"..self.item:getType().."/FlippedInPlay.png") or "media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
+        local texturePath = (flippedValue and "common/media/textures/Item_"..self.item:getType().."/FlippedInPlay.png") or "common/media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
         self.texture = getTexture(texturePath)
     else
         self.texture = self.item:getModData()["gameNight_textureInPlay"] or self.item:getTexture()
@@ -128,7 +128,7 @@ function gameNightExamine:initialise()
 
     if self.card then
         local textureToUse = deckActionHandler.fetchAltIcon(self.card, self.item)
-        local texturePath = (self.flipped and "media/textures/Item_"..self.item:getType().."/FlippedInPlay.png") or "media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
+        local texturePath = (self.flipped and "common/media/textures/Item_"..self.item:getType().."/FlippedInPlay.png") or "common/media/textures/Item_"..self.cardFaceType.."/"..textureToUse..".png"
         self.texture = getTexture(texturePath)
     else
         self.texture = self.item:getModData()["gameNight_textureInPlay"] or self.item:getTexture()

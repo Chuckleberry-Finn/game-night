@@ -93,7 +93,7 @@ function deckActionHandler.handleDetails(deckItem)
         local cardFaceType = special and special.cardFaceType or itemType
 
         local textureToUse = deckActionHandler.fetchAltIcon(cardName, deckItem)
-        texture = getTexture("media/textures/Item_"..cardFaceType.."/"..textureToUse..".png")
+        texture = getTexture("common/media/textures/Item_"..cardFaceType.."/"..textureToUse..".png")
 
         deckItem:getModData()["gameNight_textureInPlay"] = texture
 
@@ -106,8 +106,8 @@ function deckActionHandler.handleDetails(deckItem)
         local itemName = #deckStates<=1 and getTextOrNull("IGUI_"..deckItem:getType()) or getItemNameFromFullType(deckItem:getFullType())
         deckItem:setName(itemName..name_suffix)
 
-        texture = getTexture("media/textures/Item_"..itemType.."/"..textureID..".png")
-        deckItem:getModData()["gameNight_textureInPlay"] = getTexture("media/textures/Item_"..itemType.."/FlippedInPlay.png")
+        texture = getTexture("common/media/textures/Item_"..itemType.."/"..textureID..".png")
+        deckItem:getModData()["gameNight_textureInPlay"] = getTexture("common/media/textures/Item_"..itemType.."/FlippedInPlay.png")
     end
 
     if texture then deckItem:setTexture(texture) end

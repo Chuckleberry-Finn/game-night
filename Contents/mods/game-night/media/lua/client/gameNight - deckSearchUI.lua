@@ -286,9 +286,9 @@ function gameNightDeckSearch:cardOnMouseDown(x, y)
                 local cardName = cardData[selected]
                 local cardFaceType = special and special.cardFaceType or itemType
                 local textureToUse = deckActionHandler.fetchAltIcon(cardName, searchWindow.deck)
-                texture = getTexture("media/textures/Item_"..cardFaceType.."/"..textureToUse..".png")
+                texture = getTexture("common/media/textures/Item_"..cardFaceType.."/"..textureToUse..".png")
             else
-                texture = getTexture("media/textures/Item_"..itemType.."/FlippedInPlay.png")
+                texture = getTexture("common/media/textures/Item_"..itemType.."/FlippedInPlay.png")
             end
 
             local specialTextureSize = special and special.textureSize
@@ -368,7 +368,7 @@ function gameNightDeckSearch:render()
 
             local textureToUse = deckActionHandler.fetchAltIcon(card, self.deck)
 
-            local texturePath = (flipped and "media/textures/Item_"..itemType.."/FlippedInPlay.png") or "media/textures/Item_"..cardFaceType.."/"..textureToUse..".png"
+            local texturePath = (flipped and "common/media/textures/Item_"..itemType.."/FlippedInPlay.png") or "common/media/textures/Item_"..cardFaceType.."/"..textureToUse..".png"
             local origTexture = getTexture(texturePath)
             if origTexture then
 

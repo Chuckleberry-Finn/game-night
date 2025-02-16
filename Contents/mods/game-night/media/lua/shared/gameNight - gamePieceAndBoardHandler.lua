@@ -114,7 +114,7 @@ function gamePieceAndBoardHandler.generateContextMenuFromSpecialActions(context,
 
                         local ico = gamePieceAndBoardHandler.specialContextIcons[func]
                         if not ico then
-                            ico = getTexture("media/textures/actionIcons/"..func..".png")
+                            ico = getTexture("common/media/textures/actionIcons/"..func..".png")
                             gamePieceAndBoardHandler.specialContextIcons[func] = ico
                         end
                         if ico then option.iconTexture = ico end
@@ -400,7 +400,7 @@ gamePieceAndBoardHandler.coolDownArray = {}
 function gamePieceAndBoardHandler.itemIsBusy(item)
     if not item then return true end
     local coolDown = gamePieceAndBoardHandler.coolDownArray[item:getID()]
-    local busy = coolDown and (coolDown>getTimestampMs())
+    local busy = coolDown and (coolDown>GameTime.getServerTimeMills())
     return busy
 end
 

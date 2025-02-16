@@ -7,12 +7,12 @@ local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
 local gamePieceContext = {}
 
 gamePieceContext.gameNightContextMenuIcon = {
-    play=getTexture("media/textures/actionIcons/gamenight_icon.png"),
-    deal=getTexture("media/textures/actionIcons/dealCard.png"),
-    draw=getTexture("media/textures/actionIcons/drawCard.png"),
-    drawRand=getTexture("media/textures/actionIcons/drawRandCard.png"),
-    search=getTexture("media/textures/actionIcons/searchCards.png"),
-    flip=getTexture("media/textures/actionIcons/flipCard.png"),
+    play=getTexture("common/media/textures/actionIcons/gamenight_icon.png"),
+    deal=getTexture("common/media/textures/actionIcons/dealCard.png"),
+    draw=getTexture("common/media/textures/actionIcons/drawCard.png"),
+    drawRand=getTexture("common/media/textures/actionIcons/drawRandCard.png"),
+    search=getTexture("common/media/textures/actionIcons/searchCards.png"),
+    flip=getTexture("common/media/textures/actionIcons/flipCard.png"),
 }
 
 ---@param context ISContextMenu
