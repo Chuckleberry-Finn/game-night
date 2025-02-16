@@ -166,4 +166,5 @@ link3 = Github = https://steamcommunity.com/linkfilter/?u=https://github.com/Chu
 
 [ 2/15/25 ]
 - Improved cooldown checks. (GameTime.getServerTimeMills used for timestamps, credit to Albion for the suggestion.)
+- Moved textures to /common for B42, and make B41 access B42 assets.
 [ ------ ]
