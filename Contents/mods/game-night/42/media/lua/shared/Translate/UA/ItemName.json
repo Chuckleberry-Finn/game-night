@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Гральні карти",
+    "Base.PlayingCards2": "Гральні карти",
+    "Base.PlayingCards3": "Гральні карти",
+    "Base.CheckersBox": "Шашки Box",
+    "Base.BackgammonBox": "Ящик для нард",
+    "Base.ChessBox": "Шахівниця",
+    "Base.ChessBoard": "Шахова дошка",
+    "Base.PokerChips": "Червона фішка для покеру",
+    "Base.PokerChipsBlue": "Блакитна фішка для покеру",
+    "Base.PokerChipsGreen": "Зелена фішка для покеру",
+    "Base.PokerChipsPurple": "Фіолетова фішка для покеру",
+    "Base.PokerChipsYellow": "Жовта покерна фішка",
+    "Base.PokerChipsOrange": "Помаранчева фішка для покеру",
+    "Base.PokerChipsWhite": "Біла покерна фішка",
+    "Base.PokerChipsBlack": "Чорна фішка для покеру",
+    "Base.PokerBox": "Покерна коробка",
+    "Base.PokerBox_sealed": "Покерна коробка (запечатана)",
+    "Base.Dice": "Померти",
+    "Base.DiceWhite": "Померти",
+    "Base.StellaOcta": "Стелла Октангула"
+}

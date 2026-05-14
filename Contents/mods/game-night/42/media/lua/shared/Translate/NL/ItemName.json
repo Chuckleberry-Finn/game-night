@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Speelkaarten",
+    "Base.PlayingCards2": "Speelkaarten",
+    "Base.PlayingCards3": "Speelkaarten",
+    "Base.CheckersBox": "Dammen vak",
+    "Base.BackgammonBox": "Backgammon-doos",
+    "Base.ChessBox": "Schaakdoos",
+    "Base.ChessBoard": "Schaakbord",
+    "Base.PokerChips": "Rode pokerchip",
+    "Base.PokerChipsBlue": "Blauwe pokerchip",
+    "Base.PokerChipsGreen": "Groene pokerchip",
+    "Base.PokerChipsPurple": "Paarse pokerchip",
+    "Base.PokerChipsYellow": "Gele pokerchip",
+    "Base.PokerChipsOrange": "Oranje pokerchip",
+    "Base.PokerChipsWhite": "Witte pokerchip",
+    "Base.PokerChipsBlack": "Zwarte pokerchip",
+    "Base.PokerBox": "Pokerdoos",
+    "Base.PokerBox_sealed": "Pokerdoos (verzegeld)",
+    "Base.Dice": "Sterven",
+    "Base.DiceWhite": "Sterven",
+    "Base.StellaOcta": "Stella Octangula"
+}

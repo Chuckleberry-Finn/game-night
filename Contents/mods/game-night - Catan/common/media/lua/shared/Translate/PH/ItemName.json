@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "Lupon ng Catan",
+    "Base.CatanBox": "Kahon ng Catan",
+    "Base.CatanResourceDeck": "Resource Deck",
+    "Base.CatanDevelopmentDeck": "Deck ng Pag-unlad",
+    "Base.CatanRobber": "Magnanakaw piraso",
+    "Base.CatanPlayerCosts": "Mga Gastos ng Manlalaro",
+    "Base.CatanLongestRoad": "Pinakamahabang Daan",
+    "Base.CatanLargestArmy": "Pinakamalaking Army"
+}

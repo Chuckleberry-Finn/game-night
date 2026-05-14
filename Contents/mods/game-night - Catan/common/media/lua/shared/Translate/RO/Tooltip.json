@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Drum: 1 cărămidă, 1 lemn (0 VP)<br>Așezare: 1 cărămidă, 1 lemn, 1 grâu, 1 oaie (1 VP)<br>Oraș: 2 grâu, 3 piatră (2 VP)<br>Carte de dezvoltare: 1 oaie, 1 grâu?),",
+    "Tooltip_CatanLongestRoad": "Primul jucător care are 5 sau mai multe segmente de drum continue câștigă această carte.<br>Un alt jucător trebuie să construiască un drum care este mai lung pentru a-l parcurge.  (2 VP)",
+    "Tooltip_CatanLargestArmy": "Primul jucător care joacă 3 cavaleri câștigă această carte.<br>Un alt jucător trebuie să joace mai mulți cavaleri pentru a lua această carte.  (2 VP)",
+    "Tooltip_Knight": "Mutați tâlharul și plasați-l pe un nou hex.<br>Furează o carte aleatorie de la un adversar cu așezări sau orașe adiacente acestuia.",
+    "Tooltip_Road Building": "Plasați două drumuri gratuit.",
+    "Tooltip_Year of Plenty": "Extrageți două cărți de resurse la alegere.",
+    "Tooltip_Monopoly": "Declarați 1 tip de resursă.<br>Colectați toate cărțile de acest tip de la toți jucătorii.",
+    "Tooltip_Chapel": "Această carte valorează 1 punct de victorie.<br>Nu trebuie să fie jucată.",
+    "Tooltip_Library": "Această carte valorează 1 punct de victorie.<br>Nu trebuie să fie jucată.",
+    "Tooltip_Market": "Această carte valorează 1 punct de victorie.<br>Nu trebuie să fie jucată.",
+    "Tooltip_Palace": "Această carte valorează 1 punct de victorie.<br>Nu trebuie să fie jucată.",
+    "Tooltip_University": "Această carte valorează 1 punct de victorie.<br>Nu trebuie să fie jucată."
+}

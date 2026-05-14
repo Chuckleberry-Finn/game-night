@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Droga: 1 cegła, 1 drewno (0 PZ)<br>Osada: 1 cegła, 1 drewno, 1 pszenica, 1 owca (1 PZ)<br>Miasto: 2 pszenica, 3 kamienie (2 PZ)<br>Karta Rozwoju: 1 owca, 1 pszenica, 1 kamień (?)",
+    "Tooltip_CatanLongestRoad": "Pierwszy gracz, który będzie miał 5 lub więcej ciągłych odcinków drogi, zdobywa tę kartę.<br>Inny gracz musi zbudować dłuższą drogę, aby ją pokonać.  (2 PZ)",
+    "Tooltip_CatanLargestArmy": "Tę kartę zdobywa pierwszy gracz, który zagra 3 rycerzy.<br>Inny gracz musi zagrać więcej rycerzy, aby wziąć tę kartę.  (2 PZ)",
+    "Tooltip_Knight": "Przesuń złodzieja i umieść go na nowym heksie.<br>Ukradnij losową kartę przeciwnikowi, do którego przylegają osady lub miasta.",
+    "Tooltip_Road Building": "Umieść dwie drogi za darmo.",
+    "Tooltip_Year of Plenty": "Dobierz dwie wybrane przez siebie karty zasobów.",
+    "Tooltip_Monopoly": "Zadeklaruj 1 typ zasobu.<br>Zbierz wszystkie karty tego typu od wszystkich graczy.",
+    "Tooltip_Chapel": "Ta karta jest warta 1 Punkt Zwycięstwa.<br>Nie trzeba jej zagrywać.",
+    "Tooltip_Library": "Ta karta jest warta 1 Punkt Zwycięstwa.<br>Nie trzeba jej zagrywać.",
+    "Tooltip_Market": "Ta karta jest warta 1 Punkt Zwycięstwa.<br>Nie trzeba jej zagrywać.",
+    "Tooltip_Palace": "Ta karta jest warta 1 Punkt Zwycięstwa.<br>Nie trzeba jej zagrywać.",
+    "Tooltip_University": "Ta karta jest warta 1 Punkt Zwycięstwa.<br>Nie trzeba jej zagrywać."
+}

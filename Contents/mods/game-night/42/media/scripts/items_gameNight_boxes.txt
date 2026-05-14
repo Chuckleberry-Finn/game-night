@@ -2,26 +2,25 @@ module Base
 {
     item CheckersBox
         {
-            DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
-            DisplayName = Checkers Box, Icon = Boxes/checkersBox, WorldStaticModel = CheckersBox,
+            DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, ItemType = base:container, Capacity = 2,
+            Icon = Boxes/checkersBox, WorldStaticModel = CheckersBox,
         }
 
     item ChessBox
         {
-            DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
-            DisplayName = Chess Box, Icon = Boxes/chessBox, WorldStaticModel = ChessBox,
+            DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, ItemType = base:container, Capacity = 2,
+            Icon = Boxes/chessBox, WorldStaticModel = ChessBox,
         }
 
     item BackgammonBox
         {
-            DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
-            DisplayName = Backgammon Box, Icon = Boxes/backgammonBox, WorldStaticModel = BackgammonBox,
+            DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, ItemType = base:container, Capacity = 2,
+            Icon = Boxes/backgammonBox, WorldStaticModel = BackgammonBox,
         }
-
 
     item PokerBox
         {
-            DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
-            DisplayName = Poker Box, Icon = Boxes/pokerBox, WorldStaticModel = PokerBox,
+            DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, ItemType = base:container, Capacity = 2,
+            Icon = Boxes/pokerBox, WorldStaticModel = PokerBox,
         }
 }

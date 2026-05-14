@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Spillekort",
+    "Base.PlayingCards2": "Spillekort",
+    "Base.PlayingCards3": "Spillekort",
+    "Base.CheckersBox": "Damboks",
+    "Base.BackgammonBox": "Backgammon boks",
+    "Base.ChessBox": "Sjakkboks",
+    "Base.ChessBoard": "Sjakkbrett",
+    "Base.PokerChips": "Rød pokerbrikke",
+    "Base.PokerChipsBlue": "Blå pokerbrikke",
+    "Base.PokerChipsGreen": "Grønn pokerbrikke",
+    "Base.PokerChipsPurple": "Lilla pokerbrikke",
+    "Base.PokerChipsYellow": "Gul pokerbrikke",
+    "Base.PokerChipsOrange": "Oransje pokerbrikke",
+    "Base.PokerChipsWhite": "Hvit pokerbrikke",
+    "Base.PokerChipsBlack": "Svart pokerbrikke",
+    "Base.PokerBox": "Pokerboks",
+    "Base.PokerBox_sealed": "Pokerboks (forseglet)",
+    "Base.Dice": "Dø",
+    "Base.DiceWhite": "Dø",
+    "Base.StellaOcta": "Stella Octangula"
+}

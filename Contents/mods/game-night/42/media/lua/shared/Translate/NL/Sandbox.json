@@ -1,0 +1,9 @@
+{
+    "Sandbox_GameNight": "Spelletjesavond",
+    "Sandbox_GameNight_DisplayItemNames": "Itemnamen weergeven",
+    "Sandbox_GameNight_DisplayItemNames_tooltip": "Toon itemnamen in het spel.",
+    "Sandbox_GameNight_DisplayPlayerCursors": "Geef spelercursors weer in de game-UI",
+    "Sandbox_GameNight_DisplayPlayerCursors_tooltip": "Geef de cursors van spelers op het scherm weer. De cursors mogen geen enkele vorm van verkeersproblemen veroorzaken, maar het proces omvat het snel verzenden van kleine stukjes gegevens. Deze optie is bedoeld voor mensen die problemen oplossen en iets gebruiken dat logboeken voor netwerkverkeer aanmaakt. Het wordt niet aanbevolen om te spelen zonder zichtbare cursors.",
+    "Sandbox_GameNight_LootMultiplier": "Algemene buitvermenigvuldiger",
+    "Sandbox_GameNight_LootMultiplier_tooltip": "Dit wordt vermenigvuldigd met de standaard buitkansen. Heeft invloed op alle game-items die in de wereld worden gevonden.<br>Voor wijzigingen is opnieuw opstarten vereist."
+}

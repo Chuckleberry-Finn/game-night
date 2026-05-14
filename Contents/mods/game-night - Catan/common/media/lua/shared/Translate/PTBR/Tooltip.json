@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Estrada: 1 tijolo, 1 madeira (0 VP)<br>Assentamento: 1 tijolo, 1 madeira, 1 trigo, 1 ovelha (1 VP)<br>Cidade: 2 trigos, 3 pedras (2 VP)<br>Carta de desenvolvimento: 1 ovelha, 1 trigo, 1 pedra (?)",
+    "Tooltip_CatanLongestRoad": "O primeiro jogador a ter 5 ou mais segmentos de estrada contínuos ganha esta carta.<br>Outro jogador deve construir uma estrada mais longa para percorrê-la.  (2 PV)",
+    "Tooltip_CatanLargestArmy": "O primeiro jogador a jogar 3 cavaleiros ganha esta carta.<br>Outro jogador deve jogar mais cavaleiros para pegar esta carta.  (2 PV)",
+    "Tooltip_Knight": "Mova o ladrão e coloque-o em um novo hexágono.<br>Roube uma carta aleatória de um oponente com assentamentos ou cidades adjacentes a ela.",
+    "Tooltip_Road Building": "Coloque duas estradas gratuitamente.",
+    "Tooltip_Year of Plenty": "Compre duas cartas de recursos de sua escolha.",
+    "Tooltip_Monopoly": "Declare 1 tipo de recurso.<br>Colete todas as cartas desse tipo de todos os jogadores.",
+    "Tooltip_Chapel": "Esta carta vale 1 Ponto de Vitória.<br>Não precisa ser jogada.",
+    "Tooltip_Library": "Esta carta vale 1 Ponto de Vitória.<br>Não precisa ser jogada.",
+    "Tooltip_Market": "Esta carta vale 1 Ponto de Vitória.<br>Não precisa ser jogada.",
+    "Tooltip_Palace": "Esta carta vale 1 Ponto de Vitória.<br>Não precisa ser jogada.",
+    "Tooltip_University": "Esta carta vale 1 Ponto de Vitória.<br>Não precisa ser jogada."
+}

@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "เล่นไพ่",
+    "Base.PlayingCards2": "เล่นไพ่",
+    "Base.PlayingCards3": "เล่นไพ่",
+    "Base.CheckersBox": "กล่องหมากฮอส",
+    "Base.BackgammonBox": "กล่องแบ็คแกมมอน",
+    "Base.ChessBox": "กล่องหมากรุก",
+    "Base.ChessBoard": "กระดานหมากรุก",
+    "Base.PokerChips": "ชิปโป๊กเกอร์สีแดง",
+    "Base.PokerChipsBlue": "บลูโป๊กเกอร์ชิป",
+    "Base.PokerChipsGreen": "ชิปโป๊กเกอร์สีเขียว",
+    "Base.PokerChipsPurple": "ชิปโป๊กเกอร์สีม่วง",
+    "Base.PokerChipsYellow": "ชิปโป๊กเกอร์สีเหลือง",
+    "Base.PokerChipsOrange": "ชิปโป๊กเกอร์ออเรนจ์",
+    "Base.PokerChipsWhite": "ชิปโป๊กเกอร์สีขาว",
+    "Base.PokerChipsBlack": "ชิปโป๊กเกอร์สีดำ",
+    "Base.PokerBox": "กล่องโป๊กเกอร์",
+    "Base.PokerBox_sealed": "กล่องโป๊กเกอร์ (ปิดผนึก)",
+    "Base.Dice": "ตาย",
+    "Base.DiceWhite": "ตาย",
+    "Base.StellaOcta": "สเตลล่า ออคทังกูลา"
+}

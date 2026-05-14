@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Kalsada: 1 Brick, 1 Wood (0 VP)<br>Settlement: 1 Brick, 1 Wood, 1 Wheat, 1 Sheep (1 VP)<br>City: 2 Wheat, 3 Stone (2 VP)<br>Development Card: 1 Sheep, 1 Stone (?)",
+    "Tooltip_CatanLongestRoad": "Ang unang manlalaro na magkaroon ng 5 o higit pang tuluy-tuloy na mga segment ng kalsada ay makakakuha ng card na ito.<br>Ang isa pang manlalaro ay dapat gumawa ng isang kalsada na mas mahaba para dito.  (2 VP)",
+    "Tooltip_CatanLargestArmy": "Ang unang manlalaro na maglaro ng 3 knight ay makakakuha ng card na ito.<br>Ang isa pang manlalaro ay dapat maglaro ng higit pang mga knight para makuha ang card na ito.  (2 VP)",
+    "Tooltip_Knight": "Ilipat ang magnanakaw at ilagay ito sa isang bagong hex.<br>Magnakaw ng random na card mula sa isang kalaban na may mga pamayanan o lungsod na katabi nito.",
+    "Tooltip_Road Building": "Maglagay ng dalawang kalsada nang libre.",
+    "Tooltip_Year of Plenty": "Gumuhit ng dalawang resource card na iyong pinili.",
+    "Tooltip_Monopoly": "Ipahayag ang 1 uri ng mapagkukunan.<br>Kolektahin ang lahat ng card ng ganoong uri mula sa lahat ng manlalaro.",
+    "Tooltip_Chapel": "Ang card na ito ay nagkakahalaga ng 1 Victory Point.<br>Hindi kailangang laruin.",
+    "Tooltip_Library": "Ang card na ito ay nagkakahalaga ng 1 Victory Point.<br>Hindi kailangang laruin.",
+    "Tooltip_Market": "Ang card na ito ay nagkakahalaga ng 1 Victory Point.<br>Hindi kailangang laruin.",
+    "Tooltip_Palace": "Ang card na ito ay nagkakahalaga ng 1 Victory Point.<br>Hindi kailangang laruin.",
+    "Tooltip_University": "Ang card na ito ay nagkakahalaga ng 1 Victory Point.<br>Hindi kailangang laruin."
+}

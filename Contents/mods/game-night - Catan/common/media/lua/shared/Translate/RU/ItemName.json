@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "Катан Совет",
+    "Base.CatanBox": "Катан Коробка",
+    "Base.CatanResourceDeck": "Колода ресурсов",
+    "Base.CatanDevelopmentDeck": "Колода развития",
+    "Base.CatanRobber": "Разбойник",
+    "Base.CatanPlayerCosts": "Стоимость игрока",
+    "Base.CatanLongestRoad": "Самая длинная дорога",
+    "Base.CatanLargestArmy": "Самая большая армия"
+}

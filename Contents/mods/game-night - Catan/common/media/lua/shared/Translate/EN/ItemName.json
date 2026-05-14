@@ -1,0 +1,27 @@
+{
+    "Base.CatanBoard": "Catan Board",
+    "Base.CatanBox": "Catan Box",
+    "Base.CatanResourceDeck": "Resource Deck",
+    "Base.CatanDevelopmentDeck": "Development Deck",
+    "Base.CatanRobber": "Robber Piece",
+    "Base.CatanPlayerCosts": "Player Costs",
+    "Base.CatanLongestRoad": "Longest Road",
+    "Base.CatanLargestArmy": "Largest Army",
+    
+    "Base.CatanSettlementWhite": "Catan White Settlement",
+    "Base.CatanCityWhite": "Catan White City",
+    "Base.CatanRoadWhite": "Catan White Road",
+    "Base.CatanSettlementRed": "Catan Red Settlement",
+    "Base.CatanCityRed": "Catan Red City",
+    "Base.CatanRoadRed": "Catan Red Road",
+    "Base.CatanSettlementOrange": "Catan Orange Settlement",
+    "Base.CatanCityOrange": "Catan Orange City",
+    "Base.CatanRoadOrange": "Catan Orange Road",
+    "Base.CatanSettlementBlue": "Catan Blue Settlement",
+    "Base.CatanCityBlue": "Catan Blue City",
+    "Base.CatanRoadBlue": "Catan Blue Road",
+    "Base.CatanPlayerCostsWhite": "Catan White PlayerCosts",
+    "Base.CatanPlayerCostsRed": "Catan Red PlayerCosts",
+    "Base.CatanPlayerCostsOrange": "Catan Orange PlayerCosts",
+    "Base.CatanPlayerCostsBlue": "Catan Blue PlayerCosts"
+}

@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Carte da gioco",
+    "Base.PlayingCards2": "Carte da gioco",
+    "Base.PlayingCards3": "Carte da gioco",
+    "Base.CheckersBox": "Casella di dama",
+    "Base.BackgammonBox": "Scatola del backgammon",
+    "Base.ChessBox": "Scatola degli scacchi",
+    "Base.ChessBoard": "Scacchiera",
+    "Base.PokerChips": "Fichetta da poker rossa",
+    "Base.PokerChipsBlue": "Fichetta da poker blu",
+    "Base.PokerChipsGreen": "Fichetta da poker verde",
+    "Base.PokerChipsPurple": "Fichetta da poker viola",
+    "Base.PokerChipsYellow": "Fichetta da poker gialla",
+    "Base.PokerChipsOrange": "Fichetta da poker arancione",
+    "Base.PokerChipsWhite": "Fichetta da poker bianca",
+    "Base.PokerChipsBlack": "Fichetta da poker nera",
+    "Base.PokerBox": "Scatola da poker",
+    "Base.PokerBox_sealed": "Scatola da poker (sigillata)",
+    "Base.Dice": "Morire",
+    "Base.DiceWhite": "Morire",
+    "Base.StellaOcta": "Stella Ottangula"
+}

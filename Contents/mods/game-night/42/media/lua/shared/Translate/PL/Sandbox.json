@@ -1,0 +1,9 @@
+{
+    "Sandbox_GameNight": "Noc gier",
+    "Sandbox_GameNight_DisplayItemNames": "Wyświetl nazwy elementów",
+    "Sandbox_GameNight_DisplayItemNames_tooltip": "Wyświetlaj nazwy przedmiotów w grze.",
+    "Sandbox_GameNight_DisplayPlayerCursors": "Wyświetlaj kursory graczy w interfejsie gry",
+    "Sandbox_GameNight_DisplayPlayerCursors_tooltip": "Wyświetlaj kursory graczy na ekranie. Kursory nie powinny powodować żadnych problemów z ruchem, jednak proces ten wiąże się z szybkim wysyłaniem niewielkich fragmentów danych - ta opcja jest przeznaczona dla osób rozwiązujących problemy i korzystających z czegoś, co tworzy dzienniki ruchu sieciowego. Nie zaleca się gry bez widocznych kursorów.",
+    "Sandbox_GameNight_LootMultiplier": "Ogólny mnożnik łupów",
+    "Sandbox_GameNight_LootMultiplier_tooltip": "Jest to mnożone przez domyślne szanse na łup. Ma wpływ na wszystkie elementy gry znalezione na świecie.<br>Zmiany będą wymagały ponownego uruchomienia."
+}

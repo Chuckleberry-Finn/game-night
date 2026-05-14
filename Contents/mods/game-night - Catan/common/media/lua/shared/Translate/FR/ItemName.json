@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "Conseil de Catane",
+    "Base.CatanBox": "Boîte Catane",
+    "Base.CatanResourceDeck": "Deck de ressources",
+    "Base.CatanDevelopmentDeck": "Plate-forme de développement",
+    "Base.CatanRobber": "Pièce de voleur",
+    "Base.CatanPlayerCosts": "Coûts des joueurs",
+    "Base.CatanLongestRoad": "La route la plus longue",
+    "Base.CatanLargestArmy": "La plus grande armée"
+}

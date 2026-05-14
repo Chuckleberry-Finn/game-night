@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Jugant a les cartes",
+    "Base.PlayingCards2": "Jugant a les cartes",
+    "Base.PlayingCards3": "Jugant a les cartes",
+    "Base.CheckersBox": "Caixa de dames",
+    "Base.BackgammonBox": "Caixa de backgammon",
+    "Base.ChessBox": "Caixa d'escacs",
+    "Base.ChessBoard": "Tauler d'escacs",
+    "Base.PokerChips": "Xip de pòquer vermell",
+    "Base.PokerChipsBlue": "Xip de pòquer blau",
+    "Base.PokerChipsGreen": "Xip de pòquer verd",
+    "Base.PokerChipsPurple": "Xip de pòquer morat",
+    "Base.PokerChipsYellow": "Xip de pòquer groc",
+    "Base.PokerChipsOrange": "Xip de pòquer taronja",
+    "Base.PokerChipsWhite": "Xip de pòquer blanc",
+    "Base.PokerChipsBlack": "Xip de pòquer negre",
+    "Base.PokerBox": "Caixa de pòquer",
+    "Base.PokerBox_sealed": "Caixa de pòquer (segellada)",
+    "Base.Dice": "Morir",
+    "Base.DiceWhite": "Morir",
+    "Base.StellaOcta": "Stella Octangula"
+}

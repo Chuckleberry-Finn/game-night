@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "Catan Board",
+    "Base.CatanBox": "Katanová krabice",
+    "Base.CatanResourceDeck": "Balíček zdrojů",
+    "Base.CatanDevelopmentDeck": "Vývojový balíček",
+    "Base.CatanRobber": "Loupežnický kousek",
+    "Base.CatanPlayerCosts": "Náklady na hráče",
+    "Base.CatanLongestRoad": "Nejdelší cesta",
+    "Base.CatanLargestArmy": "Největší armáda"
+}

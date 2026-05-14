@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "Catan Kurulu",
+    "Base.CatanBox": "Katan Kutusu",
+    "Base.CatanResourceDeck": "Kaynak Destesi",
+    "Base.CatanDevelopmentDeck": "Geliştirme Destesi",
+    "Base.CatanRobber": "Soyguncu Parçası",
+    "Base.CatanPlayerCosts": "Oyuncu Maliyetleri",
+    "Base.CatanLongestRoad": "En Uzun Yol",
+    "Base.CatanLargestArmy": "En Büyük Ordu"
+}

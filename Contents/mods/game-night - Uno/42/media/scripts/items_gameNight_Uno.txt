@@ -2,8 +2,7 @@ module Base
 {
     item UnoCards
     {
-        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
-        DisplayName = Uno Cards,
+        DisplayCategory = Deck, Weight = 0.01, ItemType = base:normal,
         Icon = UnoCards/deck,
         WorldStaticModel = UnoCards,
     }

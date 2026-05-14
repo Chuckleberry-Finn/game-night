@@ -1,0 +1,9 @@
+{
+    "Sandbox_GameNight": "Malam Permainan",
+    "Sandbox_GameNight_DisplayItemNames": "Tampilkan Nama Barang",
+    "Sandbox_GameNight_DisplayItemNames_tooltip": "Tampilkan nama item dalam game.",
+    "Sandbox_GameNight_DisplayPlayerCursors": "Tampilkan Kursor Pemain di Game-UI",
+    "Sandbox_GameNight_DisplayPlayerCursors_tooltip": "Tampilkan kursor pemain di layar. Kursor tidak boleh menyebabkan masalah lalu lintas dalam bentuk apa pun, namun, prosesnya melibatkan pengiriman data kecil dengan cepat - opsi ini ditujukan bagi orang yang melakukan pemecahan masalah dan menggunakan sesuatu yang membuat log untuk lalu lintas jaringan. Tidak disarankan bermain tanpa kursor yang terlihat.",
+    "Sandbox_GameNight_LootMultiplier": "Pengganda Loot Umum",
+    "Sandbox_GameNight_LootMultiplier_tooltip": "Ini dikalikan dengan peluang rampasan default. Berdampak pada semua item game yang ditemukan di dunia.<br>Perubahan memerlukan reboot."
+}

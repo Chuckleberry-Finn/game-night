@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Vei: 1 murstein, 1 tre (0 VP)<br>Bosetning: 1 murstein, 1 tre, 1 hvete, 1 sau (1 VP)<br>By: 2 hvete, 3 stein (2 VP)<br>Utviklingskort: 1 sau, 1 steinhvete (?)",
+    "Tooltip_CatanLongestRoad": "Den første spilleren som har 5 eller flere sammenhengende veisegmenter får dette kortet.<br>En annen spiller må bygge en vei som er lengre å ta den.  (2 VP)",
+    "Tooltip_CatanLargestArmy": "Den første spilleren som spiller 3 riddere får dette kortet.<br>En annen spiller må spille flere riddere for å ta dette kortet.  (2 VP)",
+    "Tooltip_Knight": "Flytt raneren og plasser den på en ny sekskant.<br>Stjel et tilfeldig kort fra en motstander med bosetninger eller byer ved siden av.",
+    "Tooltip_Road Building": "Plasser to veier gratis.",
+    "Tooltip_Year of Plenty": "Trekk to ressurskort etter eget valg.",
+    "Tooltip_Monopoly": "Erklær 1 ressurstype.<br>Samle alle kort av den typen fra alle spillere.",
+    "Tooltip_Chapel": "Dette kortet er verdt 1 seierspoeng.<br>Trenger ikke å spilles.",
+    "Tooltip_Library": "Dette kortet er verdt 1 seierspoeng.<br>Trenger ikke å spilles.",
+    "Tooltip_Market": "Dette kortet er verdt 1 seierspoeng.<br>Trenger ikke å spilles.",
+    "Tooltip_Palace": "Dette kortet er verdt 1 seierspoeng.<br>Trenger ikke å spilles.",
+    "Tooltip_University": "Dette kortet er verdt 1 seierspoeng.<br>Trenger ikke å spilles."
+}

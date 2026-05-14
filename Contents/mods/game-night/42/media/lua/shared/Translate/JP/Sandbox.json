@@ -1,0 +1,9 @@
+{
+    "Sandbox_GameNight": "ゲームナイト",
+    "Sandbox_GameNight_DisplayItemNames": "表示項目名",
+    "Sandbox_GameNight_DisplayItemNames_tooltip": "ゲーム内のアイテム名を表示します。",
+    "Sandbox_GameNight_DisplayPlayerCursors": "ゲーム UI にプレーヤー カーソルを表示する",
+    "Sandbox_GameNight_DisplayPlayerCursors_tooltip": "プレイヤーのカーソルを画面上に表示します。カーソルによってトラフィックの問題が発生することはありませんが、このプロセスでは少量のデータを高速に送信する必要があります。このオプションは、トラブルシューティングを実行する人や、ネットワーク トラフィックのログを作成するものを使用する人を対象としています。カーソルが表示されない状態でプレイすることはお勧めできません。",
+    "Sandbox_GameNight_LootMultiplier": "一般的な戦利品乗数",
+    "Sandbox_GameNight_LootMultiplier_tooltip": "これはデフォルトの戦利品のチャンスに対して乗算されます。世界中で見つかったすべてのゲームアイテムに影響します。<br>変更には再起動が必要です。"
+}

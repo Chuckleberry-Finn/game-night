@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Jalan: 1 Bata, 1 Kayu (0 VP)<br>Pemukiman: 1 Bata, 1 Kayu, 1 Gandum, 1 Domba (1 VP)<br>Kota: 2 Gandum, 3 Batu (2 VP)<br>Kartu Pengembangan: 1 Domba, 1 Gandum, 1 Batu (?)",
+    "Tooltip_CatanLongestRoad": "Pemain pertama yang memiliki 5 atau lebih ruas jalan yang berkesinambungan akan mendapatkan kartu ini.<br>Pemain lain harus membangun jalan yang lebih panjang untuk dilalui.  (2 Wakil Presiden)",
+    "Tooltip_CatanLargestArmy": "Pemain pertama yang memainkan 3 ksatria akan mendapatkan kartu ini.<br>Pemain lain harus memainkan lebih banyak ksatria untuk mengambil kartu ini.  (2 Wakil Presiden)",
+    "Tooltip_Knight": "Pindahkan perampok dan letakkan di hex baru.<br>Curi kartu acak dari lawan dengan pemukiman atau kota yang berdekatan dengannya.",
+    "Tooltip_Road Building": "Tempatkan dua jalan secara gratis.",
+    "Tooltip_Year of Plenty": "Gambarlah dua kartu sumber daya pilihan Anda.",
+    "Tooltip_Monopoly": "Deklarasikan 1 jenis sumber daya.<br>Kumpulkan semua kartu jenis tersebut dari semua pemain.",
+    "Tooltip_Chapel": "Kartu ini bernilai 1 Poin Kemenangan.<br>Tidak perlu dimainkan.",
+    "Tooltip_Library": "Kartu ini bernilai 1 Poin Kemenangan.<br>Tidak perlu dimainkan.",
+    "Tooltip_Market": "Kartu ini bernilai 1 Poin Kemenangan.<br>Tidak perlu dimainkan.",
+    "Tooltip_Palace": "Kartu ini bernilai 1 Poin Kemenangan.<br>Tidak perlu dimainkan.",
+    "Tooltip_University": "Kartu ini bernilai 1 Poin Kemenangan.<br>Tidak perlu dimainkan."
+}

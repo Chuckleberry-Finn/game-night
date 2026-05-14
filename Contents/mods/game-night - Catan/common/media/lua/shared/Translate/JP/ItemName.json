@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "カタンボード",
+    "Base.CatanBox": "カタンボックス",
+    "Base.CatanResourceDeck": "リソースデッキ",
+    "Base.CatanDevelopmentDeck": "開発デッキ",
+    "Base.CatanRobber": "盗賊の駒",
+    "Base.CatanPlayerCosts": "プレーヤーのコスト",
+    "Base.CatanLongestRoad": "最長の道",
+    "Base.CatanLargestArmy": "最大の軍隊"
+}

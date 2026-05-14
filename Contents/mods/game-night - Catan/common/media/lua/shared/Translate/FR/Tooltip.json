@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Route : 1 brique, 1 bois (0 VP)<br>Colonne : 1 brique, 1 bois, 1 blé, 1 mouton (1 VP)<br>Ville : 2 blé, 3 pierres (2 VP)<br>Carte de développement : 1 mouton, 1 blé, 1 pierre (?)",
+    "Tooltip_CatanLongestRoad": "Le premier joueur à avoir 5 segments de route continus ou plus gagne cette carte.<br>Un autre joueur doit construire une route plus longue pour la parcourir.  (2 PV)",
+    "Tooltip_CatanLargestArmy": "Le premier joueur à jouer 3 chevaliers gagne cette carte.<br>Un autre joueur doit jouer plus de chevaliers pour prendre cette carte.  (2 PV)",
+    "Tooltip_Knight": "Déplacez le voleur et placez-le sur un nouvel hexagone.<br>Volez une carte aléatoire à un adversaire avec des colonies ou des villes adjacentes.",
+    "Tooltip_Road Building": "Placez deux routes gratuitement.",
+    "Tooltip_Year of Plenty": "Piochez deux cartes ressources de votre choix.",
+    "Tooltip_Monopoly": "Déclarez 1 type de ressource.<br>Récupérez toutes les cartes de ce type auprès de tous les joueurs.",
+    "Tooltip_Chapel": "Cette carte vaut 1 point de victoire.<br>Il n'est pas nécessaire de la jouer.",
+    "Tooltip_Library": "Cette carte vaut 1 point de victoire.<br>Il n'est pas nécessaire de la jouer.",
+    "Tooltip_Market": "Cette carte vaut 1 point de victoire.<br>Il n'est pas nécessaire de la jouer.",
+    "Tooltip_Palace": "Cette carte vaut 1 point de victoire.<br>Il n'est pas nécessaire de la jouer.",
+    "Tooltip_University": "Cette carte vaut 1 point de victoire.<br>Il n'est pas nécessaire de la jouer."
+}

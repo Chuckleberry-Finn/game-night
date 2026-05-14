@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "卡坦岛板",
+    "Base.CatanBox": "卡坦岛盒子",
+    "Base.CatanResourceDeck": "资源库",
+    "Base.CatanDevelopmentDeck": "开发平台",
+    "Base.CatanRobber": "强盗碎片",
+    "Base.CatanPlayerCosts": "玩家成本",
+    "Base.CatanLongestRoad": "最长的路",
+    "Base.CatanLargestArmy": "最大的军队"
+}

@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Hrací karty",
+    "Base.PlayingCards2": "Hrací karty",
+    "Base.PlayingCards3": "Hrací karty",
+    "Base.CheckersBox": "Dáma Box",
+    "Base.BackgammonBox": "Box na backgammon",
+    "Base.ChessBox": "Šachovnice",
+    "Base.ChessBoard": "šachovnice",
+    "Base.PokerChips": "Červený pokerový žeton",
+    "Base.PokerChipsBlue": "Modrý pokerový žeton",
+    "Base.PokerChipsGreen": "Zelený pokerový žeton",
+    "Base.PokerChipsPurple": "Purple Poker Chip",
+    "Base.PokerChipsYellow": "Žlutý pokerový žeton",
+    "Base.PokerChipsOrange": "Orange Poker Chip",
+    "Base.PokerChipsWhite": "Bílý pokerový žeton",
+    "Base.PokerChipsBlack": "Black Poker Chip",
+    "Base.PokerBox": "Poker Box",
+    "Base.PokerBox_sealed": "Poker Box (zapečetěný)",
+    "Base.Dice": "Zemřít",
+    "Base.DiceWhite": "Zemřít",
+    "Base.StellaOcta": "Stella Octangula"
+}

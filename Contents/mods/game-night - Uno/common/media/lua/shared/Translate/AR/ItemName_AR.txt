@@ -1,3 +1,0 @@
-ItemName_AR = {
-    ItemName_Base.UnoCards = "Cartas Uno",
-}

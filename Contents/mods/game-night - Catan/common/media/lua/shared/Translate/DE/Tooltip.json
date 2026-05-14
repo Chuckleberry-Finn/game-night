@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Straße: 1 Ziegel, 1 Holz (0 SP)<br>Siedlung: 1 Ziegel, 1 Holz, 1 Weizen, 1 Schaf (1 SP)<br>Stadt: 2 Weizen, 3 Stein (2 SP)<br>Entwicklungskarte: 1 Schaf, 1 Weizen, 1 Stein (?)",
+    "Tooltip_CatanLongestRoad": "Der erste Spieler, der 5 oder mehr zusammenhängende Straßensegmente hat, erhält diese Karte.<br>Ein anderer Spieler muss eine längere Straße bauen, um diese zu nehmen.  (2 SP)",
+    "Tooltip_CatanLargestArmy": "Der erste Spieler, der 3 Ritter spielt, erhält diese Karte.<br>Ein anderer Spieler muss mehr Ritter spielen, um diese Karte zu nehmen.  (2 SP)",
+    "Tooltip_Knight": "Bewegen Sie den Räuber und platzieren Sie ihn auf einem neuen Hexfeld.<br>Stehlen Sie eine zufällige Karte von einem Gegner mit angrenzenden Siedlungen oder Städten.",
+    "Tooltip_Road Building": "Platzieren Sie zwei Straßen kostenlos.",
+    "Tooltip_Year of Plenty": "Ziehe zwei Ressourcenkarten deiner Wahl.",
+    "Tooltip_Monopoly": "Deklarieren Sie 1 Ressourcentyp.<br>Sammeln Sie alle Karten dieses Typs von allen Spielern.",
+    "Tooltip_Chapel": "Diese Karte ist 1 Siegpunkt wert.<br>Muss nicht gespielt werden.",
+    "Tooltip_Library": "Diese Karte ist 1 Siegpunkt wert.<br>Muss nicht gespielt werden.",
+    "Tooltip_Market": "Diese Karte ist 1 Siegpunkt wert.<br>Muss nicht gespielt werden.",
+    "Tooltip_Palace": "Diese Karte ist 1 Siegpunkt wert.<br>Muss nicht gespielt werden.",
+    "Tooltip_University": "Diese Karte ist 1 Siegpunkt wert.<br>Muss nicht gespielt werden."
+}

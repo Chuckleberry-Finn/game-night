@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "Junta de Catan",
+    "Base.CatanBox": "Caixa Catan",
+    "Base.CatanResourceDeck": "Taula de recursos",
+    "Base.CatanDevelopmentDeck": "Plataforma de desenvolupament",
+    "Base.CatanRobber": "Peça de robatori",
+    "Base.CatanPlayerCosts": "Costos dels jugadors",
+    "Base.CatanLongestRoad": "Carretera més llarga",
+    "Base.CatanLargestArmy": "Exèrcit més gran"
+}

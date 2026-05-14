@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Út: 1 tégla, 1 fa (0 VP)<br>Település: 1 tégla, 1 fa, 1 búza, 1 bárány (1 VP)<br>Város: 2 búza, 3 kő (2 VP)<br>Fejlesztési kártya: 1 bárány, 1 kő (búza)",
+    "Tooltip_CatanLongestRoad": "Az első játékos, akinek 5 vagy több összefüggő útszakasza van, megkapja ezt a kártyát.<br>Egy másik játékosnak hosszabb utat kell megépítenie ahhoz, hogy megtehesse.  (2 VP)",
+    "Tooltip_CatanLargestArmy": "Az első játékos, aki kijátssza 3 lovagot, megkapja ezt a kártyát.<br>Egy másik játékosnak több lovagot kell megjátszania, hogy elvehesse ezt a kártyát.  (2 VP)",
+    "Tooltip_Knight": "Mozgasd a rablót, és helyezd egy új hexára.<br>Lopj el egy véletlenszerű kártyát egy olyan ellenféltől, amelynek települései vagy városai szomszédosak.",
+    "Tooltip_Road Building": "Helyezzen el két utat ingyen.",
+    "Tooltip_Year of Plenty": "Húzz két tetszőleges forráskártyát.",
+    "Tooltip_Monopoly": "Deklarálj 1 erőforrástípust.<br>Gyűjtsd össze az összes ilyen típusú kártyát az összes játékostól.",
+    "Tooltip_Chapel": "Ez a kártya 1 győzelmi pontot ér.<br>Nem kell kijátszani.",
+    "Tooltip_Library": "Ez a kártya 1 győzelmi pontot ér.<br>Nem kell kijátszani.",
+    "Tooltip_Market": "Ez a kártya 1 győzelmi pontot ér.<br>Nem kell kijátszani.",
+    "Tooltip_Palace": "Ez a kártya 1 győzelmi pontot ér.<br>Nem kell kijátszani.",
+    "Tooltip_University": "Ez a kártya 1 győzelmi pontot ér.<br>Nem kell kijátszani."
+}

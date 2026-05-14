@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Naipes",
+    "Base.PlayingCards2": "Naipes",
+    "Base.PlayingCards3": "Naipes",
+    "Base.CheckersBox": "Caja de damas",
+    "Base.BackgammonBox": "Caja de backgammon",
+    "Base.ChessBox": "Caja de ajedrez",
+    "Base.ChessBoard": "tablero de ajedrez",
+    "Base.PokerChips": "Ficha de póquer roja",
+    "Base.PokerChipsBlue": "Ficha de póquer azul",
+    "Base.PokerChipsGreen": "Ficha de póquer verde",
+    "Base.PokerChipsPurple": "Ficha de póquer morada",
+    "Base.PokerChipsYellow": "Ficha de póquer amarilla",
+    "Base.PokerChipsOrange": "Ficha de póquer naranja",
+    "Base.PokerChipsWhite": "Ficha de póquer blanca",
+    "Base.PokerChipsBlack": "Ficha de póquer negra",
+    "Base.PokerBox": "Caja de póquer",
+    "Base.PokerBox_sealed": "Caja de póquer (sellada)",
+    "Base.Dice": "Morir",
+    "Base.DiceWhite": "Morir",
+    "Base.StellaOcta": "Stella Octángula"
+}

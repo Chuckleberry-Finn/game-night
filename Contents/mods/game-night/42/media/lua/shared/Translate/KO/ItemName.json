@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "카드 놀이",
+    "Base.PlayingCards2": "카드 놀이",
+    "Base.PlayingCards3": "카드 놀이",
+    "Base.CheckersBox": "체커 박스",
+    "Base.BackgammonBox": "주사위 놀이 상자",
+    "Base.ChessBox": "체스박스",
+    "Base.ChessBoard": "체스보드",
+    "Base.PokerChips": "레드 포커 칩",
+    "Base.PokerChipsBlue": "블루 포커 칩",
+    "Base.PokerChipsGreen": "그린 포커 칩",
+    "Base.PokerChipsPurple": "보라색 포커 칩",
+    "Base.PokerChipsYellow": "노란색 포커칩",
+    "Base.PokerChipsOrange": "오렌지 포커 칩",
+    "Base.PokerChipsWhite": "화이트 포커 칩",
+    "Base.PokerChipsBlack": "블랙 포커 칩",
+    "Base.PokerBox": "포커박스",
+    "Base.PokerBox_sealed": "포커 박스(밀봉)",
+    "Base.Dice": "주사위",
+    "Base.DiceWhite": "주사위",
+    "Base.StellaOcta": "스텔라 옥탄굴라"
+}

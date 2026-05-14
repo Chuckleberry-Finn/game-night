@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "Catan-bord",
+    "Base.CatanBox": "Catan-doos",
+    "Base.CatanResourceDeck": "Bronnendek",
+    "Base.CatanDevelopmentDeck": "Ontwikkelingsdek",
+    "Base.CatanRobber": "Rover stuk",
+    "Base.CatanPlayerCosts": "Spelerskosten",
+    "Base.CatanLongestRoad": "Langste weg",
+    "Base.CatanLargestArmy": "Grootste leger"
+}

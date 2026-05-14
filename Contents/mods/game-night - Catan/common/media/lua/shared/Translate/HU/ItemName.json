@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "Catan Board",
+    "Base.CatanBox": "Catan Box",
+    "Base.CatanResourceDeck": "Resource Deck",
+    "Base.CatanDevelopmentDeck": "Fejlesztési fedélzet",
+    "Base.CatanRobber": "Rablódarab",
+    "Base.CatanPlayerCosts": "Játékos költségek",
+    "Base.CatanLongestRoad": "Leghosszabb út",
+    "Base.CatanLargestArmy": "Legnagyobb hadsereg"
+}

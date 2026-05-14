@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "คณะกรรมการคาตาน",
+    "Base.CatanBox": "กล่องคาตาน",
+    "Base.CatanResourceDeck": "สำรับทรัพยากร",
+    "Base.CatanDevelopmentDeck": "ดาดฟ้าการพัฒนา",
+    "Base.CatanRobber": "ชิ้นส่วนโจร",
+    "Base.CatanPlayerCosts": "ค่าใช้จ่ายผู้เล่น",
+    "Base.CatanLongestRoad": "ถนนที่ยาวที่สุด",
+    "Base.CatanLargestArmy": "กองทัพที่ใหญ่ที่สุด"
+}

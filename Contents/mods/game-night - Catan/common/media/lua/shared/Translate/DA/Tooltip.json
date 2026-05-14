@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Vej: 1 mursten, 1 træ (0 VP)<br>Bebyggelse: 1 mursten, 1 træ, 1 hvede, 1 får (1 VP)<br>By: 2 hvede, 3 sten (2 VP)<br>Udviklingskort: 1 får, 1 stenhvede (?)",
+    "Tooltip_CatanLongestRoad": "Den første spiller, der har 5 eller flere sammenhængende vejstrækninger, optjener dette kort.<br>En anden spiller skal bygge en vej, der er længere om at tage den.  (2 VP)",
+    "Tooltip_CatanLargestArmy": "Den første spiller, der spiller 3 riddere, tjener dette kort.<br>En anden spiller skal spille flere riddere for at tage dette kort.  (2 VP)",
+    "Tooltip_Knight": "Flyt røveren og placer den på en ny sekskant.<br>Stjæl et tilfældigt kort fra en modstander med bosættelser eller byer ved siden af.",
+    "Tooltip_Road Building": "Placer to veje gratis.",
+    "Tooltip_Year of Plenty": "Tegn to ressourcekort efter eget valg.",
+    "Tooltip_Monopoly": "Erklær 1 ressourcetype.<br>Saml alle kort af den type fra alle spillere.",
+    "Tooltip_Chapel": "Dette kort er 1 sejrspoint værd.<br>Behøves ikke at blive spillet.",
+    "Tooltip_Library": "Dette kort er 1 sejrspoint værd.<br>Behøves ikke at blive spillet.",
+    "Tooltip_Market": "Dette kort er 1 sejrspoint værd.<br>Behøves ikke at blive spillet.",
+    "Tooltip_Palace": "Dette kort er 1 sejrspoint værd.<br>Behøves ikke at blive spillet.",
+    "Tooltip_University": "Dette kort er 1 sejrspoint værd.<br>Behøves ikke at blive spillet."
+}

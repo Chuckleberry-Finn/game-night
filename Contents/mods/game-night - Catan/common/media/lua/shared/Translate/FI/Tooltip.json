@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Tie: 1 tiili, 1 puu (0 VP)<br>Asutus: 1 tiili, 1 puu, 1 vehnä, 1 lammas (1 VP)<br>Kaupunki: 2 vehnää, 3 kivi (2 VP)<br>Kehityskortti: 1 lammas, 1 kivi (wheat)",
+    "Tooltip_CatanLongestRoad": "Ensimmäinen pelaaja, jolla on vähintään 5 yhtäjaksoista tieosuutta, ansaitsee tämän kortin.<br>Toisen pelaajan on rakennettava tie, joka on pidempi kulkeakseen sitä.  (2 VP)",
+    "Tooltip_CatanLargestArmy": "Ensimmäinen pelaaja, joka pelaa 3 ritaria, ansaitsee tämän kortin.<br>Toisen pelaajan on pelattava enemmän ritareita saadakseen tämän kortin.  (2 VP)",
+    "Tooltip_Knight": "Siirrä ryöstäjä ja aseta se uudelle heksalle.<br>Varasta satunnainen kortti vastustajalta, jonka vieressä on asutuksia tai kaupunkeja.",
+    "Tooltip_Road Building": "Sijoita kaksi tietä ilmaiseksi.",
+    "Tooltip_Year of Plenty": "Piirrä kaksi valitsemaasi resurssikorttia.",
+    "Tooltip_Monopoly": "Ilmoita 1 resurssityyppi.<br>Kerää kaikki tämän tyyppiset kortit kaikilta pelaajilta.",
+    "Tooltip_Chapel": "Tämä kortti on yhden voittopisteen arvoinen.<br>Ei tarvitse pelata.",
+    "Tooltip_Library": "Tämä kortti on yhden voittopisteen arvoinen.<br>Ei tarvitse pelata.",
+    "Tooltip_Market": "Tämä kortti on yhden voittopisteen arvoinen.<br>Ei tarvitse pelata.",
+    "Tooltip_Palace": "Tämä kortti on yhden voittopisteen arvoinen.<br>Ei tarvitse pelata.",
+    "Tooltip_University": "Tämä kortti on yhden voittopisteen arvoinen.<br>Ei tarvitse pelata."
+}

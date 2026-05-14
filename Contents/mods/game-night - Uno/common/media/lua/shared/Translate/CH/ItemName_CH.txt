@@ -1,3 +1,0 @@
-ItemName_CH = {
-    ItemName_Base.UnoCards = "Uno 牌",
-}

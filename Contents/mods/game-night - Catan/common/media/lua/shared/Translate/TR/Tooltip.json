@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Yol: 1 Tuğla, 1 Tahta (0 ZP)<br>Yerleşim: 1 Tuğla, 1 Tahta, 1 Buğday, 1 Koyun (1 ZP)<br>Şehir: 2 Buğday, 3 Taş (2 ZP)<br>Geliştirme Kartı: 1 Koyun, 1 Buğday, 1 Taş (?)",
+    "Tooltip_CatanLongestRoad": "5 veya daha fazla kesintisiz yol bölümüne sahip olan ilk oyuncu bu kartı kazanır.<br>Başka bir oyuncu, daha uzun bir yol inşa etmelidir.  (2 Başkan Yardımcısı)",
+    "Tooltip_CatanLargestArmy": "3 atla oynayan ilk oyuncu bu kartı kazanır.<br>Başka bir oyuncunun bu kartı alabilmesi için daha fazla at oynaması gerekir.  (2 Başkan Yardımcısı)",
+    "Tooltip_Knight": "Soyguncuyu hareket ettirin ve yeni bir altıgen üzerine yerleştirin.<br>Yanında yerleşim yerleri veya şehirler bulunan bir rakipten rastgele bir kart çalın.",
+    "Tooltip_Road Building": "Ücretsiz olarak iki yol yerleştirin.",
+    "Tooltip_Year of Plenty": "Seçtiğiniz iki kaynak kartını çekin.",
+    "Tooltip_Monopoly": "1 kaynak türü bildirin.<br>Tüm oyunculardan bu türdeki tüm kartları toplayın.",
+    "Tooltip_Chapel": "Bu kart 1 Zafer Puanı değerindedir.<br>Oynatılmasına gerek yoktur.",
+    "Tooltip_Library": "Bu kart 1 Zafer Puanı değerindedir.<br>Oynatılmasına gerek yoktur.",
+    "Tooltip_Market": "Bu kart 1 Zafer Puanı değerindedir.<br>Oynatılmasına gerek yoktur.",
+    "Tooltip_Palace": "Bu kart 1 Zafer Puanı değerindedir.<br>Oynatılmasına gerek yoktur.",
+    "Tooltip_University": "Bu kart 1 Zafer Puanı değerindedir.<br>Oynatılmasına gerek yoktur."
+}

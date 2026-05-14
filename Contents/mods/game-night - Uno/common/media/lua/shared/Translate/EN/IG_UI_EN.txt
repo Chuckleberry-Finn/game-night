@@ -1,3 +1,0 @@
-IGUI_EN = {
-    IGUI_UnoCards = "Uno Card",
-}

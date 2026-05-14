@@ -12,7 +12,7 @@ The framework for Game Night is designed to handle any game you can imagine.  Ar
 
 **These are the relevant modules to call on when implementing your add-on.**
 ```lua
-local applyItemDetails = require "gameNight - applyItemDetails"
+local applyItemDetails = require "gameNight-applyItemDetails"
 local deckActionHandler = applyItemDetails.deckActionHandler
 local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
 ```

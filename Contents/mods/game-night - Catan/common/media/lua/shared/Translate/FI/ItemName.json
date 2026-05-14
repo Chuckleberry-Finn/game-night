@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "Catan Board",
+    "Base.CatanBox": "Catan Box",
+    "Base.CatanResourceDeck": "Resurssipaketti",
+    "Base.CatanDevelopmentDeck": "Kehityskansi",
+    "Base.CatanRobber": "Ryöstäjä pala",
+    "Base.CatanPlayerCosts": "Pelaajien kulut",
+    "Base.CatanLongestRoad": "Pisin tie",
+    "Base.CatanLargestArmy": "Suurin armeija"
+}

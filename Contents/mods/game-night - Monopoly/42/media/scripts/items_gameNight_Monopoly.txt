@@ -2,140 +2,140 @@ module Base
 {
     item MonopolyBoard
     {
-       DisplayCategory = GameBoard, Weight = 0.01, Type = Normal,
-       DisplayName = Monopoly Board, Icon = OutOfPlayTextures/MonopolyBoard, WorldStaticModel = MonopolyBoard,
+       DisplayCategory = GameBoard, Weight = 0.01, ItemType = base:normal,
+       Icon = OutOfPlayTextures/MonopolyBoard, WorldStaticModel = MonopolyBoard,
     }
 
     item MonopolyBox
     {
-       DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, Type = Container, Capacity = 2,
-       DisplayName = Monopoly Box, Icon = Boxes/monopolyBox, WorldStaticModel = MonopolyBox,
+       DisplayCategory = GameBox, WeightReduction = 20, Weight = 0.1, ItemType = base:container, Capacity = 2,
+       Icon = Boxes/monopolyBox, WorldStaticModel = MonopolyBox,
     }
 
     item MonopolyMoney1
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly $1,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
         Icon = OutOfPlayTextures/monopolyMoney1, WorldStaticModel = MonopolyMoney1,
     }
 
     item MonopolyMoney5
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly $5,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
         Icon = OutOfPlayTextures/monopolyMoney5, WorldStaticModel = MonopolyMoney5,
     }
 
     item MonopolyMoney10
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly $10,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
         Icon = OutOfPlayTextures/monopolyMoney10, WorldStaticModel = MonopolyMoney10,
     }
 
     item MonopolyMoney20
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly $20,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
         Icon = OutOfPlayTextures/monopolyMoney20, WorldStaticModel = MonopolyMoney20,
     }
 
     item MonopolyMoney50
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly $50,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
         Icon = OutOfPlayTextures/monopolyMoney50, WorldStaticModel = MonopolyMoney50,
     }
 
     item MonopolyMoney100
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly $100,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
         Icon = OutOfPlayTextures/monopolyMoney100, WorldStaticModel = MonopolyMoney100,
     }
 
     item MonopolyMoney500
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal, DisplayName = Monopoly $500,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
         Icon = OutOfPlayTextures/monopolyMoney500, WorldStaticModel = MonopolyMoney500,
     }
 
     item MonopolyDeed
     {
-        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
-        DisplayName = Monopoly Deed,
+        DisplayCategory = Deck, Weight = 0.01, ItemType = base:normal,
+
         Icon = MonopolyDeed/deck,
         WorldStaticModel = MonopolyDeedDeck,
     }
 
     item MonopolyChance
     {
-        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
-        DisplayName = Monopoly Chance,
+        DisplayCategory = Deck, Weight = 0.01, ItemType = base:normal,
+
         Icon = MonopolyChance/deck,
         WorldStaticModel = MonopolyChanceDeck,
     }
 
     item MonopolyCommunityChest
     {
-        DisplayCategory = Deck, Weight = 0.01, Type = Normal,
-        DisplayName = Monopoly Community Chest,
+        DisplayCategory = Deck, Weight = 0.01, ItemType = base:normal,
+
         Icon = MonopolyCommunityChest/deck,
         WorldStaticModel = MonopolyCommunityChestDeck,
     }
 
     item MonopolyHouse
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= House, Icon = OutOfPlayTextures/monopolyHouse, WorldStaticModel = MonopolyHouse,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
+        Icon = OutOfPlayTextures/monopolyHouse, WorldStaticModel = MonopolyHouse,
     }
 
     item MonopolyHotel
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Hotel, Icon = OutOfPlayTextures/monopolyHotel, WorldStaticModel = MonopolyHotel,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
+        Icon = OutOfPlayTextures/monopolyHotel, WorldStaticModel = MonopolyHotel,
     }
 
     item MonopolyBoat
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Boat, Icon = OutOfPlayTextures/monopolyBoat, WorldStaticModel = MonopolyPiece,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
+        Icon = OutOfPlayTextures/monopolyBoat, WorldStaticModel = MonopolyPiece,
     }
 
     item MonopolyBoot
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Boot, Icon = OutOfPlayTextures/monopolyBoot, WorldStaticModel = MonopolyPiece,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
+        Icon = OutOfPlayTextures/monopolyBoot, WorldStaticModel = MonopolyPiece,
     }
 
     item MonopolyCar
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Car, Icon = OutOfPlayTextures/monopolyCar, WorldStaticModel = MonopolyPiece,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
+        Icon = OutOfPlayTextures/monopolyCar, WorldStaticModel = MonopolyPiece,
     }
 
     item MonopolyDog
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Dog, Icon = OutOfPlayTextures/monopolyDog, WorldStaticModel = MonopolyPiece,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
+        Icon = OutOfPlayTextures/monopolyDog, WorldStaticModel = MonopolyPiece,
     }
 
     item MonopolyHat
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Hat, Icon = OutOfPlayTextures/monopolyHat, WorldStaticModel = MonopolyPiece,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
+        Icon = OutOfPlayTextures/monopolyHat, WorldStaticModel = MonopolyPiece,
     }
 
     item MonopolyIron
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Iron, Icon = OutOfPlayTextures/monopolyIron, WorldStaticModel = MonopolyPiece,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
+        Icon = OutOfPlayTextures/monopolyIron, WorldStaticModel = MonopolyPiece,
     }
 
     item MonopolyThimble
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Thimble, Icon = OutOfPlayTextures/monopolyThimble, WorldStaticModel = MonopolyPiece,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
+        Icon = OutOfPlayTextures/monopolyThimble, WorldStaticModel = MonopolyPiece,
     }
 
     item MonopolyWheelbarrow
     {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName	= Wheelbarrow, Icon = OutOfPlayTextures/monopolyWheelbarrow, WorldStaticModel = MonopolyPiece,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
+        Icon = OutOfPlayTextures/monopolyWheelbarrow, WorldStaticModel = MonopolyPiece,
     }
 
 }

@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Pelikortit",
+    "Base.PlayingCards2": "Pelikortit",
+    "Base.PlayingCards3": "Pelikortit",
+    "Base.CheckersBox": "Tammilaatikko",
+    "Base.BackgammonBox": "Backgammon Box",
+    "Base.ChessBox": "Shakkilaatikko",
+    "Base.ChessBoard": "Shakkilauta",
+    "Base.PokerChips": "Punainen pokerimerkki",
+    "Base.PokerChipsBlue": "Sininen pokerimerkki",
+    "Base.PokerChipsGreen": "Vihreä pokerimerkki",
+    "Base.PokerChipsPurple": "Purppura pokerimerkki",
+    "Base.PokerChipsYellow": "Keltainen pokerimerkki",
+    "Base.PokerChipsOrange": "Oranssi pokerimerkki",
+    "Base.PokerChipsWhite": "Valkoinen pokerimerkki",
+    "Base.PokerChipsBlack": "Musta pokerimerkki",
+    "Base.PokerBox": "Poker Box",
+    "Base.PokerBox_sealed": "Poker Box (Sinetöity)",
+    "Base.Dice": "Kuole",
+    "Base.DiceWhite": "Kuole",
+    "Base.StellaOcta": "Stella Octangula"
+}

@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "撲克牌",
+    "Base.PlayingCards2": "撲克牌",
+    "Base.PlayingCards3": "撲克牌",
+    "Base.CheckersBox": "跳棋盒",
+    "Base.BackgammonBox": "雙陸棋盒",
+    "Base.ChessBox": "棋盒",
+    "Base.ChessBoard": "棋盤",
+    "Base.PokerChips": "紅色撲克籌碼",
+    "Base.PokerChipsBlue": "藍色撲克籌碼",
+    "Base.PokerChipsGreen": "綠色撲克籌碼",
+    "Base.PokerChipsPurple": "紫色撲克籌碼",
+    "Base.PokerChipsYellow": "黃色撲克籌碼",
+    "Base.PokerChipsOrange": "橘色撲克籌碼",
+    "Base.PokerChipsWhite": "白色撲克籌碼",
+    "Base.PokerChipsBlack": "黑色撲克籌碼",
+    "Base.PokerBox": "撲克盒",
+    "Base.PokerBox_sealed": "撲克盒（密封）",
+    "Base.Dice": "死",
+    "Base.DiceWhite": "死",
+    "Base.StellaOcta": "八角星"
+}

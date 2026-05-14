@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Carretera: 1 maó, 1 fusta (0 VP)<br>Assentament: 1 maó, 1 fusta, 1 blat, 1 ovella (1 VP)<br>Ciutat: 2 blat, 3 pedres (2 VP)<br>Carta de desenvolupament: 1 ovella, 1 pedra?,",
+    "Tooltip_CatanLongestRoad": "El primer jugador que tingui 5 o més trams de carretera continus guanya aquesta carta.<br>Un altre jugador ha de construir una carretera que sigui més llarga per agafar-la.  (2 VP)",
+    "Tooltip_CatanLargestArmy": "El primer jugador que juga 3 cavallers guanya aquesta carta.<br>Un altre jugador ha de jugar més cavallers per agafar aquesta carta.  (2 VP)",
+    "Tooltip_Knight": "Mou el lladre i col·loca'l en un nou hexàgono.<br>Roba una carta aleatòria a un oponent amb assentaments o ciutats adjacents.",
+    "Tooltip_Road Building": "Col·loqueu dues carreteres gratuïtament.",
+    "Tooltip_Year of Plenty": "Dibuixa dues cartes de recursos de la teva elecció.",
+    "Tooltip_Monopoly": "Declara 1 tipus de recurs.<br>Recolliu totes les cartes d'aquest tipus de tots els jugadors.",
+    "Tooltip_Chapel": "Aquesta carta val 1 punt de victòria.<br>No cal jugar-la.",
+    "Tooltip_Library": "Aquesta carta val 1 punt de victòria.<br>No cal jugar-la.",
+    "Tooltip_Market": "Aquesta carta val 1 punt de victòria.<br>No cal jugar-la.",
+    "Tooltip_Palace": "Aquesta carta val 1 punt de victòria.<br>No cal jugar-la.",
+    "Tooltip_University": "Aquesta carta val 1 punt de victòria.<br>No cal jugar-la."
+}

@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Strada: 1 mattone, 1 legno (0 PV)<br>Insediamento: 1 mattone, 1 legno, 1 grano, 1 pecora (1 PV)<br>Città: 2 grano, 3 pietre (2 PV)<br>Carta sviluppo: 1 pecora, 1 grano, 1 pietra (?)",
+    "Tooltip_CatanLongestRoad": "Il primo giocatore ad avere 5 o più segmenti di strada continui guadagna questa carta.<br>Un altro giocatore deve costruire una strada che sia più lunga da percorrere.  (2 PV)",
+    "Tooltip_CatanLargestArmy": "Il primo giocatore che gioca 3 cavalieri guadagna questa carta.<br>Un altro giocatore deve giocare più cavalieri per prendere questa carta.  (2 PV)",
+    "Tooltip_Knight": "Muovi il ladro e posizionalo su un nuovo esagono.<br>Ruba una carta a caso da un avversario con insediamenti o città adiacenti ad esso.",
+    "Tooltip_Road Building": "Posiziona due strade gratuitamente.",
+    "Tooltip_Year of Plenty": "Pesca due carte risorsa a tua scelta.",
+    "Tooltip_Monopoly": "Dichiara 1 tipo di risorsa.<br>Raccogli tutte le carte di quel tipo da tutti i giocatori.",
+    "Tooltip_Chapel": "Questa carta vale 1 Punto Vittoria.<br>Non è necessario giocarla.",
+    "Tooltip_Library": "Questa carta vale 1 Punto Vittoria.<br>Non è necessario giocarla.",
+    "Tooltip_Market": "Questa carta vale 1 Punto Vittoria.<br>Non è necessario giocarla.",
+    "Tooltip_Palace": "Questa carta vale 1 Punto Vittoria.<br>Non è necessario giocarla.",
+    "Tooltip_University": "Questa carta vale 1 Punto Vittoria.<br>Non è necessario giocarla."
+}

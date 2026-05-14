@@ -1,0 +1,25 @@
+{
+    "Base.MonopolyChance": "Chances",
+    "Base.MonopolyCommunityChest": "Community Chests",
+    "Base.MonopolyDeed": "Deeds",
+    "Base.MonopolyBox": "Monopoly Box",
+
+    "Base.MonopolyBoard": "Monopoly Board",
+    "Base.MonopolyMoney1": "Monopoly Money 1",
+    "Base.MonopolyMoney5": "Monopoly Money 5",
+    "Base.MonopolyMoney10": "Monopoly Money 10",
+    "Base.MonopolyMoney20": "Monopoly Money 20",
+    "Base.MonopolyMoney50": "Monopoly Money 50",
+    "Base.MonopolyMoney100": "Monopoly Money 100",
+    "Base.MonopolyMoney500": "Monopoly Money 500",
+    "Base.MonopolyHouse": "Monopoly House",
+    "Base.MonopolyHotel": "Monopoly Hotel",
+    "Base.MonopolyBoat": "Monopoly Boat",
+    "Base.MonopolyBoot": "Monopoly Boot",
+    "Base.MonopolyCar": "Monopoly Car",
+    "Base.MonopolyDog": "Monopoly Dog",
+    "Base.MonopolyHat": "Monopoly Hat",
+    "Base.MonopolyIron": "Monopoly Iron",
+    "Base.MonopolyThimble": "Monopoly Thimble",
+    "Base.MonopolyWheelbarrow": "Monopoly Wheelbarrow"
+}

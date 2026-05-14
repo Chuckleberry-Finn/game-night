@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "Dewan Catan",
+    "Base.CatanBox": "Kotak Catan",
+    "Base.CatanResourceDeck": "Dek Sumber Daya",
+    "Base.CatanDevelopmentDeck": "Dek Pengembangan",
+    "Base.CatanRobber": "Sepotong Perampok",
+    "Base.CatanPlayerCosts": "Biaya Pemain",
+    "Base.CatanLongestRoad": "Jalan Terpanjang",
+    "Base.CatanLargestArmy": "Tentara Terbesar"
+}

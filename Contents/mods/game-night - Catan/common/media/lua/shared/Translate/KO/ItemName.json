@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "카탄 보드",
+    "Base.CatanBox": "카탄 상자",
+    "Base.CatanResourceDeck": "리소스 덱",
+    "Base.CatanDevelopmentDeck": "개발 덱",
+    "Base.CatanRobber": "강도 조각",
+    "Base.CatanPlayerCosts": "플레이어 비용",
+    "Base.CatanLongestRoad": "가장 긴 도로",
+    "Base.CatanLargestArmy": "가장 큰 군대"
+}

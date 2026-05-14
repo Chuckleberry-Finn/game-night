@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "トランプ",
+    "Base.PlayingCards2": "トランプ",
+    "Base.PlayingCards3": "トランプ",
+    "Base.CheckersBox": "チェッカーボックス",
+    "Base.BackgammonBox": "バックギャモンボックス",
+    "Base.ChessBox": "チェスボックス",
+    "Base.ChessBoard": "チェス盤",
+    "Base.PokerChips": "レッドポーカーチップ",
+    "Base.PokerChipsBlue": "ブルーポーカーチップ",
+    "Base.PokerChipsGreen": "緑のポーカーチップ",
+    "Base.PokerChipsPurple": "紫のポーカーチップ",
+    "Base.PokerChipsYellow": "黄色のポーカーチップ",
+    "Base.PokerChipsOrange": "オレンジのポーカーチップ",
+    "Base.PokerChipsWhite": "ホワイトポーカーチップ",
+    "Base.PokerChipsBlack": "ブラック ポーカー チップ",
+    "Base.PokerBox": "ポーカーボックス",
+    "Base.PokerBox_sealed": "ポーカーボックス (密封)",
+    "Base.Dice": "死ぬ",
+    "Base.DiceWhite": "死ぬ",
+    "Base.StellaOcta": "ステラ オクタングラ"
+}

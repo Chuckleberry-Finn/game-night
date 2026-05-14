@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Bermain Kartu",
+    "Base.PlayingCards2": "Bermain Kartu",
+    "Base.PlayingCards3": "Bermain Kartu",
+    "Base.CheckersBox": "Kotak Catur",
+    "Base.BackgammonBox": "Kotak Backgammon",
+    "Base.ChessBox": "Kotak Catur",
+    "Base.ChessBoard": "Papan Catur",
+    "Base.PokerChips": "Chip Poker Merah",
+    "Base.PokerChipsBlue": "Chip Poker Biru",
+    "Base.PokerChipsGreen": "Chip Poker Hijau",
+    "Base.PokerChipsPurple": "Chip Poker Ungu",
+    "Base.PokerChipsYellow": "Chip Poker Kuning",
+    "Base.PokerChipsOrange": "Chip Poker Oranye",
+    "Base.PokerChipsWhite": "Chip Poker Putih",
+    "Base.PokerChipsBlack": "Chip Poker Hitam",
+    "Base.PokerBox": "Kotak Poker",
+    "Base.PokerBox_sealed": "Kotak Poker (Tersegel)",
+    "Base.Dice": "Mati",
+    "Base.DiceWhite": "Mati",
+    "Base.StellaOcta": "Stella Oktangula"
+}

@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Cartas de jogar",
+    "Base.PlayingCards2": "Cartas de jogar",
+    "Base.PlayingCards3": "Cartas de jogar",
+    "Base.CheckersBox": "Caixa de damas",
+    "Base.BackgammonBox": "Caixa de Gamão",
+    "Base.ChessBox": "Caixa de xadrez",
+    "Base.ChessBoard": "Tabuleiro de Xadrez",
+    "Base.PokerChips": "Ficha de pôquer vermelha",
+    "Base.PokerChipsBlue": "Ficha de pôquer azul",
+    "Base.PokerChipsGreen": "Ficha de pôquer verde",
+    "Base.PokerChipsPurple": "Ficha de pôquer roxa",
+    "Base.PokerChipsYellow": "Ficha de pôquer amarela",
+    "Base.PokerChipsOrange": "Ficha de pôquer laranja",
+    "Base.PokerChipsWhite": "Ficha de pôquer branca",
+    "Base.PokerChipsBlack": "Ficha de pôquer preta",
+    "Base.PokerBox": "Caixa de pôquer",
+    "Base.PokerBox_sealed": "Caixa de pôquer (lacrada)",
+    "Base.Dice": "Morrer",
+    "Base.DiceWhite": "Morrer",
+    "Base.StellaOcta": "Stella Octangula"
+}

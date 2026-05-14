@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "道路：1砖，1木头（0 VP）<br>定居点：1砖，1木头，1小麦，1羊（1 VP）<br>城市：2小麦，3石头（2 VP）<br>发展卡：1羊，1小麦，1石头（？）",
+    "Tooltip_CatanLongestRoad": "第一个拥有 5 个或更多连续路段的玩家将获得这张卡。<br>另一位玩家必须建造一条更长的道路才能走完。  （2 副总裁）",
+    "Tooltip_CatanLargestArmy": "第一个扮演 3 个骑士的玩家将获得这张卡。<br>其他玩家必须扮演更多的骑士才能获得这张卡。  （2 副总裁）",
+    "Tooltip_Knight": "移动强盗并将其放置到新的六角形上。<br>从邻近定居点或城市的对手那里偷取一张随机卡牌。",
+    "Tooltip_Road Building": "免费放置两条道路。",
+    "Tooltip_Year of Plenty": "抽两张您选择的资源卡。",
+    "Tooltip_Monopoly": "声明 1 种资源类型。<br>从所有玩家处收集该类型的所有卡牌。",
+    "Tooltip_Chapel": "这张牌价值 1 点胜利点。<br>不需要打出。",
+    "Tooltip_Library": "这张牌价值 1 点胜利点。<br>不需要打出。",
+    "Tooltip_Market": "这张牌价值 1 点胜利点。<br>不需要打出。",
+    "Tooltip_Palace": "这张牌价值 1 点胜利点。<br>不需要打出。",
+    "Tooltip_University": "这张牌价值 1 点胜利点。<br>不需要打出。"
+}

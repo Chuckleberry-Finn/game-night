@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Kártyázás",
+    "Base.PlayingCards2": "Kártyázás",
+    "Base.PlayingCards3": "Kártyázás",
+    "Base.CheckersBox": "Dámadoboz",
+    "Base.BackgammonBox": "Backgammon doboz",
+    "Base.ChessBox": "Sakkdoboz",
+    "Base.ChessBoard": "Sakktábla",
+    "Base.PokerChips": "Red Poker Chip",
+    "Base.PokerChipsBlue": "Kék póker zseton",
+    "Base.PokerChipsGreen": "Zöld pókerzseton",
+    "Base.PokerChipsPurple": "Lila póker zseton",
+    "Base.PokerChipsYellow": "Sárga pókerzseton",
+    "Base.PokerChipsOrange": "Narancssárga póker zseton",
+    "Base.PokerChipsWhite": "Fehér póker zseton",
+    "Base.PokerChipsBlack": "Fekete póker zseton",
+    "Base.PokerBox": "Poker Box",
+    "Base.PokerBox_sealed": "Pókerdoboz (lezárt)",
+    "Base.Dice": "Meghal",
+    "Base.DiceWhite": "Meghal",
+    "Base.StellaOcta": "Stella Octangula"
+}

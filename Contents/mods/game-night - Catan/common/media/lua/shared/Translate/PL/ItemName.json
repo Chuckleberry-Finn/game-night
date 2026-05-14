@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "Płyta Catana",
+    "Base.CatanBox": "Pudełko Catana",
+    "Base.CatanResourceDeck": "Talia zasobów",
+    "Base.CatanDevelopmentDeck": "Talia rozwojowa",
+    "Base.CatanRobber": "Kawałek rabusia",
+    "Base.CatanPlayerCosts": "Koszty gracza",
+    "Base.CatanLongestRoad": "Najdłuższa Droga",
+    "Base.CatanLargestArmy": "Największa armia"
+}

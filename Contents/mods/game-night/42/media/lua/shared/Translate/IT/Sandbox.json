@@ -1,0 +1,9 @@
+{
+    "Sandbox_GameNight": "Serata di giochi",
+    "Sandbox_GameNight_DisplayItemNames": "Visualizza i nomi degli elementi",
+    "Sandbox_GameNight_DisplayItemNames_tooltip": "Visualizza i nomi degli oggetti nel gioco.",
+    "Sandbox_GameNight_DisplayPlayerCursors": "Visualizza i cursori del giocatore nell'interfaccia utente del gioco",
+    "Sandbox_GameNight_DisplayPlayerCursors_tooltip": "Visualizza i cursori dei giocatori sullo schermo. I cursori non dovrebbero causare alcun tipo di problema di traffico, tuttavia, il processo prevede l'invio rapido di piccoli bit di dati: questa opzione è destinata alle persone che eseguono la risoluzione dei problemi e utilizzano qualcosa che crea registri per il traffico di rete. Non è consigliabile giocare senza cursori visibili.",
+    "Sandbox_GameNight_LootMultiplier": "Moltiplicatore del bottino generale",
+    "Sandbox_GameNight_LootMultiplier_tooltip": "Questo viene moltiplicato per le possibilità di bottino predefinite. Ha effetto su tutti gli elementi di gioco presenti nel mondo.<br>Le modifiche richiederanno un riavvio."
+}

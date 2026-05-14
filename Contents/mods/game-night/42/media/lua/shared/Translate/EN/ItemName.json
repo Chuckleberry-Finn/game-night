@@ -1,0 +1,42 @@
+{
+    "Base.PlayingCards1": "Playing Cards",
+    "Base.PlayingCards2": "Playing Cards",
+    "Base.PlayingCards3": "Playing Cards",
+    "Base.CheckersBox": "Checkers Box",
+    "Base.BackgammonBox": "Backgammon Box",
+
+    "Base.ChessBox": "Chess Box",
+    "Base.ChessBoard": "Chess Board",
+    "Base.PokerChips": "Red Poker Chip",
+    "Base.PokerChipsBlue": "Blue Poker Chip",
+    "Base.PokerChipsGreen": "Green Poker Chip",
+    "Base.PokerChipsPurple": "Purple Poker Chip",
+    "Base.PokerChipsYellow": "Yellow Poker Chip",
+    "Base.PokerChipsOrange": "Orange Poker Chip",
+    "Base.PokerChipsWhite": "White Poker Chip",
+    "Base.PokerChipsBlack": "Black Poker Chip",
+    "Base.PokerBox": "Poker Box",
+    "Base.Dice": "Die",
+    "Base.DiceWhite": "Die",
+    "Base.StellaOcta": "Stella Octangula",
+
+    "Base.GamePieceBlackBackgammon": "Black Backgammon Piece",
+    "Base.GamePieceWhite": "White Backgammon Piece",
+
+    "Base.GamePieceRed": "Red Checkers Piece",
+    "Base.GamePieceBlack": "Black Checkers Piece",
+
+    "Base.ChessBlack": "Black Pawn",
+    "Base.ChessWhite": "White Pawn",
+
+    "Base.ChessBlackKing": "Black King",
+    "Base.ChessWhiteKing": "White King",
+    "Base.ChessBlackQueen": "Black Queen",
+    "Base.ChessWhiteQueen": "White Queen",
+    "Base.ChessBlackBishop": "Black Bishop",
+    "Base.ChessWhiteBishop": "White Bishop",
+    "Base.ChessBlackRook": "Black Rook",
+    "Base.ChessWhiteRook": "White Rook",
+    "Base.ChessBlackKnight": "Black Knight",
+    "Base.ChessWhiteKnight": "White Knight",
+}

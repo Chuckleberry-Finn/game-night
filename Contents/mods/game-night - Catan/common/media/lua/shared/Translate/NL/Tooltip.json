@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Weg: 1 steen, 1 hout (0 OP)<br>Nederzetting: 1 steen, 1 hout, 1 tarwe, 1 schaap (1 OP)<br>Stad: 2 tarwe, 3 stenen (2 OP)<br>Ontwikkelingskaart: 1 schaap, 1 tarwe, 1 steen (?)",
+    "Tooltip_CatanLongestRoad": "De eerste speler die vijf of meer aaneengesloten wegsegmenten heeft, verdient deze kaart.<br>Een andere speler moet een weg bouwen die langer is om deze af te leggen.  (2 OP)",
+    "Tooltip_CatanLargestArmy": "De eerste speler die 3 ridders speelt, verdient deze kaart.<br>Een andere speler moet meer ridders spelen om deze kaart te pakken.  (2 OP)",
+    "Tooltip_Knight": "Verplaats de overvaller en plaats hem op een nieuw vakje.<br>Steel een willekeurige kaart van een tegenstander met aangrenzende nederzettingen of steden.",
+    "Tooltip_Road Building": "Plaats gratis twee wegen.",
+    "Tooltip_Year of Plenty": "Trek twee grondstofkaarten naar keuze.",
+    "Tooltip_Monopoly": "Declareer 1 grondstoftype.<br>Verzamel alle kaarten van dat type van alle spelers.",
+    "Tooltip_Chapel": "Deze kaart is 1 overwinningspunt waard.<br>Hoeft niet te worden gespeeld.",
+    "Tooltip_Library": "Deze kaart is 1 overwinningspunt waard.<br>Hoeft niet te worden gespeeld.",
+    "Tooltip_Market": "Deze kaart is 1 overwinningspunt waard.<br>Hoeft niet te worden gespeeld.",
+    "Tooltip_Palace": "Deze kaart is 1 overwinningspunt waard.<br>Hoeft niet te worden gespeeld.",
+    "Tooltip_University": "Deze kaart is 1 overwinningspunt waard.<br>Hoeft niet te worden gespeeld."
+}

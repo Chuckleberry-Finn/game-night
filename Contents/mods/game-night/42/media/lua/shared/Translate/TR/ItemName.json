@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Oyun Kartları",
+    "Base.PlayingCards2": "Oyun Kartları",
+    "Base.PlayingCards3": "Oyun Kartları",
+    "Base.CheckersBox": "Dama Kutusu",
+    "Base.BackgammonBox": "Tavla Kutusu",
+    "Base.ChessBox": "Satranç Kutusu",
+    "Base.ChessBoard": "Satranç Tahtası",
+    "Base.PokerChips": "Kırmızı Poker Çipi",
+    "Base.PokerChipsBlue": "Mavi Poker Çipi",
+    "Base.PokerChipsGreen": "Yeşil Poker Çipi",
+    "Base.PokerChipsPurple": "Mor Poker Çipi",
+    "Base.PokerChipsYellow": "Sarı Poker Çipi",
+    "Base.PokerChipsOrange": "Turuncu Poker Çipi",
+    "Base.PokerChipsWhite": "Beyaz Poker Çipi",
+    "Base.PokerChipsBlack": "Siyah Poker Çipi",
+    "Base.PokerBox": "Poker Kutusu",
+    "Base.PokerBox_sealed": "Poker Kutusu (Mühürlü)",
+    "Base.Dice": "Öl",
+    "Base.DiceWhite": "Öl",
+    "Base.StellaOcta": "Stella Octangula"
+}

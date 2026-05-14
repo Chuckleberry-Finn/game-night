@@ -1,0 +1,22 @@
+{
+    "Base.PlayingCards1": "Игральные карты",
+    "Base.PlayingCards2": "Игральные карты",
+    "Base.PlayingCards3": "Игральные карты",
+    "Base.CheckersBox": "Шашки Коробка",
+    "Base.BackgammonBox": "Коробка для нард",
+    "Base.ChessBox": "Шахматная коробка",
+    "Base.ChessBoard": "шахматная доска",
+    "Base.PokerChips": "Красная покерная фишка",
+    "Base.PokerChipsBlue": "Синяя покерная фишка",
+    "Base.PokerChipsGreen": "Зеленая покерная фишка",
+    "Base.PokerChipsPurple": "Фиолетовая покерная фишка",
+    "Base.PokerChipsYellow": "Желтая покерная фишка",
+    "Base.PokerChipsOrange": "Оранжевая покерная фишка",
+    "Base.PokerChipsWhite": "Белая покерная фишка",
+    "Base.PokerChipsBlack": "Черная покерная фишка",
+    "Base.PokerBox": "Покерная коробка",
+    "Base.PokerBox_sealed": "Покерная коробка (запечатанная)",
+    "Base.Dice": "умереть",
+    "Base.DiceWhite": "умереть",
+    "Base.StellaOcta": "Стелла Октангула"
+}

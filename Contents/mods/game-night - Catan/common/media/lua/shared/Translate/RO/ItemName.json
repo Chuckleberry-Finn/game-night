@@ -1,0 +1,10 @@
+{
+    "Base.CatanBoard": "Consiliul Catan",
+    "Base.CatanBox": "Cutia Catan",
+    "Base.CatanResourceDeck": "Pachetul de resurse",
+    "Base.CatanDevelopmentDeck": "Puntea de dezvoltare",
+    "Base.CatanRobber": "Robber Piece",
+    "Base.CatanPlayerCosts": "Costurile jucătorilor",
+    "Base.CatanLongestRoad": "Cel mai lung drum",
+    "Base.CatanLargestArmy": "Cea mai mare armată"
+}

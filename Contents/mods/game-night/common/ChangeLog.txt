@@ -168,3 +168,37 @@ link3 = Github = https://steamcommunity.com/linkfilter/?u=https://github.com/Chu
 - Improved cooldown checks. (GameTime.getServerTimeMills used for timestamps, credit to Albion for the suggestion.)
 - Moved textures to /common for B42, and make B41 access B42 assets.
 [ ------ ]
+
+[ 5/16/26 ]
+[b][h2]B42.18 BIG OVERHAUL[/h2][/b]
+
+[b]QOL:[/b]
+- Right-clicking a game box in the world now offers a [i]Play Game[/i] option, opening the board UI for that tile.
+
+[b]PHYSICS![/b]
+- Dice and other game pieces have collision and physics.
+- Shift+Dragging Dice will roll them with force relative to the distance dragged.
+
+[B]MULTI... HIT?[/B]
+- Dragging across pieces will create a selection area, allowing you to interact with multiple objects at once.
+- Alt+Click Allows you to (de)select multiple targets.
+- Right-Click and Shift-Click interactions will apply in batch when applicable.
+
+[b]SHAKE MECHANICS?[/b]
+- By default all pieces being dragged can be grouped by shaking your mouse.
+- Shaking a pile of cards will merge them ito 1 pile.
+- Shaking a deck of cards will shuffle them.
+
+[b]SIDEBAR MICRO-INVENTORY??[/B]
+- The gameplay window now has a sidebar micro-inventory showing:
+   Your personal inventory (except equipped items).
+   The contents of nearby game-boxes.
+- Dragging, Clicking, Right-Clicking, Alt-Clicking, are all supported, as well as contents/UI to contents/UI interaction.
+
+[b]Boring Stuff[/b]
+- Updated game piece tag registration to the B42 ItemTag registry API.
+- Removed displayname.
+- Translated utilizing pz-translator tool.
+- Caught a few bugs/typos.
+- Many refactors ranging from small to large - end experience should be the same.
+[ ------ ]

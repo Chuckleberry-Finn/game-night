@@ -1,0 +1,4 @@
+{
+    "UI_GameNightWindow": "<CENTRE> <SIZE:medium> 这是游戏窗口。 <LINE> <LINE> <SIZE:small> <LEFT> 有許多與此視窗和遊戲之夜相關的控制項 <LINE> <LINE> <SIZE:small> <LEFT> 可以按住左鍵按鍵點擊動作。 <LINE> <LINE> <SIZE:small> <LEFT> 右键单击​​棋子将打开一个上下文菜单，其中显示可用的操作。 <LINE> <LINE> <SIZE:small> <LEFT> 您还可以从库存或卡片组搜索窗口中拖动物品。 <LINE> <LINE> <SIZE:small> <LEFT> 最近互动的棋子上有一个延迟/冷却时间，以计时器图标表示。 <LINE> <LINE> <SIZE:small> <LEFT> 此外，左下角关闭按钮旁边有一个缩放 UI 按钮。 <LINE> <LINE> <LINE> <SIZE:small> <LEFT> 享受游戏之夜！ <LINE> <LINE>",
+    "UI_GameNightSearch": "<CENTRE> <SIZE:medium> 這是牌組搜尋視窗。 <LINE> <LINE> <SIZE:small> <LEFT> 您可以在這裡與卡片進行交互，就像在其他地方一樣，只需一些附加選項即可。 <LINE> <LINE> <SIZE:small> <LEFT> 將卡片拖曳到其他卡片之間（您可以看到一條細線），然後插入卡片。 <LINE> <LINE> <SIZE:small> <LEFT> 將一張卡片拖曳到另一張卡片上（整張卡片反白）將交換兩張卡片。 <LINE> <LINE> <SIZE:small> <LEFT> 您也可以將項目從此處拖曳到遊戲視窗。 <LINE> <LINE> <LINE> <SIZE:small> <LEFT> 享受遊戲之夜！ <LINE> <LINE>"
+}

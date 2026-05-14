@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "Cesta: 1 cihla, 1 dřevo (0 VP)<br>Osada: 1 cihla, 1 dřevo, 1 pšenice, 1 ovce (1 VP)<br>Město: 2 pšenice, 3 kameny (2 VP)<br>Karta rozvoje: 1 ovce, 1 kámen (pšenice?) 1",
+    "Tooltip_CatanLongestRoad": "První hráč, který má 5 nebo více souvislých segmentů silnice, získá tuto kartu.<br>Další hráč musí postavit cestu, která je delší, aby ji zvládl.  (2 VP)",
+    "Tooltip_CatanLargestArmy": "První hráč, který zahraje 3 rytíře, získá tuto kartu.<br>Další hráč musí zahrát více rytířů, aby si tuto kartu vzal.  (2 VP)",
+    "Tooltip_Knight": "Přesuňte lupiče a umístěte ho na nový hex.<br>Ukradněte náhodnou kartu protihráči, který má vedle sebe osady nebo města.",
+    "Tooltip_Road Building": "Umístěte dvě silnice zdarma.",
+    "Tooltip_Year of Plenty": "Doberte si dvě karty zdrojů dle vlastního výběru.",
+    "Tooltip_Monopoly": "Uveďte 1 typ zdroje.<br>Seberte všechny karty tohoto typu od všech hráčů.",
+    "Tooltip_Chapel": "Tato karta má hodnotu 1 vítězného bodu.<br>Nemusí být hrána.",
+    "Tooltip_Library": "Tato karta má hodnotu 1 vítězného bodu.<br>Nemusí být hrána.",
+    "Tooltip_Market": "Tato karta má hodnotu 1 vítězného bodu.<br>Nemusí být hrána.",
+    "Tooltip_Palace": "Tato karta má hodnotu 1 vítězného bodu.<br>Nemusí být hrána.",
+    "Tooltip_University": "Tato karta má hodnotu 1 vítězného bodu.<br>Nemusí být hrána."
+}

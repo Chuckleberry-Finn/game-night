@@ -1,0 +1,9 @@
+{
+    "Sandbox_GameNight": "Noite de jogos",
+    "Sandbox_GameNight_DisplayItemNames": "Exibir nomes de itens",
+    "Sandbox_GameNight_DisplayItemNames_tooltip": "Exibir nomes de itens no jogo.",
+    "Sandbox_GameNight_DisplayPlayerCursors": "Exibir cursores do player na interface do jogo",
+    "Sandbox_GameNight_DisplayPlayerCursors_tooltip": "Exiba os cursores dos jogadores na tela. Os cursores não devem causar nenhum tipo de problema de tráfego, no entanto, o processo envolve o envio rápido de pequenos bits de dados - esta opção é destinada a pessoas que executam soluções de problemas e usam algo que cria logs para o tráfego de rede. Não é recomendado jogar sem cursores visíveis.",
+    "Sandbox_GameNight_LootMultiplier": "Multiplicador de saque geral",
+    "Sandbox_GameNight_LootMultiplier_tooltip": "Isso é multiplicado pelas chances de saque padrão. Afeta todos os itens do jogo encontrados no mundo.<br>As alterações exigirão uma reinicialização."
+}

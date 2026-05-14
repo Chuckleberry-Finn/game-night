@@ -2,8 +2,8 @@ module Base
 {
 
     item StellaOcta {
-        DisplayCategory = GamePiece, Weight = 0.01, Type = Normal,
-        DisplayName = Stella Octangula, Icon = OutOfPlayTextures/stellaOcta1, WorldStaticModel = StellaOcta,
+        DisplayCategory = GamePiece, Weight = 0.01, ItemType = base:normal,
+        Icon = OutOfPlayTextures/stellaOcta1, WorldStaticModel = StellaOcta,
     }
 
 }

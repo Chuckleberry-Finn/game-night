@@ -1,0 +1,14 @@
+{
+    "Tooltip_PlayerCosts": "道路：1磚，1木頭（0 VP）<br>定居點：1磚，1木頭，1小麥，1羊（1 VP）<br>城市：2小麥，3石頭（2 VP）<br>發展卡：1羊，1小麥，1石頭（？）",
+    "Tooltip_CatanLongestRoad": "第一個擁有 5 個或更多連續路段的玩家將獲得這張卡。 <br>另一位玩家必須建造一條更長的道路才能走完。  （2 副總裁）",
+    "Tooltip_CatanLargestArmy": "第一個扮演 3 個騎士的玩家將獲得這張卡。 <br>其他玩家必須扮演更多的騎士才能獲得這張卡。  （2 副總裁）",
+    "Tooltip_Knight": "移動強盜並將其放置到新的六角形上。 <br>從鄰近定居點或城市的對手偷走一張隨機卡牌。",
+    "Tooltip_Road Building": "免費放置兩條道路。",
+    "Tooltip_Year of Plenty": "抽兩張您選擇的資源卡。",
+    "Tooltip_Monopoly": "聲明 1 種資源類型。 <br>從所有玩家收集該類型的所有卡片。",
+    "Tooltip_Chapel": "這張牌價值 1 點勝利點。 <br>不需要打出。",
+    "Tooltip_Library": "這張牌價值 1 點勝利點。 <br>不需要打出。",
+    "Tooltip_Market": "這張牌價值 1 點勝利點。 <br>不需要打出。",
+    "Tooltip_Palace": "這張牌價值 1 點勝利點。 <br>不需要打出。",
+    "Tooltip_University": "這張牌價值 1 點勝利點。 <br>不需要打出。"
+}
