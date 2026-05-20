@@ -160,16 +160,34 @@ function gameNightDeckSearch:getSelectionOrder()
 end
 
 
-local function batchExtractCards(searchWindow, sortedIndices)
+local function batchExtractCards(searchWindow, clickOrderIndices)
     local deckItem = searchWindow.deck
     local deckStates, flipStates = deckActionHandler.getDeckStates(deckItem)
     if not deckStates or #deckStates == 0 then return nil end
 
-    local drawnCards, drawnFlips = {}, {}
-    for _, idx in ipairs(sortedIndices) do
+    local clickPos = {}
+    for i, idx in ipairs(clickOrderIndices) do clickPos[idx] = i end
+
+    local sortedDesc = {}
+    for _, idx in ipairs(clickOrderIndices) do table.insert(sortedDesc, idx) end
+    table.sort(sortedDesc, function(a, b) return a > b end)
+
+    local extracted = {}
+    for _, idx in ipairs(sortedDesc) do
         if idx >= 1 and idx <= #deckStates then
-            table.insert(drawnCards, 1, table.remove(deckStates, idx))
-            table.insert(drawnFlips,  1, table.remove(flipStates,  idx))
+            local cp = clickPos[idx]
+            extracted[cp] = {
+                card = table.remove(deckStates, idx),
+                flip = table.remove(flipStates,  idx),
+            }
+        end
+    end
+
+    local drawnCards, drawnFlips = {}, {}
+    for i = #clickOrderIndices, 1, -1 do
+        if extracted[i] then
+            table.insert(drawnCards, extracted[i].card)
+            table.insert(drawnFlips, extracted[i].flip)
         end
     end
 
@@ -225,7 +243,7 @@ function gameNightDeckSearch:cardOnRightMouseUp(x, y)
         local pPrimaryItem = searchWindow.player:getPrimaryHandItem()
         if (not pPrimaryItem) or (pPrimaryItem ~= searchWindow.deck) then
             context:addOption(getText("IGUI_draw") .. label, searchWindow, function(sw)
-                local _, idx = sw:getSelection()
+                local _, idx = sw:getSelectionOrder()
                 batchDrawToInventory(sw, idx)
                 sw:clearSelection()
             end, searchWindow)
@@ -291,8 +309,8 @@ function gameNightDeckSearch:cardOnMouseUpOutside(x, y)
 
         if cardBeingDragged then
             if searchWindow.draggingFromSelection then
-                local _, indices = searchWindow:getSelection()
-                local extracted = batchExtractCards(searchWindow, indices)
+                local _, orderIndices = searchWindow:getSelectionOrder()
+                local extracted = batchExtractCards(searchWindow, orderIndices)
                 if extracted then gameNightWin:calculateItemDrop(gameNightWin:getMouseX(), gameNightWin:getMouseY(), {extracted}) end
                 searchWindow:clearSelection()
             else
@@ -318,8 +336,8 @@ function gameNightDeckSearch:cardOnMouseUpOutside(x, y)
 
             if dropPos then
                 if searchWindow.draggingFromSelection then
-                    local _, indices = searchWindow:getSelection()
-                    local extracted = batchExtractCards(searchWindow, indices)
+                    local _, orderIndices = searchWindow:getSelectionOrder()
+                    local extracted = batchExtractCards(searchWindow, orderIndices)
                     if extracted then deckActionHandler.mergeDecks(extracted, sisDeck, searchWindow.player, dropPos+(inBetween and 0 or 1)) end
                     searchWindow:clearSelection()
                 else
@@ -367,8 +385,7 @@ function gameNightDeckSearch:cardOnMouseUp(x, y)
                     if idx < target then insertPos = insertPos - 1 end
                 end
                 insertPos = math.max(1, math.min(#cardData + 1, insertPos))
-
-                -- Insert in selection order (click order) starting at insertPos.
+                
                 for i = 1, #orderIndices do
                     table.insert(cardData, insertPos + i - 1, extracted[i].card)
                     table.insert(flippedStates, insertPos + i - 1, extracted[i].flip)
