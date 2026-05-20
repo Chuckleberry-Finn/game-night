@@ -952,7 +952,19 @@ function gameNightWindow:drawElement(element)
     local physObj = gameNightPhysics.objects[element.item:getID()]
     if physObj then
         if gameNightPhysics.update(physObj, element, self) then
-            gameNightPhysics.draw(physObj, element, self)
+            local customRender = physObj.props.render
+            if customRender then
+                customRender(physObj, element, self)
+            else
+                if element.drawFunc then
+                    volumetricRender[element.drawFunc](self, tex, element.drawSideTex,
+                        physObj.x, physObj.y, physObj.rot,
+                        element.depth, element.drawSides,
+                        element.drawR, element.drawG, element.drawB, 1)
+                else
+                    self:DrawTextureAngle(tex, physObj.x, physObj.y, physObj.rot, 1, 1, 1, 0.9)
+                end
+            end
         end
         return
     end
