@@ -1,0 +1,20 @@
+Kentun,cardArt,bg,frame,point1,point2,textVisi,title,desc
+corn,cardArt/corn.png,bg/burlapBg.png,frame/woodFrame.png,FALSE,FALSE,FALSE,.,.
+barrels,cardArt/barrels.png,bg/burlapBg.png,frame/woodFrame.png,FALSE,FALSE,FALSE,.,.
+copper,cardArt/copper.png,bg/burlapBg.png,frame/woodFrame.png,FALSE,FALSE,FALSE,.,.
+sugar,cardArt/sugar.png,bg/burlapBg.png,frame/woodFrame.png,FALSE,FALSE,FALSE,.,.
+carsAndTrucks,cardArt/carsAndTrucks.png,bg/burlapBg.png,frame/woodFrame.png,FALSE,FALSE,FALSE,.,.
+corruptOfficer,cardArt/corruptOfficer.png,bg/woodBg.png,frame/rusticFrame.png,FALSE,FALSE,TRUE,Corrupt Officer,Move the Marshall. Steal 1 resource card from the owner of an adjacent settlement or city.
+newRoutes,cardArt/newRoutes.png,bg/woodBg.png,frame/rusticFrame.png,FALSE,FALSE,TRUE,New Routes,Place 2 new trails as if you just built them.
+bumperHarvest,cardArt/bumperHarvest.png,bg/woodBg.png,frame/rusticFrame.png,FALSE,FALSE,TRUE,Bumper Harvest,"Take any 2 resources from the bank.
+Add them to your hand. They can be 2 of the same or 2 different resources."
+cornerTheMarket,cardArt/cornerTheMarket.png,bg/woodBg.png,frame/rusticFrame.png,FALSE,FALSE,TRUE,Corner the Market,When you play this card announce 1 type of resource. All other players must give you all their resource cards of that type.
+theJudge,cardArt/theJudge.png,bg/velvetBg.png,frame/goldFrame.png,1,FALSE,TRUE,The Judge,1 Point!
+theSheriff,cardArt/theSheriff.png,bg/velvetBg.png,frame/goldFrame.png,1,FALSE,TRUE,The Sheriff,1 Point!
+theMayor,cardArt/theMayor.png,bg/velvetBg.png,frame/goldFrame.png,1,FALSE,TRUE,The Mayor,1 Point!
+thePreacher,cardArt/thePreacher.png,bg/velvetBg.png,frame/goldFrame.png,1,FALSE,TRUE,The Preacher,1 Point!
+theBanker,cardArt/theBanker.png,bg/velvetBg.png,frame/goldFrame.png,1,FALSE,TRUE,The Banker,1 Point!
+kingpin,cardArt/kingpin.png,bg/velvetBg.png,frame/goldFrame.png,FALSE,2,TRUE,Kingpin,"2 Points!
+The first player to play 3 Corrupt Officers gets this card. Another player who plays more Corrupt Officers takes this card."
+longestRun,cardArt/longestRun.png,bg/velvetBg.png,frame/goldFrame.png,FALSE,2,TRUE,Longest Run,"2 Points!
+This card goes to the player with the longest unbroken trail of atleast 5 segments. Another player who builds a longer trail takes this card."
