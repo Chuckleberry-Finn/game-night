@@ -1,3 +1,3 @@
-require "recipecode"
-
+--require "recipecode"
+---RecipeCodeOnCreate
 Recipe.GameNight = {}

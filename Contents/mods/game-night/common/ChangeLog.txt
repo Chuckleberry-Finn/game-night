@@ -202,3 +202,7 @@ link3 = Github = https://steamcommunity.com/linkfilter/?u=https://github.com/Chu
 - Caught a few bugs/typos.
 - Many refactors ranging from small to large - end experience should be the same.
 [ ------ ]
+
+[ 6/5/26 ]
+- Fixed 'error' regarding failed requires (could have been ignored safely but showed up as an error causing reports/concerns)
+[ ------ ]
