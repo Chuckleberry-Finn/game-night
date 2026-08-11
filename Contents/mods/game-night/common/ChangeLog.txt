@@ -215,4 +215,5 @@ Under the Hood:
 - Tweak ServerCommand and ClientCommand for B42.20
 - Improved network syncing to GamePieceHandler
 - Interaction range changed from 1.5 to 2 tiles
+- Added Context Menu for PLaying to Items in the inventory
 [ ------ ]
