@@ -206,3 +206,13 @@ link3 = Github = https://steamcommunity.com/linkfilter/?u=https://github.com/Chu
 [ 6/5/26 ]
 - Fixed 'error' regarding failed requires (could have been ignored safely but showed up as an error causing reports/concerns)
 [ ------ ]
+
+[ 8/9/26 ]
+Improved syncing for MP, should avoid cases where items are dropped "wrong" and get stuck.
+
+Under the Hood:
+- Fix oversight with `getCardAtXY` with failed to return its result
+- Tweak ServerCommand and ClientCommand for B42.20
+- Improved network syncing to GamePieceHandler
+- Interaction range changed from 1.5 to 2 tiles
+[ ------ ]

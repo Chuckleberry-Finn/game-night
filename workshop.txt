@@ -35,7 +35,7 @@ description=[h3][i]Additional Credits:
 description=Shark, Nurver, Ash, BowlOfOodaLoops, Fed_Cap, Tchernobill, Albion, Tsuki, Oppolla[/i][/h3]
 description=[img]https://raw.githubusercontent.com/Chuckleberry-Finn/game-night/main/images/credit.png[/img]
 description=
-description=[url=https://indifferentbroccoli.com/project-zomboid-server-hosting?fpr=chuckleberry][img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/refs/heads/main/IB_BANNER/IB_BANNER.gif[/img][/url]
+description=[b][i][h1] [/h1][/i][/b]
 description=
 description=
 description=[h3]The remainder of the included work is Copyright 2026 Chuckleberry Finn. This item is not authorized for posting on Steam, except under the Steam account named Chuckleberry Finn.[/h3]

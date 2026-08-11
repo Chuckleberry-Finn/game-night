@@ -11,7 +11,7 @@ gameNightHand = gameNightDeckSearch:derive("gameNightHand")
 
 function gameNightHand:update() gameNightDeckSearch.update(self) end
 function gameNightHand:onMouseWheel(del) gameNightDeckSearch.onMouseWheel(self, del) end
-function gameNightHand:getCardAtXY(x, y) gameNightDeckSearch.getCardAtXY(self, x, y) end
+function gameNightHand:getCardAtXY(x, y) return gameNightDeckSearch.getCardAtXY(self, x, y) end
 function gameNightHand:clearDragging() gameNightDeckSearch.clearDragging(self) end
 function gameNightHand:clearSelection() gameNightDeckSearch.clearSelection(self) end
 function gameNightHand:getSelection() return gameNightDeckSearch.getSelection(self) end

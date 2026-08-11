@@ -543,7 +543,12 @@ function gamePieceHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOf
     item:setJobDelta(0.0)
     player:removeAttachedItem(item)
     if player:getPrimaryHandItem() == item then player:setPrimaryHandItem(nil) end
-    itemCont:Remove(item)
+
+    itemCont:DoRemoveItem(item)
+    if isServer() then
+        sendRemoveItemFromContainer(itemCont, item)
+    end
+
     triggerEvent("OnClothingUpdated", player)
 
     ---@type InventoryItem
@@ -555,10 +560,71 @@ function gamePieceHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOf
         local worldObject = placedItem:getWorldItem()
         if worldObject then
             worldObject:setIgnoreRemoveSandbox(true)
+            worldObject:transmitCompleteItemToClients()
         end
     end
 
+    if gameNightWindow and gameNightWindow.instance then
+        gameNightWindow.instance.elementsDirty = true
+    end
+
     gamePieceHandler.refreshInventory(player)
+end
+
+
+function gamePieceHandler.findGamePieceOnSquareByItemID(square, itemID)
+    if not square or not itemID then return nil end
+    local worldObjects = square:getObjects()
+    for i=0, worldObjects:size()-1 do
+        local worldObject = worldObjects:get(i)
+        if worldObject and instanceof(worldObject, "IsoWorldInventoryObject") then
+            local containedItem = worldObject:getItem()
+            if containedItem and containedItem:getID() == itemID then return containedItem end
+        end
+    end
+    return nil
+end
+
+function gamePieceHandler.buildNetworkSyncableGamePieceState(gamePiece, square)
+    if not gamePiece or not square then return nil end
+    local modData = gamePiece:getModData()
+    return {
+        itemID = gamePiece:getID(),
+        square = {x = square:getX(), y = square:getY(), z = square:getZ()},
+        rotation = modData["gameNight_rotation"],
+        altState = modData["gameNight_altState"],
+        locked = modData["gameNight_locked"],
+        cardDeck = modData["gameNight_cardDeck"],
+        cardFlipped = modData["gameNight_cardFlipped"],
+    }
+end
+
+function gamePieceHandler.applyNetworkSyncedGamePieceState(gamePiece, syncedState)
+    if not gamePiece or not syncedState then return end
+    local modData = gamePiece:getModData()
+    modData["gameNight_rotation"] = syncedState.rotation
+    modData["gameNight_altState"] = syncedState.altState
+    modData["gameNight_locked"] = syncedState.locked
+    if syncedState.cardDeck then modData["gameNight_cardDeck"] = syncedState.cardDeck end
+    if syncedState.cardFlipped then modData["gameNight_cardFlipped"] = syncedState.cardFlipped end
+
+    gamePiece:setWorldZRotation(syncedState.rotation or 0)
+
+    gamePieceHandler.handleDetails(gamePiece)
+    ISInventoryPage.renderDirty = true
+
+    if gameNightWindow and gameNightWindow.instance then
+        gameNightWindow.instance.elementsDirty = true
+    end
+end
+
+function gamePieceHandler.sendGamePieceStateToOtherClients(player, gamePiece, square)
+    if not isClient() then return end
+    if not square then return end
+    local syncableState = gamePieceHandler.buildNetworkSyncableGamePieceState(gamePiece, square)
+    if syncableState then
+        sendClientCommand(player, "gameNightAction", "syncPieceState", syncableState)
+    end
 end
 
 
@@ -635,6 +701,7 @@ function gamePieceHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detail
         if sound then player:getEmitter():playSound(sound) end
 
         gamePieceHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOffset, zPos)
+        gamePieceHandler.sendGamePieceStateToOtherClients(player, item, worldItemSq)
     end
 
     gamePieceHandler.refreshInventory(player)

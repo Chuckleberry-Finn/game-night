@@ -58,7 +58,7 @@ function gameNightWindow:toggleScale()
 end
 
 function gameNightWindow:update()
-    if (not self.player) or (not self.square) or ( self.square:DistToProper(self.player) > 1.5 ) then self:closeAndRemove() return end
+    if (not self.player) or (not self.square) or ( self.square:DistToProper(self.player) > 2 ) then self:closeAndRemove() return end
 
     if self.movingPiece then
         local coolDown =  gamePieceHandler.itemCoolDown(self.movingPiece)
@@ -112,23 +112,28 @@ end
 
 function gameNightWindow:onClick(button) if button.internal == "CLOSE" then self:closeAndRemove() end end
 
+function gameNightWindow:findTableSurfaceZ(fromBox)
+    if fromBox then
+        return fromBox:getWorldPosZ() - fromBox:getZ()
+    end
+
+    for _,element in pairs(self.elements) do
+        local worldItem = element.item and element.item:getWorldItem()
+        if worldItem then
+            return worldItem:getWorldPosZ() - worldItem:getZ()
+        end
+    end
+
+    return 0
+end
+
 function gameNightWindow:calculateItemDrop(x, y, items)
     local boundsDifference = self.padding*2
     local boundW = (self.width-boundsDifference)
     local scaledX = (x/boundW)
     local boundH = (self.height-boundsDifference)
     local scaledY = (y/boundH)
-    local surfaceZ = 0
-
-    for _,element in pairs(self.elements) do
-        ---@type InventoryItem
-        local item = element.item
-
-        ---@type IsoWorldInventoryObject|IsoObject
-        local worldItem = item:getWorldItem()
-
-        if worldItem then surfaceZ = worldItem:getWorldPosZ()-worldItem:getZ() break end
-    end
+    local surfaceZ = self:findTableSurfaceZ()
 
     for n,item in pairs(items) do
 
@@ -382,7 +387,7 @@ function gameNightWindow:onShakeTriggered(cmx, cmy, isMovingCard)
 
         local resultEl = self.elements[resultPiece:getID()]
         if resultEl then
-            self.movingPieceOffset = {cmx - resultEl.x, cmy - resultEl.y, 0}
+            self.movingPieceOffset = {cmx - resultEl.x, cmy - resultEl.y, self:findTableSurfaceZ()}
         end
 
         self.movingGroup = #nonCardGroup > 0 and nonCardGroup or nil

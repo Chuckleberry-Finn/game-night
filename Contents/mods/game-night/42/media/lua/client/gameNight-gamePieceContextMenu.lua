@@ -37,6 +37,15 @@ function gamePieceContext.addInventoryItemContext(playerID, context, items)
             gamePieceHandler.generateContextMenuFromSpecialActions(context, playerObj, (stack or item))
         end
 
+        local isBox = boxHandler.isGameBox(item)
+        if isGamePiece or isBox then
+            local playSq = playerObj:getCurrentSquare()
+            if playSq then
+                local play = context:addOptionOnTop(getText("IGUI_Play_Game"), item, gamePieceContext.onPlayGameFromInventory, playerObj)
+                play.iconTexture = gamePieceContext.gameNightContextMenuIcon.play
+            end
+        end
+
         local deckStates, flippedStates = deckActionHandler.getDeckStates(item)
         if deckStates then
 
@@ -137,6 +146,15 @@ Events.OnPreFillInventoryObjectContextMenu.Add(gamePieceContext.addInventoryItem
 
 
  require("gameNight-window.lua")
+function gamePieceContext.onPlayGameFromInventory(item, playerObj)
+    local square = playerObj:getCurrentSquare()
+    if not square then return end
+
+    gamePieceHandler.pickupAndPlaceGamePiece(playerObj, item, nil, gamePieceHandler.handleDetails, 0.5, 0.5, 0, square)
+
+    gameNightWindow.open(nil, playerObj, square)
+end
+
 function gamePieceContext.addWorldContext(playerID, context, worldObjects, test)
     ---@type IsoObject|IsoGameCharacter|IsoPlayer
     local playerObj = getSpecificPlayer(playerID)
@@ -145,7 +163,7 @@ function gamePieceContext.addWorldContext(playerID, context, worldObjects, test)
     for _,v in ipairs(worldObjects) do square = v:getSquare() end
     if not square then return false end
 
-    if square and ( square:DistToProper(playerObj) <= 1.5 ) then
+    if square and ( square:DistToProper(playerObj) < 2 ) then
 
         local validObjectCount = 0
 

@@ -634,6 +634,7 @@ function gameNightBoxSidebar:pickUpItem(item, fromBox, group)
     gw.movingPiece = item
     gw.movingPieceOriginStamp = gamePieceHandler.itemCoolDown(item)
     gw.moveWithMouse = false
+    gw.movingPieceOffset = {0, 0, gw:findTableSurfaceZ(fromBox)}
 
     if group then
         for _, sel in ipairs(group) do
