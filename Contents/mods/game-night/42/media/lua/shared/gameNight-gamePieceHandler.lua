@@ -678,6 +678,14 @@ function gamePieceHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detail
     ---@type IsoGridSquare
     local worldItemSq = square or worldItem and worldItem:getSquare()
 
+    if not worldItemSq then
+        if gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square then
+            worldItemSq = gameNightWindow.instance.square
+        elseif player then
+            worldItemSq = player:getSquare()
+        end
+    end
+
     local pickedUp, x, y, z = gamePieceHandler.pickupGamePiece(player, item, onPickUp, detailsFunc, angleChange)
 
     local playerInv = player:getInventory()
