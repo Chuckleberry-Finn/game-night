@@ -1004,9 +1004,30 @@ function gameNightWindow.compareElements(a, b)
 end
 
 
+gameNightWindow.backgroundAlphaUnfocused = 0.6
+gameNightWindow.backgroundAlphaFocused = 0.85
+gameNightWindow.borderAlphaUnfocused = 0.4
+gameNightWindow.borderAlphaFocused = 1
+
+function gameNightWindow:isMouseOverGameUI()
+    if self:containsPoint(getMouseX(), getMouseY()) then return true end
+
+    local sidebar = gameNightBoxSidebar.instance
+    if sidebar and sidebar:containsPoint(getMouseX(), getMouseY()) then return true end
+
+    local playerNum = self.player and self.player:getPlayerNum() or 0
+    local inventory = getPlayerInventory(playerNum)
+    if inventory and inventory:containsPoint(getMouseX(), getMouseY()) then return true end
+
+    return false
+end
+
 function gameNightWindow:prerender()
     ISPanelJoypad.prerender(self)
-    self:drawRect(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), 0.6, 0.43, 0.42, 0.39)
+    local focused = self:isMouseOverGameUI()
+    local alpha = focused and gameNightWindow.backgroundAlphaFocused or gameNightWindow.backgroundAlphaUnfocused
+    self:drawRect(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), alpha, 0.43, 0.42, 0.39)
+    self.borderColor.a = focused and gameNightWindow.borderAlphaFocused or gameNightWindow.borderAlphaUnfocused
     self:backMost()
 end
 
