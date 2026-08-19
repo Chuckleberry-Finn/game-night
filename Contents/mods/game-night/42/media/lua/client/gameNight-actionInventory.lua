@@ -19,9 +19,6 @@ end
 
 local ISInventoryPane_onMouseUp = ISInventoryPane.onMouseUp
 function ISInventoryPane:onMouseUp(x, y)
-    local result = ISInventoryPane_onMouseUp(self, x, y)
-    if not result or not self:getIsVisible() then return result end
-
     local draggingOld = ISMouseDrag.dragging
     local draggingFocusOld = ISMouseDrag.draggingFocus
     local selectedOld = self.selected
@@ -31,6 +28,8 @@ function ISInventoryPane:onMouseUp(x, y)
     local noSpecialKeys = (not isShiftKeyDown() and not isCtrlKeyDown())
     if (noSpecialKeys and x >= self.column2 and x == self.downX and y == self.downY) and self.mouseOverOption ~= 0 and self.items[self.mouseOverOption] ~= nil then busy = true end
 
+    local result = ISInventoryPane_onMouseUp(self, x, y)
+    if not result or not self:getIsVisible() then return result end
     if busy or (not noSpecialKeys) then return end
 
     self.selected = selectedOld
