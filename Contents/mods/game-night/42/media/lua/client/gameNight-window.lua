@@ -1009,15 +1009,24 @@ gameNightWindow.backgroundAlphaFocused = 0.85
 gameNightWindow.borderAlphaUnfocused = 0.4
 gameNightWindow.borderAlphaFocused = 1
 
+local function pointInElementBounds(elem, x, y)
+    if not elem then return false end
+    local buffer = 32
+    local ex, ey = elem:getX(), elem:getY()
+    return x >= ex-buffer and x < ex+buffer + elem:getWidth() and y >= ey-buffer and y < ey+buffer + elem:getHeight()
+end
+
 function gameNightWindow:isMouseOverGameUI()
-    if self:containsPoint(getMouseX(), getMouseY()) then return true end
+    local mx, my = getMouseX(), getMouseY()
+
+    if pointInElementBounds(self, mx, my) then return true end
 
     local sidebar = gameNightBoxSidebar.instance
-    if sidebar and sidebar:containsPoint(getMouseX(), getMouseY()) then return true end
+    if pointInElementBounds(sidebar, mx, my) then return true end
 
     local playerNum = self.player and self.player:getPlayerNum() or 0
     local inventory = getPlayerInventory(playerNum)
-    if inventory and inventory:containsPoint(getMouseX(), getMouseY()) then return true end
+    if pointInElementBounds(inventory, mx, my) then return true end
 
     return false
 end
@@ -1028,7 +1037,7 @@ function gameNightWindow:prerender()
     local alpha = focused and gameNightWindow.backgroundAlphaFocused or gameNightWindow.backgroundAlphaUnfocused
     self:drawRect(self.padding, self.padding, (self.width-(self.padding*2)), (self.height-(self.padding*2)), alpha, 0.43, 0.42, 0.39)
     self.borderColor.a = focused and gameNightWindow.borderAlphaFocused or gameNightWindow.borderAlphaUnfocused
-    self:backMost()
+    self:bringToTop()
 end
 
 

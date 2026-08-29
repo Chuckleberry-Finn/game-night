@@ -328,6 +328,7 @@ end
 
 ---@param gamePiece InventoryItem
 function gamePieceHandler.fetchIconState(gamePiece, mainDir,additionalTextureDir,altState)
+    if not isClient() then return nil end
     local iconState = altState or gamePiece:getType()
     local texturePath = mainDir.."/"..additionalTextureDir..iconState..".png"
     local texture = Texture.trygetTexture(texturePath)
@@ -497,6 +498,7 @@ function gamePieceHandler.pickupGamePiece(player, item, onPickUp, detailsFunc, a
 end
 
 function gamePieceHandler.refreshInventory(player)
+    if not isClient() then return end
     ISInventoryPage.renderDirty = true
     local playerNum = player:getPlayerNum()
     local inventory = getPlayerInventory(playerNum)
@@ -571,6 +573,23 @@ function gamePieceHandler.placeGamePiece(player, item, worldItemSq, xOffset, yOf
     gamePieceHandler.refreshInventory(player)
 end
 
+
+---@param player IsoPlayer
+---@param itemID number
+---@param sourceSquareCoords table|nil {x,y,z}
+function gamePieceHandler.resolveGamePieceByItemID(player, itemID, sourceSquareCoords)
+    local playerInv = player and player:getInventory()
+    local fromInv = playerInv and playerInv:getItemById(itemID)
+    if fromInv then return fromInv end
+
+    if sourceSquareCoords then
+        local sq = getCell():getGridSquare(sourceSquareCoords.x, sourceSquareCoords.y, sourceSquareCoords.z)
+        local fromSquare = sq and gamePieceHandler.findGamePieceOnSquareByItemID(sq, itemID)
+        if fromSquare then return fromSquare end
+    end
+
+    return nil
+end
 
 function gamePieceHandler.findGamePieceOnSquareByItemID(square, itemID)
     if not square or not itemID then return nil end
@@ -669,7 +688,28 @@ function gamePieceHandler.pickupAndPlaceGamePiece(player, item, onPickUp, detail
 
         gamePieceHandler.moveBuffer[player]["i"..itemID] = { item=item, onPickUp = onPickUp , detailsFunc = detailsFunc,
                                                                            xOffset = xOffset, yOffset = yOffset, zPos = zPos, square = square, angleChange = angleChange }
-        sendClientCommand(player, "gameNightAction", "pickupAndPlaceGamePiece", {itemID=itemID})
+
+        local modKey, modValue
+        if onPickUp and onPickUp[1] == gamePieceHandler.setModDataValue then
+            modKey = onPickUp[3]
+            modValue = onPickUp[4]
+        end
+
+        local worldItemNow = item:getWorldItem()
+        local sourceSquareNow = worldItemNow and worldItemNow:getSquare()
+        local destSquare = square or sourceSquareNow
+            or (gameNightWindow and gameNightWindow.instance and gameNightWindow.instance.square)
+            or player:getSquare()
+
+        sendClientCommand(player, "gameNightAction", "pickupAndPlaceGamePiece", {
+            itemID = itemID,
+            modKey = modKey,
+            modValue = modValue,
+            xOffset = xOffset, yOffset = yOffset, zPos = zPos,
+            angleChange = angleChange,
+            sourceSquare = sourceSquareNow and {x=sourceSquareNow:getX(), y=sourceSquareNow:getY(), z=sourceSquareNow:getZ()},
+            destSquare = destSquare and {x=destSquare:getX(), y=destSquare:getY(), z=destSquare:getZ()},
+        })
         return
     end
 

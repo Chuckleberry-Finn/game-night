@@ -159,9 +159,8 @@ function gameNightBoxSidebar:collectItems(javaInv)
         local item = list:get(i)
         if item then
             local sp = gamePieceHandler.specials[item:getFullType()]
-            local isDie = sp and sp.category == "Die"
             local hideUI = sp and sp.hideUI
-            if (gamePieceHandler.isGamePiece(item) or deckActionHandler.isDeckItem(item)) and not isDie and not hideUI then
+            if (gamePieceHandler.isGamePiece(item) or deckActionHandler.isDeckItem(item)) and not hideUI then
                 table.insert(result, item)
             end
         end
@@ -609,7 +608,11 @@ end
 function gameNightBoxSidebar:takeFromBox(item, boxWorldItem)
     local boxInv = boxWorldItem:getItem():getInventory()
     if not boxInv then return end
-    boxInv:Remove(item)
+
+    if isClient() and boxInv:getType() ~= "floor" then
+        boxInv:removeItemOnServer(item)
+    end
+    boxInv:DoRemoveItem(item)
     self.player:getInventory():AddItem(item)
     gamePieceHandler.refreshInventory(self.player)
 end
